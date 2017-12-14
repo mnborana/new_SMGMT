@@ -155,6 +155,57 @@ public class AddBookImpl implements AddBookDao{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	public List searchBookDetails(String bookDetail){
+		List list=new ArrayList();
+		ResultSet rs=null;
+		
+		try {
+			// by author name
+			System.out.println("1");
+			String query2="select `book_no`,`book_name`,`author_name` from book_info_master where author_name LIKE '%"+bookDetail+"%'";
+			PreparedStatement ps2=(PreparedStatement) connection.prepareStatement(query2);
+			rs=ps2.executeQuery();
+			
+			if(!rs.isBeforeFirst()){
+				// by book name
+				System.out.println("2");
+				String query1="select `book_no`,`book_name`,`author_name` from book_info_master where book_name LIKE '%"+bookDetail+"%'";
+				PreparedStatement ps1=(PreparedStatement) connection.prepareStatement(query1);
+				rs=ps1.executeQuery();
+				
+				if(!rs.isBeforeFirst()){
+					// by book no
+					System.out.println("3");
+					String query="select `book_no`,`book_name`,`author_name` from book_info_master where book_no LIKE '%"+bookDetail+"%'";
+					PreparedStatement ps;
+					ps = (PreparedStatement) connection.prepareStatement(query);
+					rs=ps.executeQuery();
+					System.out.println("@@@@@@@@@");
+				}
+			}
+
+			
+			while(rs.next())
+			{
+				list.add(rs.getInt(1));
+			    list.add(rs.getString(2));
+				list.add((rs.getString(3)));
+				
+			}
+				
+				System.out.println("list "+list);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return list;
+	}
 
 	}
 

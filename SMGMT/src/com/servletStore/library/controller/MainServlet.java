@@ -61,7 +61,7 @@ public class MainServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("View/library/AddBook.jsp").forward(request, response);
+			request.getRequestDispatcher("View/Library/AddBook.jsp").forward(request, response);
 
 		}
 		
@@ -121,7 +121,7 @@ public class MainServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("View/library/AddBook.jsp").forward(request, response);
+			request.getRequestDispatcher("View/Library/AddBook.jsp").forward(request, response);
 		//	response.sendRedirect("View/Library/AddBook.jsp");
 			
 		}
@@ -202,64 +202,21 @@ public class MainServlet extends HttpServlet {
 	           
 	        System.out.println("Successfully updated");
 		  
-			  response.sendRedirect("View/library/AddBook.jsp");
+			  response.sendRedirect("View/Library/AddBook.jsp");
 		}
 	
-		
+
 		//ISSUE SEARCH BOOK//
-		if(request.getParameter("searchbook")!=null)
-		{
-			System.out.println("In function");
-			//int bookNo=Integer.parseInt(request.getParameter("bookno"));
-			
-			//int catId = adb.getCat_id();
-			//int catId=Integer.parseInt(request.getParameter("category"));
-			
-			
-			//System.out.println("**************************"+catId);
-			
-			
-			//out.print(catId);
-			//String date=request.getParameter("date");
-			String bookName=request.getParameter("bookName");
-			String pubName=request.getParameter("pubName");
-			String authorName=request.getParameter("authorName");
-			int edition=Integer.parseInt(request.getParameter("edition"));
-			//String lang=request.getParameter("language");
-			//int price=Integer.parseInt(request.getParameter("price"));
-			int cupbNo=Integer.parseInt(request.getParameter("cupbno"));
-			//int qty=Integer.parseInt(request.getParameter("qty"));
-	
-			/*out.println("category ID"+catId);
-			out.println("date"+date);*/
-			out.println("bookname"+bookName);
-			out.println("pname"+pubName);
-			out.println("aname"+authorName);
-			out.print("E"+edition);
-		 //	System.out.print("Language "+lang+" date"+date);
-		//	System.out.println("Quantity"+qty);
-		//	AddBookPojo adb=new AddBookPojo();
-			
-			//adb.setBookNo(bookNo);
-		  
-			adb.setBookName(bookName);
-			adb.setPublisherName(pubName);
-			adb.setAuthorName(authorName);
-			adb.setEdition(edition);
-			
-			adb.setCupboardNo(cupbNo);
-			//adb.setQuantity(qty);
-			
-			AddBookImpl impl=new AddBookImpl();
-			int st=impl.searchBook(adb);
-			if(st>0)
-			{
-				System.out.println("Books added");
-			}
-			request.getRequestDispatcher("View/library/AddBook.jsp").forward(request, response);
-			
-			
-		}
+				if(request.getParameter("detailId")!=null)
+				{
+					System.out.println("In search function");
+					String bookDetail = request.getParameter("detailId");
+					List list=aadao.searchBookDetails(bookDetail);
+					Iterator itr=list.iterator();
+					
+					while(itr.hasNext()){
+						out.print(itr.next()+ " - " +itr.next()+ " - " +itr.next() +",");					}
+				}
 	}
 
 }
