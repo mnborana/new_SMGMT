@@ -89,16 +89,7 @@
                 </header>
                 
              <!-- start your code from here  -->  
-              <form id="bookissue-form" action="/index.php/library/bookissue/create" method="post">  
-                          <div class="col-sm-12">
-       						   <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                                <li role="presentation"><a href="#teacher" data-toggle="tab">Issue Book</a></li>&nbsp;&nbsp;
-								<li role="presentation"><a href="#list" data-toggle="tab">Book Issue List</a></li>
-                             	</ul>
-       					 			<h6 class="content-group text-semibold"></h6>
-   						   </div>
-    					</form>
-                <div class="outer">
+                  <div class="outer">
                     <div class="inner bg-container">
                         <div class="row">
                             <div class="col-xl-12">
@@ -110,59 +101,42 @@
                                     <div class="card-block m-t-35">
                                      <form action="/SMGMT/MainServlet" class="form-horizontal  login_validator" id="form_block_validator">
                                      	<div class="form-group row">
+                                     	<!-- Search Book from here -->
                                                	<div class="col-lg-8">
                                                 	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchId"  name="search" placeholder="Search by BookNo/BookName/AuthorName">
 	                                                <datalist id="browseBook">
 	                                                </datalist>
-                                                 </div> 			
-                                                 <!-- <div class="col-md-4">
-                                                	<label></label>
-                                                	<a href="javascript:getbookdetails()" id="id1" class="btn btn-info">Search</a>
-                                            	</div> -->
-                                            	 <div class="col-lg-8">
-                                                    <label for="category" class="col-form-label" >Select User Type *</label>
-                                                	<select class="form-control show-tick" name="type" id="userType" onchange="studentDetails('stud')" title="Select Category" data-live-search="true" required="required">
-                                            							<option value="" >Select Type</option>
-																		<option value="Student">Student</option>
-																		<option value="Teacher">Teacher</option>
-                                          	 		 </select>
-                                          	 	 </div>
-                                          	 	</div>
-                                          	 	
-                                          	   <div class="form-group row" id="stud" style=" display: none;">
-                                          	     <div class="form-group row">
-                                          	     <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">Name *</label>
-                                               	    <input type="text" id="required2" name="name" class="form-control" required>
-                                                </div>
-								             <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">ID *</label>
-                                               	    <input type="text" id="required2" name="Id" class="form-control" required>
-                                                </div>
-                                                </div>
-                                                 <div class="form-group row">
-								             <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">Std *</label>
-                                               	    <input type="text" id="required2" name="std" class="form-control" required>
-                                                </div>
-								             <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">Div *</label>
-                                               	    <input type="text" id="required2" name="div" class="form-control" required>
-                                                </div> 
+                                                 </div> 
+                                                 </div>
+                                                 	<div class="form-group row">		
+                                                <div class="col-lg-6 ">
+                                                    <label for="required2" class="col-form-label">User Type *</label>
+								                       <div class="controls">
+										                 <input type="radio" value="Student" style="margin-left: 1%;" name="userType" id="userType" onclick="studentDetails('stud')" > Student
+										                 <input type="radio" value="Teacher" style="margin-left: 1%;" name="userType" id="userType" onclick="teacherDetails('teacher')" > Teacher
+										                 <!-- <input type="radio" value="Transfer" style="margin-left: 1%;" name="payMode" onclick="displayBank('bankDetails')" /> Transfer -->
+										               </div>
+									             </div>
+                                      	 	</div>
+                                          	 	<!-- Search stud from here -->
+                                          	   <div class="form-group row" id="stud" style="display: none">
+                                          	      <div class="col-lg-8">
+                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search by Id/Name">
+	                                                <datalist id="browseStud">
+	                                                </datalist>
+                                                 </div> 
                                               </div>
-                                             </div>
-                                             <div class="form-group row" id="stud" style=" display: none;">
-                                          	     <div class="form-group row">
-                                          	     <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">Name *</label>
-                                               	    <input type="text" id="required2" name="name" class="form-control" required>
-                                                </div>
-								             <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">ID *</label>
-                                               	    <input type="text" id="required2" name="Id" class="form-control" required>
-                                                </div>
-                                                </div>
-                                                </div>
+                                             
+                                             
+                                             <!--  Student Block -->
+                                             <div class="form-group row" id="teacher" style="display: none">
+                                          	     <div class="col-lg-8">
+                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search by Id/Name">
+	                                                <datalist id="browseStud">
+	                                                </datalist>
+                                                 </div> 
+                                              </div>
+                                          	
                                                <div class="form-group row">
                                           	   <div class="col-lg-8">
                                                     <label class="col-form-label">Book Issue Date *</label>
@@ -185,60 +159,7 @@
                 </div> <!-- /.outer -->
             
             
-            <%-- <div class="outer">
-                    <div class="inner bg-container">
-                        <div class="card">
-                            <div class="card-header bg-white">
-                              Book Information
-                            </div>
-                            <div class="card-block m-t-35" id="user_body">
-                                <div class="table-toolbar">
-                                    
-                                    <div class="btn-group float-right users_grid_tools">
-                                        <div class="tools"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div>
-                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
-                                            <thead>
-                                            <tr role="row">
-                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">BookNo</th>
-                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Book Name</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Author Name</th>
-                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Publisher Name</th>
-                                                <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">edition</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Cupboard No</th>
-                                                
-                                            </tr>
-                                            </thead>
-                                            <tbody><%  AddBookDao casteDAO=new AddBookImpl();
-										request.setAttribute("display_book", casteDAO.getBookDetails());
-										int j=0;%>
-										<c:forEach items="${display_book}" var="d">
-											<tr>
-												<td><%=(++j) %></td>
-												
-												<td><c:out value="${d.bookName}"></c:out></td>
-												<td><c:out value="${d.authorName}"></c:out></td>
-												<td><c:out value="${d.publisherName}"></c:out></td>
-												<td><c:out value="${d.edition}"></c:out></td>
-												<td><c:out value="${d.cupboardNo}"></c:out></td>
-												
-												
-									
-										
-										</c:forEach></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- END EXAMPLE TABLE PORTLET-->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.inner -->
-                </div> --%>
-                <!-- /.outer -->
+         
                 <!-- Modal -->
                 <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <form>
@@ -323,8 +244,48 @@ function getbookdetails(id){
 	  xhttp.send();
 	
 }
-
+function getstuddetails(id){
+//	alert(id);
+	var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	     var demo = this.responseText;
+	     var stud=demo.split(",");
+	     for(var i=0; i<stud.length; i++)
+	    	 {
+	    	 var text=text+"<option value=\""+stud[i]+"\"> </option>";
+	    	 }
+	     //alert(text);
+			document.getElementById("browseStud").innerHTML = text;		 
+	      
+	     
+	    }
+	  };
+	  xhttp.open("POST", "/SMGMT/MainServlet?studDetails="+id, true);
+	  xhttp.send();
 	
+}
+function getteacherDetails(id){
+//	alert(id);
+	var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	     var demo = this.responseText;
+	     var stud=demo.split(",");
+	     for(var i=0; i<stud.length; i++)
+	    	 {
+	    	 var text=text+"<option value=\""+stud[i]+"\"> </option>";
+	    	 }
+	     //alert(text);
+			document.getElementById("browseStud").innerHTML = text;		 
+	      
+	     
+	    }
+	  };
+	  xhttp.open("POST", "/SMGMT/MainServlet?studDetails="+id, true);
+	  xhttp.send();
+	
+}
 function studentDetails(stud)
 {
 	var x = document.getElementById("stud");
@@ -335,6 +296,19 @@ function studentDetails(stud)
 	else
 		{
 		document.getElementById("stud").style.display = "none";
+		}
+}
+
+function teacherDetails(teacher)
+{
+	var x = document.getElementById("teacher");
+	if(document.getElementById("userType").value=="Teacher")
+		{
+			x.style.display = "block";
+		}
+	else
+		{
+		document.getElementById("teacher").style.display = "none";
 		}
 }
 	/* var x = document.getElementById(id);
