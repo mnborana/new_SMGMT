@@ -119,55 +119,40 @@ z-index: 999999">
                                         <div class="row">
                                            
                                             <div class="col-lg-4 input_field_sections">
-                                                <h5>Select with search</h5>
-                                                <select class="form-control chzn-select" tabindex="2">
-                                                    <option disabled selected>Choose a Country</option>
-                                                    <option value="Uruguay">Uruguay</option>
-                                                    <option value="Uzbekistan">Uzbekistan</option>
-                                                    <option value="Vanuatu">Vanuatu</option>
-                                                    <option value="Venezuela">Venezuela</option>
-                                                    <option value="Viet Nam">Viet Nam</option>                                                    
+                                                <h5>Select Academic Year</h5>
+                                                <select class="form-control chzn-select" tabindex="2" name="academicYearId" >
+                                                    <option disabled selected>Select Academic Year</option>
+                                                    <option>2016-2017</option>
+			                                        <option>2017-2018</option>                                                    
                                                 </select>
                                                 <!--</div>-->
                                             </div>
                                         
                                         
                                         <div class="col-lg-4 input_field_sections">
-                                                <h5>Select with search</h5>
-                                                <select class="form-control chzn-select" tabindex="2">
-                                                    <option disabled selected>Choose a Country</option>
-                                                    <option value="Uruguay">Uruguay</option>
-                                                    <option value="Uzbekistan">Uzbekistan</option>
-                                                    <option value="Vanuatu">Vanuatu</option>
-                                                    <option value="Venezuela">Venezuela</option>
-                                                    <option value="Viet Nam">Viet Nam</option>
+                                                <h5>Select Section</h5>
+                                                <select class="form-control chzn-select" tabindex="2" name="sectionId" title="Select Section">
+                                                    <option disabled selected>Select Section</option>
+                                                    
                                                 </select>
                                                 <!--</div>-->
                                             </div>
                                             
                                         <div class="col-lg-4 input_field_sections">
-                                                <h5>Select with search</h5>
-                                                <select class="form-control chzn-select" tabindex="2">
-                                                    <option disabled selected>Choose a Country</option>
-                                                    <option value="Uruguay">Uruguay</option>
-                                                    <option value="Uzbekistan">Uzbekistan</option>
-                                                    <option value="Vanuatu">Vanuatu</option>
-                                                    <option value="Venezuela">Venezuela</option>
-                                                    <option value="Viet Nam">Viet Nam</option>                                                    
+                                                <h5>Select Standard</h5>
+                                                <select class="form-control chzn-select" tabindex="2" name="stdId" title="Select Standard">
+                                                    <option disabled selected>Select Standard</option>
+                                                                                                      
                                                 </select>
                                                 <!--</div>-->
                                             </div>
                                     </div>
                                     <div class="row">
                                          <div class="col-lg-4 input_field_sections">
-                                                <h5>Select with search</h5>
-                                                <select class="form-control chzn-select" tabindex="2">
-                                                    <option disabled selected>Choose a Country</option>
-                                                    <option value="Uruguay">Uruguay</option>
-                                                    <option value="Uzbekistan">Uzbekistan</option>
-                                                    <option value="Vanuatu">Vanuatu</option>
-                                                    <option value="Venezuela">Venezuela</option>
-                                                    <option value="Viet Nam">Viet Nam</option>                                                    
+                                                <h5>Select Division</h5>
+                                                <select class="form-control chzn-select" tabindex="2" name="divId" title="Select Division">
+                                                    <option disabled selected>Select Division</option>
+                                               		                                                   
                                                 </select>
                                                 <!--</div>-->
                                             </div>
@@ -299,12 +284,12 @@ z-index: 999999">
                                     <div class="row">
                                          <div class="col-lg-4 input_field_sections">
                                             <h5>Date Of Birth</h5>
-                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" data-date-format="dd/mm/yyyy" id="dp2">
+                                             <input type="date" class="form-control"name="dob" id="dob" onchange="getAge()" placeholder="dd/mm/yyyy" data-date-format="dd/mm/yyyy" id="dp2">
                                             
                                         </div>
                                         <div class="col-lg-4 input_field_sections">
                                             <h5>Age</h5>
-                                             <input name="age" type="text" class="form-control" placeholder="Age"/>
+                                             <input type="text" name="age" id="age" class="form-control" placeholder="Age"/>
                                             
                                             <!--</div>-->
                                         </div>
@@ -617,7 +602,7 @@ z-index: 999999">
                                             <div class="col-lg-4 input_field_sections">
                                             <h5>Pin Code</h5>
                                             
-                                                <input name="pincode" type="text" class="form-control" placeholder="Pin Code"/>
+                                                <input name="pinCode" id="pinCode" type="text" class="form-control" placeholder="Pin Code" required onblur="loadDoc()"/>
                                             
                                             <!--</div>-->
                                         </div>
@@ -625,7 +610,7 @@ z-index: 999999">
                                         <div class="col-lg-4 input_field_sections">
                                             <h5>Taluka</h5>
                                             
-                                                <input name="taluka" type="text" class="form-control" placeholder="Taluka"/>
+                                                <input name="taluk" id="taluk" type="text" class="form-control" placeholder="Taluka"  required />
                                             
                                             <!--</div>-->
                                         </div>
@@ -633,7 +618,7 @@ z-index: 999999">
                                         <div class="col-lg-4 input_field_sections">
                                             <h5>District</h5>
                                            
-                                                <input name="district" type="text" class="form-control" placeholder="District"/>
+                                                <input name="district" id="district" type="text" class="form-control" placeholder="District"  required />
                                             
                                             <!--</div>-->
                                         </div>
@@ -642,7 +627,7 @@ z-index: 999999">
                                          <div class="col-lg-4 input_field_sections">
                                             <h5>State</h5>
                                            
-                                                <input name="state" type="text" class="form-control" placeholder="State"/>
+                                                <input name="state" id="state" type="text" class="form-control" placeholder="State"  required />
                                             
                                             <!--</div>-->
                                         </div>
@@ -897,9 +882,71 @@ z-index: 999999">
 <script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
 
 
+<script type="text/javascript">
+
+//====================================== AGE Calculator  =====================================
+function getAge() {
+	var inputDate = document.getElementById("dob").value;
+	
+	alert(inputDate);
+	var newDate=inputDate.split("-");
+	
+
+    var byr = newDate[0];
+    var bmo = newDate[1];
+    var bday = newDate[2];
+    alert(byr+" "+bmo+" "+bday);
+    var byr;
+    var age;
+    var now = new Date();
+    tday=now.getDate();
+    tmo=(now.getMonth());
+    tyr=(now.getFullYear());
+    
+    if((tmo > bmo)||(tmo==bmo & tday>=bday)){
+    	age=byr;
+    }
+    else{
+    	age=parseInt(byr)+parseInt(1);
+    }
+    document.getElementById("age").value=(tyr-age);
+    
+}
+//======================================End  AGE Calculator  =====================================
+
+//====================================== PINCODE SEARCH =====================================
+	function loadDoc() {
+		var pinNew="";
+		$.getJSON("/SMGMT/config/json/PincodeJson.json", function(json) {
+			pinNew=json;
+			myFunction(pinNew);
+		});
+	}
+	
+	function myFunction(x) {
+		var pinNo=document.getElementById("pinCode").value;
+		document.getElementById("taluk").value="";
+	    document.getElementById("district").value="";
+	    document.getElementById("state").value="";
+	  var i;
+	  for (i = 0; i <x.length; i++) {
+		var pin=x[i].pincode;
+	    if(pin == pinNo){
+	      //document.getElementById("pinNo").value=x[i].pincode;
+	      document.getElementById("taluk").value=x[i].taluk;
+	      document.getElementById("taluk").focus();
+	      document.getElementById("district").value=x[i].districtname;
+	      document.getElementById("district").focus();
+	      document.getElementById("state").value=x[i].statename;
+	      document.getElementById("state").focus();
+	      document.getElementById("addressOne").focus();
+		  break;
+	     }
+	  }
+	}
+//====================================== END PINCODE SEARCH =====================================
+</script>
+
 
 </body>
-
-
-
 </html>
