@@ -221,7 +221,7 @@
 												</div>
 												<div class="col-lg-6">
 												<input type="hidden" id="Updateid" name="UpdateId">
-													<input type="text" id="updateDoc" name="updateDocument"  pattern="[A-Za-z]" autofocus onkeyup="this.value = this.value.toUpperCase()" class="form-control" required>
+													<input type="text" id="updateDoc" name="updateDocument"  pattern="[A-Za-z]*" autofocus onkeyup="this.value = this.value.toUpperCase()" class="form-control" required>
 												</div>
 											</div>
 
