@@ -6,8 +6,11 @@ public interface InwardRegisterDAO {
 	
 	
 	public void addNewSender(InwardRegisterPojo pojo);
-	public void addNewSubject(InwardRegisterPojo pojo);
 	public void inwardRegister(InwardRegisterPojo pojo);
 	public InwardRegisterPojo setInwordNo();
-	public List selectInwardRegister();
+	public List<InwardRegisterPojo> selectInwardRegister();
+	
+	public List<InwardRegisterPojo> selectSenderName();
+	public List<InwardRegisterPojo> selsectSubject();
+	
 }

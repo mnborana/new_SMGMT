@@ -7,8 +7,7 @@
 <%@page import="com.servletStore.settings.school.model.SchoolImpl"%>
 <%@page import="com.servletStore.settings.school.model.SchoolDAO"%>
 <%@page import="com.servletStore.settings.school.model.SchoolPOJO"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -42,7 +41,7 @@
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
-  top: 0;
+  top: 0;/*
   left: 0;
   z-index: 100000;
   backface-visibility: hidden;
@@ -149,41 +148,76 @@
                                            <div class="col-lg-3 text-lg-right">
                                                <label for="required2" class="col-form-label">Sender Name*</label>
                                            </div>
+                                           <%
+                                           InwardRegisterDAO senderdao=new InwardRegisterImpl();
+                                           List<InwardRegisterPojo> list=senderdao.selectSenderName();
+                                           Iterator<InwardRegisterPojo> itr=list.iterator();
+                                           %>
+                                           
                                            <div class="col-lg-8">
                                                <input class="form-control" list="browsers" name="senderName" id="senderNameId" onkeyup="this.value=this.value.toUpperCase()" autocomplete="off" required />
                                                 <datalist id="browsers">
-													<option>Sandeep</option>
-													<option>Sandeep</option>
-													<option>Sandeep</option>
-													<option>Sandeep</option>
+                                               <%
+                                               while(itr.hasNext())
+                                               {
+                                            	   InwardRegisterPojo pojo1=(InwardRegisterPojo)itr.next();
+                                            	   
+                                            	   String senderName=((InwardRegisterPojo)pojo1).getSenderName();
+                                               		System.out.println("senderName:"+senderName);
+                                               %>
+                                               
+													<option ><%=senderName %></option>
+													
+											
+												<%} %>
+													
 												</datalist>
                                           </div>                     	 
                                      	  </div><input type="button" value="+" href="#addSender" data-toggle="modal" style="margin-left: 437px;margin-top: -56px;background-color: blue;color: white;"/>
-                                     	                                 	  
+                                     	 
+                                     	  <div class="form-group row">
+                                           	<div class="col-lg-3 text-lg-right">
+                                               <label for="required2" class="col-form-label">Address*</label>
+                                         	  </div>
+                                         	  <%
+                                         	 HttpSession sess=request.getSession(false);  
+                                              String n=(String)sess.getAttribute("uname");  
+                                             // System.out.print("Hello "+n);  
+                                            		   
+                                         	  %> 
+                                           		<div class="col-lg-8">
+                                           				
+                                             		  <input class="form-control" name="address" value=<%=n %> id="setAddress" onkeyup="this.value=this.value.toUpperCase()" required />
+                                                
+                                         		  </div>
+                                     	  </div>                        	  
                                      	  
                                      	  <div class="form-group row">
                                            <div class="col-lg-3 text-lg-right">
                                                <label for="required2" class="col-form-label">Subject*</label>
                                            </div>
+                                           <%
+                                                InwardRegisterDAO subjectdao=new InwardRegisterImpl();
+                                            	List<InwardRegisterPojo> list2=subjectdao.selsectSubject();
+                                            	Iterator<InwardRegisterPojo> itr2=list2.iterator();
+                                             %>
                                            <div class="col-lg-8">
                                                <input class="form-control" list="selectSubject" name="subject" id="selectSubjectId" onkeyup="this.value=this.value.toUpperCase()" autocomplete="off" required />
                                                 <datalist id="selectSubject">
-													<option>Caste Certificate</option>
-													<option>Caste Certificate</option>
-													<option>Caste Certificate</option>
+                                                <%
+                                                while(itr2.hasNext())
+                                                {
+                                                	InwardRegisterPojo pojo2=(InwardRegisterPojo)itr2.next();
+                                                	
+                                                
+                                                %>
+                                                
+													<option><%=((InwardRegisterPojo)pojo2).getSubject()%></option>
+											<%} %>
 												</datalist>
                                          		  </div>
-                                     	  </div><input type="button" value="+" href="#addSubject" data-toggle="modal" style="margin-left: 437px;margin-top: -56px;background-color: blue;color: white; "/>
-                                     	  
-                                     	  <div class="form-group row">
-                                           <div class="col-lg-3 text-lg-right">
-                                               <label for="required2" class="col-form-label">Address*</label>
-                                           </div>
-                                           <div class="col-lg-8">
-                                               <input class="form-control" name="address" id="required2" onkeyup="this.value=this.value.toUpperCase()" required />
-                                                
-                                         		  </div>
                                      	  </div>
+                                     	 
                                      	  
                                      	  <div class="form-group row">
                                            <div class="col-lg-3 text-lg-right">
@@ -236,47 +270,42 @@
                                                 <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Address</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Description</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Action</th>
-                                            </tr>
-                                            </thead>
-                                            <%
-			                                    int count2=1;
-			                                    InwardRegisterDAO inward=new InwardRegisterImpl();
-			                                    List<InwardRegisterPojo> inwardList=inward.selectInwardRegister();
-			                                    Iterator<InwardRegisterPojo> itr4=inwardList.iterator();
-			                                  %>
-                                            <tbody>
-                                            <%
-                                    	while(itr4.hasNext())
-                                    	{
-                                    		InwardRegisterPojo pojo3=(InwardRegisterPojo)itr4.next();
-                                    		int id5=((InwardRegisterPojo)pojo3).getId();
-                                    		int inward_no=((InwardRegisterPojo)pojo3).getInwardNo();
-                                    		String date=((InwardRegisterPojo)pojo3).getDate();
-                                    		String senderName=((InwardRegisterPojo)pojo3).getSenderName();
-                                    		String subject=((InwardRegisterPojo)pojo3).getSubject();
-                                    		String address=((InwardRegisterPojo)pojo3).getAddress();
-                                    		String description=((InwardRegisterPojo)pojo3).getDescription();
-                                    
-                                 	   %>
-                                          	<tr>
-		                                    	<td id="<%=id5%>"><%=count2 %></td>
-		                                    	<td><%=inward_no %></td>
-		                                    	<td><%=date %></td>
-		                                    	<td><%=senderName %></td>
-		                                    	<td><%=subject %></td>
-		                                    	<td><%=address %></td>
-		                                    	<td><%=description %></td>
-		                                    	<td><a class="edit" data-toggle="modal" data-placement="top" title="Update" href="#update" onclick="searchSchool(<%=id5%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-		                                        	<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href=""><i class="fa fa-trash text-danger"></i></a>
-		                                      	</td>   
-                                      	
-                                      		 </tr>
-                                          <%
-                                          count2++;
-                                    	}
-                                          %>  
-                                            	
-                                            	
+
+		                                       </tr>     	
+                                           </thead>
+                                           <%
+                                           int count=1;
+                                           InwardRegisterDAO dao=new InwardRegisterImpl();
+                                           List<InwardRegisterPojo> list1=dao.selectInwardRegister();
+                                           Iterator<InwardRegisterPojo> itr1=list1.iterator();                                           
+                                           %>
+                                             <tbody>
+                                             <%
+                                             while(itr1.hasNext())
+                                             {
+                                            	 InwardRegisterPojo inwardPojo=(InwardRegisterPojo)itr1.next();
+                                            	// System.out.println("id is:"+((InwardRegisterPojo)inwardPojo).getId());
+                                                                                                                                     
+                                             %>
+                                             <tr>
+                                             	<td id="<%=((InwardRegisterPojo)inwardPojo).getId()%>"><%=count %></td>
+                                             	<td><%=((InwardRegisterPojo)inwardPojo).getInwardNo()%></td>
+                                             	<td><%=((InwardRegisterPojo)inwardPojo).getDate() %></td>
+                                             	<td><%=((InwardRegisterPojo)inwardPojo).getSenderName()%></td>
+                                             	<td><%=((InwardRegisterPojo)inwardPojo).getSubject() %></td>
+                                             	<td><%=((InwardRegisterPojo)inwardPojo).getAddress() %></td>
+                                             	<td><%=((InwardRegisterPojo)inwardPojo).getDescription() %></td>
+                                             	<td>
+                                        			<a class="edit" data-toggle="modal" data-placement="top" title="Update" href="#update" onclick="searchSchool(<%=((InwardRegisterPojo)inwardPojo).getId()%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
+                                        			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href=""><i class="fa fa-trash text-danger"></i></a>
+                                        		</td>
+                                             	
+                                             </tr>
+                                             <%
+                                             count++;
+                                             }
+                                             
+                                             %>
                                              </tbody>
                                         </table>
                                     </div>
@@ -296,8 +325,7 @@
 
 	<!-- start modal -->
 
-	<div class="modal fade pullDown" id="addSender" role="dialog"
-		aria-labelledby="modalLabelnews">
+	<div class="modal fade pullDown" id="addSender" role="dialog" aria-labelledby="modalLabelnews">
 		<div class="modal-dialog modal-mm" role="document">
 			<div class="modal-content">
 				<div class="modal-header bg-warning">
@@ -305,7 +333,7 @@
 						style="margin-right: 332px;">Add New Sender</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/SMGMT/InwordRegister" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+					<form action="/SMGMT/InwardRegister" method="post" class="form-horizontal  login_validator" id="form_block_validator">
 						<div class="form-group row">
 							<div class="col-lg-4  text-lg-right">
 								<label for="required2" class="col-form-label"> Sender
@@ -337,39 +365,49 @@
 		</div>
 	</div>
 	<!-- end modal -->
-
-	<!-- start modal -->   
        
-        		<div class="modal fade pullDown" id="addSubject" role="dialog" aria-labelledby="modalLabelnews">
-                    <div class="modal-dialog modal-mm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header bg-warning">
-                                <h4 class="modal-title text-white" id="modalLabelnews" style="margin-right: 332px;">Add New Subject</h4>
-                            </div>
-                            <div class="modal-body">
-                                        <form action="/SMGMT/InwardRegister" class="form-horizontal  login_validator" id="form_block_validator">
-                                                                                       
-                                            <div class="form-group row">
-                                                <div class="col-lg-4  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Subject*</label>
-                                                </div>
-                                                <div class="col-lg-7">
-                                                    <input type="text" id="required2" name="addSubject" class="form-control" required>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="modal-footer">
-                              				 	<button class="btn  btn-success" name="Subject" type="submit">Submit</button>
-                              				    <button class="btn  btn-warning" data-dismiss="modal">Close</button>
-                           				 </div>                                            
-                                    </form>   
-                                       
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-       <!-- end modal -->
+       <!-- start modal -->
+
+	<div class="modal fade pullDown" id="addSender" role="dialog" aria-labelledby="modalLabelnews">
+		<div class="modal-dialog modal-mm" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title text-white" id="modalLabelnews"
+						style="margin-right: 332px;">Add New Sender</h4>
+				</div>
+				<div class="modal-body">
+					<form action="/SMGMT/InwardRegister" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+						<div class="form-group row">
+							<div class="col-lg-4  text-lg-right">
+								<label for="required2" class="col-form-label"> Sender
+									Name*</label>
+							</div>
+							<div class="col-lg-7">
+								<input type="text" id="required2" name="addSenderName" class="form-control" onkeyup="this.value=this.value.toUpperCase()" required>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<div class="col-lg-4  text-lg-right">
+								<label for="required2" class="col-form-label"> Address*</label>
+							</div>
+							<div class="col-lg-7">
+								<input type="text" id="required2" name="addAddress" onkeyup="this.value=this.value.toUpperCase()" onblur="setAddress()" class="form-control" required>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<button class="btn  btn-success" name="SenderName" type="submit">Submit</button>
+							<button class="btn  btn-warning" data-dismiss="modal">Close</button>
+						</div>
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- end modal -->
        
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
@@ -427,6 +465,34 @@
 <script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
 
 <script type="text/javascript">
+
+/* 
+function searchName(id1) {
+	
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			
+			var demoStr = this.responseText.split(",");
+			document.getElementById("Updateid").value = demoStr[0];
+			document.getElementById("Updateconame").value = demoStr[1];
+			document.getElementById("old_coname").value = demoStr[1];
+			document.getElementById("Updatecname").value = demoStr[2];
+			document.getElementById("Updatecontactno1").value = demoStr[3];
+			document.getElementById("gstinid").value = demoStr[4];
+			document.getElementById("Updateemail").value = demoStr[5];
+			document.getElementById("Updateaddress").value = demoStr[6];
+			document.getElementById("Updatebamount").value = demoStr[7];
+			
+			
+			}
+		};
+	xhttp.open("POST","/SAMERP/AddClient?Updateid="+id1, true);
+	xhttp.send();
+	
+	
+} */
 
 	function myFunction() {
 	    var x = document.getElementById("snackbar")
