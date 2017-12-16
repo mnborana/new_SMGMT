@@ -8,12 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.servletStore.register.model.InwardRegisterDAO;
 import com.servletStore.register.model.InwardRegisterImpl;
 import com.servletStore.register.model.InwardRegisterPojo;
 
-@WebServlet("/InwardRegister")
+
 public class InwardRegister extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,34 +23,32 @@ public class InwardRegister extends HttpServlet {
 		PrintWriter out=response.getWriter();
 		InwardRegisterDAO impl=new InwardRegisterImpl();
 		
-		if(request.getParameter("senderName")!=null)
+		HttpSession session=request.getSession();  
+        
+		
+		if(request.getParameter("SenderName")!=null)
 		{
 			String senderName=request.getParameter("addSenderName");
-			String address=request.getParameter("address");
+			String address=request.getParameter("addAddress");
+			
+			 session.setAttribute("uname",address); 
 			
 			InwardRegisterPojo pojo=new InwardRegisterPojo();
 			pojo.setSenderName(senderName);
 			pojo.setAddress(address);
 			impl.addNewSender(pojo);
-			response.sendRedirect("view/GeneralRegister/inwardRegister.jsp");
+			response.sendRedirect("View/generalRegister/inwardRegister.jsp");
 		}
-		
-		if(request.getParameter("subject")!=null)
-		{
-			String newSubject=request.getParameter("addSubject");
-			InwardRegisterPojo pojo1=new InwardRegisterPojo();
-			pojo1.setSubject(newSubject);
-			impl.addNewSubject(pojo1);
-			response.sendRedirect("view/GeneralRegister/inwardRegister.jsp");
-		}
-		
+				
 		if(request.getParameter("InwardRegister")!=null)
 		{
+			System.out.println("hiiiii");
 			String inwardNo=request.getParameter("inwardNo");
 			int inwardno=Integer.parseInt(inwardNo);
 			String addDate=request.getParameter("requireddate");
+			System.out.println("date is:"+addDate);
 			String senderName=request.getParameter("senderName");
-			String subject=request.getParameter("selectSubject");
+			String subject=request.getParameter("subject");
 			String address=request.getParameter("address");
 			String description=request.getParameter("description");
 			
@@ -62,7 +61,13 @@ public class InwardRegister extends HttpServlet {
 			pojo2.setDescription(description);
 			
 			impl.inwardRegister(pojo2);
-			response.sendRedirect("view/GeneralRegister/inwardRegister.jsp");
+			response.sendRedirect("View/generalRegister/inwardRegister.jsp");
+		}
+		
+		if(request.getParameter("deleteId")!=null)
+		{
+			String deleteId=request.getParameter("deleteId");
+			
 		}
 		
 		

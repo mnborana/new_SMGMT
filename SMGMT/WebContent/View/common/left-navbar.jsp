@@ -22,7 +22,23 @@
                             <span class="link-title menu_hide">&nbsp;Dashboard</span>
                         </a>
                     </li>
-                    
+                     
+                      <li class="dropdown_menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-book fa-fw"></i>
+                            <span class="link-title menu_hide">&nbsp; GeneralRegister</span>
+                            <span class="fa arrow menu_hide"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/SMGMT/View/generalRegister/inwardRegister.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Inward Register
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
                     
                     <li class="dropdown_menu">
                         <a href="javascript:;">
@@ -43,6 +59,15 @@
                                     &nbsp; Add School
                                 </a>
                             </li>
+                            
+                              <li>
+                                <a href="/SMGMT/View/settings/documentName/addDocument.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Document
+                                </a>
+                            </li>
+                            
+                            
                             <li>
                                 <a href="/SMGMT/View/settings/standard/addStandard.jsp">
                                     <i class="fa fa-angle-right"></i>
