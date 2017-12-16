@@ -1,11 +1,11 @@
 <%@page import="com.servletStore.library.model.AddBookImpl"%>
-<%@page import="com.servletStore.library.model.AddBookDao"%>
-<%@page import="com.servletStore.library.model.BookCatPojo"%>
+<%@page import="com.servletStore.library.model.AddBookDAO"%>
+<%@page import="com.servletStore.library.model.BookCatPOJO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="com.servletStore.library.model.BookCatImpl"%>
 <%@page import="com.servletStore.library.model.BookDAO"%>.
-<%@page import=" utility.*" %>
+<%@page import="utility.*" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -99,27 +99,32 @@
                                         Basic Validation
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="/SMGMT/MainServlet" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/Library" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                            <div class="form-group row">
                                              	<%
-                                                   SysDate requireddate=new SysDate();
-                                                 %> 
+                                             		SysDate requireddate=new SysDate();
+                                             	%> 
                                                 <div class="col-lg-4">
                                                     <label class="col-form-label">Date *</label>
-                                                    <input type="text" class="form-control form_val_popup_dp3" value="<%=requireddate.todayDate() %>" name="date" placeholder="YYYY-MM-DD"/>
+                                                    <input type="text" class="form-control form_val_popup_dp3" value="<%=requireddate.todayDate()%>" name="date" placeholder="YYYY-MM-DD"/>
                                                 </div>
                                                  <div class="col-lg-4">
                                                     <label for="sport" class="col-form-label">Select Category *</label>
                                                			<select name="category" class="validate[required] form-control select2">
 	                                               			<%
-				 													BookDAO addb=new BookCatImpl();
-																	List l=addb.getCategoryDetails();   
-																	Iterator itr=l.iterator();
-																	while(itr.hasNext()){
-																	BookCatPojo b=(BookCatPojo)itr.next();
-															%>
+	                                               				BookDAO addb=new BookCatImpl();
+                                                    		List list=addb.getCategoryDetails();   
+                   											Iterator itr1=list.iterator();
+                   											while(itr1.hasNext()){
+                   												
+                   												BookCatPOJO b=(BookCatPOJO)itr1.next();
+	                                               		%>
+	                                               		
 														 			<option value="<%=b.getId()%>"><%=b.getCatName()%></option>
-														 	<%} %>
+														 	
+														 	<%
+										}
+										%>
                                                     	 </select>
                                                		<a href="#category" data-toggle="modal" data-target="#category" class="btn btn-info" style="margin-left: 319px;margin-top: -34px; width:30px; height:29px">+</a>
                                                 </div>
@@ -181,10 +186,10 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header bg-warning">
-                                <h4 class="modal-title text-white" id="modalLabelnews">Pulldown</h4>
+                                <h4 class="modal-title text-white" id="modalLabelnews">Category</h4>
                             </div>
                             <div class="modal-body">
-                            	<form action="/SMGMT/MainServlet" id="catid" method="POST">
+                            	<form action="/SMGMT/Library" id="catid" method="POST">
                             		 		<div class="form-group row">
                             		 			<div class="col-lg-4 ">
                                                     <label for="required2" class="col-form-label">Category Name *</label>
@@ -234,14 +239,13 @@
                                             </thead>
                                             <tbody>
                                        		 	<%
-													AddBookDao casteDAO=new AddBookImpl();
-													request.setAttribute("display_book", casteDAO.getBookDetails());
-													int j=0;
-												%>
+                                       		 		AddBookDAO dao=new AddBookImpl();
+                                       		 		request.setAttribute("display_book", dao.getBookDetails());
+                                       		 		int bookCount=0;
+                                       		 	%>
 													<c:forEach items="${display_book}" var="d">
 													  <tr role="row" class="even">
-														<td><%=(++j) %></td>
-														<%-- <td><c:out value="${d.bookNo}"></c:out></td> --%>
+														<td><%=(++bookCount) %></td>
 														<td><c:out value="${d.bookName}"></c:out></td>
 														<td><c:out value="${d.authorName}"></c:out></td>
 														<td><c:out value="${d.publisherName}"></c:out></td>
@@ -252,7 +256,7 @@
 														<td><c:out value="${d.language}"></c:out></td>
 														<td>
                                             			<a class="edit" data-placement="top" title="Edit" href="#update" data-toggle="modal" onclick="loadDoc(${d.getBookNo()})"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-                                            			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/MainServlet?bookNo=${d.getBookNo()}"><i class="fa fa-trash text-danger"></i></a>
+                                            			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/Library?bookNo=${d.getBookNo()}"><i class="fa fa-trash text-danger"></i></a>
                                             			</td>
                                             		</tr>
 												  </c:forEach>
@@ -274,7 +278,7 @@
                                 <h4 class="modal-title text-white" id="modalLabelnews">Pulldown</h4>
                             </div>
                             <div class="modal-body">   
-								 <form action="/SMGMT/MainServlet" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+								 <form action="/SMGMT/Library" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                              <div class="form-group row">
                                              
                                                 <div class="col-lg-4">
@@ -416,7 +420,7 @@ function loadDoc(id) {
 
 	   }
 	  };
-	  xhttp.open("POST","/SMGMT/MainServlet?updateId="+id, true);
+	  xhttp.open("POST","/SMGMT/Library?updateId="+id, true);
 	  xhttp.send();
 	}
 

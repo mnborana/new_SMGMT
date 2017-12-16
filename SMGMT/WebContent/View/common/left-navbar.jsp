@@ -114,13 +114,13 @@
                                     &nbsp; Add Books
                                 </a>
                             </li>
-
-                            <li>
-                                <a href="#">
+                             <li>
+                                <a href="/SMGMT/View/library/IssueBook.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Ratings
+                                    &nbsp; Issue Books
                                 </a>
                             </li>
+
                         </ul>
                     </li>
                     

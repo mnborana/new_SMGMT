@@ -35,10 +35,10 @@ public class BookCatImpl  implements BookDAO{
 	}
 
 	@Override
-	public List<BookCatPojo> getCategoryDetails() throws SQLException {
+	public List<BookCatPOJO> getCategoryDetails() throws SQLException {
 		
 		
-		List<BookCatPojo> list=new ArrayList<BookCatPojo>();
+		List<BookCatPOJO> list=new ArrayList<BookCatPOJO>();
 		//String query="select * from campus;";
 		String query="SELECT cat_id,cat_type FROM `book_category` ";
 	
@@ -46,7 +46,7 @@ public class BookCatImpl  implements BookDAO{
 		ResultSet rs=ps.executeQuery();
 		while(rs.next())
 		{
-			BookCatPojo bcp=new BookCatPojo();
+			BookCatPOJO bcp=new BookCatPOJO();
 			bcp.setId(rs.getInt("cat_id"));
 			bcp.setCatName(rs.getString("cat_type"));
 			

@@ -13,20 +13,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.servletStore.library.model.AddBookDao;
+import com.servletStore.library.model.AddBookDAO;
 import com.servletStore.library.model.AddBookImpl;
-import com.servletStore.library.model.AddBookPojo;
+import com.servletStore.library.model.AddBookPOJO;
 import com.servletStore.library.model.BookCatImpl;
 import com.servletStore.library.model.BookDAO;
+import com.servletStore.library.model.IssueBookPOJO;
 
 /**
  * Servlet implementation class MainServlet
  */
 
-public class MainServlet extends HttpServlet {
+public class Library extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
-    public MainServlet() {
+    public Library() {
         super();
         
     }
@@ -39,8 +40,8 @@ public class MainServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AddBookPojo adb=new AddBookPojo();
-		AddBookDao aadao= new AddBookImpl();
+		AddBookPOJO adb=new AddBookPOJO();
+		AddBookDAO aadao= new AddBookImpl();
 			//System.out.println("Inserted succesfully");
 			
 			PrintWriter out=response.getWriter();
@@ -54,14 +55,14 @@ public class MainServlet extends HttpServlet {
 				
 				if(st>0)
 				{
-					System.out.println("category added successfully");
+					System.out.println("category added ");
 					/*response.sendRedirect("/SMGMT/AddBook.jsp");*/
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("View/Library/AddBook.jsp").forward(request, response);
+			request.getRequestDispatcher("View/library/AddBook.jsp").forward(request, response);
 
 		}
 		
@@ -82,10 +83,10 @@ public class MainServlet extends HttpServlet {
 			String bookName=request.getParameter("bookName");
 			String pubName=request.getParameter("pubName");
 			String authorName=request.getParameter("authorName");
-			int edition=Integer.parseInt(request.getParameter("edition"));
+			String edition=request.getParameter("edition");
 			String lang=request.getParameter("language");
 			int price=Integer.parseInt(request.getParameter("price"));
-			int cupbNo=Integer.parseInt(request.getParameter("cupbno"));
+			String cupbNo=request.getParameter("cupbno");
 			int qty=Integer.parseInt(request.getParameter("quan"));
 	
 			out.println("category ID"+catId);
@@ -121,7 +122,7 @@ public class MainServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("View/Library/AddBook.jsp").forward(request, response);
+			request.getRequestDispatcher("View/library/AddBook.jsp").forward(request, response);
 		//	response.sendRedirect("View/Library/AddBook.jsp");
 			
 		}
@@ -133,7 +134,7 @@ public class MainServlet extends HttpServlet {
 	
 			aadao.deleteCategory(bookNo);
 			System.out.println("Deleted");
-			response.sendRedirect("View/Library/AddBook.jsp");
+			response.sendRedirect("View/library/AddBook.jsp");
 		}
 		
 		if(request.getParameter("updateId")!=null)
@@ -146,17 +147,17 @@ public class MainServlet extends HttpServlet {
 				Iterator itr=list.iterator();
 				while(itr.hasNext())
 				{
-					AddBookPojo pojo=(AddBookPojo)itr.next();
-					int bid=((AddBookPojo)pojo).getBookNo();
-					String date=((AddBookPojo)pojo).getDate();
-					String bookName=((AddBookPojo)pojo).getBookName();
-					String pubname=((AddBookPojo)pojo).getPublisherName();
-					String authorname=((AddBookPojo)pojo).getAuthorName();
-				   int edition=((AddBookPojo)pojo).getEdition();
-				   String lang=((AddBookPojo)pojo).getLanguage();
-				   int qty=((AddBookPojo)pojo).getQuantity();
-				   int price=((AddBookPojo)pojo).getPrice();
-				   int cupbno=((AddBookPojo)pojo).getCupboardNo();
+					AddBookPOJO pojo=(AddBookPOJO)itr.next();
+					int bid=((AddBookPOJO)pojo).getBookNo();
+					String date=((AddBookPOJO)pojo).getDate();
+					String bookName=((AddBookPOJO)pojo).getBookName();
+					String pubname=((AddBookPOJO)pojo).getPublisherName();
+					String authorname=((AddBookPOJO)pojo).getAuthorName();
+				   String edition=((AddBookPOJO)pojo).getEdition();
+				   String lang=((AddBookPOJO)pojo).getLanguage();
+				   int qty=((AddBookPOJO)pojo).getQuantity();
+				   int price=((AddBookPOJO)pojo).getPrice();
+				   String cupbno=((AddBookPOJO)pojo).getCupboardNo();
 				   
 					
 				System.out.println("language:"+lang);
@@ -176,15 +177,15 @@ public class MainServlet extends HttpServlet {
 			String bookName=request.getParameter("bookName");
 			String pubName=request.getParameter("pubName");
 			String authorName=request.getParameter("authorName");
-			int edition=Integer.parseInt(request.getParameter("edition"));
+			String edition=request.getParameter("edition");
 			String lang=request.getParameter("language");
 			int price=Integer.parseInt(request.getParameter("price"));
-			int cupbNo=Integer.parseInt(request.getParameter("cupbno"));
+			String cupbNo=request.getParameter("cupbno");
 			int qty=Integer.parseInt(request.getParameter("quan"));
 			
 			System.out.println("bname:"+bookName+"pub"+pubName+"auth:"+authorName+"edit"+edition+"lang:"+lang+"price:"+price+"cu"+cupbNo+"qun"+qty);
 			
-			AddBookPojo ad=new AddBookPojo();
+			AddBookPOJO ad=new AddBookPOJO();
 			
 
 			ad.setBookNo(id);
@@ -202,7 +203,7 @@ public class MainServlet extends HttpServlet {
 	           
 	        System.out.println("Successfully updated");
 		  
-			  response.sendRedirect("View/Library/AddBook.jsp");
+			  response.sendRedirect("View/library/AddBook.jsp");
 		}
 	
 
@@ -217,6 +218,67 @@ public class MainServlet extends HttpServlet {
 					while(itr.hasNext()){
 						out.print(itr.next()+ " - " +itr.next()+ " - " +itr.next() +",");					}
 				}
+				
+				if(request.getParameter("studDetails")!=null)
+				{
+					System.out.println("In search function.......");
+					String studDetail = request.getParameter("studDetails");
+					List list=aadao.searchStudDetails(studDetail);
+					Iterator itr=list.iterator();
+					
+					while(itr.hasNext()){
+						out.print(itr.next()+ " - " +itr.next()+ " - " +itr.next()+ " - " +itr.next()+",");				
+						}
+				}
+				
+				//Issue Books//////
+				if(request.getParameter("issuebook")!=null)
+				{
+					System.out.println("$$$$$$$$$$$$$$");
+					IssueBookPOJO pojo=new IssueBookPOJO();
+					
+					String searchBook=request.getParameter("searchBook");
+					String searchStud=request.getParameter("searchStud");
+					String user=request.getParameter("userType");
+					String issueDate=request.getParameter("issueDate");
+					String dueDate=request.getParameter("dueDate");
+					
+					System.out.println(searchBook+" "+searchStud+" "+user+" "+issueDate+" "+dueDate);
+					String str[] = searchBook.split("-");
+					System.out.println("bno "+str[0]);
+					System.out.println("bname"+str[1]);
+					String str1[]=searchStud.split("-");
+					System.out.println("id"+str1[0]);
+					System.out.println("stdname"+str1[1]);
+					
+					pojo.setBookNo(Integer.parseInt(str[0].trim()));
+			
+					pojo.setBookName(str[1].trim());
+					//pojo.setUserName(searchStud);
+					
+					pojo.setUserName(str1[1].trim());
+					pojo.setUserType(user);
+					
+					
+					pojo.setIssueDate(issueDate);
+					pojo.setDueDate(dueDate);
+					System.out.println("@@@@@@@@@@@");
+					AddBookImpl impl=new AddBookImpl();
+					try {
+						int st=impl.insertIssueBook(pojo);
+						if(st>0)
+						{
+							System.out.println("Issued Books");
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					request.getRequestDispatcher("View/library/IssueBook.jsp").forward(request, response);
+				//	response.sendRedirect("View/Library/AddBook.jsp");
+					
+				}
+					
+				}
 	}
 
-}
+

@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="com.servletStore.library.model.BookCatPojo"%>
+<%@page import="com.servletStore.library.model.BookCatPOJO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.servletStore.library.model.BookCatImpl"%>
 <%@page import="com.servletStore.library.model.BookDAO"%>
 <%@page import="com.servletStore.library.model.AddBookImpl"%>
-<%@page import="com.servletStore.library.model.AddBookDao"%>
-<%@page import="com.servletStore.library.model.AddBookPojo"%>
+<%@page import="com.servletStore.library.model.AddBookDAO"%>
+<%@page import="com.servletStore.library.model.AddBookPOJO"%>
 <%@page import="java.util.List"%>
 <%@page import=" utility.*" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -83,22 +83,13 @@
                                     </li>
                                     <li class="active breadcrumb-item">Form Validations</li>
                                 </ol>
+                               </div>
                             </div>
                         </div>
-                    </div>
-                </header>
+                   </header>
                 
              <!-- start your code from here  -->  
-              <form id="bookissue-form" action="/index.php/library/bookissue/create" method="post">  
-                          <div class="col-sm-12">
-       						   <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                                <li role="presentation"><a href="#teacher" data-toggle="tab">Issue Book</a></li>&nbsp;&nbsp;
-								<li role="presentation"><a href="#list" data-toggle="tab">Book Issue List</a></li>
-                             	</ul>
-       					 			<h6 class="content-group text-semibold"></h6>
-   						   </div>
-    					</form>
-                <div class="outer">
+                  <div class="outer">
                     <div class="inner bg-container">
                         <div class="row">
                             <div class="col-xl-12">
@@ -107,138 +98,97 @@
                                         <i class="fa fa-file-text-o"></i>
                                   		  Student Details
                                     </div>
-                                    <div class="card-block m-t-35">
-                                     <form action="/SMGMT/MainServlet" class="form-horizontal  login_validator" id="form_block_validator">
-                                     	<div class="form-group row">
-                                               	<div class="col-lg-8">
-                                                	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchId"  name="search" placeholder="Search by BookNo/BookName/AuthorName">
-	                                                <datalist id="browseBook">
-	                                                </datalist>
-                                                 </div> 			
-                                                 <!-- <div class="col-md-4">
-                                                	<label></label>
-                                                	<a href="javascript:getbookdetails()" id="id1" class="btn btn-info">Search</a>
-                                            	</div> -->
-                                            	 <div class="col-lg-8">
-                                                    <label for="category" class="col-form-label" >Select User Type *</label>
-                                                	<select class="form-control show-tick" name="type" id="userType" onchange="studentDetails('stud')" title="Select Category" data-live-search="true" required="required">
-                                            							<option value="" >Select Type</option>
-																		<option value="Student">Student</option>
-																		<option value="Teacher">Teacher</option>
-                                          	 		 </select>
-                                          	 	 </div>
-                                          	 	</div>
-                                          	 	
-                                          	   <div class="form-group row" id="stud" style=" display: none;">
-                                          	     <div class="form-group row">
-                                          	     <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">Name *</label>
-                                               	    <input type="text" id="required2" name="name" class="form-control" required>
-                                                </div>
-								             <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">ID *</label>
-                                               	    <input type="text" id="required2" name="Id" class="form-control" required>
-                                                </div>
-                                                </div>
-                                                 <div class="form-group row">
-								             <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">Std *</label>
-                                               	    <input type="text" id="required2" name="std" class="form-control" required>
-                                                </div>
-								             <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">Div *</label>
-                                               	    <input type="text" id="required2" name="div" class="form-control" required>
-                                                </div> 
-                                              </div>
-                                             </div>
-                                             <div class="form-group row" id="stud" style=" display: none;">
-                                          	     <div class="form-group row">
-                                          	     <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">Name *</label>
-                                               	    <input type="text" id="required2" name="name" class="form-control" required>
-                                                </div>
-								             <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">ID *</label>
-                                               	    <input type="text" id="required2" name="Id" class="form-control" required>
-                                                </div>
-                                                </div>
-                                                </div>
-                                               <div class="form-group row">
-                                          	   <div class="col-lg-8">
-                                                    <label class="col-form-label">Book Issue Date *</label>
-                                                    <input type="text" id="date"class="form-control form_val_popup_dp3" name="date" placeholder="YYYY-MM-DD"/>
-                                                </div>
-                                                <div class="col-lg-8">
-                                                    <label class="col-form-label">Book Due Date *</label>
-                                                    <input type="text" id="date"class="form-control form_val_popup_dp3" name="date" placeholder="YYYY-MM-DD"/>
-                                                </div>
-                                                </div>
-                                                  <div class="form-actions form-group row">
-	                                            <input type="submit" value="Save Book" name="addbook" class="btn btn-primary">
-	                                         
-                                           </div>
-                                          	  </form>
-                                </div>
+                                    <div class="card-block" id="tab">
+	                                     <ul class="nav nav-tabs m-t-35">
+			                                <li class="nav-item">
+			                                    <a class="nav-link active" href="#bookList" data-toggle="tab">Book List</a>
+			                                </li>
+			                                <li class="nav-item" id="themify_icon">
+			                                    <a class="nav-link" href="#issuedList" data-toggle="tab">Issued List</a>
+			                                </li>
+			                             </ul>
+					                  <div class="tab-content">
+				                          <div class="tab-pane active" id="bookList">
+				                              <div class="row">
+				                                  <div class="col-12">
+				                                       <div class="col-lg-8 m-t-20">
+				                                          <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator">
+		                                     			<div class="form-group row">
+		                                     				<div class="col-lg-8">
+		                                     <!-- Search Book from here     ------- -->
+		                                               	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchId"  name="searchBook" placeholder="Search by BookNo/BookName/AuthorName">
+			                                                <datalist id="browseBook">
+			                                                </datalist>
+			                                                </div>
+		                                                 </div> 
+		                                                	<div class="form-group row">	
+		                                                	<div class="col-lg-8 ">
+		                                                   	  <label for="required2" class="col-form-label">User Type *</label>
+										                       <div class="controls">
+												                 <input type="radio" value="Student" style="margin-left: 1%;" name="userType" id="userType" onclick="studentDetails('stud')" checked="checked"> Student
+												                 <input type="radio" value="Teacher" style="margin-left: 1%;" name="userType" id="userType" onclick="teacherDetails('teacher')" > Teacher
+												               </div>
+												             </div>
+			                                      	 	</div>
+		                                         <!-- Search stud from here     ----- -->
+		                                          	   <div class="form-group row" id="stud" style="display: none">
+		                                          	      <div class="col-lg-8">
+		                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search by Id/Name">
+			                                                <datalist id="browseStud">
+			                                                </datalist>
+		                                                 </div> 
+		                                              </div>
+		                                             
+		                                             
+		                                          <!--  Student Block        -------- -->
+		                                             <div class="form-group row" id="teacher" style="display: none">
+		                                          	     <div class="col-lg-8">
+		                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search by Id/Name">
+			                                                <datalist id="browseStud">
+			                                                </datalist>
+		                                                 </div> 
+		                                              </div>
+		                                          	<div class="form-group row">
+		                                          	   <div class="col-lg-8">
+		                                                    <label class="col-form-label">Book Issue Date *</label>
+		                                                    <input type="text" id="date"class="form-control form_val_popup_dp3" name="issueDate" placeholder="YYYY-MM-DD"/>
+		                                                </div>
+		                                              </div>
+		                                              <div class="form-group row">
+		                                                <div class="col-lg-8">
+		                                                    <label class="col-form-label">Book Due Date *</label>
+		                                                    <input type="text" id="date"class="form-control form_val_popup_dp3" name="dueDate" placeholder="YYYY-MM-DD"/>
+		                                                </div>
+		                                                </div>
+		                                              
+		                                                  <div class="form-actions form-group row">
+			                                            	<input type="submit" value="Save Book" name="issuebook" class="btn btn-primary">
+			                                         	 </div>
+		                                          	 </form>
+				                              </div>
+				                            </div>
+				                          </div>
+				                        </div>
+				                     	   <div class="tab-pane" id="issuedList">
+				                               <div class="row">
+				                                   <div class="col-12">
+				                                     <div class="col-md-4 m-t-20">
+				                                       <p>Issued books list..........</p>
+				                                       
+				                                     </div>
+				                                  </div>
+				                               </div>
+				                           </div>
+				                       </div>
+				                   </div>
+				                 </div>
                             </div> <!-- /.col-lg-12 -->
                         </div> <!-- /.row -->
                     </div> <!-- /.inner -->
                 </div> <!-- /.outer -->
             
             
-            <%-- <div class="outer">
-                    <div class="inner bg-container">
-                        <div class="card">
-                            <div class="card-header bg-white">
-                              Book Information
-                            </div>
-                            <div class="card-block m-t-35" id="user_body">
-                                <div class="table-toolbar">
-                                    
-                                    <div class="btn-group float-right users_grid_tools">
-                                        <div class="tools"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div>
-                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
-                                            <thead>
-                                            <tr role="row">
-                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">BookNo</th>
-                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Book Name</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Author Name</th>
-                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Publisher Name</th>
-                                                <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">edition</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Cupboard No</th>
-                                                
-                                            </tr>
-                                            </thead>
-                                            <tbody><%  AddBookDao casteDAO=new AddBookImpl();
-										request.setAttribute("display_book", casteDAO.getBookDetails());
-										int j=0;%>
-										<c:forEach items="${display_book}" var="d">
-											<tr>
-												<td><%=(++j) %></td>
-												
-												<td><c:out value="${d.bookName}"></c:out></td>
-												<td><c:out value="${d.authorName}"></c:out></td>
-												<td><c:out value="${d.publisherName}"></c:out></td>
-												<td><c:out value="${d.edition}"></c:out></td>
-												<td><c:out value="${d.cupboardNo}"></c:out></td>
-												
-												
-									
-										
-										</c:forEach></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- END EXAMPLE TABLE PORTLET-->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.inner -->
-                </div> --%>
-                <!-- /.outer -->
+         
                 <!-- Modal -->
                 <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <form>
@@ -257,7 +207,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+           
             
             
             </div> <!-- /#content -->
@@ -319,12 +269,52 @@ function getbookdetails(id){
 	     
 	    }
 	  };
-	  xhttp.open("POST", "/SMGMT/MainServlet?detailId="+id, true);
+	  xhttp.open("POST", "/SMGMT/Library?detailId="+id, true);
 	  xhttp.send();
 	
 }
-
+function getstuddetails(id){
+//	alert(id);
+	var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	     var demo = this.responseText;
+	     var stud=demo.split(",");
+	     for(var i=0; i<stud.length; i++)
+	    	 {
+	    	 var text=text+"<option value=\""+stud[i]+"\"> </option>";
+	    	 }
+	     //alert(text);
+			document.getElementById("browseStud").innerHTML = text;		 
+	      
+	     
+	    }
+	  };
+	  xhttp.open("POST", "/SMGMT/Library?studDetails="+id, true);
+	  xhttp.send();
 	
+}
+function getteacherDetails(id){
+//	alert(id);
+	var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	     var demo = this.responseText;
+	     var stud=demo.split(",");
+	     for(var i=0; i<stud.length; i++)
+	    	 {
+	    	 var text=text+"<option value=\""+stud[i]+"\"> </option>";
+	    	 }
+	     //alert(text);
+			document.getElementById("browseStud").innerHTML = text;		 
+	      
+	     
+	    }
+	  };
+	  xhttp.open("POST", "/SMGMT/Library?studDetails="+id, true);
+	  xhttp.send();
+	
+}
 function studentDetails(stud)
 {
 	var x = document.getElementById("stud");
@@ -335,6 +325,19 @@ function studentDetails(stud)
 	else
 		{
 		document.getElementById("stud").style.display = "none";
+		}
+}
+
+function teacherDetails(teacher)
+{
+	var x = document.getElementById("teacher");
+	if(document.getElementById("userType").value=="Teacher")
+		{
+			x.style.display = "block";
+		}
+	else
+		{
+		document.getElementById("teacher").style.display = "none";
 		}
 }
 	/* var x = document.getElementById(id);
