@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="com.servletStore.library.model.BookCatPojo"%>
+<%@page import="com.servletStore.library.model.BookCatPOJO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.servletStore.library.model.BookCatImpl"%>
 <%@page import="com.servletStore.library.model.BookDAO"%>
 <%@page import="com.servletStore.library.model.AddBookImpl"%>
-<%@page import="com.servletStore.library.model.AddBookDao"%>
-<%@page import="com.servletStore.library.model.AddBookPojo"%>
+<%@page import="com.servletStore.library.model.AddBookDAO"%>
+<%@page import="com.servletStore.library.model.AddBookPOJO"%>
 <%@page import="java.util.List"%>
 <%@page import=" utility.*" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -83,10 +83,10 @@
                                     </li>
                                     <li class="active breadcrumb-item">Form Validations</li>
                                 </ol>
+                               </div>
                             </div>
                         </div>
-                    </div>
-                </header>
+                   </header>
                 
              <!-- start your code from here  -->  
                   <div class="outer">
@@ -98,61 +98,90 @@
                                         <i class="fa fa-file-text-o"></i>
                                   		  Student Details
                                     </div>
-                                    <div class="card-block m-t-35">
-                                     <form action="/SMGMT/MainServlet" class="form-horizontal  login_validator" id="form_block_validator">
-                                     	<div class="form-group row">
-                                     	<!-- Search Book from here -->
-                                               	<div class="col-lg-8">
-                                                	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchId"  name="search" placeholder="Search by BookNo/BookName/AuthorName">
-	                                                <datalist id="browseBook">
-	                                                </datalist>
-                                                 </div> 
-                                                 </div>
-                                                 	<div class="form-group row">		
-                                                <div class="col-lg-6 ">
-                                                    <label for="required2" class="col-form-label">User Type *</label>
-								                       <div class="controls">
-										                 <input type="radio" value="Student" style="margin-left: 1%;" name="userType" id="userType" onclick="studentDetails('stud')" > Student
-										                 <input type="radio" value="Teacher" style="margin-left: 1%;" name="userType" id="userType" onclick="teacherDetails('teacher')" > Teacher
-										                 <!-- <input type="radio" value="Transfer" style="margin-left: 1%;" name="payMode" onclick="displayBank('bankDetails')" /> Transfer -->
-										               </div>
-									             </div>
-                                      	 	</div>
-                                          	 	<!-- Search stud from here -->
-                                          	   <div class="form-group row" id="stud" style="display: none">
-                                          	      <div class="col-lg-8">
-                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search by Id/Name">
-	                                                <datalist id="browseStud">
-	                                                </datalist>
-                                                 </div> 
-                                              </div>
-                                             
-                                             
-                                             <!--  Student Block -->
-                                             <div class="form-group row" id="teacher" style="display: none">
-                                          	     <div class="col-lg-8">
-                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search by Id/Name">
-	                                                <datalist id="browseStud">
-	                                                </datalist>
-                                                 </div> 
-                                              </div>
-                                          	
-                                               <div class="form-group row">
-                                          	   <div class="col-lg-8">
-                                                    <label class="col-form-label">Book Issue Date *</label>
-                                                    <input type="text" id="date"class="form-control form_val_popup_dp3" name="date" placeholder="YYYY-MM-DD"/>
-                                                </div>
-                                                <div class="col-lg-8">
-                                                    <label class="col-form-label">Book Due Date *</label>
-                                                    <input type="text" id="date"class="form-control form_val_popup_dp3" name="date" placeholder="YYYY-MM-DD"/>
-                                                </div>
-                                                </div>
-                                                  <div class="form-actions form-group row">
-	                                            <input type="submit" value="Save Book" name="addbook" class="btn btn-primary">
-	                                         
-                                           </div>
-                                          	  </form>
-                                </div>
+                                    <div class="card-block" id="tab">
+	                                     <ul class="nav nav-tabs m-t-35">
+			                                <li class="nav-item">
+			                                    <a class="nav-link active" href="#bookList" data-toggle="tab">Book List</a>
+			                                </li>
+			                                <li class="nav-item" id="themify_icon">
+			                                    <a class="nav-link" href="#issuedList" data-toggle="tab">Issued List</a>
+			                                </li>
+			                             </ul>
+					                  <div class="tab-content">
+				                          <div class="tab-pane active" id="bookList">
+				                              <div class="row">
+				                                  <div class="col-12">
+				                                       <div class="col-lg-8 m-t-20">
+				                                          <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator">
+		                                     			<div class="form-group row">
+		                                     				<div class="col-lg-8">
+		                                     <!-- Search Book from here     ------- -->
+		                                               	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchId"  name="searchBook" placeholder="Search by BookNo/BookName/AuthorName">
+			                                                <datalist id="browseBook">
+			                                                </datalist>
+			                                                </div>
+		                                                 </div> 
+		                                                	<div class="form-group row">	
+		                                                	<div class="col-lg-8 ">
+		                                                   	  <label for="required2" class="col-form-label">User Type *</label>
+										                       <div class="controls">
+												                 <input type="radio" value="Student" style="margin-left: 1%;" name="userType" id="userType" onclick="studentDetails('stud')" checked="checked"> Student
+												                 <input type="radio" value="Teacher" style="margin-left: 1%;" name="userType" id="userType" onclick="teacherDetails('teacher')" > Teacher
+												               </div>
+												             </div>
+			                                      	 	</div>
+		                                         <!-- Search stud from here     ----- -->
+		                                          	   <div class="form-group row" id="stud" style="display: none">
+		                                          	      <div class="col-lg-8">
+		                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search by Id/Name">
+			                                                <datalist id="browseStud">
+			                                                </datalist>
+		                                                 </div> 
+		                                              </div>
+		                                             
+		                                             
+		                                          <!--  Student Block        -------- -->
+		                                             <div class="form-group row" id="teacher" style="display: none">
+		                                          	     <div class="col-lg-8">
+		                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search by Id/Name">
+			                                                <datalist id="browseStud">
+			                                                </datalist>
+		                                                 </div> 
+		                                              </div>
+		                                          	<div class="form-group row">
+		                                          	   <div class="col-lg-8">
+		                                                    <label class="col-form-label">Book Issue Date *</label>
+		                                                    <input type="text" id="date"class="form-control form_val_popup_dp3" name="issueDate" placeholder="YYYY-MM-DD"/>
+		                                                </div>
+		                                              </div>
+		                                              <div class="form-group row">
+		                                                <div class="col-lg-8">
+		                                                    <label class="col-form-label">Book Due Date *</label>
+		                                                    <input type="text" id="date"class="form-control form_val_popup_dp3" name="dueDate" placeholder="YYYY-MM-DD"/>
+		                                                </div>
+		                                                </div>
+		                                              
+		                                                  <div class="form-actions form-group row">
+			                                            	<input type="submit" value="Save Book" name="issuebook" class="btn btn-primary">
+			                                         	 </div>
+		                                          	 </form>
+				                              </div>
+				                            </div>
+				                          </div>
+				                        </div>
+				                     	   <div class="tab-pane" id="issuedList">
+				                               <div class="row">
+				                                   <div class="col-12">
+				                                     <div class="col-md-4 m-t-20">
+				                                       <p>Issued books list..........</p>
+				                                       
+				                                     </div>
+				                                  </div>
+				                               </div>
+				                           </div>
+				                       </div>
+				                   </div>
+				                 </div>
                             </div> <!-- /.col-lg-12 -->
                         </div> <!-- /.row -->
                     </div> <!-- /.inner -->
@@ -178,7 +207,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+           
             
             
             </div> <!-- /#content -->
@@ -240,7 +269,7 @@ function getbookdetails(id){
 	     
 	    }
 	  };
-	  xhttp.open("POST", "/SMGMT/MainServlet?detailId="+id, true);
+	  xhttp.open("POST", "/SMGMT/Library?detailId="+id, true);
 	  xhttp.send();
 	
 }
@@ -261,7 +290,7 @@ function getstuddetails(id){
 	     
 	    }
 	  };
-	  xhttp.open("POST", "/SMGMT/MainServlet?studDetails="+id, true);
+	  xhttp.open("POST", "/SMGMT/Library?studDetails="+id, true);
 	  xhttp.send();
 	
 }
@@ -282,7 +311,7 @@ function getteacherDetails(id){
 	     
 	    }
 	  };
-	  xhttp.open("POST", "/SMGMT/MainServlet?studDetails="+id, true);
+	  xhttp.open("POST", "/SMGMT/Library?studDetails="+id, true);
 	  xhttp.send();
 	
 }

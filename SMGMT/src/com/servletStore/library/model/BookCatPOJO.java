@@ -1,6 +1,6 @@
 package com.servletStore.library.model;
 
-public class BookCatPojo 
+public class BookCatPOJO 
 {
 	private int id;
 	private String cat_type;

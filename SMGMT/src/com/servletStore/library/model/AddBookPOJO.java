@@ -2,10 +2,24 @@ package com.servletStore.library.model;
 
 import java.sql.Date;
 
-public class AddBookPojo {
+public class AddBookPOJO {
 private String bookName,authorName,publisherName,language;
-private int bookNo,edition,price,cupboardNo,quantity,cat_id;
+private int bookNo,price,quantity,cat_id;
 private String date;
+private String edition,cupboardNo;
+
+public String getEdition() {
+	return edition;
+}
+public void setEdition(String edition) {
+	this.edition = edition;
+}
+public String getCupboardNo() {
+	return cupboardNo;
+}
+public void setCupboardNo(String cupboardNo) {
+	this.cupboardNo = cupboardNo;
+}
 public int getCat_id() {
 	return cat_id;
 }
@@ -40,23 +54,11 @@ public int getBookNo() {
 public void setBookNo(int bookNo) {
 	this.bookNo = bookNo;
 }
-public int getEdition() {
-	return edition;
-}
-public void setEdition(int edition) {
-	this.edition = edition;
-}
 public int getPrice() {
 	return price;
 }
 public void setPrice(int price) {
 	this.price = price;
-}
-public int getCupboardNo() {
-	return cupboardNo;
-}
-public void setCupboardNo(int cupboardNo) {
-	this.cupboardNo = cupboardNo;
 }
 public String getBookName() {
 	return bookName;
