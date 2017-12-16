@@ -182,14 +182,19 @@
                                          	  <%
                                          	 HttpSession sess=request.getSession(false);  
                                               String n=(String)sess.getAttribute("uname");  
+                                            if(n==null)
+                                               {
                                              // System.out.print("Hello "+n);  
                                             		   
                                          	  %> 
-                                           		<div class="col-lg-8">
-                                           				
-                                             		  <input class="form-control" name="address" value=<%=n %> id="setAddress" onkeyup="this.value=this.value.toUpperCase()" required />
-                                                
+                                           		<div class="col-lg-8">                                           				
+                                             		  <input class="form-control" name="address" placeholder="-" id="setAddress" onkeyup="this.value=this.value.toUpperCase()" required />                                                
                                          		  </div>
+                                         		  <%}else{ %>
+                                         		  <div class="col-lg-8">                                           				
+                                             		  <input class="form-control" name="address" value="<%=n%>" id="setAddress" onkeyup="this.value=this.value.toUpperCase()" required />                                                
+                                         		  </div>
+                                         		  <%} %>
                                      	  </div>                        	  
                                      	  
                                      	  <div class="form-group row">
@@ -297,7 +302,7 @@
                                              	<td><%=((InwardRegisterPojo)inwardPojo).getDescription() %></td>
                                              	<td>
                                         			<a class="edit" data-toggle="modal" data-placement="top" title="Update" href="#update" onclick="searchSchool(<%=((InwardRegisterPojo)inwardPojo).getId()%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-                                        			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href=""><i class="fa fa-trash text-danger"></i></a>
+                                        			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/InwardRegister"><i class="fa fa-trash text-danger"></i></a>
                                         		</td>
                                              	
                                              </tr>

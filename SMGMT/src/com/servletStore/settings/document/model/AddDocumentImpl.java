@@ -99,7 +99,7 @@ public class AddDocumentImpl implements AddDocumentDAO{
 
 	@Override
 	public void deleteDocument(AddDocumentPojo pojo, int id) {
-		String deleteQuery="DELETE FROM inward_document_master WHERE` inward_document_master.id=?";
+		String deleteQuery="DELETE FROM inward_document_master WHERE inward_document_master.id=?";
 		try {
 			pstmt=connection.prepareStatement(deleteQuery);
 			pstmt.setInt(1,id);

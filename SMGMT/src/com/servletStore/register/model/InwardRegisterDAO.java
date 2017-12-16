@@ -13,4 +13,7 @@ public interface InwardRegisterDAO {
 	public List<InwardRegisterPojo> selectSenderName();
 	public List<InwardRegisterPojo> selsectSubject();
 	
+	public void deleteInwardRegister(int id);
+	
+	
 }

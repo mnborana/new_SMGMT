@@ -140,6 +140,13 @@ public class InwardRegisterImpl implements InwardRegisterDAO{
 	}
 
 
+	@Override
+	public void deleteInwardRegister(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 		
 
 }

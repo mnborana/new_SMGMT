@@ -178,7 +178,7 @@
 													<td id="<%=((AddDocumentPojo)pojo).getId()%>"><%=count %></td>
 													<td><%=((AddDocumentPojo)pojo).getRegisterName() %></td>
 													<td><a class="edit" data-toggle="modal"	data-placement="top" title="Update" href="#update"	onclick="searchSchool(<%=((AddDocumentPojo)pojo).getId()%>)"><i	class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp; 
-														<a	class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href=""><i	class="fa fa-trash text-danger"></i></a>
+														<a	class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/AddDocument?deleteId=<%=((AddDocumentPojo)pojo).getId()%>"><i class="fa fa-trash text-danger"></i></a>
 													</td>
 												</tr>
 												<%

@@ -64,6 +64,12 @@ public class InwardRegister extends HttpServlet {
 			response.sendRedirect("View/generalRegister/inwardRegister.jsp");
 		}
 		
+		if(request.getParameter("deleteId")!=null)
+		{
+			String deleteId=request.getParameter("deleteId");
+			
+		}
+		
 		
 	}
 

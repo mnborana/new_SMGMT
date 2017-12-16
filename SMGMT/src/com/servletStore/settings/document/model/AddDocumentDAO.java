@@ -8,5 +8,4 @@ public interface AddDocumentDAO {
 	public List<AddDocumentPojo> setDocumentName(int id);
 	public void updateDocument(AddDocumentPojo pojo,int id);
 	public void deleteDocument(AddDocumentPojo pojo,int id);
-
 }

@@ -66,6 +66,10 @@ public class AddDocument extends HttpServlet {
 		if(request.getParameter("deleteId")!=null)
 		{
 			String deleteId=request.getParameter("deleteId");
+			int id=Integer.parseInt(deleteId);
+			 dao.deleteDocument(pojo, id);
+			 System.out.println("Deleted Successfully");
+			 response.sendRedirect("View/settings/documentName/addDocument.jsp");
 			
 		}
 		
