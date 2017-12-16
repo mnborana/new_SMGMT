@@ -217,6 +217,18 @@ public class MainServlet extends HttpServlet {
 					while(itr.hasNext()){
 						out.print(itr.next()+ " - " +itr.next()+ " - " +itr.next() +",");					}
 				}
+				
+				if(request.getParameter("studDetails")!=null)
+				{
+					System.out.println("In search function.......");
+					String studDetail = request.getParameter("studDetails");
+					List list=aadao.searchStudDetails(studDetail);
+					Iterator itr=list.iterator();
+					
+					while(itr.hasNext()){
+						out.print(itr.next()+ " - " +itr.next()+ " - " +itr.next()+ " - " +itr.next()+",");				
+						}
+				}
 	}
 
 }

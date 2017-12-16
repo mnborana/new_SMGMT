@@ -16,5 +16,7 @@ public List selectBookInfo(AddBookPojo pojo,int bookId);
 
 public List searchBookDetails(String bookDetail);
 
+public List searchStudDetails(String studDetail);
+
 
 }

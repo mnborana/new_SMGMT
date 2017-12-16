@@ -201,12 +201,55 @@ public class AddBookImpl implements AddBookDao{
 			e.printStackTrace();
 		}
 		
-		
-		
-		
 		return list;
 	}
+	@Override
+	public List searchStudDetails(String studDetail) {
+		List list1=new ArrayList();
+		ResultSet rs=null;
+		
+		try {
+			// by author name
+			System.out.println("Search by Id");
+			String query2="SELECT student_details.id, student_details.name, std_master.name, div_master.division FROM student_details, std_master, div_master, class_allocation WHERE student_details.id=class_allocation.student_id AND class_allocation.standard_id=std_master.id AND class_allocation.division_id=div_master.id AND student_details.name LIKE '%"+studDetail+"%'";
+			PreparedStatement ps2=(PreparedStatement) connection.prepareStatement(query2);
+			//System.out.println("SearchStudent*********");
+			rs=ps2.executeQuery();
+			
+			/*if(!rs.isBeforeFirst()){
+					// by book no
+					System.out.println("3");
+					String query="select `book_no`,`book_name`,`author_name` from book_info_master where book_no LIKE '%"+bookDetail+"%'";
+					PreparedStatement ps;
+					ps = (PreparedStatement) connection.prepareStatement(query);
+					rs=ps.executeQuery();
+					System.out.println("@@@@@@@@@");
+				}
+			}*/
+
+			
+			while(rs.next())
+			{
+				list1.add(rs.getInt(1));
+			    list1.add(rs.getString(2));
+				list1.add((rs.getString(3)));
+				list1.add((rs.getString(4)));
+				
+			}
+				
+				System.out.println("list "+list1);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return list1;
 
 	}
-
+}
 
