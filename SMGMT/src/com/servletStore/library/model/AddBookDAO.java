@@ -21,4 +21,6 @@ public List searchStudDetails(String studDetail);
 public int insertIssueBook(IssueBookPOJO pojo) throws SQLException;
 
 public List<IssueBookPOJO> getIssueBookDetails() throws SQLException;
+
+public List<IssueBookPOJO> getIssueBookList(String query);
 }

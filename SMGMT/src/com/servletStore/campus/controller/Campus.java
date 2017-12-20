@@ -62,8 +62,9 @@ public class Campus extends HttpServlet {
 		//doGet(request, response);
 		
 		PrintWriter out = response.getWriter();
-		//out.println("working");
-		response.setContentType("text/html");
+		out.println("working");
+		
+		/*response.setContentType("text/html");
 		String eduName=request.getParameter("eduName");
 		String trusteeName=request.getParameter("tUName");
 		String trusteePassword=request.getParameter("tPass");
@@ -82,7 +83,7 @@ public class Campus extends HttpServlet {
 			}
 			
 		}
-		out.println(radio);
+		out.println(radio);*/
 		
 		
 	}
