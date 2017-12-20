@@ -9,6 +9,6 @@ public interface BookDAO
 {
 	public int insertCategory(String catName) throws SQLException;
 
-	public List<BookCatPojo> getCategoryDetails() throws SQLException;
+	public List<BookCatPOJO> getCategoryDetails() throws SQLException;
 
 }

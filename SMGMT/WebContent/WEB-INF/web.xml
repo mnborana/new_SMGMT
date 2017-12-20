@@ -68,6 +68,8 @@
     <servlet-name>Caste</servlet-name>
     <url-pattern>/Caste</url-pattern>
   </servlet-mapping>
+  			
+  			
   <servlet>
     <servlet-name>School</servlet-name>
     <servlet-class>com.servletStore.settings.school.controller.School</servlet-class>
@@ -76,21 +78,39 @@
     <servlet-name>School</servlet-name>
     <url-pattern>/School</url-pattern>
   </servlet-mapping>
+  
   <servlet>
-    <servlet-name>StdSectionAssignment</servlet-name>
+    <servlet-name>AddDocument</servlet-name>
+    <servlet-class>com.servletStore.settings.document.controller.AddDocument</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddDocument</servlet-name>
+    <url-pattern>/AddDocument</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>InwardRegister</servlet-name>
+    <servlet-class>com.servletStore.register.controller.InwardRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InwardRegister</servlet-name>
+    <url-pattern>/InwardRegister</url-pattern>
+  </servlet-mapping>
+  <servlet>
+   <servlet-name>StdSectionAssignment</servlet-name>
     <servlet-class>com.servletStore.settings.standard.controller.StdSectionAssignment</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>StdSectionAssignment</servlet-name>
     <url-pattern>/StdSectionAssignment</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>MainServlet</servlet-name>
-    <servlet-class>com.servletStore.library.controller.MainServlet</servlet-class>
+   <servlet>
+    <servlet-name>Library</servlet-name>
+    <servlet-class>com.servletStore.library.controller.Library</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MainServlet</servlet-name>
-    <url-pattern>/MainServlet</url-pattern>
+    <servlet-name>Library</servlet-name>
+    <url-pattern>/Library</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Setup</servlet-name>

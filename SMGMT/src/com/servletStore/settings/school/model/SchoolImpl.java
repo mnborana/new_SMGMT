@@ -106,19 +106,7 @@ public class SchoolImpl implements SchoolDAO{
 				pojo.setId(rs.getInt("id"));
 				pojo.setName(rs.getString("name"));
 				pojo.setAddress(rs.getString("address"));
-				pojo.setSlogan(rs.getString("slogan"));
-				pojo.setIndexno(rs.getString("index_no"));
-				pojo.setLicenceno(rs.getString("licence_no"));
-				pojo.setUdise(rs.getString("udise"));
-				pojo.setShoolcode(rs.getString("school_code"));
-				pojo.setEmailid(rs.getString("email_id"));
 				pojo.setPhoneno(rs.getString("phone_no"));
-				pojo.setBoard(rs.getString("board"));
-				pojo.setPunitcode(rs.getString("punit_code"));
-				pojo.setCenter(rs.getString("center"));
-				pojo.setDate(rs.getString("date"));
-				pojo.setJubileeYear(rs.getString("jubilee_year"));
-				pojo.setEstablishYear(rs.getString("establish_year"));
 				pojo.setMedium(rs.getString("medium"));
 				
 				list.add(pojo);

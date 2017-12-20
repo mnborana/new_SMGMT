@@ -24,7 +24,7 @@
                             <span class="link-title menu_hide">&nbsp;Dashboard</span>
                         </a>
                     </li>
-                 
+                     
                     
                     <li class="dropdown_menu">
                         <a href="javascript:;">
@@ -45,6 +45,15 @@
                                     &nbsp; Add School
                                 </a>
                             </li>
+                            
+                              <li>
+                                <a href="/SMGMT/View/settings/documentName/addDocument.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Document
+                                </a>
+                            </li>
+                            
+                            
                             <li>
                                 <a href="/SMGMT/View/settings/standard/addStandard.jsp">
                                     <i class="fa fa-angle-right"></i>
@@ -369,7 +378,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/generalRegister/inwardRegister.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Inward Register
                                 </a>
@@ -504,9 +513,8 @@
                                     &nbsp; Add Books
                                 </a>
                             </li>
-
-                            <li>
-                                <a href="#">
+                             <li>
+                                <a href="/SMGMT/View/library/IssueBook.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Set Library Fee
                                 </a>
@@ -519,11 +527,18 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="/SMGMT/View/library/IssueBook.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Issue Book
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Report
                                 </a>
                             </li>
+
                         </ul>
                     </li>
                     

@@ -273,7 +273,7 @@
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
                                                      <button type="submit" name="SchoolSubmitBtn" class="btn btn-success">Submit</button>
-                                                    <button type="button" class="btn btn-danger">Exit</button>
+                                                    <button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
                                                 </div>
                                             </div>
                                             
@@ -308,20 +308,8 @@
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">School Name</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Select Section</th>
                                                 <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Address</th>
-                                                <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Slogan</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Index No</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Licence No</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">UDISE</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">School Code</th>
-                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Email Id</th>
-                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Phone No</th>
-                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Board</th>
-                                           	    <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Puni Code</th> 	
-                                           	    <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Center</th> 
-                                           	    <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Date</th>
-                                           	    <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Jubilee Year</th>  
-                                           	    <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Establish Year</th>
-                                           	    <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Medium</th>
+                                               	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Phone No</th>
+                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Medium</th>
                                            	    <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Action</th>
                                             </tr>
                                             </thead>
@@ -347,19 +335,7 @@
 										<td><%=((SchoolPOJO)Pojo).getName()%></td>
 										<td><%=sectionList%></td>
 										<td><%=((SchoolPOJO)Pojo).getAddress()%></td>
-										<td><%=((SchoolPOJO)Pojo).getSlogan()%></td>
-										<td><%=((SchoolPOJO)Pojo).getIndexno()%></td>
-										<td><%=((SchoolPOJO)Pojo).getLicenceno()%></td>
-										<td><%=((SchoolPOJO)Pojo).getUdise()%></td>
-										<td><%=((SchoolPOJO)Pojo).getShoolcode()%></td>
-										<td><%=((SchoolPOJO)Pojo).getEmailid()%></td>
 										<td><%=((SchoolPOJO)Pojo).getPhoneno()%></td>
-										<td><%=((SchoolPOJO)Pojo).getBoard()%></td>
-										<td><%=((SchoolPOJO)Pojo).getPunitcode()%></td>
-										<td><%=((SchoolPOJO)Pojo).getCenter()%></td>
-										<td><%=((SchoolPOJO)Pojo).getDate()%></td>
-										<td><%=((SchoolPOJO)Pojo).getJubileeYear()%></td>
-										<td><%=((SchoolPOJO)Pojo).getEstablishYear()%></td>
 										<td><%=((SchoolPOJO)Pojo).getMedium()%></td>
                   								<td>
                                         			<a class="edit" data-toggle="modal" data-placement="top" title="Update" href="#update" onclick="searchSchool(<%=id1%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
