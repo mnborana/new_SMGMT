@@ -21,12 +21,12 @@
     <url-pattern>/LoginAction</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>AddClass</servlet-name>
-    <servlet-class>com.servletStore.settings.classRoom.controller.AddClass</servlet-class>
+    <servlet-name>AddClassRoom</servlet-name>
+    <servlet-class>com.servletStore.settings.classRoom.controller.AddClassRoom</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AddClass</servlet-name>
-    <url-pattern>/AddClass</url-pattern>
+    <servlet-name>AddClassRoom</servlet-name>
+    <url-pattern>/AddClassRoom</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Student</servlet-name>

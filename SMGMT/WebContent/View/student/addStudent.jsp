@@ -897,6 +897,8 @@ function getAge() {
     var bday = newDate[2];
     alert(byr+" "+bmo+" "+bday);
     var byr;
+    bday-=1;
+    bmo-=1;
     var age;
     var now = new Date();
     tday=now.getDate();
