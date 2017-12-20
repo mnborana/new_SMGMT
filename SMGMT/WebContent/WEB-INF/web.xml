@@ -104,7 +104,7 @@
     <servlet-name>StdSectionAssignment</servlet-name>
     <url-pattern>/StdSectionAssignment</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>Library</servlet-name>
     <servlet-class>com.servletStore.library.controller.Library</servlet-class>
   </servlet>
