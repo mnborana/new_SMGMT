@@ -8,9 +8,10 @@ import com.servletStore.settings.section.model.SectionPojo;
 public interface StandardDAO {
 	
 	public int addStandard(StandardPOJO standardPojo);
-	public List<StandardPOJO> getStandardDetails();
 	public List<StandardPOJO> getClassDetails();
 	List<SchoolPOJO> getSchoolDetails(); 
 	public int addClass(StandardPOJO standardPojo, String schoolID, int sectionId);
+	List<StandardPOJO> getStandardForClass(String schoolId);
+	List<StandardPOJO> getStandardDetails();
 	
 }

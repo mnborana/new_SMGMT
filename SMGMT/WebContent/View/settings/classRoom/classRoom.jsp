@@ -159,8 +159,8 @@ z-index: 999999">
                                            <div class="col-lg-4">
                                                <select class="form-control chzn-select" name="shift" id="shift" title="Select Shift"  required>
 			                                        <option value="" >Select Shift</option>
-			                                        <option value="Morning" >Morning</option>
-			                                        <option value="Afternoon" >Afternoon</option>
+			                                        <option value="MORNING" >MORNING</option>
+			                                        <option value="AFTERNOON" >AFTERNOON</option>
 			                                    </select>
                                            </div>
                                        </div>
@@ -178,28 +178,7 @@ z-index: 999999">
                                        
                                        
                                        <div class=" form-group row" id="stdCheckboxes">
-                                       <%-- <%
-	                                    	StandardDAO sdao1 = new StandardImpl();
-	                                    	List<StandardPOJO> l1 = sdao1.getStandardDetails();
-	                                   
-											int count1=1;
-	                                    	Iterator itr1 = l1.iterator();
-	                                    	while(itr1.hasNext()){
-	                                    		StandardPOJO stdPojo1 = (StandardPOJO)itr1.next();
-	                                    		int id = stdPojo1.getId();
-	                                    %>
-	                                    	<div class="col-lg-2 input_field_sections">
-                                           		<div class="checkbox">
-		                                            <label class="text-mint ">
-		                                                <input type="checkbox" value="<%=id %>" name="stds" id="basic_checkbox_<%=count1 %>">
-		                                                <span class="cr"><i class="cr-icon fa fa-check"></i></span> <%=stdPojo1.getStdName() %>
-		                                            </label>
-	                                    		</div>
-                                        	</div>
-	                                     <%	
-	                                     	count1++;
-	                                    	}
-	                                     %>   --%>
+                                       
                                        
                                       </div>
                                       <br>
@@ -236,8 +215,8 @@ z-index: 999999">
                                         <thead>
                                         <tr role="row">
                                             <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No.</th>
-                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Class Room Name</th>
-                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Section Name</th>
+                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Class Room</th>
+                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Section</th>
                                             <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Shift</th>
                                             <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>
                                         </tr>
@@ -245,18 +224,24 @@ z-index: 999999">
                                         <tbody>
                                         
                                         <%
-                                         AddClassRoomDAO classImpl = new AddClassRoomImpl();
-                                     	List l = classImpl.getClassRoomDetails("1");
-                                    
- 										int count=1;
-                                     	Iterator itr = l.iterator();
-                                     	while(itr.hasNext()){
-                                     		AddClassRoomPOJO classPojo = (AddClassRoomPOJO)itr.next();
-                                     		int id = classPojo.getClassRoomId();
-                                  %>
+                                         	AddClassRoomDAO classImpl = new AddClassRoomImpl();
+	                                     	List l = classImpl.getClassRoomDetails("1");
+	                                    
+	 										int count=1;
+	                                     	Iterator itr = l.iterator();
+	                                     	while(itr.hasNext()){
+	                                     		AddClassRoomPOJO classPojo = (AddClassRoomPOJO)itr.next();
+	                                     		int id = classPojo.getClassRoomId();
+	                                  	%>
                                         	<tr role="row" class="even">
                                         		<td><%=count %></td>
-                                        		<td><%=classPojo.getStdName() +" (" +classPojo.getDivision() +")"%></td>
+                                        		
+                                        		<% if(classPojo.getDivision().equals("")){ %>
+                                        			<td><%=classPojo.getStdName()%></td>
+                                        		<%}else{ %>
+                                        			<td><%=classPojo.getStdName() +" (" +classPojo.getDivision() +")"%></td>
+                                        		<%} %>
+                                        		
                                         		<td><%=classPojo.getSectionName() %></td>
                                         		<td><%=classPojo.getShift() %></td>
                                         		<td>

@@ -33,12 +33,7 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
-                            <li>
-                                <a href="/SMGMT/View/settings/sections/section.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Add Section
-                                </a>
-                            </li>
+                            
                             <li>
                                 <a href="/SMGMT/View/settings/school/addSchool.jsp">
                                     <i class="fa fa-angle-right"></i>
@@ -53,23 +48,10 @@
                                 </a>
                             </li>
                             
-                            
                             <li>
-                                <a href="/SMGMT/View/settings/standard/addStandard.jsp">
+                                <a href="/SMGMT/View/settings/classRoom/classRoom.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Add Standard
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Add Division
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Add Class Room
+                                    &nbsp; Add Class Rooms
                                 </a>
                             </li>
                             <li>
@@ -83,6 +65,36 @@
                                 <a href="/SMGMT/View/settings/caste/addCaste.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Add Caste
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="dropdown_menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-cog fa-fw"></i>
+                            <span class="link-title menu_hide">&nbsp; Organization Settings</span>
+                            <span class="fa arrow menu_hide"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/SMGMT/View/settings/sections/section.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Section
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/settings/standard/addStandard.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Standard
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/settings/standard/stdSectionAssignment.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Generate Classes
                                 </a>
                             </li>
                         </ul>

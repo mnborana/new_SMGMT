@@ -30,6 +30,7 @@
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jasny-bootstrap/css/jasny-bootstrap.min.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/multiselect/css/multi-select.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_bootstrap-switch,_css,_bootstrap-switch.min.css+vendors,_switchery,_css,_switchery.min.css+vendors,_radio_css,_css,_radiobox.min.css+vendo"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_themify,_css,_themify-icons.css+vendors,_ionicons,_css,_ionicons.min.css+css,_pages,_icon.css.pagespeed.cc.V3vSn3K0aE.css"/>
     <!--End of plugin styles-->
     <!--Page level styles-->
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
@@ -145,38 +146,17 @@ z-index: 999999">
                                                <label for="required2" class="col-form-label">Select Section <span style="color: red;">*</span></label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <input class="form-control" placeholder="Select Section" list="browsers" name="sectionName" id="sectionName" onkeyup="abc()" autocomplete="off" required />
+                                               <input class="form-control" placeholder="Select Section" list="browsers" onkeyup="this.value=this.value.toUpperCase()" name="sectionName" id="sectionName"autocomplete="off" required />
                                                 <datalist id="browsers">
 												</datalist>
                                            </div>
                                        </div>
                                        
                                        
-                                       <div class=" form-group row">
-                                       <%
-	                                    	StandardDAO sdao1 = new StandardImpl();
-	                                    	List<StandardPOJO> l1 = sdao1.getStandardDetails();
-	                                   
-											int count1=1;
-	                                    	Iterator itr1 = l1.iterator();
-	                                    	while(itr1.hasNext()){
-	                                    		StandardPOJO stdPojo1 = (StandardPOJO)itr1.next();
-	                                    		int id = stdPojo1.getId();
-	                                    %>
-	                                    	<div class="col-lg-2 input_field_sections">
-                                           		<div class="checkbox">
-		                                            <label class="text-mint ">
-		                                                <input type="checkbox" value="<%=id %>" name="stds" id="basic_checkbox_<%=count1 %>">
-		                                                <span class="cr"><i class="cr-icon fa fa-check"></i></span> <%=stdPojo1.getStdName() %>
-		                                            </label>
-	                                    		</div>
-                                        	</div>
-	                                     <%	
-	                                     	count1++;
-	                                    	}
-	                                     %>  
-                                       
+                                       <div class=" form-group row" id="stdCheckboxes">
+                                      
                                       </div>
+                                      
                                       <br>
                                        <div class="form-actions form-group row">
                                            <div class="col-lg-4 push-lg-4">
@@ -287,7 +267,7 @@ function getSections() {
 			var text="";
 			for (var i=0; i<demoStr.length; i++) {
 				
-				text += "<option id=" +demoStr[i]+" value="+demoStr[++i]+"> </option>";
+				text += "<option id=" +demoStr[i]+" value=\""+demoStr[++i]+"\"> </option>";
 			}
 			document.getElementById("browsers").innerHTML = text;			
 		}
@@ -296,11 +276,49 @@ function getSections() {
 	xhttp.open("POST", "/SMGMT/AddStandard?schoolId="+sid, true);
 	xhttp.send();
 	
+	getStandards();
 }
 
 function setSelected() {
 	var selectedSection = document.getElementById("sectionName").value;
 	//alert(selectedSection);
+}
+
+
+function getStandards() {
+
+	var schoolId = document.getElementById("schoolId").value;
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var demoStr = this.responseText.split(",");
+			var count=1;
+			var s="";
+			
+		
+			for(var j=0; j<demoStr.length-1; j++){
+				
+				s=s+"<div class='col-lg-2 input_field_sections'> "+
+           		"<div class='checkbox'>"+
+                "<label class='text-mint'>"+
+                    "<input type='checkbox' value='"+demoStr[j]+"' name='stds' id='basic_checkbox_"+(count)+"' >"+
+                    "<span class='cr'><i class='cr-icon fa fa-check'></i></span> "+demoStr[++j]+
+                "</label>"+
+    		"</div>"+
+    	"</div>";
+				count++;
+			}
+			
+			document.getElementById("stdCheckboxes").innerHTML=s;
+			
+			
+		}
+	};
+	
+	xhttp.open("POST", "/SMGMT/StdSectionAssignment?schoolId="+schoolId, true);
+	xhttp.send();
+	
 }
 
 </script>

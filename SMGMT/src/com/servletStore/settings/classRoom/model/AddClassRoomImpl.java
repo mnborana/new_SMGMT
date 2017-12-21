@@ -1,16 +1,11 @@
 package com.servletStore.settings.classRoom.model;
 
-import java.lang.Thread.State;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.net.ssl.SSLEngineResult.Status;
-
-import org.omg.PortableInterceptor.INACTIVE;
 
 import com.dbconnect.DBConnection;
 
@@ -27,9 +22,9 @@ public class AddClassRoomImpl implements AddClassRoomDAO
 
 	
 	@Override
-	public List getStandards(String schoolId, String setionId) {
+	public List<Object> getStandards(String schoolId, String setionId) {
 		
-		List list = new ArrayList<>();
+		List<Object> list = new ArrayList<>();
 		
 		String query = "SELECT std_master.id, std_master.name FROM std_master WHERE std_master.id IN (SELECT fk_class_master.std_id FROM fk_class_master WHERE fk_class_master.fk_school_sec_id=( SELECT fk_school_section_details.id FROM fk_school_section_details WHERE fk_school_section_details.school_id="+schoolId+" AND fk_school_section_details.section_id="+setionId+"))";
 		try {
@@ -67,9 +62,7 @@ public class AddClassRoomImpl implements AddClassRoomDAO
 	@Override
 	public List<AddClassRoomPOJO> getClassRoomDetails(String schoolId) {
 		
-		PreparedStatement ps1;
-		ResultSet rs1 = null;
-		List list = new ArrayList<>();
+		List<AddClassRoomPOJO> list = new ArrayList<>();
 		
 		String getClassIdQuery = "SELECT classroom_master.id, sections_master.name as section_name,std_master.name as std_name,classroom_master.division,classroom_master.shift FROM sections_master,std_master,classroom_master,fk_school_section_details,fk_class_master WHERE fk_school_section_details.school_id=? AND sections_master.id=fk_school_section_details.section_id AND fk_class_master.fk_school_sec_id=fk_school_section_details.id AND std_master.id=fk_class_master.std_id AND classroom_master.fk_class_master_id=fk_class_master.id";
 		try {
@@ -89,11 +82,9 @@ public class AddClassRoomImpl implements AddClassRoomDAO
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println(list);
 		return list;
 	}
 	

@@ -29,7 +29,7 @@ public class AddClassRoom extends HttpServlet {
 		
 		if(request.getParameter("classRoomSubmit")!=null)
 		{
-			String div = request.getParameter("divisionName");
+			String div = request.getParameter("divisionName").trim();
 			String stdsId[] = request.getParameterValues("stds");
 			String shift = request.getParameter("shift");
 			int status=0;
