@@ -41,6 +41,33 @@ public class StandardImpl implements StandardDAO{
 	}
 	
 	@Override
+	public List<StandardPOJO> getStandardForClass( String schoolId) 
+	{
+		List<StandardPOJO> list=new ArrayList<StandardPOJO>();
+		String query="SELECT std_master.id, std_master.name FROM std_master WHERE std_master.id NOT IN (SELECT fk_class_master.std_id FROM fk_class_master WHERE fk_class_master.fk_school_sec_id IN (SELECT fk_school_section_details.id FROM fk_school_section_details WHERE fk_school_section_details.school_id="+schoolId+")) ORDER BY id ASC";
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(query);
+			ResultSet rs=ps.executeQuery();
+			
+			while(rs.next())
+			{
+				//System.out.println("id "+rs.getInt("id") + " "+ rs.getString("name"));
+				StandardPOJO stdpojo=new StandardPOJO();
+				stdpojo.setId(rs.getInt("id"));
+				stdpojo.setStdName(rs.getString("name"));
+				list.add(stdpojo);			
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+	}
+	
+	@Override
 	public List<StandardPOJO> getStandardDetails() 
 	{
 		List<StandardPOJO> list=new ArrayList<StandardPOJO>();

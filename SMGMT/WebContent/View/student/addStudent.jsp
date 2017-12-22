@@ -887,7 +887,6 @@ function loadFunction(){
 		var inputDate = document.getElementById("dob").value;
 		var newDate=inputDate.split("-");
 		
-
 	    var byr = newDate[2];
 	    var bmo = newDate[1];
 	    bmo=bmo-1;

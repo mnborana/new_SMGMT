@@ -18,7 +18,7 @@ public class AddDocumentImpl implements AddDocumentDAO{
 	
 	@Override
 	public void addDocument(AddDocumentPojo pojo) {
-		String insertQuery="INSERT INTO inward_document_master(document_name) VALUES(?)";
+		String insertQuery="INSERT INTO inward_outward_document_master(document_name) VALUES(?)";
 		try {
 			
 			pstmt=connection.prepareStatement(insertQuery);
@@ -35,7 +35,7 @@ public class AddDocumentImpl implements AddDocumentDAO{
 
 	@Override
 	public List<AddDocumentPojo> selectDocuments() {
-		String selectQuery="SELECT inward_document_master.id,inward_document_master.document_name FROM inward_document_master";
+		String selectQuery="SELECT inward_outward_document_master.id,inward_outward_document_master.document_name FROM inward_outward_document_master";
 		List<AddDocumentPojo> list=new ArrayList<>();
 		try {
 			pstmt=connection.prepareStatement(selectQuery);
@@ -59,7 +59,7 @@ public class AddDocumentImpl implements AddDocumentDAO{
 	@Override
 	public List<AddDocumentPojo> setDocumentName(int id) {
 		List<AddDocumentPojo> list=new ArrayList<>();
-		String setDocument="SELECT inward_document_master.id,inward_document_master.document_name FROM inward_document_master WHERE inward_document_master.id=?";
+		String setDocument="SELECT inward_outward_document_master.id,inward_outward_document_master.document_name FROM inward_outward_document_master WHERE inward_outward_document_master.id=?";
 		try {
 			
 			pstmt=connection.prepareStatement(setDocument);
@@ -82,7 +82,7 @@ public class AddDocumentImpl implements AddDocumentDAO{
 
 	@Override
 	public void updateDocument(AddDocumentPojo pojo,int id) {
-		String updateQuery="UPDATE inward_document_master SET inward_document_master.document_name=? WHERE inward_document_master.id=?";
+		String updateQuery="UPDATE inward_outward_document_master SET inward_outward_document_master.document_name=? WHERE inward_outward_document_master.id=?";
 		try {
 			pstmt=connection.prepareStatement(updateQuery);
 			pstmt.setString(1, pojo.getRegisterName());
@@ -99,7 +99,7 @@ public class AddDocumentImpl implements AddDocumentDAO{
 
 	@Override
 	public void deleteDocument(AddDocumentPojo pojo, int id) {
-		String deleteQuery="DELETE FROM inward_document_master WHERE inward_document_master.id=?";
+		String deleteQuery="DELETE FROM inward_outward_document_master WHERE inward_outward_document_master.id=?";
 		try {
 			pstmt=connection.prepareStatement(deleteQuery);
 			pstmt.setInt(1,id);

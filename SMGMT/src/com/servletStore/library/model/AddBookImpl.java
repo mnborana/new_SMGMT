@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import utility.SysDate;
+
 import com.dbconnect.DBConnection;
 
 public class AddBookImpl implements AddBookDAO{
@@ -42,7 +44,6 @@ public class AddBookImpl implements AddBookDAO{
 	@Override
 	public List<AddBookPOJO> getBookDetails() throws SQLException {
 		List<AddBookPOJO> list=new ArrayList<AddBookPOJO>();
-		//String query="select * from campus;";
 		String query="select `cat_id`,`date`,`book_no`,`book_name`,`author_name`,`publisher_name`,`edition`,`price`,`cupboard_no`,`quantity`,`language` from book_info_master";
 	
 		PreparedStatement ps=(PreparedStatement) connection.prepareStatement(query);
@@ -261,18 +262,18 @@ public class AddBookImpl implements AddBookDAO{
 		ps.setString(5, pojo.getIssueDate());
 		ps.setString(6, pojo.getDueDate());
 		
-		System.out.println(pojo.getBookNo()+"@@@@@@@@@@@@@@@@@@@@*******");
-		System.out.println("*************");
+	///	System.out.println(pojo.getBookNo()+"@@@@@@@@@@@@@@@@@@@@*******");
+		//System.out.println("*************");
 		int st=ps.executeUpdate();
-		System.out.println("@@@@@@@@@@@"+st);
+	//	System.out.println("@@@@@@@@@@@"+st);
 		return st;
 	}
 	@Override
 	public List<IssueBookPOJO> getIssueBookDetails() {
 		List<IssueBookPOJO> list=new ArrayList<IssueBookPOJO>();
-		
-		String query="select * from issue_book";
-	
+		 SysDate sd=new SysDate();
+		//String query="select * from issue_book where issue_book.issue_date="+sd.todayDate().split("-")[2]+"-"+sd.todayDate().split("-")[1]+"-"+sd.todayDate().split("-")[0]+"'";
+		String query="select * from issue_book where issue_date='"+sd.todayDate().split("-")[0]+"-"+sd.todayDate().split("-")[1]+"-"+sd.todayDate().split("-")[2]+"'ORDER BY issue_book.id DESC";
 		PreparedStatement ps;
 		try {
 			ps = (PreparedStatement) connection.prepareStatement(query);
@@ -282,7 +283,6 @@ public class AddBookImpl implements AddBookDAO{
 				IssueBookPOJO pojo=new IssueBookPOJO();
 				
 				//bcp.setCatName(rs.getString("cat_type"));
-				
 				pojo.setBookNo(rs.getInt("book_no"));
 				pojo.setBookName(rs.getString("book_name"));
 				pojo.setUserType(rs.getString("user_type"));
@@ -297,9 +297,40 @@ public class AddBookImpl implements AddBookDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+		return list;
 
+	}
+	
+	public List<IssueBookPOJO> getIssueBookList(String query) {
+		List<IssueBookPOJO> list=new ArrayList<IssueBookPOJO>();
+		 SysDate sd=new SysDate();
+		 
+		//String query="select * from issue_book where issue_book.issue_date="+sd.todayDate().split("-")[2]+"-"+sd.todayDate().split("-")[1]+"-"+sd.todayDate().split("-")[0]+"'";
+		//String query="SELECT *FROM issue_book WHERE  issue_date >= '"+issueDate+"' AND  due_date <= '"+dueDate+"'";
+		PreparedStatement ps;
+		//System.out.println("************"+query);
+		try {
+			ps = (PreparedStatement) connection.prepareStatement(query);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				IssueBookPOJO pojo=new IssueBookPOJO();
+				
+				//bcp.setCatName(rs.getString("cat_type"));
+				pojo.setBookNo(rs.getInt("book_no"));
+				pojo.setBookName(rs.getString("book_name"));
+				pojo.setUserType(rs.getString("user_type"));
+				pojo.setUserName(rs.getString("user_name"));
+				pojo.setIssueDate(rs.getString("issue_date"));
+				pojo.setDueDate(rs.getString("due_date"));
+				
+				list.add(pojo);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}System.out.println("*******************"+list);
 		return list;
 
 	}
