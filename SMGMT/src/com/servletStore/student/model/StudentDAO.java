@@ -5,6 +5,9 @@ import java.util.List;
 public interface StudentDAO {
 	public void insertStudent(StudentPojo theStudent);
 	
-	public List<StudentPojo> getSectionDetails();
+	public List<StudentPojo> getSectionList(StudentPojo theStudent);
+
+	public List getStandardList(StudentPojo theStudent);
+	
 
 }
