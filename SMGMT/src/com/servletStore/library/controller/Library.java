@@ -74,10 +74,7 @@ public class Library extends HttpServlet {
 			//int catId = adb.getCat_id();
 			int catId=Integer.parseInt(request.getParameter("category"));
 			
-			
 			System.out.println("**************************"+catId);
-			
-			
 			//out.print(catId);
 			String date=request.getParameter("date");
 			String bookName=request.getParameter("bookName");
@@ -101,7 +98,6 @@ public class Library extends HttpServlet {
 			
 			//adb.setBookNo(bookNo);
 		   adb.setCat_id(catId);
-			
 			adb.setDate(date);
 			adb.setBookName(bookName);
 			adb.setPublisherName(pubName);
@@ -115,8 +111,16 @@ public class Library extends HttpServlet {
 			AddBookImpl impl=new AddBookImpl();
 			try {
 				int st=impl.insertBook(adb);
-				if(st>0)
+				if(st==1)
 				{
+					int id=impl.getMaxBookInfoMaster();
+				//	System.out.println("----------"+id);
+					for(int i=0;i<adb.getQuantity();i++)
+					{
+						int status=impl.insertBookDetails(id);
+						System.out.println("Books added in BookDetail");
+					}
+					
 					System.out.println("Books added");
 				}
 			} catch (SQLException e) {
@@ -235,16 +239,17 @@ public class Library extends HttpServlet {
 				//Issue Books//////
 				if(request.getParameter("issuebook")!=null)
 				{
-					//System.out.println("$$$$$$$$$$$$$$");
+					System.out.println("1");
 					IssueBookPOJO pojo=new IssueBookPOJO();
 					
 					String searchBook=request.getParameter("searchBook");
 					String searchStud=request.getParameter("searchStud");
-					String user=request.getParameter("userType");
+				//	String user=request.getParameter("userType");
 					String issueDate=request.getParameter("issueDate");
 					String dueDate=request.getParameter("dueDate");
+					String returnDate=request.getParameter("returnDate");
 					
-					System.out.println(searchBook+" "+searchStud+" "+user+" "+issueDate+" "+dueDate);
+					System.out.println(searchBook+" "+searchStud+" "+issueDate+" "+dueDate+" "+returnDate);
 					String str[] = searchBook.split("-");
 					System.out.println("bno "+str[0]);
 					System.out.println("bname"+str[1]);
@@ -252,14 +257,16 @@ public class Library extends HttpServlet {
 					System.out.println("id"+str1[0]);
 					System.out.println("stdname"+str1[1]);
 					
-					pojo.setBookNo(Integer.parseInt(str[0].trim()));
-					pojo.setBookName(str[1].trim());
+					pojo.setBookId(Integer.parseInt(str[0].trim()));
+					/*pojo.setBookName(str[1].trim());
 					//pojo.setUserName(searchStud);
 					pojo.setUserName(str1[1].trim());
 					pojo.setUserType(user);
+					*/
 					pojo.setIssueDate(issueDate);
 					pojo.setDueDate(dueDate);
-					System.out.println("@@@@@@@@@@@");
+					pojo.setReturnDate(returnDate);
+					System.out.println("2");
 					AddBookImpl impl=new AddBookImpl();
 					try {
 						int st=impl.insertIssueBook(pojo);
@@ -292,16 +299,30 @@ public class Library extends HttpServlet {
 					
 					while(itr.hasNext()){
 						pojo=(IssueBookPOJO) itr.next();
-						int bNo=pojo.getBookNo();
-						String bName=pojo.getBookName();
-						String userType=pojo.getUserType();
-						String userName=pojo.getUserName();
+						int bId=pojo.getBookId();
+						//String bName=pojo.getBookName();
+						//String userType=pojo.getUserType();
+						//String userName=pojo.getUserName();
 						String issueDate=pojo.getIssueDate();
 						String dueDate=pojo.getDueDate();
-						out.print(userType+","+ userName+","+bNo+","+bName+","+issueDate+","+dueDate+",");
-						System.out.println(userType+","+ userName+","+bNo+","+bName+","+issueDate+","+dueDate+",");
+						String returnDate=pojo.getReturnDate();
+						//out.print(userType+","+ userName+","+bNo+","+bName+","+issueDate+","+dueDate+",");
+						out.print(bId+" "+issueDate+" "+dueDate+" "+returnDate+",");
+						//System.out.println(userType+","+ userName+","+bNo+","+bName+","+issueDate+","+dueDate+",");
 					}
 					
+				}
+				
+				if(request.getParameter("bookdetail")!=null)
+				{
+					System.out.println("In search function");
+					String bookDetail = request.getParameter("bookdetail");
+					List list=dao.searchBookInfo(bookDetail);
+					Iterator itr=list.iterator();
+					
+					while(itr.hasNext()){
+							out.print(itr.next()+ " , " +itr.next()+ " , " +itr.next() +  " , " +itr.next()+ " , " +itr.next()+ " , " +itr.next()+ " , " +itr.next()+ " , " +itr.next()+",");			
+						}
 				}
 					
 				}

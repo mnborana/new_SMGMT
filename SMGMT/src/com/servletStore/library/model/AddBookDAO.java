@@ -23,4 +23,10 @@ public int insertIssueBook(IssueBookPOJO pojo) throws SQLException;
 public List<IssueBookPOJO> getIssueBookDetails() throws SQLException;
 
 public List<IssueBookPOJO> getIssueBookList(String query);
+
+public List searchBookInfo(String bookDetail);
+
+public int getMaxBookInfoMaster() throws SQLException;
+
+int insertBookDetails(int bNo) throws SQLException;
 }
