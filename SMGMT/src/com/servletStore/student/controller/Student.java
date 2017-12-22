@@ -2,6 +2,8 @@ package com.servletStore.student.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +22,31 @@ public class Student extends HttpServlet {
     private StudentDAO sd;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 		
+		String sectionList=request.getParameter("sectionList");
+		String standardList=request.getParameter("standardList");
+		if (sectionList != null) {
+			StudentPojo theStudent=new StudentPojo();
+			theStudent.setSchoolId(sectionList);
+			sd=new StudentImpl();
+			List theSectionList=sd.getSectionList(theStudent);
+			Iterator irt=theSectionList.iterator();
+			while (irt.hasNext()) {
+				out.print(irt.next()+"~");
+			}
+		}
+		if (standardList != null) {
+			StudentPojo theStudent=new StudentPojo();
+			theStudent.setSchoolId(standardList);
+			sd=new StudentImpl();
+			List theStandardList=sd.getStandardList(theStudent);
+			Iterator irt=theStandardList.iterator();
+			while (irt.hasNext()) {
+				out.print(irt.next()+"~");
+			}
+		}
 	}
 
 	
