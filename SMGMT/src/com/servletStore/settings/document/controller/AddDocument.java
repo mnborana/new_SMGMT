@@ -33,7 +33,7 @@ public class AddDocument extends HttpServlet {
 			System.out.println("doc:"+registerName);
 			pojo.setRegisterName(registerName);
 			dao.addDocument(pojo);
-			response.sendRedirect("View/settings/documentName/addDocument.jsp");
+			response.sendRedirect("View/settings/addDocumentInfo/addDocument.jsp");
 		}
 		
 		
@@ -60,7 +60,7 @@ public class AddDocument extends HttpServlet {
 			System.out.println("doc:"+registerName);
 			pojo.setRegisterName(registerName);
 			dao.updateDocument(pojo,id);
-			response.sendRedirect("View/settings/documentName/addDocument.jsp");
+			response.sendRedirect("View/settings/addDocumentInfo/addDocument.jsp");
 		}
 		
 		if(request.getParameter("deleteId")!=null)
@@ -69,7 +69,7 @@ public class AddDocument extends HttpServlet {
 			int id=Integer.parseInt(deleteId);
 			 dao.deleteDocument(pojo, id);
 			 System.out.println("Deleted Successfully");
-			 response.sendRedirect("View/settings/documentName/addDocument.jsp");
+			 response.sendRedirect("View/settings/addDocumentInfo/addDocument.jsp");
 			
 		}
 		
