@@ -1,8 +1,18 @@
 package com.servletStore.student.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.dbconnect.DBConnection;
+
 public class StudentImpl implements StudentDAO {
+	DBConnection con=new DBConnection();
+	Connection connection=con.getConnection();
+	PreparedStatement pstmt=null;
 
 	@Override
 	public void insertStudent(StudentPojo theStudent) {
@@ -68,9 +78,45 @@ public class StudentImpl implements StudentDAO {
 	}
 
 	@Override
-	public List<StudentPojo> getSectionDetails() {
+	public List<StudentPojo> getSectionList(StudentPojo theStudent) {
 		
-		return null;
+		ResultSet rs = null;
+		String maxid="SELECT fk_school_section_details.id,sections_master.name FROM `fk_school_section_details`,sections_master WHERE fk_school_section_details.school_id="+theStudent.getSchoolId()+" AND sections_master.id=fk_school_section_details.section_id";
+		List sectionList=new ArrayList<>();
+		try {
+			pstmt=connection.prepareStatement(maxid);
+			rs=pstmt.executeQuery();
+			while (rs.next()) {
+				sectionList.add(rs.getString("id"));
+				sectionList.add(rs.getString("name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sectionList;
+	}
+
+	@Override
+	public List getStandardList(StudentPojo theStudent) {
+		ResultSet rs = null;
+		String query="SELECT fk_class_master.id,std_master.name,classroom_master.division,classroom_master.shift FROM std_master,classroom_master,fk_class_master WHERE \n" + 
+				"fk_class_master.fk_school_sec_id="+theStudent.getSchoolId()+" AND \n" + 
+				"std_master.id=fk_class_master.std_id AND\n" + 
+				"classroom_master.fk_class_master_id=fk_class_master.id";
+		List standardList=new ArrayList<>();
+		try {
+			pstmt=connection.prepareStatement(query);
+			rs=pstmt.executeQuery();
+			while (rs.next()) {
+				standardList.add(rs.getString("id"));
+				standardList.add(rs.getString("name"));
+				standardList.add(rs.getString("division"));
+				standardList.add(rs.getString("shift"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return standardList;
 	}
 
 }

@@ -34,7 +34,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Student</servlet-name>
-    <url-pattern>/Student.do</url-pattern>
+    <url-pattern>/Student</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Section</servlet-name>

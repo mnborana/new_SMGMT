@@ -13,30 +13,22 @@
     <title>Form Elements | Admire</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
-    <!-- global styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/components.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/custom.css"/>
-    <!-- end of page level styles -->
-    <!--Plugin styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/inputlimiter/css/jquery.inputlimiter.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/chosen/css/chosen.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jquery-tagsinput/css/jquery.tagsinput.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/daterangepicker/css/daterangepicker.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/datepicker/css/bootstrap-datepicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-switch/css/bootstrap-switch.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jasny-bootstrap/css/jasny-bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/multiselect/css/multi-select.css"/>
-    <!--End of plugin styles-->
-    <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
-    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
-    <!-- end of page level styles -->
+    
+    <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
+    <style type="text/css">
+    #academicYearId{
+    	opacity: 0;
+    	margin-bottom:-35px; 
+    	display: block !important;"
+    }
+    </style>
 </head>
 
-<body>
+<body onload="loadFunction()">
+<%
+	session.setAttribute("schoolId", "2");
+	String schoolId=session.getAttribute("schoolId").toString();
+%>
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -102,96 +94,97 @@ z-index: 999999">
              <!-- start your code from here  -->  
               
               <!-- Official Details -->
-              
+              <form action="#" class="form-horizontal  login_validator" id="form_block_validator">
                <div class="outer">
                 <div class="inner bg-container forms">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-header bg-white">
                                  <h3>   Official Details</h3>
                                 </div>
                                 <div class="card-block">
                                     <div class="row">
-                                        
                                         <div class="card-block seclect_form">
-                                    
-                                        <div class="row">
-                                           
-                                            <div class="col-lg-4 input_field_sections">
-                                                <h5>Select Academic Year</h5>
-                                                <select class="form-control chzn-select" tabindex="2" name="academicYearId" >
-                                                    <option disabled selected>Select Academic Year</option>
-                                                    <option>2016-2017</option>
-			                                        <option>2017-2018</option>                                                    
-                                                </select>
-                                                <!--</div>-->
-                                            </div>
-                                        
-                                        
-                                        <div class="col-lg-4 input_field_sections">
-                                                <h5>Select Section</h5>
-                                                <select class="form-control chzn-select" tabindex="2" name="sectionId" title="Select Section">
-                                                    <option disabled selected>Select Section</option>
-                                                    
-                                                </select>
-                                                <!--</div>-->
-                                            </div>
-                                            
-                                        <div class="col-lg-4 input_field_sections">
-                                                <h5>Select Standard</h5>
-                                                <select class="form-control chzn-select" tabindex="2" name="stdId" title="Select Standard">
-                                                    <option disabled selected>Select Standard</option>
-                                                                                                      
-                                                </select>
-                                                <!--</div>-->
-                                            </div>
-                                    </div>
+	                                        <div class="row">
+	                                            <div class="form-group col-lg-4 input_field_sections">
+	                                                <label for="academicYearId" class="col-form-label">Select Academic Year *</label>
+	                                                <select class="validate[required] form-control chzn-select" tabindex="2" name="academicYearId" id="academicYearId" required>
+	                                                    <option disabled selected>Select Academic Year</option>
+	                                                    <option value="2">2016-2017</option>
+				                                        <option>2017-2018</option>                                                    
+	                                                </select>
+	                                            </div>
+	                                        	<div class="form-group col-lg-4 input_field_sections">
+	                                                <label for="firstName" class="col-form-label">Select Section *</label>
+	                                                <select class="form-control chzn-select" tabindex="" name="sectionId" id="sectionId" onchange="standardList(this.value)" title="Select Section">
+	                                                    <option disabled selected>Select Section</option>
+	                                                </select>
+	                                            </div>
+	                                            
+	                                        	<div class="form-group col-lg-4 input_field_sections">
+	                                                <label for="firstName" class="col-form-label">Select Standard *</label>
+	                                                <select class="form-control chzn-select" tabindex="2" name="stdId"  id="stdId" title="Select Standard">
+	                                                    <option disabled selected>Select Standard</option>
+	                                                             
+	                                                </select>
+	                                            </div>
+	                                    	</div>
                                     <div class="row">
-                                         <div class="col-lg-4 input_field_sections">
-                                                <h5>Select Division</h5>
+                                         <div class="form-group col-lg-4 input_field_sections">
+                                                <label for="firstName" class="col-form-label">Select Division *</label>
                                                 <select class="form-control chzn-select" tabindex="2" name="divId" title="Select Division">
                                                     <option disabled selected>Select Division</option>
                                                		                                                   
                                                 </select>
                                                 <!--</div>-->
                                             </div>
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Book Number</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="booknumber" class="col-form-label">Book Number *</label>
                                             
-                                                <input name="booknumber" type="text" class="form-control" placeholder="Book Number"/>
-                                            
-                                            <!--</div>-->
-                                        </div>
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>General Register Number</h5>
-                                            
-                                                <input name="gen_reg_number" type="text" class="form-control" placeholder="General register Number"/>
+                                                <input type="text" id="booknumber" name="booknumber" class="form-control" placeholder="Book Number" required />
                                             
                                             <!--</div>-->
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                         <div class="col-lg-4 input_field_sections">
-                                            <h5>Admission Date</h5>
-                                               <input name="admission_date" type="text" class="form-control" placeholder="Admission Date"/>
-                                            <!--</div>-->
-                                        </div>
-                                        
-                                        <div class="col-lg-4 input_field_sections">  <br>                                          
-                                            	<h5><label><input class="checkbox-hey" type="checkbox"/><span>  Class Allocated</span></label></h5>
-                                         	
-                                        </div>
-                                        
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Previous School Name</h5>
-                                                <input name="admission_date" type="text" class="form-control" placeholder="Previous School Name"/>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="gen_reg_number" class="col-form-label">General Register Number *</label>
+                                            
+                                                <input type="text" id="gen_reg_number" name="gen_reg_number" class="form-control" placeholder="General Register Number" required/>
+                                            
                                             <!--</div>-->
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-4 input_field_sections">
-                                                <h5>Select with search</h5>
+                                         <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="admission_date" class="col-form-label">Admission Date *</label>
+                                            <div class="input-group input-append date" id="dp1" data-date-format="dd-mm-yyyy">
+                                                <input class="form-control" type="text" placeholder="dd-mm-yyyy">
+                                                <span class="input-group-addon add-on">
+                                                <i class="fa fa-calendar"></i>
+                                            	</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                        	<label class="col-form-label" style="margin-bottom: 7%;"></label>
+                                         		<div class="checkbox">
+		                                            <label>
+		                                                <input type="checkbox" value="">
+		                                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+		                                                Class Allocated
+		                                            </label>
+		                                        </div>
+                                        </div>
+                                        
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="admission_date" class="col-form-label">Previous School Name *</label>
+                                                <input type="text" id="admission_date" name="admission_date" class="form-control" placeholder="Previous School Name" required/>
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                                <label for="firstName" class="col-form-label">Select with search *</label>
                                                 <select class="form-control chzn-select" tabindex="2">
                                                     <option disabled selected>Choose a Country</option>
                                                     <option value="Uruguay">Uruguay</option>
@@ -202,8 +195,8 @@ z-index: 999999">
                                                 </select>
                                                 <!--</div>-->
                                             </div>
-											<div class="col-lg-4 input_field_sections">
-                                                <h5>Select with search</h5>
+											<div class="form-group col-lg-4 input_field_sections">
+                                                <label for="firstName" class="col-form-label">Select with search *</label>
                                                 <select class="form-control chzn-select" tabindex="2">
                                                     <option disabled selected>Choose a Country</option>
                                                     <option value="Uruguay">Uruguay</option>
@@ -214,8 +207,8 @@ z-index: 999999">
                                                 </select>
                                                 <!--</div>-->
                                             </div>
-                                            <div class="col-lg-4 input_field_sections">
-                                                <h5>Select with search</h5>
+                                            <div class="form-group col-lg-4 input_field_sections">
+                                                <label for="firstName" class="col-form-label">Select with search *</label>
                                                 <select class="form-control chzn-select" tabindex="2">
                                                     <option disabled selected>Choose a Country</option>
                                                     <option value="Uruguay">Uruguay</option>
@@ -229,9 +222,14 @@ z-index: 999999">
                                     </div>
                                     
                                     <div class="row">
-                                        <div class="col-lg-4 input_field_sections">  <br>                                          
-                                            	<h5><label><input class="checkbox-hey" type="checkbox"/><span>  Semi-English</span></label></h5>
-                                         	
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                         	<div class="checkbox">
+		                                            <label>
+		                                                <input type="checkbox" value="">
+		                                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+		                                                Semi-English
+		                                            </label>
+		                                        </div>
                                         </div>
                                       </div>
                                 </div>
@@ -259,57 +257,60 @@ z-index: 999999">
                                     <div class="row">
                                         
                                         <div class="card-block seclect_form">
-                                    
                                         <div class="row">
-                                           
-                                            <div class="col-lg-4 input_field_sections">
-                                            <h5>First Name</h5>
-                                                <input name="firstname" type="text" class="form-control" placeholder="First Name"/>
-                                            <!--</div>-->
+                                            <div class="form-group col-lg-4 input_field_sections">
+	                                             <label for="firstName" class="col-form-label">First Name *</label>
+	                                             <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name" required> 
                                         	</div>
-                                        	
-                                        	<div class="col-lg-4 input_field_sections">
-                                            <h5>Middle Name</h5>
-                                                <input name="middlename" type="text" class="form-control" placeholder="Middle Name"/>
-                                            <!--</div>-->
+                                        	<div class="form-group col-lg-4 input_field_sections">
+                                           		<label for="middlename" class="col-form-label">Middle Name *</label>
+                                               	<input type="text" id="middlename" name="middlename" class="form-control" placeholder="Middle Name" required/>
                                         	</div>
-                                        	
-                                        	<div class="col-lg-4 input_field_sections">
-                                            <h5>Last Name</h5>
-                                                <input name="lastname" type="text" class="form-control" placeholder="Last Name"/>
-                                            <!--</div>-->
+                                        	<div class="form-group col-lg-4 input_field_sections">
+                                            	<label for="lastname" class="col-form-label">Last Name *</label>
+                                                <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last Name" required/>
                                         	</div>
-                                    </div>
+                                    	</div>
                                     
                                     <div class="row">
-                                         <div class="col-lg-4 input_field_sections">
-                                            <h5>Date Of Birth</h5>
-                                             <input type="date" class="form-control"name="dob" id="dob" onchange="getAge()" placeholder="dd/mm/yyyy" data-date-format="dd/mm/yyyy" id="dp2">
-                                            
+                                         <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="dob" class="col-form-label">Date Of Birth *</label>
+                                            <div class="input-group input-append date" id="dp3" data-date-format="dd-mm-yyyy">
+                                                <input class="form-control" type="text" name="dob" id="dob" onchange="getAge()"  placeholder="dd-mm-yyyy">
+                                                <span class="input-group-addon add-on">
+                                                <i class="fa fa-calendar"></i>
+                                            	</span>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Age</h5>
-                                             <input type="text" name="age" id="age" class="form-control" placeholder="Age"/>
-                                            
-                                            <!--</div>-->
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="age" class="col-form-label">Age *</label>
+                                            <input type="text" id="age" name="age" class="form-control" placeholder="Age" required/>
                                         </div>
-                                            <div class="col-lg-4 input_field_sections">
-                                            <h5>Birth Place</h5>
-                                           <input name="birthplace" type="text" class="form-control" placeholder="Birth Place"/>
-                                           
-                                            <!--</div>-->
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                           <label for="birthplace" class="col-form-label">Birth Place *</label>
+                                           <input type="text" id="birthplace" name="birthplace" class="form-control" placeholder="Birth Place" required />
                                         </div>
                                     </div>
                                     <div class="row">
-                                         <div class="col-lg-4 input_field_sections">
-                                            <h5>Gender</h5>
-                                                 <h5>  <label>  <input class="radiobox-boom" type="radio" name="x" value="3"/><span> Male</span></label>
-                                                  <label>  <input class="radiobox-wheel" type="radio" name="x"/><span> Female</span></label>     </h5>
-                                            <!--</div>-->
+                                         <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="lastname" class="col-form-label">Gender *</label>
+                                            	<div class="radio">
+		                                            <label>
+		                                                <input type="radio" name="gender" value="Male">
+		                                                <span class="cr"><i class="cr-icon fa fa-circle"></i></span>
+		                                                Male
+		                                            </label>
+		                                            <label>
+		                                                <input type="radio" name="gender" value="Female">
+		                                                <span class="cr"><i class="cr-icon fa fa-circle"></i></span>
+		                                                Female
+		                                            </label>
+		                                        </div>
+		                                        
                                         </div>
                                         
-                                       <div class="col-lg-4 input_field_sections">
-                                                <h5>Blood Group</h5>
+                                       <div class="form-group col-lg-4 input_field_sections">
+                                                <label for="lastname" class="col-form-label">Blood Group *</label>
                                                 <select class="form-control chzn-select" tabindex="2">
                                                     <option disabled selected>Choose a blood group</option>
                                                     <option value="A+">A+</option>
@@ -324,39 +325,35 @@ z-index: 999999">
                                                 <!--</div>-->
                                             </div>
                                         
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Height</h5>
-                                           <input name="height" type="text" class="form-control" placeholder="Height"/>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="height" class="col-form-label">Height *</label>
+                                           <input type="text" id="height" name="height" class="form-control" placeholder="Height" required />
                                
                                             <!--</div>-->
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Weight</h5>
-                                            <input name="weight" type="text" class="form-control" placeholder="Weight"/>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="weight" class="col-form-label">Weight *</label>
+                                            <input type="text" id="weight" name="weight" class="form-control" placeholder="Weight" required />
+                                        </div>
+                                        	
+                                        	<div class="form-group col-lg-4 input_field_sections">
+                                            <label for="adharno" class="col-form-label">Aadhar Card No *</label>
+                                             <input type="text" id="adharno" name="adharno" class="form-control" placeholder="Aadhar Card No" required />
                                             
                                             <!--</div>-->
                                         	</div>
                                         	
-                                        	<div class="col-lg-4 input_field_sections">
-                                            <h5>Aadhar Card No</h5>
-                                             <input name="adharno" type="text" class="form-control" placeholder="Aadhar No"/>
-                                            
-                                            <!--</div>-->
-                                        	</div>
-                                        	
-                                        	<div class="col-lg-4 input_field_sections">
-                                            <h5>Nationality</h5>
-                                             <input name="nationality" type="text" class="form-control" placeholder="Nationality"/>
-                                            
-                                            <!--</div>-->
+                                        	<div class="form-group col-lg-4 input_field_sections">
+                                            <label for="nationality" class="col-form-label">Nationality *</label>
+                                             <input type="text" id="nationality" name="nationality" class="form-control" placeholder="Nationality" required/>
                                         	</div>
                                     </div>
                                     
                                     <div class="row">
-                                        <div class="col-lg-4 input_field_sections">
-                                                <h5>Language</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                                <label for="lastname" class="col-form-label">Language *</label>
                                                 <select class="form-control chzn-select" tabindex="2">
                                                     <option disabled selected>Choose a Language</option>
                                                     <option value="Uruguay">Marathi</option>
@@ -365,8 +362,8 @@ z-index: 999999">
                                                  </select>
                                                 <!--</div>-->
                                             </div>
-											<div class="col-lg-4 input_field_sections">
-                                                <h5>Religion</h5>
+											<div class="form-group col-lg-4 input_field_sections">
+                                                <label for="lastname" class="col-form-label">Religion *</label>
                                                 <select class="form-control chzn-select" tabindex="2">
                                                     <option disabled selected>Choose a Religion</option>
                                                     <option value="Uruguay">Hindu</option>
@@ -376,8 +373,8 @@ z-index: 999999">
                                                 </select>
                                                 <!--</div>-->
                                             </div>
-                                            <div class="col-lg-4 input_field_sections">
-                                                <h5>Select with search</h5>
+                                            <div class="form-group col-lg-4 input_field_sections">
+                                                <label for="lastname" class="col-form-label">Select with search *</label>
                                                 <select class="form-control chzn-select" tabindex="2">
                                                     <option disabled selected>Choose a Country</option>
                                                     <option value="Uruguay">Uruguay</option>
@@ -391,8 +388,8 @@ z-index: 999999">
                                     </div>
                                     
                                     <div class="row">
-                                        <div class="col-lg-4 input_field_sections">
-                                                <h5>Caste</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                                <label for="lastname" class="col-form-label">Caste *</label>
                                                 <select class="form-control chzn-select" tabindex="2">
                                                     <option disabled selected>Choose a Caste</option>
                                                     <option value="Uruguay">Open</option>
@@ -402,22 +399,36 @@ z-index: 999999">
                                                 <!--</div>-->
                                             </div>
 											
-										<div class="col-lg-4 input_field_sections">  <br>                                          
-                                            	<h5><label><input class="checkbox-hey" type="checkbox"/><span>  Minority</span></label></h5>
+										<div class="form-group col-lg-4 input_field_sections">
+											<label class="col-form-label" style="margin-bottom: 7%;"></label>
+                                            	<div class="checkbox">
+		                                            <label>
+		                                                <input type="checkbox" value="">
+		                                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+		                                                Minority
+		                                            </label>
+		                                        </div>
                                         </div>
                                         
-                                        <div class="col-lg-4 input_field_sections">  <br>                                          
-                                            	<h5><label><input class="checkbox-hey" type="checkbox"/><span>  Physical Handicap</span></label></h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            	<label class="col-form-label" style="margin-bottom: 7%;"></label>
+                                            	<div class="checkbox">
+		                                            <label>
+		                                                <input type="checkbox" value="">
+		                                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+		                                                Physical Handicap
+		                                            </label>
+		                                        </div>
                                         </div>
 											
                                     </div>
                                     
                                     
                                     <div class="row">
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Physical Handicap Type</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="handitype" class="col-form-label">Physical Handicap Type *</label>
                                            
-                                                <input name="handitype" type="text" class="form-control" placeholder="Handicap Type"/>
+                                                <input type="text" id="handitype" name="handitype" class="form-control" placeholder="Physical Handicap Type" required/>
                                             
                                             <!--</div>-->
                                         	</div>
@@ -448,49 +459,46 @@ z-index: 999999">
                                     
                                         <div class="row">
                                            
-                                            <div class="col-lg-4 input_field_sections">
-                                            <h5>Name</h5>
-                                           
-                                                <input name="father_name" type="text" class="form-control" placeholder="Name"/>
-                                           
-                                            <!--</div>-->
+                                            <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="father_name" class="col-form-label">Name *</label>
+                                                <input type="text" id="father_name" name="father_name" class="form-control" placeholder="" required/>
                                         </div>
                                         
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Mobile Number</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="father_mob_number" class="col-form-label">Mobile Number *</label>
                                            
-                                                <input name="father_mob_number" type="text" class="form-control" placeholder="Mobile No"/>
+                                                <input type="text" id="father_mob_number" name="father_mob_number" class="form-control" placeholder="Mobile Number" required />
                                             
                                             <!--</div>-->
                                         </div>
                                             
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Aadhar Number</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="father_aadhar_number" class="col-form-label">Aadhar Number *</label>
                                            
-                                                <input name="father_aadhar_number" type="text" class="form-control" placeholder="Aadhar No"/>
+                                                <input type="text" id="father_aadhar_number" name="father_aadhar_number" class="form-control" placeholder="Aadhar Number" required />
                                             
                                             <!--</div>-->
                                         </div>
                                     </div>
                                     <div class="row">
-                                         <div class="col-lg-4 input_field_sections">
-                                            <h5>Occupation</h5>
+                                         <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="father_occu" class="col-form-label">Occupation *</label>
                                            
-                                                <input name="father_occu" type="text" class="form-control" placeholder="Occupation"/>
+                                                <input type="text" id="father_occu" name="father_occu" class="form-control" placeholder="Occupation" required />
                                             
                                             <!--</div>-->
                                         </div>
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Income</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="father_income" class="col-form-label">Income *</label>
                                            
-                                                <input name="father_income" type="text" class="form-control" placeholder="Income"/>
+                                                <input type="text" id="father_income" name="father_income" class="form-control" placeholder="Income" required />
                                            
                                             <!--</div>-->
                                         </div>
-                                            <div class="col-lg-4 input_field_sections">
-                                            <h5>Email Address</h5>
+                                            <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="father_email" class="col-form-label">Email Address *</label>
                                             
-                                                <input name="father_email" type="text" class="form-control" placeholder="Email"/>
+                                                <input type="text" id="father_email" name="father_email" class="form-control" placeholder="Email Address" required />
                                             
                                             <!--</div>-->
                                         </div>
@@ -525,48 +533,48 @@ z-index: 999999">
                                     
                                         <div class="row">
                                            
-                                            <div class="col-lg-4 input_field_sections">
-                                            <h5>Name</h5>
+                                            <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="mother_name" class="col-form-label">Name *</label>
                                           
-                                                <input name="mother_name" type="text" class="form-control" placeholder="Name"/>
+                                                <input type="text" id="mother_name" name="mother_name" class="form-control" placeholder="Name" required />
                                             
                                             <!--</div>-->
                                         </div>
                                         
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Mobile Number</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="mother_mob_number" class="col-form-label">Mobile Number *</label>
                                             
-                                                <input name="mother_mob_number" type="text" class="form-control" placeholder="Mobile No"/>
+                                                <input type="text" id="mother_mob_number" name="mother_mob_number" class="form-control" placeholder="Mobile Number" required />
                                             
                                             <!--</div>-->
                                         </div>
                                             
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Aadhar Number</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="mother_aadhar_number" class="col-form-label">Aadhar Number *</label>
                                            
-                                                <input name="mother_aadhar_number" type="text" class="form-control" placeholder="Aadhar No"/>
+                                                <input type="text" id="mother_aadhar_number" name="mother_aadhar_number" class="form-control" placeholder="Aadhar Number" required />
                                             
                                             <!--</div>-->
                                         </div>
                                     </div>
                                     <div class="row">
-                                         <div class="col-lg-4 input_field_sections">
-                                            <h5>Occupation</h5>
+                                         <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="mother_occu" class="col-form-label">Occupation *</label>
                                            
-                                                <input name="mother_occu" type="text" class="form-control" placeholder="Occupation"/>
+                                                <input type="text" id="mother_occu" name="mother_occu" class="form-control" placeholder="Occupation" required />
                                             <!--</div>-->
                                         </div>
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Income</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="mother_income" class="col-form-label">Income *</label>
                                             
-                                                <input name="mother_income" type="text" class="form-control" placeholder="Income"/>
+                                                <input type="text" id="mother_income" name="mother_income" class="form-control" placeholder="Income" required />
                                             
                                             <!--</div>-->
                                         </div>
-                                            <div class="col-lg-4 input_field_sections">
-                                            <h5>Email Address</h5>
+                                            <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="mother_email" class="col-form-label">Email Address *</label>
                                             
-                                                <input name="mother_email" type="text" class="form-control" placeholder="Email"/>
+                                                <input type="text" id="mother_email" name="mother_email" class="form-control" placeholder="Email Address" required />
                                             
                                             <!--</div>-->
                                         </div>
@@ -599,41 +607,41 @@ z-index: 999999">
                                    
                                         <div class="row">
                                            
-                                            <div class="col-lg-4 input_field_sections">
-                                            <h5>Pin Code</h5>
+                                            <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="pinCode" class="col-form-label">Pin Code *</label>
                                             
-                                                <input name="pinCode" id="pinCode" type="text" class="form-control" placeholder="Pin Code" required onblur="loadDoc()"/>
+                                                <input type="text" id="pinCode" name="pinCode" class="form-control" placeholder="Pin Code" required onblur="loadDoc()"/>
                                             
                                             <!--</div>-->
                                         </div>
                                         
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Taluka</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="taluk" class="col-form-label">Taluka *</label>
                                             
-                                                <input name="taluk" id="taluk" type="text" class="form-control" placeholder="Taluka"  required />
+                                                <input type="text" id="taluk" name="taluk" class="form-control" placeholder="Taluka" required  tabindex="-98" />
                                             
                                             <!--</div>-->
                                         </div>
                                             
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>District</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="district" class="col-form-label">District *</label>
                                            
-                                                <input name="district" id="district" type="text" class="form-control" placeholder="District"  required />
+                                                <input type="text" id="district" name="district" class="form-control" placeholder="District" required  tabindex="-98" />
                                             
                                             <!--</div>-->
                                         </div>
                                     </div>
                                     <div class="row">
-                                         <div class="col-lg-4 input_field_sections">
-                                            <h5>State</h5>
+                                         <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="state" class="col-form-label">State *</label>
                                            
-                                                <input name="state" id="state" type="text" class="form-control" placeholder="State"  required />
+                                                <input type="text" id="state" name="state" class="form-control" placeholder="State" required  tabindex="-98" />
                                             
                                             <!--</div>-->
                                         </div>
                                         
-                                        <div class="col-lg-4 input_field_sections">
-                                                <h5>Address</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                                <label for="lastname" class="col-form-label">Address *</label>
                                                 <textarea id="autosize" class="form-control" cols="50" rows="5"></textarea>
 				                        </div>
                     </div>
@@ -661,26 +669,26 @@ z-index: 999999">
                                     
                                         <div class="row">
                                            
-                                            <div class="col-lg-4 input_field_sections">
-                                            <h5>Bank Name</h5>
+                                            <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="bankname" class="col-form-label">Bank Name *</label>
                                            
-                                                <input name="bankname" type="text" class="form-control" placeholder="Bank Name"/>
+                                                <input type="text" id="bankname" name="bankname" class="form-control" placeholder="Bank Name" required />
                                             
                                             <!--</div>-->
                                         </div>
                                         
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>IFSC Code</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="ifsc" class="col-form-label">IFSC Code *</label>
                                             
-                                                <input name="ifsc" type="text" class="form-control" placeholder="IFSC Code"/>
+                                                <input type="text" id="ifsc" name="ifsc" class="form-control" placeholder="IFSC Code" required />
                                             
                                             <!--</div>-->
                                         </div>
                                             
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Account No</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="accnt_no" class="col-form-label">Account No *</label>
                                             
-                                                <input name="accnt_no" type="text" class="form-control" placeholder="Account No"/>
+                                                <input type="text" id="accnt_no" name="accnt_no" class="form-control" placeholder="Account No" required/>
                                             
                                             <!--</div>-->
                                         </div>
@@ -711,8 +719,8 @@ z-index: 999999">
                                     
                                         <div class="row">
                                            
-                                           <div class="col-lg-4 input_field_sections">
-                                                <h5>Caste</h5>
+                                           <div class="form-group col-lg-4 input_field_sections">
+                                                <label for="lastname" class="col-form-label">Caste *</label>
                                                 <select class="form-control chzn-select" tabindex="2">
                                                     <option disabled selected>Choose a Caste</option>
                                                     <option value="Uruguay">Open</option>
@@ -721,18 +729,18 @@ z-index: 999999">
                                                  </select>
                                                 <!--</div>-->
                                             </div>
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Transportation Month</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="trans_month" class="col-form-label">Transportation Month *</label>
                                            
-                                                <input name="trans_month" type="text" class="form-control" placeholder="Month"/>
+                                                <input type="text" id="trans_month" name="trans_month" class="form-control" placeholder="Transportation Month" required/>
                                             
                                             <!--</div>-->
                                         </div>
                                             
-                                        <div class="col-lg-4 input_field_sections">
-                                            <h5>Transportation Discount</h5>
+                                        <div class="form-group col-lg-4 input_field_sections">
+                                            <label for="trans_disc" class="col-form-label">Transportation Discount *</label>
                                             
-                                                <input name="trans_disc" type="text" class="form-control" placeholder="Discount"/>
+                                                <input type="text" id="trans_disc" name="trans_disc" class="form-control" placeholder="Transportation Discount" required/>
                                             
                                             <!--</div>-->
                                         </div>
@@ -775,66 +783,7 @@ z-index: 999999">
    				</div>
   			</div>
    		</div>
-                
-                <div class="outer">
-                    <div class="inner bg-container">
-                        <div class="card">
-                            <div class="card-header bg-white">
-                                User Grid
-                            </div>
-                            <div class="card-block m-t-35" id="user_body">
-                                <div class="table-toolbar">
-                                    
-                                    <div class="btn-group float-right users_grid_tools">
-                                        <div class="tools"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div>
-                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
-                                            <thead>
-                                            <tr role="row">
-                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No.</th>
-                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Standard Name</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            
-                                            <%-- <%
-	                                            StandardDAO sdao = new StandardImpl();
-	                                        	List<StandardPOJO> l = sdao.getStandardDetails();
-	                                       
-	    										int count=1;
-	                                        	Iterator itr = l.iterator();
-	                                        	while(itr.hasNext()){
-	                                        		StandardPOJO stdPojo = (StandardPOJO)itr.next();
-	                                        		int id = stdPojo.getId();
-		                                    %>
-                                            	<tr role="row" class="even">
-                                            		<td><%=count %></td>
-                                            		<td><%=stdPojo.getStdName() %></td>
-                                            		<td>
-                                            			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard(<%=id%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-                                            			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="#"><i class="fa fa-trash text-danger"></i></a>
-                                            		</td>
-                                            	</tr>
-                                            <%
-		                                     	count++;
-		                                    	}
-		                                    %>  --%>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- END EXAMPLE TABLE PORTLET-->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.inner -->
-                </div>
-                
-                <!-- /.outer -->
+        </form>
             </div>
         </div>
         <!-- /#content -->
@@ -854,67 +803,113 @@ z-index: 999999">
 </script>
 
 
-<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
-<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
-
-<!-- end of global scripts-->
-<!-- plugin level scripts -->
-<script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/chosen/js/chosen.jquery.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/jquery-tagsinput/js/jquery.tagsinput.js"></script>
-<script type="text/javascript" src="/SMGMT/config/js/pluginjs/jquery.validVal.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/daterangepicker/js/daterangepicker.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/autosize/js/jquery.autosize.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/jquery.inputmask.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.date.extensions.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.extensions.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/multiselect/js/jquery.multi-select.js"></script>
-<!-- <script type="text/javascript" src="../../cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.min.js"></script> -->
-<!--end of plugin scripts-->
-<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
-<script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
+<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 
 
 <script type="text/javascript">
+//====================================== loadFunction  =====================================
+function loadFunction(){
+	sectionList();
+}
+//======================================End loadFunctionr  =====================================
+//====================================== Section List  =====================================
+	function sectionList(){
+		var schoolId=<%=schoolId %>
+		if(schoolId==""){
+			return;
+		}
+		var xhttp =new XMLHttpRequest();
+		try{
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var getData=this.responseText.split("~");
+					var row="";
+					var i=0;
+					for(;getData[i];){
+						
+						row += "<option value="+getData[i]+">";
+						i++;
+						row += getData[i] + "</option>";
+						i++;
+	
+					}					
+					document.getElementById("sectionId").innerHTML+=row;
+					$("#sectionId").trigger('chosen:updated');
+				}
+			}
+			xhttp.open("GET", "/SMGMT/Student?sectionList="+schoolId, true);
+			xhttp.send();
+		}catch(e){
+			alert("Unable to Connect Server!");
+		}
+	}
+//======================================End Section List  =====================================
+//====================================== Section List  =====================================
+	function standardList(std){
+		
+		if(std==""){
+			return;
+		}
+		document.getElementById("stdId").innerHTML=""
+		var xhttp =new XMLHttpRequest();
+		try{
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var getData=this.responseText.split("~");
+					var row="";
+					var i=0;
+					for(;getData[i];){
+						row += "<option value="+getData[i]+">";
+						i++;
+						row += getData[i] ;
+						i++;
+						row += " ("+ getData[i] +" - ";
+						i++;
+						row += getData[i]+ ")</option>";
+						i++;
+	
+					}					
+					document.getElementById("stdId").innerHTML+=row;
+					$("#stdId").trigger('chosen:updated');
+				}
+			}
+			xhttp.open("GET", "/SMGMT/Student?standardList="+std, true);
+			xhttp.send();
+		}catch(e){
+			alert("Unable to Connect Server!");
+		}
+	}
+//======================================End Section List  =====================================
+
 
 //====================================== AGE Calculator  =====================================
-function getAge() {
-	var inputDate = document.getElementById("dob").value;
-	
-	alert(inputDate);
-	var newDate=inputDate.split("-");
-	
-
-    var byr = newDate[0];
-    var bmo = newDate[1];
-    var bday = newDate[2];
-    alert(byr+" "+bmo+" "+bday);
-    var byr;
-    bday-=1;
-    bmo-=1;
-    var age;
-    var now = new Date();
-    tday=now.getDate();
-    tmo=(now.getMonth());
-    tyr=(now.getFullYear());
-    
-    if((tmo > bmo)||(tmo==bmo & tday>=bday)){
-    	age=byr;
-    }
-    else{
-    	age=parseInt(byr)+parseInt(1);
-    }
-    document.getElementById("age").value=(tyr-age);
-    
+	function getAge() {
+		var inputDate = document.getElementById("dob").value;
+		var newDate=inputDate.split("-");
+		
+	    var byr = newDate[2];
+	    var bmo = newDate[1];
+	    bmo=bmo-1;
+	    var bday = newDate[0];
+	    
+	    var byr;
+	    var age;
+	    var now = new Date();
+	    tday=now.getDate();
+	    tmo=(now.getMonth());
+	    tyr=(now.getFullYear());
+	    
+	    if((tmo > bmo)||(tmo==bmo & tday>=bday)){
+	    	age=byr;
+	    }
+	    else{
+	    	age=parseInt(byr)+parseInt(1);
+	    }
+	    document.getElementById("age").value=(tyr-age);
+	    
 }
 //======================================End  AGE Calculator  =====================================
+
 
 //====================================== PINCODE SEARCH =====================================
 	function loadDoc() {
@@ -936,12 +931,8 @@ function getAge() {
 	    if(pin == pinNo){
 	      //document.getElementById("pinNo").value=x[i].pincode;
 	      document.getElementById("taluk").value=x[i].taluk;
-	      document.getElementById("taluk").focus();
 	      document.getElementById("district").value=x[i].districtname;
-	      document.getElementById("district").focus();
 	      document.getElementById("state").value=x[i].statename;
-	      document.getElementById("state").focus();
-	      document.getElementById("addressOne").focus();
 		  break;
 	     }
 	  }
