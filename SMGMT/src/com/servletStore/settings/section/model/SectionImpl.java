@@ -13,6 +13,7 @@ public class SectionImpl implements SectionDAO
 {
 	DBConnection dbconnect=new DBConnection();
 	Connection connection;
+	PreparedStatement ps;
 	
 	public SectionImpl() 
 	{
@@ -26,7 +27,7 @@ public class SectionImpl implements SectionDAO
 	{
 		int status=0;
 		String query="insert into sections_master(`name`) values (?)";
-		PreparedStatement ps;
+		
 		try {
 			ps = connection.prepareStatement(query);
 			ps.setString(1, sectionPojo.getName());
@@ -42,7 +43,6 @@ public class SectionImpl implements SectionDAO
 	{
 		List<SectionPojo> list=new ArrayList<SectionPojo>();
 		String query="SELECT `id`, `name` FROM `sections_master";
-		PreparedStatement ps;
 		try {
 			ps = connection.prepareStatement(query);
 			ResultSet rs=ps.executeQuery();
@@ -70,7 +70,7 @@ public class SectionImpl implements SectionDAO
 	{
 		List<SectionPojo> list=new ArrayList<SectionPojo>();
 		String query="SELECT section_id FROM fk_school_section_details where school_id="+sid;
-		PreparedStatement ps, ps1;
+		PreparedStatement ps1;
 		
 		try {
 			ps = connection.prepareStatement(query);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>MSaleERP</display-name>
+  <display-name>SMGMT</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
@@ -21,12 +21,12 @@
     <url-pattern>/LoginAction</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>AddClass</servlet-name>
-    <servlet-class>com.servletStore.settings.classRoom.controller.AddClass</servlet-class>
+    <servlet-name>AddClassRoom</servlet-name>
+    <servlet-class>com.servletStore.settings.classRoom.controller.AddClassRoom</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AddClass</servlet-name>
-    <url-pattern>/AddClass</url-pattern>
+    <servlet-name>AddClassRoom</servlet-name>
+    <url-pattern>/AddClassRoom</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Student</servlet-name>
@@ -34,7 +34,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Student</servlet-name>
-    <url-pattern>/Student.do</url-pattern>
+    <url-pattern>/Student</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Section</servlet-name>
@@ -68,6 +68,8 @@
     <servlet-name>Caste</servlet-name>
     <url-pattern>/Caste</url-pattern>
   </servlet-mapping>
+  			
+  
   <servlet>
     <servlet-name>School</servlet-name>
     <servlet-class>com.servletStore.settings.school.controller.School</servlet-class>
@@ -77,19 +79,62 @@
     <url-pattern>/School</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>StdSectionAssignment</servlet-name>
+    <servlet-name>AddDocument</servlet-name>
+    <servlet-class>com.servletStore.settings.document.controller.AddDocument</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddDocument</servlet-name>
+    <url-pattern>/AddDocument</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>InwardRegister</servlet-name>
+    <servlet-class>com.servletStore.register.controller.InwardRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InwardRegister</servlet-name>
+    <url-pattern>/InwardRegister</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>OutwardRegister</servlet-name>
+    <servlet-class>com.servletStore.register.controller.OutwardRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OutwardRegister</servlet-name>
+    <url-pattern>/OutwardRegister</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StockRegister</servlet-name>
+    <servlet-class>com.servletStore.register.controller.StockRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StockRegister</servlet-name>
+    <url-pattern>/StockRegister</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+   <servlet-name>StdSectionAssignment</servlet-name>
     <servlet-class>com.servletStore.settings.standard.controller.StdSectionAssignment</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>StdSectionAssignment</servlet-name>
     <url-pattern>/StdSectionAssignment</url-pattern>
   </servlet-mapping>
-   <servlet>
-    <servlet-name>MainServlet</servlet-name>
-    <servlet-class>com.servletStore.library.controller.MainServlet</servlet-class>
+  <servlet>
+    <servlet-name>Library</servlet-name>
+    <servlet-class>com.servletStore.library.controller.Library</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MainServlet</servlet-name>
-    <url-pattern>/MainServlet</url-pattern>
+    <servlet-name>Library</servlet-name>
+    <url-pattern>/Library</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Setup</servlet-name>
+    <servlet-class>com.servletStore.setup.controller.Setup</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Setup</servlet-name>
+    <url-pattern>/Setup</url-pattern>
   </servlet-mapping>
 </web-app>
