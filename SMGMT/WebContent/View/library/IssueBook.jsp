@@ -103,25 +103,28 @@
                                     <div class="card-block" id="tab">
 	                                     <ul class="nav nav-tabs m-t-35">
 			                                <li class="nav-item">
-			                                    <a class="nav-link active" href="#bookList" data-toggle="tab">Book List</a>
+			                                    <a class="nav-link active" href="#bookList" data-toggle="tab">Issue Book</a>
 			                                </li>
 			                                <li class="nav-item" id="themify_icon">
 			                                    <a class="nav-link" href="#issuedList" data-toggle="tab">Issued List</a>
 			                                </li>
+			                                <li class="nav-item" id="themify_icon">
+			                                    <a class="nav-link" href="#bookReturn" data-toggle="tab">Book Return</a>
+			                                </li>
 			                             </ul>
 					                  <div class="tab-content">
+					          <!-- First Tab-------------- -->
 				                          <div class="tab-pane active" id="bookList">
 				                              <div class="row">
 				                              <% SysDate date=new SysDate();
-				                              
 				                              %>
 				                                  <div class="col-12">
 				                                       <div class="col-lg-8 m-t-20">
 				                                          <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator">
 		                                     			<div class="form-group row">
 		                                     				<div class="col-lg-8">
-		                                     <!-- Search Book from here     ------- -->
-		                                               	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchId"  name="searchBook" placeholder="Search Books by BookNo/BookName/AuthorName">
+		                        <!-- Search Book from here     ------- -->
+		                                               	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchtext"  name="searchBook" placeholder="Search Books by BookId/BookName/AuthorName">
 			                                                <datalist id="browseBook">
 			                                                </datalist>
 			                                                </div>
@@ -158,12 +161,13 @@
 		                                                    <input type="text" id="date" class="form-control form_val_popup_dp3" name="issueDate" value="<%=date.todayDate() %>" placeholder="YYYY-MM-DD"/>
 		                                                </div>
 		                                              </div>
-		                                              <div class="form-group row">
+		                                               <div class="form-group row">
 		                                                <div class="col-lg-8">
 		                                                    <label class="col-form-label">Book Due Date *</label>
 		                                                    <input type="text" id="date" class="form-control form_val_popup_dp3" name="dueDate" placeholder="YYYY-MM-DD"/>
 		                                                </div>
 		                                                </div>
+		                                                 
 		                                              
 		                                                  <div class="form-actions form-group row">
 			                                            	<input type="submit" id="btnSubmit" value="Save Book" name="issuebook" class="btn btn-primary">
@@ -192,12 +196,13 @@
                                         <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
                                             <thead>
                                             <tr role="row">
-                                            	<th class="sorting_asc wid-10" tabindex="0" rowspan="1" colspan="1">Sr.No</th>
+                                            	<th class="sorting_asc wid-10" tabindex="0" rowspan="1" colspan="1">Issue Id</th>
                                             	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">User Type</th>
                                             	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">User Name</th>
                                                 <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Book NO</th>
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Book Name</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Issue Date</th>
+                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Return Date</th>
                                                 <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Due Date</th>
                                             </tr>
                                             </thead>
@@ -212,14 +217,15 @@
 														<td><%=(++bookCount) %></td>
 														<td><c:out value="${d.userType}"></c:out></td>
 														<td><c:out value="${d.userName}"></c:out></td>
-														<td><c:out value="${d.bookNo}"></c:out></td>
+														<td><c:out value="${d.bookId}"></c:out></td>
 														<td><c:out value="${d.bookName}"></c:out></td>
 														<td><c:out value="${d.issueDate}"></c:out></td>
 														<td><c:out value="${d.dueDate}"></c:out></td>
-														 <td>
+														<td><c:out value="${d.returnDate}"></c:out></td>
+													<%-- 	 <td>
                                             			<a class="edit" data-placement="top" title="Edit" href="#update" data-toggle="modal" onclick="loadDoc(${d.getBookNo()})"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
                                             			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/Library?bookNo=${d.getBookNo()}"><i class="fa fa-trash text-danger"></i></a>
-                                            			</td> 
+                                            			</td>  --%>
                                             		</tr>
 												  </c:forEach>
                                             </tbody>
@@ -232,6 +238,7 @@
                        </div><!-- /.inner -->
                     </div><!-- /outer -->   
 				                        </div>
+				                     	 
 				                     	 <!-- Second Tab --> 
 				                     	   <div class="tab-pane" id="issuedList">
 				                               <div class="row">
@@ -330,6 +337,100 @@
 				                                     </div>
 				                                  </div>
 				                               </div>
+				                               <!-- Third Tab -->
+				                                             <div class="tab-pane" id="bookReturn">
+				                              <div class="row">
+				                              <% //SysDate date1=new SysDate();
+				                              
+				                              %>
+				                                  <div class="col-12">
+				                                       <div class="col-lg-8 m-t-20">
+				                                          <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator">
+		                                     			<div class="form-group row">
+		                                     				<div class="col-lg-8">
+		                                     <!-- Search Book from here     ------- -->
+		                                               	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchId"  name="searchBook" placeholder="Search Books by BookNo/BookName/AuthorName">
+			                                                <datalist id="browseBook">
+			                                                </datalist>
+			                                                </div>
+			                                                <a href="#" onclick="getBookInfo('bookInfo')" class="btn btn-info" value="Search" id="btn">Search</a>
+		                                                 </div> 
+		                                                 <div id="bookInfo" Style="display: none">
+		                                                 <div class="form-group row">
+		                                                 <div class="col-lg-4 ">
+                                                    <label for="required2" class="col-form-label">Book No *</label>
+                                               	    <input type="text" id="bNo" name="bookName" class="form-control" required>
+                                                </div>
+		                                                 	<div class="col-lg-4 ">
+                                                    <label for="required2" class="col-form-label">Book Name *</label>
+                                               	    <input type="text" id="bName" name="bookName" class="form-control" required>
+                                                </div>
+                                             
+                                                 
+                                             	 <div class="col-lg-4">
+                                                    <label for="required2" class="col-form-label">Author Name *</label>
+                                                	 <input type="text" id="authrName" name="authorName" class="form-control" required>
+                                                </div></div>
+                                                <div class="form-group row">
+                                           		<div class="col-lg-4 ">
+                                                    <label for="required2" class="col-form-label">Publisher Name *</label>
+                                               	    <input type="text" id="pubName" name="pubName" class="form-control" required>
+                                                </div>
+                                                
+                                                <div class="col-lg-4">
+                                                     <label for="required2" class="col-form-label">Edition *</label>
+                                                	 <input type="text"  id="edition" name="edition" class="form-control" required>
+                                                </div>
+                                                <div class="col-lg-4 ">
+                                                    <label for="required2" class="col-form-label">Price *</label>
+                                               	    <input type="text" id="price" name="price" class="form-control" required>
+                                                </div></div>
+                                                <div class="form-group row">
+                                            	<div class="col-lg-4">
+                                                    <label for="required2" class="col-form-label">Cupboard No *</label>
+                                                	 <input type="text" id="cupbNo" name="cupbno" class="form-control">
+                                                </div>
+                                                <div class="col-lg-4">
+                                                     <label for="required2" class="col-form-label">Quantity *</label>
+                                                	 <input type="text" id="quan" name="quan" class="form-control" required>
+                                                </div>
+		                                                 </div>
+		                                                	</div>
+		                                         
+		                                         <div class="form-group row">	
+		                                                	<div class="col-lg-8 ">
+		                                                   	  <label for="required2" class="col-form-label">Renew/Return *</label>
+										                       <div class="controls">
+												                 <input type="radio" value="RETURN" style="margin-left: 1%;" name="select" id="selectRt" onclick="returnBook('returnBk')"> Return
+												                 <input type="radio" value="RENEW" style="margin-left: 1%;" name="select" id="selectRn" onclick="renewBook('renew')" > Renewal
+												               </div>
+												             </div>
+			                                      	 	</div>
+		                                              <!-- Search stud from here     ----- -->
+		                                          	   <div class="form-group row" id="returnBk" style="display: none">
+		                                                   <div class="col-lg-4">
+                                                  		    <label class="col-form-label">Return Date *</label>
+                                                	 		<input type="text" class="form-control form_val_popup_dp3" id="returnDate" name="date_inline" placeholder="YYYY-MM-DD"/>
+                                               			 </div>
+                                           		 <div class="col-lg-4">
+                                                     <label for="required2" class="col-form-label">Fine Amont </label>
+                                                	 <input type="text"  id="fineAmount" name="fineAmount" class="form-control">
+                                                </div>
+                                                </div>
+                                                
+                                                 <div class="form-group row" id="renew" style="display: none">
+		                                                   <div class="col-lg-4">
+                                                  		    <label class="col-form-label">Due Date *</label>
+                                                	 		<input type="text" class="form-control form_val_popup_dp3" id="dueDate" name="date_inline" placeholder="YYYY-MM-DD"/>
+                                               			 </div>
+                                         
+                                                </div>
+                                                  	 </form>
+				                              </div>
+				                            </div>
+				                          </div>
+				 
+				                        </div>
 				                           </div>
 				                       </div>
 				                   </div>
@@ -340,7 +441,6 @@
                 </div> <!-- /.outer -->
             
             
-         
                 <!-- Modal -->
                 <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <form>
@@ -448,10 +548,9 @@ function getbookdetails(id){
 	     for(var i=0; i<str.length; i++)
 	    	 {
 	    	 var text=text+"<option value=\""+str[i]+"\"> </option>";
+	    	 
 	    	 }
-	     //alert(text);
 			document.getElementById("browseBook").innerHTML = text;		 
-	      
 	     
 	    }
 	  };
@@ -529,18 +628,9 @@ function teacherDetails(teacher)
 		}
 }
 
-$(function() {
-	  $('#btnSubmit').on('click', function() {
-	    // your code goes here
-	  /*   $('#outputSpan').text($('#count').val()); */
-	    // not triiger output tab to be open
-	    $('[href="#issuedList"]').trigger('click');
-	  });
-	});
-
 function getExpData(val)
 {
-	alert(val); 
+//	alert(val); 
 	
 	var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
@@ -571,50 +661,100 @@ function getExpData(val)
 	  xhttp.open("POST", "/SMGMT/Library?getTableData="+val, true);
 	  xhttp.send();
 }
-	 //var s=val.split("-");
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 /* var xhttp;
-	xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var demoStr = this.responseText.split(",");
-			//	alert(demoStr);
-				  if(demoStr==""){
-					document.getElementById("displayDate").innerHTML="<tr><td colspan=''>No Records Found!</td></tr>"}
-				else
-					{
-					var count=1;
-					var wholeData="";
-						for(var i=0;i<demoStr.length-2;i=i+6){
-							wholeData+="<tr>"+
-							"<td style='text-align: center'>"+count+"</td>"+
-							"<td style='text-align: center'>"+demoStr[i]+"</td>"+
-							"<td style='text-align: center'>"+demoStr[i+1]+"</td>"+
-							"<td style='text-align: center'>"+demoStr[i+2]+"</td>"+
-							"<td style='text-align: center'>"+demoStr[i+3]+"</td>"+
-							"<td style='text-align: center'>"+demoStr[i+4]+"</td>"+
-							"<td style='text-align: center'>"+demoStr[i+5]+"</td>"+
-							"<tr>"
-							count++;
-						}
-						document.getElementById("displayDate").innerHTML=wholeData;
-					} 
-			};
-	xhttp.open("POST", "/SMGMT/Library?getTableData="+val, true);
-	xhttp.send(); */
-	 
+	function getBookInfo(bookInfo){
+		 //alert(bookInfo);
+		var bInfo=document.getElementById("bookInfo").style.display="block";
+		/* if(bInfo.style.display !== "none" )
+			{
+			bInfo.style.display="none" ;
+			}
+		else{
+			bInfo.style.display= "block";
+		} */
+			 
+		id=document.getElementById("searchId").value;
+		//alert(id);
+		 var bookD=id.split("-");
+		var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		     var demo = this.responseText;
+		    // alert(demo);
+		     var stud=demo.split(",");
+		    /*  for(var i=0; i<stud.length; i++)
+		    	 {
+		    	 var text=text+"<option value=\""+stud[i]+"\"> </option>";
+		    	 } */
+		     //alert(text);
+				//document.getElementById("browseStud").innerHTML = text;	
+				document.getElementById("bNo").value=stud[0];
+				document.getElementById("bName").value=stud[1];
+				document.getElementById("authrName").value=stud[2];
+				document.getElementById("pubName").value=stud[3];
+				document.getElementById("edition").value=stud[4];
+				document.getElementById("price").value=stud[5];
+				document.getElementById("cupbNo").value=stud[6];
+				document.getElementById("quan").value=stud[7];
+		    }
+		  };
+	//	  alert(bookD[0]);
+		  xhttp.open("POST", "/SMGMT/Library?bookdetail="+bookD[0].trim(), true);
+		  xhttp.send();
+		
+	}
 
-
+	function returnBook(returnBk)
+	{
+		/* var returnBook = document.getElementById("id");
+		var renew = document.getElementById("id1");
+		if(returnBook==null)
+			{
+			document.getElementById("returnDate").required=false;
+			document.getElementById("fineAmount").required=false;
+			document.getElementById("dueDate").required=false;
+			
+			returnBook.style.display="none";
+			renew.style.display="none";
+			}
+		else if(returnBook != null && renew != null)
+			{
+			returnBook.style.display="block";
+			document.getElementById("returnDate").required=true;
+			document.getElementById("fineAmount").required=true;
+						
+			}
+		else{
+			renew.style.display="block";
+			document.getElementById("dueDate").required=true;
+			
+			
+		} */
+		 var returnBook = document.getElementById("returnBk");
+		 if(document.getElementById("selectRt").value=="RETURN")
+			{
+				returnBook.style.display = "block";
+			}
+		else 
+			{
+				document.getElementById("returnBk").style.display="none";
+			} 
+	}
+	function renewBook(renew)
+	{
+	 var renewBook = document.getElementById("renew");
+	 if(document.getElementById("selectRn").value=="RENEW")
+		{
+		 renewBook.style.display = "block";
+		}
+	else 
+		{
+		document.getElementById("renew").style.display="none";
+		} 
+}
+	
+	
 </script>
 
 

@@ -1,31 +1,25 @@
 package com.servletStore.library.model;
 
 public class IssueBookPOJO {
-private int bookNo;
-private String bookName,userType,userName,issueDate,dueDate;
-public int getBookNo() {
-	return bookNo;
+private int bookId,studId,staffId;
+private String issueDate,dueDate,returnDate;
+public int getBookId() {
+	return bookId;
 }
-public void setBookNo(int bookNo) {
-	this.bookNo = bookNo;
+public void setBookId(int bookId) {
+	this.bookId = bookId;
 }
-public String getBookName() {
-	return bookName;
+public int getStudId() {
+	return studId;
 }
-public void setBookName(String bookName) {
-	this.bookName = bookName;
+public void setStudId(int studId) {
+	this.studId = studId;
 }
-public String getUserType() {
-	return userType;
+public int getStaffId() {
+	return staffId;
 }
-public void setUserType(String userType) {
-	this.userType = userType;
-}
-public String getUserName() {
-	return userName;
-}
-public void setUserName(String userName) {
-	this.userName = userName;
+public void setStaffId(int staffId) {
+	this.staffId = staffId;
 }
 public String getIssueDate() {
 	return issueDate;
@@ -39,5 +33,10 @@ public String getDueDate() {
 public void setDueDate(String dueDate) {
 	this.dueDate = dueDate;
 }
-
+public String getReturnDate() {
+	return returnDate;
+}
+public void setReturnDate(String returnDate) {
+	this.returnDate = returnDate;
+}
 }
