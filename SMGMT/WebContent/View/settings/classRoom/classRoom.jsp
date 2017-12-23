@@ -274,7 +274,6 @@ z-index: 999999">
     <!-- /#content -->
   
 
-</div>
 <!-- /#wrap -->
 <!-- global scripts-->
 
@@ -368,8 +367,6 @@ function setSelected() {
 
 	<script type="text/javascript" src="/SMGMT/config/js/pages/radio_checkbox.js.pagespeed.jm.nna8wpyJlw.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/pages/icons.js"></script>
-
-
 
 </body>
 
