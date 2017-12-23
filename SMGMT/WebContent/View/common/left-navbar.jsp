@@ -42,7 +42,7 @@
                             </li>
                             
                               <li>
-                                <a href="/SMGMT/View/settings/documentName/addDocument.jsp">
+                                <a href="/SMGMT/View/settings/addDocumentInfo/addDocument.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Add Document
                                 </a>
@@ -377,38 +377,27 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
+                          
                             <li>
-                                <a href="#">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Subject
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-angle-right"></i>
-                                    <span class="link-title">&nbsp; Sender / Receiver Name </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/SMGMT/View/generalRegister/inwardRegister.jsp">
+                                <a href="/SMGMT/View/register/inwardRegister.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Inward Register
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/register/outwardRegister.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Outward Register
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/register/stockRegister.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Stock Register
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/register/report.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Report
                                 </a>
