@@ -76,57 +76,62 @@
 										<i class="fa fa-file-text-o"></i> General Wizard
 									</div>
 									<div class="card-block m-t-20">
+									<form action="/SMGMT/Setup" method="post" id="commentForm" class="validate">
 										<div id="rootwizard_no_val">
 											<ul class="nav nav-pills">
-												<li class="nav-item user1 m-t-15"><a class="nav-link"
-													href="#tab11" data-toggle="tab"><span
-														class="userprofile_tab">1</span>Trustee Environment</a></li>
-												<li class="nav-item user2 m-t-15"><a
-													class="nav-link profile_details" href="#tab21"
-													data-toggle="tab"><span class="profile_tab">2</span>Principal
-														Environment</a></li>
-												<li class="nav-item finish_tab m-t-15"><a
-													class="nav-link " href="#tab31" data-toggle="tab"><span>3</span>Clerk
-														Environment</a></li>
-												<li class="nav-item finish_tab m-t-15"><a
-													class="nav-link " href="#tab41" data-toggle="tab"><span>4</span>Teacher
-														Environment</a></li>
-												<li class="nav-item finish_tab m-t-15"><a
-													class="nav-link " href="#tab51" data-toggle="tab"><span>5</span>Librarian
-														Environment</a></li>
+												<li class="nav-item m-t-15">
+													<a class="nav-link" href="#tab11" data-toggle="tab">
+													<span class="userprofile_tab1">1</span>Trustee Environment</a>
+												</li>
+												<li class="nav-item m-t-15">
+													<a class="nav-link" href="#tab21" data-toggle="tab">
+													<span class="userprofile_tab2">2</span>Principal Environment</a>
+												</li>
+												<li class="nav-item m-t-15">
+													<a class="nav-link" href="#tab31" data-toggle="tab">
+													<span class="">3</span>Clerk Environment</a>
+												</li>
+												<li class="nav-item m-t-15">
+													<a class="nav-link" href="#tab41" data-toggle="tab">
+													<span class="">4</span>Teacher Environment</a>
+												</li>
+												<li class="nav-item finish_tab m-t-15">
+													<a class="nav-link" href="#tab51" data-toggle="tab">
+													<span>5</span>Librarian Environment</a>
+												</li>
 											</ul>
-											<form action="/SMGMT/Setup" method="post">
 												<div class="tab-content m-t-20">
 													<div class="tab-pane" id="tab11">
+														
 														<div class="form-group">
 															<label for="eduName" class="col-form-label">Education
 																Society Name*</label> <input id="eduName" name="eduName"
 																type="text"
 																placeholder="Enter your Education Society name"
-																class="form-control">
+																class="form-control required">
 														</div>
 														<div class="form-group">
 															<label for="tUname" class="col-form-label">Trustee
 																User Name*</label> <input id="tUname" name="tUname"
 																placeholder="Trustee User Name" type="text"
-																class="form-control">
+																class="form-control required">
 														</div>
 														<div class="form-group">
 															<label for="pass" class="col-form-label">Trustee
 																Password</label> <input id="pass" type="password"
-																placeholder="Enter your password" class="form-control">
+																placeholder="Enter your password" class="form-control required">
 														</div>
 														<div class="form-group">
 															<label for="tPass" class="col-form-label">Confirm
 																Password</label> <input id="tPass" name="tPass" type="password"
 																placeholder="Confirm your password "
-																class="form-control">
+																class="form-control required">
 														</div>
 														<div class="form-group">
 															<label for="nSchools" class="col-form-label">No
 																of Schools*</label> <input id="nSchools" name="nSchools"
 																placeholder="Trustee User Name" type="text"
-																onblur="addFields(this.value)" class="form-control">
+																onblur="addFields(this.value)" class="form-control required">
 														</div>
 														<div class="form-group"></div>
 
@@ -187,13 +192,9 @@
 
 														<br>
 
-
-
-
-
 														<ul class="pager wizard pager_a_cursor_pointer">
-															<li class="previous previous_btn1"><a>Previous</a></li>
-															<li class="next next_btn1"><a>Next</a></li>
+															<li class="previous"><a><i class="fa fa-long-arrow-left"></i> Previous</a></li>
+															<li class="next"><a>Next <i class="fa fa-long-arrow-right"></i></a></li>
 														</ul>
 													</div>
 													<div class="tab-pane" id="tab21">
@@ -223,7 +224,7 @@
 																											<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,pr31,pw31)">
+																													onclick="permission(this,pr31,pw31)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -232,8 +233,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_dash31" id="pr31" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="p_dash31" id="pr31" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -242,8 +243,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_dash31" id="pw31" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="p_dash31" id="pw31" value="2"
+																													 checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>
 																													READ/WRITE
 																												</label>
@@ -265,7 +266,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_setting32" id="pr32" value=""
+																													type="radio" name="p_setting32" id="pr32" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -274,7 +275,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_setting32" id="pw32" value=""
+																													type="radio" name="p_setting32" id="pw32" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -296,7 +297,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_mgmt33" id="pr33" value=""
+																													type="radio" name="p_mgmt33" id="pr33" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -305,7 +306,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_mgmt33" id="pw33" value=""
+																													type="radio" name="p_mgmt33" id="pw33" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -327,7 +328,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_admission34" id="pr34" value=""
+																													type="radio" name="p_admission34" id="pr34" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -336,7 +337,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_admission34" id="pw34" value=""
+																													type="radio" name="p_admission34" id="pw34" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -349,7 +350,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,pr35,pw35)">
+																													onclick="permission(this,pr35,pw35)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -358,8 +359,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_fee35" id="pr35" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="p_fee35" id="pr35" value="1"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -367,8 +368,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_fee35" id="pw35" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="p_fee35" id="pw35" value="2"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -389,7 +390,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_attendance36" id="pr36" value=""
+																													type="radio" name="p_attendance36" id="pr36" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -398,7 +399,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_attendance36" id="pw36" value=""
+																													type="radio" name="p_attendance36" id="pw36" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -420,7 +421,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_exam37" id="pr37" value=""
+																													type="radio" name="p_exam37" id="pr37" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -429,7 +430,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_exam37" id="pw37" value=""
+																													type="radio" name="p_exam37" id="pw37" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -442,7 +443,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,pr38,pw38)">
+																													onclick="permission(this,pr38,pw38)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -451,8 +452,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_teacher38" id="pr38" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="p_teacher38" id="pr38" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -460,8 +461,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_teacher38" id="pw38" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="p_teacher38" id="pw38" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -482,7 +483,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_register39" id="pr39" value=""
+																													type="radio" name="p_register39" id="pr39" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -491,7 +492,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_register39" id="pw39" value=""
+																													type="radio" name="p_register39" id="pw39" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -504,7 +505,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,pr40,pw40)">
+																													onclick="permission(this,pr40,pw40)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -513,8 +514,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_cashbook40" id="pr40" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="p_cashbook40" id="pr40" value="1"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -522,8 +523,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_cashbook40" id="pw40" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="p_cashbook40" id="pw40" value="2"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -544,7 +545,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_transport41" id="pr41" value=""
+																													type="radio" name="p_transport41" id="pr41" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -553,7 +554,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_transport41" id="pw41" value=""
+																													type="radio" name="p_transport41" id="pw41" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -575,7 +576,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_salary42" id="pr42" value=""
+																													type="radio" name="p_salary42" id="pr42" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -584,7 +585,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_salary42" id="pw42" value=""
+																													type="radio" name="p_salary42" id="pw42" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -607,7 +608,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_library43" id="pr43" value=""
+																													type="radio" name="p_library43" id="pr43" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -616,7 +617,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_library43" id="pw43" value=""
+																													type="radio" name="p_library43" id="pw43" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -629,7 +630,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,pr44,pw44)">
+																													onclick="permission(this,pr44,pw44)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -638,8 +639,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_other44" id="pr44" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="p_other44" id="pr44" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -647,8 +648,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_other44" id="pw44" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="p_other44" id="pw44" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -669,7 +670,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_emsg45" id="pr45" value=""
+																													type="radio" name="p_emsg45" id="pr45" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -678,7 +679,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="p_emsg45" id="pw45" value=""
+																													type="radio" name="p_emsg45" id="pw45" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -696,8 +697,8 @@
 														</div>
 														<br>
 														<ul class="pager wizard pager_a_cursor_pointer">
-															<li class="previous previous_btn2"><a>Previous</a></li>
-															<li class="next next_btn2"><a>Next</a></li>
+															<li class="previous previous_btn2"><a><i class="fa fa-long-arrow-left"></i> Previous</a></li>
+															<li class="next next_btn2"><a>Next <i class="fa fa-long-arrow-right"></i></a></li>
 														</ul>
 													</div>
 													<div class="tab-pane" id="tab31">
@@ -727,7 +728,7 @@
 																											<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,cr31,cw31)">
+																													onclick="permission(this,cr31,cw31)"checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -736,8 +737,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_dash31" id="cr31" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_dash31" id="cr31" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -746,8 +747,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_dash31" id="cw31" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_dash31" id="cw31" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>
 																													READ/WRITE
 																												</label>
@@ -760,7 +761,7 @@
 																											<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,cr32,cw32)">
+																													onclick="permission(this,cr32,cw32)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -769,8 +770,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_setting32" id="cr32" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_setting32" id="cr32" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -778,8 +779,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_setting32" id="cw32" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_setting32" id="cw32" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -791,7 +792,7 @@
 																											<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,cr33,cw33)">
+																													onclick="permission(this,cr33,cw33)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -800,8 +801,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_mgmt33" id="cr33" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_mgmt33" id="cr33" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -809,8 +810,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_mgmt33" id="cw33" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_mgmt33" id="cw33" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -822,7 +823,7 @@
 																											<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,cr34,cw34)">
+																													onclick="permission(this,cr34,cw34)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -831,8 +832,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_admission34" id="cr34" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_admission34" id="cr34" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -840,8 +841,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_admission34" id="cw34" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_admission34" id="cw34" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -853,7 +854,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,cr35,cw35)">
+																													onclick="permission(this,cr35,cw35)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -862,8 +863,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_fee35" id="cr35" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_fee35" id="cr35" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -871,8 +872,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_fee35" id="cw35" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_fee35" id="cw35" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -893,7 +894,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_attendance36" id="cr36" value=""
+																													type="radio" name="c_attendance36" id="cr36" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -902,7 +903,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_attendance36" id="cw36" value=""
+																													type="radio" name="c_attendance36" id="cw36" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -924,7 +925,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_exam37" id="cr37" value=""
+																													type="radio" name="c_exam37" id="cr37" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -933,7 +934,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_exam37" id="cw37" value=""
+																													type="radio" name="c_exam37" id="cw37" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -955,7 +956,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_teacher38" id="cr38" value=""
+																													type="radio" name="c_teacher38" id="cr38" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -964,7 +965,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_teacher38" id="cw38" value=""
+																													type="radio" name="c_teacher38" id="cw38" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -977,7 +978,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,cr39,cw39)">
+																													onclick="permission(this,cr39,cw39)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -986,8 +987,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_register39" id="cr39" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_register39" id="cr39" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -995,8 +996,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_register39" id="cw39" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_register39" id="cw39" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -1008,7 +1009,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,cr40,cw40)">
+																													onclick="permission(this,cr40,cw40)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -1017,8 +1018,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_cashbook40" id="cr40" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_cashbook40" id="cr40" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -1026,8 +1027,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_cashbook40" id="cw40" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_cashbook40" id="cw40" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -1039,7 +1040,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,cr41,cw41)">
+																													onclick="permission(this,cr41,cw41)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -1048,8 +1049,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_transport41" id="cr41" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_transport41" id="cr41" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -1057,8 +1058,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_transport41" id="cw41" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_transport41" id="cw41" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -1079,7 +1080,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_salary42" id="cr42" value=""
+																													type="radio" name="c_salary42" id="cr42" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1088,7 +1089,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_salary42" id="cw42" value=""
+																													type="radio" name="c_salary42" id="cw42" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1111,7 +1112,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_library43" id="cr43" value=""
+																													type="radio" name="c_library43" id="cr43" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1120,7 +1121,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_library43" id="cw43" value=""
+																													type="radio" name="c_library43" id="cw43" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1133,7 +1134,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,cr44,cw44)">
+																													onclick="permission(this,cr44,cw44)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -1142,8 +1143,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_other44" id="cr44" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_other44" id="cr44" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -1151,8 +1152,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_other44" id="cw44" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_other44" id="cw44" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -1164,7 +1165,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,cr45,cw45)">
+																													onclick="permission(this,cr45,cw45)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -1173,8 +1174,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_emsg45" id="cr45" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_emsg45" id="cr45" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -1182,8 +1183,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="c_emsg45" id="cw45" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="c_emsg45" id="cw45" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -1200,8 +1201,8 @@
 														</div>
 														<br>
 														<ul class="pager wizard pager_a_cursor_pointer">
-															<li class="previous previous_btn3"><a>Previous</a></li>
-															<li class="next next_btn3"><a>Next</a></li>
+															<li class="previous previous_btn3"><a><i class="fa fa-long-arrow-left"></i> Previous</a></li>
+															<li class="next next_btn3"><a>Next <i class="fa fa-long-arrow-right"></i></a></li>
 														</ul>
 													</div>
 
@@ -1232,7 +1233,7 @@
 																											<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,tr31,tw31)">
+																													onclick="permission(this,tr31,tw31)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -1241,8 +1242,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_dash31" id="tr31" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="t_dash31" id="tr31" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -1251,8 +1252,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_dash31" id="tw31" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="t_dash31" id="tw31" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>
 																													READ/WRITE
 																												</label>
@@ -1274,7 +1275,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_setting32" id="tr32" value=""
+																													type="radio" name="t_setting32" id="tr32" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1283,7 +1284,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_setting32" id="tw32" value=""
+																													type="radio" name="t_setting32" id="tw32" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1305,7 +1306,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_mgmt33" id="tr33" value=""
+																													type="radio" name="t_mgmt33" id="tr33" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1314,7 +1315,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_mgmt33" id="tw33" value=""
+																													type="radio" name="t_mgmt33" id="tw33" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1336,7 +1337,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_admission34" id="tr34" value=""
+																													type="radio" name="t_admission34" id="tr34" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1345,7 +1346,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_admission34" id="tw34" value=""
+																													type="radio" name="t_admission34" id="tw34" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1367,7 +1368,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_fee35" id="tr35" value=""
+																													type="radio" name="t_fee35" id="tr35" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1376,7 +1377,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_fee35" id="tw35" value=""
+																													type="radio" name="t_fee35" id="tw35" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1389,7 +1390,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,tr36,tw36)">
+																													onclick="permission(this,tr36,tw36)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -1398,8 +1399,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_attendance36" id="tr36" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="t_attendance36" id="tr36" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -1408,8 +1409,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_attendance36" id="tw36" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="t_attendance36" id="tw36" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -1421,7 +1422,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,tr37,tw37)">
+																													onclick="permission(this,tr37,tw37)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -1430,8 +1431,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_exam37" id="tr37" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="t_exam37" id="tr37" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -1439,8 +1440,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_exam37" id="tw37" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="t_exam37" id="tw37" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -1452,7 +1453,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,tr38,tw38)">
+																													onclick="permission(this,tr38,tw38)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -1461,8 +1462,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_teacher38" id="tr38" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="t_teacher38" id="tr38" value="1"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -1470,8 +1471,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_teacher38" id="tw38" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="t_teacher38" id="tw38" value="2"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -1492,7 +1493,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_register39" id="tr39" value=""
+																													type="radio" name="t_register39" id="tr39" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1501,7 +1502,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_register39" id="tw39" value=""
+																													type="radio" name="t_register39" id="tw39" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1523,7 +1524,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_cashbook40" id="tr40" value=""
+																													type="radio" name="t_cashbook40" id="tr40" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1532,7 +1533,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_cashbook40" id="tw40" value=""
+																													type="radio" name="t_cashbook40" id="tw40" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1554,7 +1555,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_transport41" id="tr41" value=""
+																													type="radio" name="t_transport41" id="tr41" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1563,7 +1564,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_transport41" id="tw41" value=""
+																													type="radio" name="t_transport41" id="tw41" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1585,7 +1586,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_salary42" id="tr42" value=""
+																													type="radio" name="t_salary42" id="tr42" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1594,7 +1595,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_salary42" id="tw42" value=""
+																													type="radio" name="t_salary42" id="tw42" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1617,7 +1618,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_library43" id="tr43" value=""
+																													type="radio" name="t_library43" id="tr43" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1626,7 +1627,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_library43" id="tw43" value=""
+																													type="radio" name="t_library43" id="tw43" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1648,7 +1649,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_other44" id="tr44" value=""
+																													type="radio" name="t_other44" id="tr44" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1657,7 +1658,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_other44" id="tw44" value=""
+																													type="radio" name="t_other44" id="tw44" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1679,7 +1680,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_emsg45" id="tr45" value=""
+																													type="radio" name="t_emsg45" id="tr45" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1688,7 +1689,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="t_emsg45" id="tw45" value=""
+																													type="radio" name="t_emsg45" id="tw45" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1705,8 +1706,8 @@
 														</div>
 														<br>
 														<ul class="pager wizard pager_a_cursor_pointer">
-															<li class="previous previous_btn4"><a>Previous</a></li>
-															<li class="next next_btn4"><a>Next</a></li>
+															<li class="previous previous_btn4"><a><i class="fa fa-long-arrow-left"></i> Previous</a></li>
+															<li class="next next_btn4"><a>Next <i class="fa fa-long-arrow-right"></i></a></li>
 														</ul>
 													</div>
 
@@ -1737,7 +1738,7 @@
 																											<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,lr31,lw31)">
+																													onclick="permission(this,lr31,lw31)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -1746,8 +1747,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_dash31" id="lr31" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="l_dash31" id="lr31" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -1756,8 +1757,8 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_dash31" id="lw31" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="l_dash31" id="lw31" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>
 																													READ/WRITE
 																												</label>
@@ -1779,7 +1780,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_setting32" id="lr32" value=""
+																													type="radio" name="l_setting32" id="lr32" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1788,7 +1789,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_setting32" id="lw32" value=""
+																													type="radio" name="l_setting32" id="lw32" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1810,7 +1811,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_mgmt33" id="lr33" value=""
+																													type="radio" name="l_mgmt33" id="lr33" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1819,7 +1820,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_mgmt33" id="lw33" value=""
+																													type="radio" name="l_mgmt33" id="lw33" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1841,7 +1842,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_admission34" id="lr34" value=""
+																													type="radio" name="l_admission34" id="lr34" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1850,7 +1851,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_admission34" id="lw34" value=""
+																													type="radio" name="l_admission34" id="lw34" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1872,7 +1873,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_fee35" id="lr35" value=""
+																													type="radio" name="l_fee35" id="lr35" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1881,7 +1882,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_fee35" id="lw35" value=""
+																													type="radio" name="l_fee35" id="lw35" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1903,7 +1904,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_attendance36" id="lr36" value=""
+																													type="radio" name="l_attendance36" id="lr36" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1913,7 +1914,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_attendance36" id="lw36" value=""
+																													type="radio" name="l_attendance36" id="lw36" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1935,7 +1936,7 @@
 																										<td>
 																											<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_exam37" id="lr37" value=""
+																													type="radio" name="l_exam37" id="lr37" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1944,7 +1945,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_exam37" id="lw37" value=""
+																													type="radio" name="l_exam37" id="lw37" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1966,7 +1967,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_teacher38" id="lr38" value=""
+																													type="radio" name="l_teacher38" id="lr38" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -1975,7 +1976,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_teacher38" id="lw38" value=""
+																													type="radio" name="l_teacher38" id="lw38" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -1997,7 +1998,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_register39" id="lr39" value=""
+																													type="radio" name="l_register39" id="lr39" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -2006,7 +2007,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_register39" id="lw39" value=""
+																													type="radio" name="l_register39" id="lw39" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -2028,7 +2029,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_cashbook40" id="lr40" value=""
+																													type="radio" name="l_cashbook40" id="lr40" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -2037,7 +2038,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_cashbook40" id="lw40" value=""
+																													type="radio" name="l_cashbook40" id="lw40" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -2059,7 +2060,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_transport41" id="lr41" value=""
+																													type="radio" name="l_transport41" id="lr41" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -2068,7 +2069,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_transport41" id="lw41" value=""
+																													type="radio" name="l_transport41" id="lw41" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -2090,7 +2091,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_salary42" id="lr42" value=""
+																													type="radio" name="l_salary42" id="lr42" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -2099,7 +2100,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_salary42" id="lw42" value=""
+																													type="radio" name="l_salary42" id="lw42" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -2112,7 +2113,7 @@
 																										<div class="checkbox">
 																												<label class="text-success"> <input
 																													type="checkbox" value=""
-																													onclick="permission(this,lr43,lw43)">
+																													onclick="permission(this,lr43,lw43)" checked="checked">
 																													<span class="cr"><i
 																														class="cr-icon fa fa-check"></i></span> Grant
 																												</label>
@@ -2122,8 +2123,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_library43" id="lr43" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="l_library43" id="lr43" value="1"
+																													> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
 																											</div>
@@ -2131,8 +2132,8 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_library43" id="lw43" value=""
-																													disabled> <span class="cr"><i
+																													type="radio" name="l_library43" id="lw43" value="2"
+																													checked="checked"> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
 																											</div>
@@ -2153,7 +2154,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_other44" id="lr44" value=""
+																													type="radio" name="l_other44" id="lr44" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -2162,7 +2163,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_other44" id="lw44" value=""
+																													type="radio" name="l_other44" id="lw44" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -2184,7 +2185,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_emsg45" id="lr45" value=""
+																													type="radio" name="l_emsg45" id="lr45" value="1"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ
 																												</label>
@@ -2193,7 +2194,7 @@
 																										<td>
 																										<div class="radio">
 																												<label class="text-success"> <input
-																													type="radio" name="l_emsg45" id="lw45" value=""
+																													type="radio" name="l_emsg45" id="lw45" value="2"
 																													disabled> <span class="cr"><i
 																														class="cr-icon fa fa-circle"></i></span>READ/WRITE
 																												</label>
@@ -2211,13 +2212,14 @@
 														</div>
 														<br>
 														<ul class="pager wizard pager_a_cursor_pointer">
-															<li class="previous previous_btn5"><a>Previous</a></li>
-															<li class="next"><button type="submit">Finish</button></li>
+															<li class="previous previous_btn5"><a><i class="fa fa-long-arrow-left"></i> Previous</a></li>
+															<li class="next pull-right"><button type="submit" class="btn btn-success  button-rounded">Finish</button></li>
 														</ul>
 													</div>
 												</div>
-											</form>
+											
 										</div>
+										</form>
 									</div>
 								</div>
 							</div>
