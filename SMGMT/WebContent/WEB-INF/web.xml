@@ -68,8 +68,6 @@
     <servlet-name>Caste</servlet-name>
     <url-pattern>/Caste</url-pattern>
   </servlet-mapping>
-  			
-  
   <servlet>
     <servlet-name>School</servlet-name>
     <servlet-class>com.servletStore.settings.school.controller.School</servlet-class>
@@ -102,7 +100,6 @@
     <servlet-name>OutwardRegister</servlet-name>
     <url-pattern>/OutwardRegister</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>StockRegister</servlet-name>
     <servlet-class>com.servletStore.register.controller.StockRegister</servlet-class>
@@ -111,10 +108,8 @@
     <servlet-name>StockRegister</servlet-name>
     <url-pattern>/StockRegister</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
-   <servlet-name>StdSectionAssignment</servlet-name>
+    <servlet-name>StdSectionAssignment</servlet-name>
     <servlet-class>com.servletStore.settings.standard.controller.StdSectionAssignment</servlet-class>
   </servlet>
   <servlet-mapping>
