@@ -52,7 +52,6 @@ public class AddClassRoom extends HttpServlet {
 		else
 		{
 			AddClassRoomDAO classDao = new AddClassRoomImpl();
-			AddClassRoomPOJO classPOJO = new AddClassRoomPOJO();
 			
 			List list = classDao.getStandards(schoolId, sectionId);
 			Iterator itr = list.iterator();

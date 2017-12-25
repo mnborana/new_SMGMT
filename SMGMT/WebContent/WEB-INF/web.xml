@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>SMGMT</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>Index</servlet-name>
@@ -68,8 +68,6 @@
     <servlet-name>Caste</servlet-name>
     <url-pattern>/Caste</url-pattern>
   </servlet-mapping>
-  			
-  
   <servlet>
     <servlet-name>School</servlet-name>
     <servlet-class>com.servletStore.settings.school.controller.School</servlet-class>
@@ -102,7 +100,6 @@
     <servlet-name>OutwardRegister</servlet-name>
     <url-pattern>/OutwardRegister</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>StockRegister</servlet-name>
     <servlet-class>com.servletStore.register.controller.StockRegister</servlet-class>
@@ -111,10 +108,8 @@
     <servlet-name>StockRegister</servlet-name>
     <url-pattern>/StockRegister</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
-   <servlet-name>StdSectionAssignment</servlet-name>
+    <servlet-name>StdSectionAssignment</servlet-name>
     <servlet-class>com.servletStore.settings.standard.controller.StdSectionAssignment</servlet-class>
   </servlet>
   <servlet-mapping>
