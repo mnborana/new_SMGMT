@@ -167,9 +167,7 @@
 		                                                    <input type="text" id="date" class="form-control form_val_popup_dp3" name="dueDate" placeholder="YYYY-MM-DD"/>
 		                                                </div>
 		                                                </div>
-		                                                 
-		                                              
-		                                                  <div class="form-actions form-group row">
+		                                                 <div class="form-actions form-group row">
 			                                            	<input type="submit" id="btnSubmit" value="Save Book" name="issuebook" class="btn btn-primary">
 			                                         	 </div>
 		                                          	 </form>
@@ -196,32 +194,38 @@
                                         <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
                                             <thead>
                                             <tr role="row">
-                                            	<th class="sorting_asc wid-10" tabindex="0" rowspan="1" colspan="1">Issue Id</th>
+                                            	<th class="sorting_asc wid-10" tabindex="0" rowspan="1" colspan="1">Sr.No</th>
                                             	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">User Type</th>
                                             	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">User Name</th>
-                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Book NO</th>
+                                                <!-- <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Book NO</th> -->
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Book Name</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Issue Date</th>
-                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Return Date</th>
                                                 <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Due Date</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                        		 	<%
                                        		 		AddBookDAO dao=new AddBookImpl();
+                                       		 	//	System.out.print("***"+dao.getIssueBookDetails());
                                        		 		request.setAttribute("display_book", dao.getIssueBookDetails());
                                        		 		int bookCount=0;
                                        		 	%>
 													<c:forEach items="${display_book}" var="d">
 													  <tr role="row" class="even">
+													   
 														<td><%=(++bookCount) %></td>
-														<td><c:out value="${d.userType}"></c:out></td>
-														<td><c:out value="${d.userName}"></c:out></td>
-														<td><c:out value="${d.bookId}"></c:out></td>
+														<c:if test="${d.studName!=null }">
+															<td><c:out value="Student"></c:out></td>
+															<td><c:out value="${d.studName}"></c:out></td>
+														</c:if>
+														<c:if test="${d.staffName!=null }">
+															<td><c:out value="Teacher"></c:out></td>
+															<td><c:out value="${d.staffName}"></c:out></td>
+														</c:if>
 														<td><c:out value="${d.bookName}"></c:out></td>
 														<td><c:out value="${d.issueDate}"></c:out></td>
 														<td><c:out value="${d.dueDate}"></c:out></td>
-														<td><c:out value="${d.returnDate}"></c:out></td>
+													
 													<%-- 	 <td>
                                             			<a class="edit" data-placement="top" title="Edit" href="#update" data-toggle="modal" onclick="loadDoc(${d.getBookNo()})"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
                                             			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/Library?bookNo=${d.getBookNo()}"><i class="fa fa-trash text-danger"></i></a>
@@ -298,6 +302,46 @@
                                         <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
                                             <thead>
                                             <tr role="row">
+                                            	<th class="sorting_asc wid-10" tabindex="0" rowspan="1" colspan="1">Sr.No</th>
+                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">User Type</th>
+                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">User Name</th>
+                                                <!-- <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Book NO</th> -->
+                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Book Name</th>
+                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Issue Date</th>
+                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Due Date</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                       		 	<%
+                                       		 		AddBookDAO dao1=new AddBookImpl();
+                                       		 	//	System.out.print("***"+dao.getIssueBookDetails());
+                                       		 		request.setAttribute("display_book", dao1.getIssueBookDetails());
+                                       		 		int bookCount1=0;
+                                       		 	%>
+													<c:forEach items="${display_book}" var="d">
+													  <tr role="row" class="even">
+													   
+														<td><%=(++bookCount1) %></td>
+														<c:if test="${d.studName!=null }">
+															<td><c:out value="Student"></c:out></td>
+															<td><c:out value="${d.studName}"></c:out></td>
+														</c:if>
+														<c:if test="${d.staffName!=null }">
+															<td><c:out value="Teacher"></c:out></td>
+															<td><c:out value="${d.staffName}"></c:out></td>
+														</c:if>
+														<td><c:out value="${d.bookName}"></c:out></td>
+														<td><c:out value="${d.issueDate}"></c:out></td>
+														<td><c:out value="${d.dueDate}"></c:out></td>
+													
+													<%-- 	 <td>
+                                            			<a class="edit" data-placement="top" title="Edit" href="#update" data-toggle="modal" onclick="loadDoc(${d.getBookNo()})"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
+                                            			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/Library?bookNo=${d.getBookNo()}"><i class="fa fa-trash text-danger"></i></a>
+                                            			</td>  --%>
+                                            		</tr>
+												  </c:forEach>
+                                            </tbody>
+                                         <%--    <tr role="row">
                                             	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Sr.No</th>
                                             	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">User Type</th>
                                             	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">User Name</th>
@@ -313,20 +357,33 @@
                                        		 	request.setAttribute("display_book", dao.getIssueBookDetails());
                                        		 		int bookCount1=0;
                                        		 	%>
-													<c:forEach items="${display_book}" var="d">
+												<%--<c:forEach items="${display_book}" var="d">
 													  <tr role="row" class="even">
 														<td><%=(++bookCount1) %></td>
-														<td><c:out value="${d.userType}"></c:out></td>
+														 <td><c:out value="${d.userType}"></c:out></td>
 														<td><c:out value="${d.userName}"></c:out></td>
-														<td><c:out value="${d.bookNo}"></c:out></td>
+														<td><c:out value="${d.bookNo}"></c:out></td> --%>
+												<%--		
+													<c:forEach items="${display_book}" var="d">
+													  <tr role="row" class="even">
+													   
+														<td><%=(++bookCount1) %></td>
+														<c:if test="${d.studName!=null }">
+															<td><c:out value="Student"></c:out></td>
+															<td><c:out value="${d.studName}"></c:out></td>
+														</c:if>
+														<c:if test="${d.staffName!=null }">
+															<td><c:out value="Teacher"></c:out></td>
+															<td><c:out value="${d.staffName}"></c:out></td>
+														</c:if>
 														<td><c:out value="${d.bookName}"></c:out></td>
 														<td><c:out value="${d.issueDate}"></c:out></td>
 														<td><c:out value="${d.dueDate}"></c:out></td>
 														 
                                             		</tr>
 												  </c:forEach>
-                                            </tbody>
-                                        </table>
+												   </tbody> --%>
+										</table>
                                    
                                 <!-- END EXAMPLE TABLE PORTLET-->
                             </div>
@@ -401,13 +458,13 @@
 		                                                	<div class="col-lg-8 ">
 		                                                   	  <label for="required2" class="col-form-label">Renew/Return *</label>
 										                       <div class="controls">
-												                 <input type="radio" value="RETURN" style="margin-left: 1%;" name="select" id="selectRt" onclick="returnBook('returnBk')"> Return
+												                 <input type="radio" value="RETURN" style="margin-left: 1%;" name="select" id="selectRt" checked="checked"> Return
 												                 <input type="radio" value="RENEW" style="margin-left: 1%;" name="select" id="selectRn" onclick="renewBook('renew')" > Renewal
 												               </div>
 												             </div>
 			                                      	 	</div>
 		                                              <!-- Search stud from here     ----- -->
-		                                          	   <div class="form-group row" id="returnBk" style="display: none">
+		                                          	   <div class="form-group row" id="returnBk" style="display: block">
 		                                                   <div class="col-lg-4">
                                                   		    <label class="col-form-label">Return Date *</label>
                                                 	 		<input type="text" class="form-control form_val_popup_dp3" id="returnDate" name="date_inline" placeholder="YYYY-MM-DD"/>
@@ -704,7 +761,7 @@ function getExpData(val)
 		  xhttp.send();
 		
 	}
-
+/* 
 	function returnBook(returnBk)
 	{
 		/* var returnBook = document.getElementById("id");
@@ -731,7 +788,11 @@ function getExpData(val)
 			
 			
 		} */
-		 var returnBook = document.getElementById("returnBk");
+		/* function returnBook(returnBk)
+		{
+		//	var returnBook = document.getElementById("id");
+		//	var renew = document.getElementById("id1");
+		  var returnBook = document.getElementById("returnBk");
 		 if(document.getElementById("selectRt").value=="RETURN")
 			{
 				returnBook.style.display = "block";
@@ -740,17 +801,21 @@ function getExpData(val)
 			{
 				document.getElementById("returnBk").style.display="none";
 			} 
-	}
+	}  */
 	function renewBook(renew)
 	{
 	 var renewBook = document.getElementById("renew");
+	 var returnBook = document.getElementById("returnBk");
 	 if(document.getElementById("selectRn").value=="RENEW")
 		{
+		 returnBook.style.display = "none";
 		 renewBook.style.display = "block";
 		}
 	else 
 		{
-		document.getElementById("renew").style.display="none";
+		//document.getElementById("renew").style.display="none";
+		returnBook.style.display = "block";
+		 renewBook.style.display = "none";
 		} 
 }
 	

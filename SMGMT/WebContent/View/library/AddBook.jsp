@@ -137,19 +137,19 @@
                                                 	 <input type="text" id="required2" name="authorName" class="form-control" required>
                                                 </div>
                                            		<div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Publisher Name *</label>
-                                               	    <input type="text" id="required2" name="pubName" class="form-control" required>
+                                                    <label for="required2" class="col-form-label">Publisher Name </label>
+                                               	    <input type="text" id="required2" name="pubName" class="form-control" >
                                                 </div>
                                                 <div class="col-lg-4">
-                                                     <label for="required2" class="col-form-label">Edition *</label>
-                                                	 <input type="text"  id="required2" name="edition" class="form-control" required>
+                                                     <label for="required2" class="col-form-label">Edition </label>
+                                                	 <input type="text"  id="required2" name="edition" class="form-control" >
                                                 </div>
                                                 <div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Price *</label>
-                                               	    <input type="text" id="required2" name="price" class="form-control" required>
+                                                    <label for="required2" class="col-form-label">Price </label>
+                                               	    <input type="text" id="required2" name="price" class="form-control">
                                                 </div>
                                             	<div class="col-lg-4">
-                                                    <label for="required2" class="col-form-label">Cupboard No *</label>
+                                                    <label for="required2" class="col-form-label">Cupboard No </label>
                                                 	 <input type="text" id="required2" name="cupbno" class="form-control">
                                                 </div>
                                                 <div class="col-lg-4">
@@ -228,9 +228,9 @@
                                                 <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Book NO</th>
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Book Name</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Author Name</th>
-                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Publisher Name</th>
+                                                <!-- <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Publisher Name</th>
                                                 <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Edition</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Price</th>
+                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Price</th> -->
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Cupboard No</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Quantity</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Language</th>
@@ -248,9 +248,9 @@
 														<td><%=(++bookCount) %></td>
 														<td><c:out value="${d.bookName}"></c:out></td>
 														<td><c:out value="${d.authorName}"></c:out></td>
-														<td><c:out value="${d.publisherName}"></c:out></td>
+														<%-- <td><c:out value="${d.publisherName}"></c:out></td>
 														<td><c:out value="${d.edition}"></c:out></td>
-														<td><c:out value="${d.price}"></c:out></td>
+														<td><c:out value="${d.price}"></c:out></td> --%>
 														<td><c:out value="${d.cupboardNo}"></c:out></td>
 														<td><c:out value="${d.quantity}"></c:out></td>
 														<td><c:out value="${d.language}"></c:out></td>
@@ -385,12 +385,12 @@
 <script type="text/javascript">
      
 function loadDoc(id) {
-	alert(id);
+	//alert(id);
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
 	     var demoData = this.responseText;
-	     alert(demoData);
+	  //   alert(demoData);
 	     /* //alert(demoData);
 	     if(demoData!=null){
 	    	 document.getElementById("demo").style.display="block"; */
