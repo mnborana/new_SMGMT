@@ -1,3 +1,38 @@
+
+
+
+<!-- global styles-->
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
+ <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_inputlimiter,_css,_jquery.inputlimiter.css+vendors,_bootstrap-colorpicker,_css,_bootstrap-colorpicker.min.css+vendors,_jquery-tagsinput,_c"/>
+    <!-- end of global styles-->
+   
+    
+    <!-- global scripts-->
+<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
+<!-- end of global scripts-->
+<!-- plugin scripts -->
+<script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/jquery-tagsinput/js/jquery.tagsinput.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pluginjs/jquery.validVal.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/jquery.inputmask.bundle.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/daterangepicker/js/daterangepicker.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/autosize/js/jquery.autosize.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/jasny-bootstrap/js/inputmask.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/j_timepicker/js/jquery.timepicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/clockpicker/js/jquery-clockpicker.min.js"></script>
+<!--end of plugin scripts-->
+<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pages/datetime_piker.js"></script>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

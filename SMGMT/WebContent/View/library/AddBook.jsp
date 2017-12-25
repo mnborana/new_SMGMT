@@ -66,7 +66,7 @@
 	                            <div class="col-sm-5 col-lg-6">
 	                                <h4 class="nav_top_align">
 	                                    <i class="fa fa-pencil"></i>
-	                                    Form Validations
+	                                    Book Details
 	                                </h4>
 	                            </div>
 	                            <div class="col-sm-7 col-lg-6">
@@ -78,9 +78,9 @@
 	                                        </a>
 	                                    </li>
 	                                    <li class="breadcrumb-item">
-	                                        <a href="#">Forms</a>
+	                                        <a href="#">Library</a>
 	                                    </li>
-	                                    <li class="active breadcrumb-item">Form Validations</li>
+	                                    <li class="active breadcrumb-item">Add Books</li>
 	                                </ol>
 	                            </div>
 	                        </div>
@@ -96,17 +96,17 @@
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                        Basic Validation
+                                         Add Books
                                     </div>
                                     <div class="card-block m-t-35">
                                         <form action="/SMGMT/Library" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                            <div class="form-group row">
                                              	<%
-                                             		SysDate requireddate=new SysDate();
+                                             		SysDate date=new SysDate();
                                              	%> 
                                                 <div class="col-lg-4">
                                                     <label class="col-form-label">Date *</label>
-                                                    <input type="text" class="form-control form_val_popup_dp3" value="<%=requireddate.todayDate()%>" name="date" placeholder="YYYY-MM-DD"/>
+                                                    <input type="text" class="form-control form_val_popup_dp3" value="<%=date.todayDate()%>" name="date" placeholder="YYYY-MM-DD"/>
                                                 </div>
                                                  <div class="col-lg-4">
                                                     <label for="sport" class="col-form-label">Select Category *</label>
@@ -285,7 +285,7 @@
                                                		 <input type="hidden" name="bno" id="bid">
                                                      <label class="col-form-label">Date *</label>
                                                      
-                                                      <input type="text" class="form-control form_val_popup_dp3" value="<%=requireddate.todayDate() %>" name="date" id="date" placeholder="YYYY-MM-DD"/>
+                                                      <input type="text" class="form-control form_val_popup_dp3" value="<%=date.todayDate() %>" name="date" id="date" placeholder="YYYY-MM-DD"/>
                                                  </div>
                                                
                                                 <div class="col-lg-4 ">

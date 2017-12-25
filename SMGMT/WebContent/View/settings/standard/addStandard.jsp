@@ -101,7 +101,7 @@
                                                     <label for="required2" class="col-form-label">Standard Name <span style="color: red;">*</span></label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" class="form-control" name="standard_name" title="Enter Standard here" onkeyup="this.val ue=this.value.toUpperCase()"  onblur="this.value=$.trim(this.value)"required>
+                                                    <input type="text" class="form-control" name="standard_name" title="Enter Standard here" onkeyup="this.value=this.value.toUpperCase()"  onblur="this.value=$.trim(this.value)"required>
                                                 </div>
                                             </div>
                                             

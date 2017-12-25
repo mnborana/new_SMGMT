@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import utility.SysDate;
+
 import com.dbconnect.DBConnection;
 
 public class AddBookImpl implements AddBookDAO{
@@ -39,10 +41,53 @@ public class AddBookImpl implements AddBookDAO{
 		//System.out.println("@@@@@@@@@@@"+st);
 		return st;
 	}
+	//   For insert books as per quantity in book_details table        ////////
+	@Override
+	public int insertBookDetails(int bNo)throws SQLException {
+		
+		int status=0;
+		
+		String query1="INSERT INTO book_details_master (`book_no`) VALUES ("+bNo+")";
+		PreparedStatement ps=connection.prepareStatement(query1);
+		//System.out.println(qty+">>>>>>>>>>>>>>>");
+		System.out.println(query1);
+		
+		status=ps.executeUpdate();
+		
+		
+		return status;
+	}
+	
+		///    To get the Maximum ID from book_info_master
+		@Override
+		public int getMaxBookInfoMaster() throws SQLException {
+			
+			ArrayList list=new ArrayList<>();
+			PreparedStatement ps;
+			int finalId=0;
+			try{
+				String maxId="SELECT MAX(book_info_master.book_no) FROM book_info_master";
+				System.out.println(maxId);
+				pstmt = connection.prepareStatement(maxId);
+				//System.out.println(">><<.>");
+				ResultSet rs=pstmt.executeQuery();
+				//System.out.println("executed>>>>>>>>>>>>>>>>>>>>>>>>"+rs);
+				while(rs.next())
+				{
+					System.out.println("dsadsadsadsadsad");
+					finalId = rs.getInt(1);
+					
+				}
+				
+			}
+			catch (Exception e) {
+				// TODO: handle exception
+			}
+			return finalId;
+		}
 	@Override
 	public List<AddBookPOJO> getBookDetails() throws SQLException {
 		List<AddBookPOJO> list=new ArrayList<AddBookPOJO>();
-		//String query="select * from campus;";
 		String query="select `cat_id`,`date`,`book_no`,`book_name`,`author_name`,`publisher_name`,`edition`,`price`,`cupboard_no`,`quantity`,`language` from book_info_master";
 	
 		PreparedStatement ps=(PreparedStatement) connection.prepareStatement(query);
@@ -252,16 +297,16 @@ public class AddBookImpl implements AddBookDAO{
 	@Override
 	// For insert issue books......................
 	public int insertIssueBook(IssueBookPOJO pojo) throws SQLException {
-		String query="insert into issue_book(book_no,book_name,user_type,user_name,issue_date,due_date) values(?,?,?,?,?,?)";
+		System.out.println("3");
+		String query="insert into issue_book(book_id,stud_id,staff_id,issue_date,due_date,return_date) values(?,?,?,?,?,?)";
 		PreparedStatement ps=connection.prepareStatement(query);
-	    ps.setInt(1, pojo.getBookNo());
-		ps.setString(2, pojo.getBookName());
-		ps.setString(3, pojo.getUserType());
-		ps.setString(4, pojo.getUserName());
-		ps.setString(5, pojo.getIssueDate());
-		ps.setString(6, pojo.getDueDate());
-		
-		System.out.println(pojo.getBookNo()+"@@@@@@@@@@@@@@@@@@@@*******");
+			   ps.setInt(1, pojo.getBookId());
+			   ps.setInt(1, pojo.getStudId());
+			   ps.setInt(3, pojo.getStaffId());
+			   ps.setString(4, pojo.getIssueDate());
+			   ps.setString(5, pojo.getDueDate());
+			   ps.setString(6, pojo.getReturnDate());
+	///	System.out.println(pojo.getBookNo()+"@@@@@@@@@@@@@@@@@@@@*******");
 		System.out.println("*************");
 		int st=ps.executeUpdate();
 		System.out.println("@@@@@@@@@@@"+st);
@@ -270,9 +315,10 @@ public class AddBookImpl implements AddBookDAO{
 	@Override
 	public List<IssueBookPOJO> getIssueBookDetails() {
 		List<IssueBookPOJO> list=new ArrayList<IssueBookPOJO>();
-		
-		String query="select * from issue_book";
-	
+		 SysDate sd=new SysDate();
+		 System.out.println("4");
+		//String query="select * from issue_book where issue_book.issue_date="+sd.todayDate().split("-")[2]+"-"+sd.todayDate().split("-")[1]+"-"+sd.todayDate().split("-")[0]+"'";
+		String query="select * from issue_book where issue_date='"+sd.todayDate().split("-")[0]+"-"+sd.todayDate().split("-")[1]+"-"+sd.todayDate().split("-")[2]+"'ORDER BY issue_book.id DESC";
 		PreparedStatement ps;
 		try {
 			ps = (PreparedStatement) connection.prepareStatement(query);
@@ -282,13 +328,12 @@ public class AddBookImpl implements AddBookDAO{
 				IssueBookPOJO pojo=new IssueBookPOJO();
 				
 				//bcp.setCatName(rs.getString("cat_type"));
-				
-				pojo.setBookNo(rs.getInt("book_no"));
-				pojo.setBookName(rs.getString("book_name"));
-				pojo.setUserType(rs.getString("user_type"));
-				pojo.setUserName(rs.getString("user_name"));
+				pojo.setBookId(rs.getInt("book_id"));
+				pojo.setStudId(rs.getInt("stud_id"));
+				pojo.setStaffId(rs.getInt("staff_id"));
 				pojo.setIssueDate(rs.getString("issue_date"));
 				pojo.setDueDate(rs.getString("due_date"));
+				pojo.setReturnDate(rs.getString("return_date"));
 				
 				list.add(pojo);
 			}
@@ -297,11 +342,77 @@ public class AddBookImpl implements AddBookDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-
 		return list;
 
 	}
+	
+	public List<IssueBookPOJO> getIssueBookList(String query) {
+		List<IssueBookPOJO> list=new ArrayList<IssueBookPOJO>();
+		 SysDate sd=new SysDate();
+		 
+		//String query="select * from issue_book where issue_book.issue_date="+sd.todayDate().split("-")[2]+"-"+sd.todayDate().split("-")[1]+"-"+sd.todayDate().split("-")[0]+"'";
+		//String query="SELECT *FROM issue_book WHERE  issue_date >= '"+issueDate+"' AND  due_date <= '"+dueDate+"'";
+		PreparedStatement ps;
+		//System.out.println("************"+query);
+		try {
+			ps = (PreparedStatement) connection.prepareStatement(query);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				IssueBookPOJO pojo=new IssueBookPOJO();
+				
+				//bcp.setCatName(rs.getString("cat_type"));
+				pojo.setBookId(rs.getInt("book_id"));
+				pojo.setStudId(rs.getInt("stud_id"));
+				pojo.setStaffId(rs.getInt("staff_id"));
+				pojo.setIssueDate(rs.getString("issue_date"));
+				pojo.setDueDate(rs.getString("due_date"));
+				pojo.setReturnDate(rs.getString("return_date"));
+								
+				list.add(pojo);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}System.out.println("5*******************"+list);
+		return list;
+
+	}
+	@Override
+	public List searchBookInfo(String bookDetail) {
+		List list=new ArrayList();
+		ResultSet rs=null;
+		AddBookPOJO pojo=new AddBookPOJO();
+		try {
+			// by author name
+			System.out.println("*********");
+			String query="select book_info_master.book_no,book_info_master.book_name,book_info_master.author_name,book_info_master.publisher_name,book_info_master.edition,book_info_master.price,book_info_master.cupboard_no,book_info_master.quantity from book_info_master where book_no=?";
+			pstmt=(PreparedStatement) connection.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(bookDetail));
+			System.out.println(query);
+			rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				list.add(rs.getInt(1));
+				list.add(rs.getString(2));
+				list.add(rs.getString(3));
+				list.add(rs.getString(4));
+				list.add(rs.getString(5));
+				list.add(rs.getInt(6));
+				list.add(rs.getString(7));
+				list.add(rs.getInt(8));
+				
+				
+				System.out.println("List"+list);
+			}
+			
+	
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return list;
+}
 }
 

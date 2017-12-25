@@ -1,3 +1,9 @@
+<%@page import="com.servletStore.settings.classRoom.model.AddClassRoomPOJO"%>
+<%@page import="com.servletStore.settings.classRoom.model.AddClassRoomImpl"%>
+<%@page import="com.servletStore.settings.classRoom.model.AddClassRoomDAO"%>
+<%@page import="com.servletStore.settings.section.model.SectionImpl"%>
+<%@page import="com.servletStore.settings.section.model.SectionPojo"%>
+<%@page import="com.servletStore.settings.section.model.SectionDAO"%>
 <%@page import="com.servletStore.settings.school.model.SchoolPOJO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.servletStore.settings.standard.model.StandardPOJO"%>
@@ -54,7 +60,7 @@
   top: 48%;
   background-position: center;
 z-index: 999999">
-        <img src="" style=" width: 40px;" alt="loading...">
+        <img src="/SMGMT/config/img/loader.gif.pagespeed.ce.pu_lpoGKrw.gif" style=" width: 40px;" alt="loading...">
     </div>
 </div>
 <div id="wrap">
@@ -70,6 +76,11 @@ z-index: 999999">
         	 <!-- /.left navbar -->
                 <jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
              <!-- /.left navbar -->
+    
+    <%
+		HttpSession session1 = request.getSession();
+		session1.setAttribute("schoolId", "1");
+	%>
              
              
         <div id="content" class="bg-container">
@@ -79,7 +90,7 @@ z-index: 999999">
                        <div class="col-sm-5 col-lg-6 skin_txt">
                            <h4 class="nav_top_align">
                                <i class="fa fa-pencil"></i>
-                               Standard And Section Assignment
+                               Class Room
                            </h4>
                        </div>
                        <div class="col-sm-7 col-lg-6">
@@ -93,7 +104,7 @@ z-index: 999999">
                                <li class="breadcrumb-item">
                                    <a href="#">Settings</a>
                                </li>
-                               <li class="active breadcrumb-item">Class</li>
+                               <li class="active breadcrumb-item">Class Room</li>
                            </ol>
                        </div>
                    </div>
@@ -110,57 +121,70 @@ z-index: 999999">
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                        Create New Class
+                                        Create New Class Room
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="/SMGMT/StdSectionAssignment" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/AddClassRoom" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                        <div class="form-group row">
                                            <div class="col-lg-4  text-lg-right">
                                                <label for="required2" class="col-form-label">Select School <span style="color: red;">*</span> </label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <select class="form-control chzn-select" name="schoolId" onchange="getSections()" id="schoolId" title="Select School"  required="required">
-			                                        <option>Select School</option>
+                                               <select class="form-control chzn-select" name="sectionId" onchange="getStandards()" id="sectionId" title="Select Section"  required>
+			                                        <option>Select Section</option>
 			                                        <%
-				                                    	StandardDAO sdao3 = new StandardImpl();
-				                                    	List<SchoolPOJO> l3 = sdao3.getSchoolDetails();
+				                                    	SectionDAO sdao2 = new SectionImpl();
+				                                    	List<SectionPojo> l2 = sdao2.getSectionDetails();
 				                                   
-														int count3=1;
-				                                    	Iterator itr3 = l3.iterator();
-				                                    	while(itr3.hasNext()){
-				                                    		SchoolPOJO stdPojo3 = (SchoolPOJO)itr3.next();
-				                                    		int id3 = stdPojo3.getId();
+														int count2=1;
+				                                    	Iterator itr2 = l2.iterator();
+				                                    	while(itr2.hasNext()){
+				                                    		SectionPojo pojo2 = (SectionPojo)itr2.next();
+				                                    		int id2 = pojo2.getId();
 				                                    %>
-				                                    	<option value="<%=id3 %>"><%=stdPojo3.getName() %></option>
-														
+				                                            <option value="<%=id2 %>"> <%=pojo2.getName() %> </option>
 				                                     <%
-				                                     	count3++;
+				                                     	count2++;
 				                                    	}
 				                                     %>  
 			                                        
 			                                    </select>
                                            </div>
                                        </div>
+                                       
                                        <div class="form-group row">
-                                           <div class="col-lg-4 text-lg-right">
-                                               <label for="required2" class="col-form-label">Select Section <span style="color: red;">*</span></label>
+                                           <div class="col-lg-4  text-lg-right">
+                                               <label for="required2" class="col-form-label">Select Shift <span style="color: red;">*</span> </label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <input class="form-control" placeholder="Select Section" list="browsers" onkeyup="this.value=this.value.toUpperCase()" name="sectionName" id="sectionName"autocomplete="off" required />
-                                                <datalist id="browsers">
-												</datalist>
+                                               <select class="form-control chzn-select" name="shift" id="shift" title="Select Shift"  required>
+			                                        <option value="" >Select Shift</option>
+			                                        <option value="MORNING" >MORNING</option>
+			                                        <option value="AFTERNOON" >AFTERNOON</option>
+			                                    </select>
+                                           </div>
+                                       </div>
+                                       
+                                       <input type="hidden" value="<%=session1.getAttribute("schoolId") %>" name="schoolId">
+                                       
+                                       <div class="form-group row">
+                                           <div class="col-lg-4 text-lg-right">
+                                               <label for="required2" class="col-form-label">Division Name </label>
+                                           </div>
+                                           <div class="col-lg-4">
+                                               <input class="form-control" onkeyup="this.value=this.value.toUpperCase()" placeholder="Division Name" name="divisionName" id="divisionName" autocomplete="off" />
                                            </div>
                                        </div>
                                        
                                        
                                        <div class=" form-group row" id="stdCheckboxes">
-                                      
+                                       
+                                       
                                       </div>
-                                      
                                       <br>
                                        <div class="form-actions form-group row">
                                            <div class="col-lg-4 push-lg-4">
-                                               <input type="submit" value="Generate Class" class="btn btn-primary">
+                                               <input type="submit" name="classRoomSubmit" value="Generate Class Room" class="btn btn-primary">
                                            </div>
                                        </div>
                                    </form>
@@ -191,29 +215,35 @@ z-index: 999999">
                                         <thead>
                                         <tr role="row">
                                             <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No.</th>
-                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">School Name</th>
-                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Section Name</th>
-                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Standard Name</th>
+                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Class Room</th>
+                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Section</th>
+                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Shift</th>
                                             <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         
                                         <%
-                                         StandardDAO sdao = new StandardImpl();
-                                     	List<StandardPOJO> l = sdao.getClassDetails();
-                                    
- 										int count=1;
-                                     	Iterator itr = l.iterator();
-                                     	while(itr.hasNext()){
-                                     		StandardPOJO stdPojo = (StandardPOJO)itr.next();
-                                     		int id = stdPojo.getFkClassId();
-                                  %>
+                                         	AddClassRoomDAO classImpl = new AddClassRoomImpl();
+	                                     	List l = classImpl.getClassRoomDetails("1");
+	                                    
+	 										int count=1;
+	                                     	Iterator itr = l.iterator();
+	                                     	while(itr.hasNext()){
+	                                     		AddClassRoomPOJO classPojo = (AddClassRoomPOJO)itr.next();
+	                                     		int id = classPojo.getClassRoomId();
+	                                  	%>
                                         	<tr role="row" class="even">
                                         		<td><%=count %></td>
-                                        		<td><%=stdPojo.getSchoolName() %></td>
-                                        		<td><%=stdPojo.getSectionName() %></td>
-                                        		<td><%=stdPojo.getStdName() %></td>
+                                        		
+                                        		<% if(classPojo.getDivision().equals("")){ %>
+                                        			<td><%=classPojo.getStdName()%></td>
+                                        		<%}else{ %>
+                                        			<td><%=classPojo.getStdName() +" (" +classPojo.getDivision() +")"%></td>
+                                        		<%} %>
+                                        		
+                                        		<td><%=classPojo.getSectionName() %></td>
+                                        		<td><%=classPojo.getShift() %></td>
                                         		<td>
                                         			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard(<%=id%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
                                         			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="#"><i class="fa fa-trash text-danger"></i></a>
@@ -244,50 +274,15 @@ z-index: 999999">
     <!-- /#content -->
   
 
-</div>
 <!-- /#wrap -->
 <!-- global scripts-->
 
 <script type="text/javascript">
 
-function getSections() {
-	
-	var sid = document.getElementById("schoolId").value;
-	var xhttp;
-	xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			
-			var demoStr = this.responseText.split(",");
-			
-			var select = document.getElementById('sectionName');
-
-			$("#sectionName").empty();
-			
-			var text="";
-			for (var i=0; i<demoStr.length; i++) {
-				
-				text += "<option id=" +demoStr[i]+" value=\""+demoStr[++i]+"\"> </option>";
-			}
-			document.getElementById("browsers").innerHTML = text;			
-		}
-	};
-	
-	xhttp.open("POST", "/SMGMT/AddStandard?schoolId="+sid, true);
-	xhttp.send();
-	
-	getStandards();
-}
-
-function setSelected() {
-	var selectedSection = document.getElementById("sectionName").value;
-	//alert(selectedSection);
-}
-
-
 function getStandards() {
 
-	var schoolId = document.getElementById("schoolId").value;
+	var schoolId = <%=session1.getAttribute("schoolId") %>;
+	var sectionId = document.getElementById("sectionId").value;
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -316,16 +311,23 @@ function getStandards() {
 		}
 	};
 	
-	xhttp.open("POST", "/SMGMT/StdSectionAssignment?schoolId="+schoolId, true);
+	xhttp.open("POST", "/SMGMT/AddClassRoom?schoolId="+schoolId+"&sectionId="+sectionId, true);
 	xhttp.send();
 	
 }
 
-</script>
+function setSelected() {
+	var selectedSection = document.getElementById("sectionId").value;
+	//alert(selectedSection);
+}
 
+</script>
 
 <script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
+	<!-- <script type="text/javascript" src="/SMGMT/config/js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
+	<script type="text/javascript" src="/SMGMT/config/js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script> -->
+	
 
 <!-- end of global scripts-->
 <!-- plugin level scripts -->
@@ -338,9 +340,6 @@ function getStandards() {
     <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
     <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script>
-	<!-- <script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
-	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script> -->
-	
 	<script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/vendors/chosen/js/chosen.jquery.js"></script>
@@ -367,8 +366,7 @@ function getStandards() {
 	<script>eval(mod_pagespeed_d3eUViXN4C);</script>
 
 	<script type="text/javascript" src="/SMGMT/config/js/pages/radio_checkbox.js.pagespeed.jm.nna8wpyJlw.js"></script>
-
-
+	<script type="text/javascript" src="/SMGMT/config/js/pages/icons.js"></script>
 
 </body>
 
