@@ -236,6 +236,7 @@ public class Library extends HttpServlet {
 						}
 				}
 				
+				
 				//Issue Books//////
 				if(request.getParameter("issuebook")!=null)
 				{
@@ -244,12 +245,12 @@ public class Library extends HttpServlet {
 					
 					String searchBook=request.getParameter("searchBook");
 					String searchStud=request.getParameter("searchStud");
-				//	String user=request.getParameter("userType");
+					String user=request.getParameter("userType");
 					String issueDate=request.getParameter("issueDate");
 					String dueDate=request.getParameter("dueDate");
 					String returnDate=request.getParameter("returnDate");
 					
-					System.out.println(searchBook+" "+searchStud+" "+issueDate+" "+dueDate+" "+returnDate);
+					System.out.println("dfghjklkjnhgth "+searchBook+" "+searchStud+" "+issueDate+" "+dueDate+" "+returnDate);
 					String str[] = searchBook.split("-");
 					System.out.println("bno "+str[0]);
 					System.out.println("bname"+str[1]);
@@ -258,25 +259,43 @@ public class Library extends HttpServlet {
 					System.out.println("stdname"+str1[1]);
 					
 					pojo.setBookId(Integer.parseInt(str[0].trim()));
+						
+					if(user.equalsIgnoreCase("Student")){
+						pojo.setStudId(Integer.parseInt(str1[0].trim()));
+					}
+					else{
+						pojo.setStaffId(Integer.parseInt(str1[0].trim()));
+					}
+					
+					
 					/*pojo.setBookName(str[1].trim());
 					//pojo.setUserName(searchStud);
 					pojo.setUserName(str1[1].trim());
 					pojo.setUserType(user);
 					*/
+					pojo.setUserType(user);
 					pojo.setIssueDate(issueDate);
 					pojo.setDueDate(dueDate);
 					pojo.setReturnDate(returnDate);
+					
+				//	pojo.setBookName(str[1].trim());
+				//pojo.setStudName(str1[1].trim());
+					
+					
 					System.out.println("2");
 					AddBookImpl impl=new AddBookImpl();
 					try {
 						int st=impl.insertIssueBook(pojo);
+						
 						if(st>0)
 						{
+							//int status=dao.changeStatus();
 							System.out.println("Issued Books");
 						}
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
+				//	request.setAttribute("status", dao.changeStatus());
 					request.getRequestDispatcher("View/library/IssueBook.jsp").forward(request, response);
 				//	response.sendRedirect("View/Library/AddBook.jsp");
 					
@@ -284,7 +303,7 @@ public class Library extends HttpServlet {
 				
 				if(request.getParameter("getTableData")!=null)
 				{
-					System.out.println("in");
+					//System.out.println("in");
 					String date=request.getParameter("getTableData");
 					String s[]=date.split("-");
 					//out.println(s[0]+s[1]);

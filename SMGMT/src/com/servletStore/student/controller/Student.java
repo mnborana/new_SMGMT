@@ -1,5 +1,6 @@
 package com.servletStore.student.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -9,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.servletStore.student.model.StudentDAO;
 import com.servletStore.student.model.StudentImpl;
@@ -27,6 +29,10 @@ public class Student extends HttpServlet {
 		
 		String sectionList=request.getParameter("sectionList");
 		String standardList=request.getParameter("standardList");
+		String religionList=request.getParameter("religionList");
+		String casteList=request.getParameter("casteList");
+		String categoryList=request.getParameter("categoryList");
+		
 		if (sectionList != null) {
 			StudentPojo theStudent=new StudentPojo();
 			theStudent.setSchoolId(sectionList);
@@ -47,6 +53,34 @@ public class Student extends HttpServlet {
 				out.print(irt.next()+"~");
 			}
 		}
+		if (religionList != null) {
+			sd=new StudentImpl();
+			List theReligionList=sd.getReligionList();
+			Iterator irt=theReligionList.iterator();
+			while (irt.hasNext()) {
+				out.print(irt.next()+"~");
+			}
+		}
+		if (casteList != null) {
+			StudentPojo theStudent=new StudentPojo();
+			theStudent.setCastId(casteList);
+			sd=new StudentImpl();
+			List theCasteList=sd.getCasteList(theStudent);
+			Iterator irt=theCasteList.iterator();
+			while (irt.hasNext()) {
+				out.print(irt.next()+"~");
+			}
+		}
+		if (categoryList != null) {
+			StudentPojo theStudent=new StudentPojo();
+			theStudent.setCastCategoryId(categoryList);
+			sd=new StudentImpl();
+			List theCategoryList=sd.getCategoryList(theStudent);
+			Iterator irt=theCategoryList.iterator();
+			while (irt.hasNext()) {
+				out.print(irt.next()+"~");
+			}
+		}
 	}
 
 	
@@ -55,27 +89,23 @@ public class Student extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		System.out.println("in Post");
-		String submit=request.getParameter("submit");
+		String submit=request.getParameter("submitBtn");
 		if(submit!=null)
 		{
 			System.out.println("in Loop");
 //	=================OFFICIAL DETAILS (13{1})=================
-			String schoolId=request.getParameter("schoolId");
+			HttpSession session = request.getSession();
+			
+			String schoolId=session.getAttribute("schoolId").toString();
 			String academicYearId=request.getParameter("academicYearId");
-			String sectionId=request.getParameter("sectionId");
 			String stdId=request.getParameter("stdId");
-			String divId=request.getParameter("divId");
 			String bookNo=request.getParameter("bookNo");
 			String grNo=request.getParameter("grNo");
 			String admissionDate=request.getParameter("admissionDate");
-			
-			String classAllow=request.getParameter("classAllow");
 			String previousSchool=request.getParameter("previousSchool");
-			
-			String currentStdId=request.getParameter("currentStdId");
-			String currentdivId=request.getParameter("currentdivId");
 			String medium=request.getParameter("medium");
-			String semiEnglish=request.getParameter("semiEnglish");
+			String classAllow=request.getParameter("classAlo");
+			String currentStdId=request.getParameter("stdIdAlo");
 
 //=================Personal Details (19)=================
 			String firstName=request.getParameter("firstName");
@@ -91,12 +121,12 @@ public class Student extends HttpServlet {
 			String studAadharNumber=request.getParameter("studAadharNumber");
 			String nationality=request.getParameter("nationality");
 			String motherTongue=request.getParameter("motherTongue");
-			String religiousId=request.getParameter("religious");
-			String castId=request.getParameter("cast");
-			String castCategoryId=request.getParameter("castCategory");
+			String religiousId=request.getParameter("religionId");
+			String castId=request.getParameter("casteId");
+			String castCategoryId=request.getParameter("categoryId");
 			String minority=request.getParameter("minority");
-			String physicalHandicap=request.getParameter("physicalHandicap");
-			String physicalHandicapType=request.getParameter("physicalHandicapType");
+			String physicalHandicap=request.getParameter("handicap");
+			String physicalHandicapType=request.getParameter("handitype");
 
 
 //=================Father Details(6)=================
@@ -128,33 +158,21 @@ public class Student extends HttpServlet {
 			String ifscCode=request.getParameter("ifscCode");
 			String accountNo=request.getParameter("accountNo");
 
-//	=================Transportation Details=================
-			String busStop=request.getParameter("busStop");
-			String vehicleMonth=request.getParameter("vehicleMonth");
-			String totRate=request.getParameter("totRate");
 
-
-//	=================Profile Picture=================
-			
-			String profilePicture=request.getParameter("profilePicture");
 
 //******************************************Set Values*****************************************************
 			StudentPojo theStudent=new StudentPojo();
 			//OFFICIAL DETAILS
 			theStudent.setSchoolId(schoolId);
 			theStudent.setAcademicYearId(academicYearId);
-			theStudent.setSectionId(sectionId);
 			theStudent.setStdId(stdId);
-			theStudent.setDivId(divId);
 			theStudent.setBookNo(bookNo);
 			theStudent.setGrNo(grNo);
 			theStudent.setAdmissionDate(admissionDate);
 			theStudent.setClassAllow(classAllow);
 			theStudent.setPreviousSchool(previousSchool);
 			theStudent.setCurrentStdId(currentStdId);
-			theStudent.setCurrentdivId(currentdivId);
 			theStudent.setMedium(medium);
-			theStudent.setSemiEnglish(semiEnglish);
 			//Personal Details
 			theStudent.setFirstName(firstName);
 			theStudent.setMiddleName(middleName);
@@ -200,33 +218,26 @@ public class Student extends HttpServlet {
 			theStudent.setBankName(bankName);
 			theStudent.setIfscCode(ifscCode);
 			theStudent.setAccountNo(accountNo);
-			//Transportation Details
-			theStudent.setBusStop(busStop);
-			theStudent.setVehicleMonth(vehicleMonth);
-			theStudent.setTotRate(totRate);
-			//Profile Picture
-			theStudent.setProfilePicture(profilePicture);
+			
+			
 			
 			
 			
 			
 			
 			out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			out.println("StudentPojo [schoolId=" + schoolId + ", sectionId=" + sectionId + ", classId=" 
-					+ ", admissionDate=" + admissionDate + ", firstName=" + firstName + ", middleName=" + middleName
-					+ ", lastName=" + lastName + ", gender=" + gender + ", dob=" + dob + ", bloodGroop=" + bloodGroop
-					+ ", heigth=" + heigth + ", weight=" + weight + ", minority=" + minority + ", physicalHandicap="
-					+ physicalHandicap + ", physicalHandicapType=" + physicalHandicapType + ", fatherName=" + fatherName
-					+ ", motherName=" + motherName + ", nationality=" + nationality + ", fatherDesignation="
-					+ fatherDesignation + ", fatherIncome=" + fatherIncome + ", motherTongue=" + motherTongue
-					+ ", castCategoryId=" + castCategoryId + ", religiousId=" + religiousId + ", castId=" + castId
-					+ ", addressOne=" + addressOne + ", state=" + state
-					+ ", pinCode=" + pinCode + ", country=" + country + ", accountNo="
-					+ accountNo + ", profilePicture=" + profilePicture + "]");
+			out.println("classAllow >>"+classAllow);
 			
 			sd=new StudentImpl();
 			
-			sd.insertStudent(theStudent);
+			int flag=sd.insertStudent(theStudent);
+			if (flag > 0) {
+				session.setAttribute("flag", "Student record has been saved.");
+				response.sendRedirect("/SMGMT/View/student/addStudent.jsp");
+			}else {
+				out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				out.println("Student Not Inserted!");
+			}
 			
 		}
 		
