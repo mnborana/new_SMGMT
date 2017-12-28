@@ -77,6 +77,13 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
+                        	<li>
+                                <a href="/SMGMT/View/trustee/setup.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Assign Privileges
+                                </a>
+                            </li>
+                        
                             <li>
                                 <a href="/SMGMT/View/settings/sections/section.jsp">
                                     <i class="fa fa-angle-right"></i>

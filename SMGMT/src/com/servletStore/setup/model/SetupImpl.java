@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.dbconnect.DBConnection;
+import com.servletStore.login.model.Encryption;
 
 public class SetupImpl implements SetupDAO {
 
 	PreparedStatement pstmt=null;
+	Encryption encrypt = new Encryption();
+	
 	
 	@Override
 	public int insertTrusteeInfo(SetupPOJO setup) throws SQLException {
@@ -53,9 +56,13 @@ public class SetupImpl implements SetupDAO {
 		DBConnection dbconnect=new DBConnection();
 		Connection connection=dbconnect.getConnection();
 		
+		String password = setup.getPrincipalPassword();
+		
+		String encryptedPassword=encrypt.signup(password);
+		
 		pstmt=connection.prepareStatement("INSERT INTO `user_master`(`username`, `password`, `user_roll_id`, `institute_id`) VALUES (?,?,?,?)");
 		pstmt.setString(1,setup.getPrincipalUserName());
-		pstmt.setString(2, setup.getPrincipalPassword());
+		pstmt.setString(2, encryptedPassword);
 		pstmt.setInt(3, 3);
 		pstmt.setInt(4, maxSchoolId);
 			
@@ -93,10 +100,14 @@ public class SetupImpl implements SetupDAO {
 		DBConnection dbconnect=new DBConnection();
 		Connection connection=dbconnect.getConnection();
 		
+		String password = setup.getTrusteePassword();
+		
+		String encryptedPassword=encrypt.signup(password);
+		
 		
 		pstmt=connection.prepareStatement("INSERT INTO `user_master`(`username`, `password`, `user_roll_id`) VALUES (?,?,?)");
 		pstmt.setString(1,setup.getTrusteeUsername());
-		pstmt.setString(2,setup.getTrusteePassword());
+		pstmt.setString(2,encryptedPassword);
 		pstmt.setInt(3, 2);
 			
 		status=pstmt.executeUpdate();
