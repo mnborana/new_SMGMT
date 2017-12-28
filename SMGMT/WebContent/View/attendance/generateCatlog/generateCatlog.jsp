@@ -100,8 +100,7 @@ z-index: 999999">
                    </div>
                 </div>
             </header>
-            
-            
+                        
             <!-- start your code from here  -->  
               
            <div class="outer">
