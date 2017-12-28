@@ -51,7 +51,7 @@
 					<div class="row no-gutters">
 						<div class="col-lg-6 col-md-4 col-sm-4">
 							<h4 class="nav_top_align">
-								<i class="fa fa-pencil"></i> Wizards
+								<i class="fa fa-pencil"></i> Assign Privileges
 							</h4>
 						</div>
 						<div class="col-lg-6 col-md-8 col-sm-8">
@@ -114,7 +114,8 @@
 															<label for="tUname" class="col-form-label">Trustee
 																User Name*</label> <input id="tUname" name="tUname"
 																placeholder="Trustee User Name" type="text"
-																class="form-control required">
+																class="form-control required" onkeyup="checkUserName(this.value,document.getElementById('help'))">
+																<small style="" class="help-block" id="help"></small>
 														</div>
 														<div class="form-group">
 															<label for="pass" class="col-form-label">Trustee
@@ -176,7 +177,7 @@
 																			<div class="col-lg-3 col-md-12 input_field_sections"
 																				id="userName">
 																				<!-- uname -->
-
+																				
 																			</div>
 
 																			<div class="col-lg-3 col-md-12 input_field_sections"
@@ -2213,7 +2214,7 @@
 														<br>
 														<ul class="pager wizard pager_a_cursor_pointer">
 															<li class="previous previous_btn5"><a><i class="fa fa-long-arrow-left"></i> Previous</a></li>
-															<li class="next pull-right"><button type="submit" class="btn btn-success  button-rounded">Finish</button></li>
+															<li class="next pull-right"><button type="submit" name="Grant" id="grant" class="btn btn-success  button-rounded">Finish</button></li>
 														</ul>
 													</div>
 												</div>
@@ -2584,6 +2585,45 @@
 	<!-- /#wrap -->
 	<!-- global scripts-->
 	<script type="text/javascript">
+	
+	function checkUserName(val,x)
+	{
+		// var x = document.getElementById('help');
+		if(val.length<5)
+		{
+			x.style.color = '#ff6666';
+			x.innerHTML="Username is too short";
+			document.getElementById("grant").disabled = true;
+		}
+		else
+		{
+			
+			var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			     var demoData = this.responseText;
+			     //var str=demoData.split(",");
+			     if(demoData=="1")
+			   		{
+			    	 	x.style.color = '#ff6666';
+						x.innerHTML="UserName is taken by someone";
+						document.getElementById("grant").disabled = true;
+			    	}
+			     else
+			    	 {
+			    	 	x.style.color = '#66cc66';
+						x.innerHTML="Username is available";
+						document.getElementById("grant").disabled = false;
+			    	 }
+			    }
+			  };
+			  xhttp.open("POST", "/SMGMT/Setup?checkName="+val, true);
+			  xhttp.send();
+				
+		} 
+		
+	}
+	
 		function addFields(val) {
 			// Container <div> where dynamic content will be placed
 			var container = document.getElementById("container");
@@ -2602,6 +2642,7 @@
 			var count = 1;
 			var checkString = "";
 			var margin = 10;
+			var validation = "";
 			for (var i = 0; i < val; i++) {
 
 				//school name input texts
@@ -2635,12 +2676,20 @@
 				userName.type = "text";
 				userName.name = "pUName" + count;
 				userName.id = "pUName" + count;
+				userName.setAttribute("onkeyup", "checkUserName(this.value,document.getElementById('help"+count+"'))");
 				userName.disabled = true;
 				userName.placeholder = "User Name " + count;
 				userName.required = true;
 				user.appendChild(userName);
+				
+				var validHelp = document.createElement("small");
+				validHelp.id = "help"+count;
+				validHelp.className="help-block";
+				validHelp.innerHTML=" ";
+				
+				user.appendChild(validHelp);
 				user.appendChild(br2);
-				user.appendChild(br3);
+				
 
 				var password = document.createElement("input");
 				var br4 = document.createElement('br');
@@ -2665,6 +2714,7 @@
 				}
 			}
 			check.innerHTML = checkString;
+			//user.innerHTML = validation;
 		}
 
 		var margin = 0;
@@ -2678,7 +2728,6 @@
 				document.getElementById("pUName" + val).disabled = true;
 				document.getElementById("pUPass" + val).disabled = true;
 			}
-
 		}
 
 		function permission(id, radioReadId, radioWriteId) {

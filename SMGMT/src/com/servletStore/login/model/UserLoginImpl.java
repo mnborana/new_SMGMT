@@ -1,12 +1,18 @@
 package com.servletStore.login.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.dbconnect.DBConnection;
 
 public class UserLoginImpl implements UserLoginDAO {
+	
+	PreparedStatement pstmt=null;
+	
 
 	@Override
 	public String getLoginStatus(UserLoginPojo ul) {
@@ -37,6 +43,71 @@ public class UserLoginImpl implements UserLoginDAO {
 			status="success";
 		}
 		return status;
+	}
+
+	@Override
+	public List getUserCredentials(String userName) throws SQLException {
+		
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		
+		ArrayList list = new ArrayList<>();
+		
+		pstmt=connection.prepareStatement("SELECT username,password FROM user_master WHERE username=?");
+		pstmt.setString(1, userName);
+		
+		ResultSet rs=pstmt.executeQuery();
+		
+		while(rs.next())
+		{
+			list.add(rs.getString(1));
+			list.add(rs.getString(2));
+		}
+		
+		connection.close();
+		
+		
+		return list;
+	}
+
+	@Override
+	public Boolean checkUserExist(String userName) throws SQLException {
+		
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		
+		
+		Boolean result=false;
+		
+		pstmt=connection.prepareStatement("SELECT username FROM user_master WHERE username=?");
+		pstmt.setString(1, userName);
+		
+		ResultSet rs=pstmt.executeQuery();
+		
+		while(rs.next())
+		{
+			result=true;
+		}
+		
+		connection.close();
+		
+		return result;
+	}
+
+	@Override
+	public String getSessionDetails(String userName) throws SQLException {
+		
+		
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		
+		
+		
+		
+		
+		connection.close();
+		
+		return null;
 	}
 
 }
