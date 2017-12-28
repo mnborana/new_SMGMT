@@ -77,7 +77,7 @@
 					<div class="row no-gutters">
 						<div class="col-sm-5 col-lg-6">
 							<h4 class="nav_top_align">
-								<i class="fa fa-pencil"></i> Add Document
+								<i class="fa fa-pencil"></i> Add File Name
 							</h4>
 						</div>
 						<div class="col-sm-7 col-lg-6">
@@ -87,7 +87,7 @@
 										Dashboard
 								</a></li>
 								<li class="breadcrumb-item"><a href="#">Forms</a></li>
-								<li class="active breadcrumb-item">Add New Document</li>
+								<li class="active breadcrumb-item">Add New File </li>
 							</ol>
 						</div>
 					</div>
@@ -102,7 +102,7 @@
 							<div class="col-xl-12">
 								<div class="card">
 									<div class="card-header bg-white">
-										<i class="fa fa-file-text-o"></i> Add New Document
+										<i class="fa fa-file-text-o"></i> Add New Register
 									</div>
 									<div class="card-block m-t-35">
 										<form action="/SMGMT/AddDocument" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
@@ -110,10 +110,10 @@
 
 											<div class="form-group row">
 												<div class="col-lg-3  text-lg-right">
-													<label for="required2" class="col-form-label">Document Name<span style="color: red;">*</span></label>
+													<label for="required2" class="col-form-label">File Name<span style="color: red;">*</span></label>
 												</div>
 												<div class="col-lg-4">
-													<input type="text" id="required2" name="addDocument" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required>
+													<input type="text" id="required2" name="addDocument" pattern="[A-Za-z]" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required>
 												</div>
 											</div>
 
@@ -140,7 +140,7 @@
 				<div class="outer">
 					<div class="inner bg-container">
 						<div class="card">
-							<div class="card-header bg-white">Documents Information</div>
+							<div class="card-header bg-white">Register Details</div>
 							<div class="card-block m-t-35" id="user_body">
 								<div class="table-toolbar">
 
@@ -153,8 +153,8 @@
 										<table	class="table  table-striped table-bordered table-hover dataTable no-footer"	id="editable_table" role="grid">
 											<thead>
 												<tr role="row">
-													<th class="sorting_asc wid-20" tabindex="0" rowspan="1"	colspan="1">Doc.No</th>
-													<th class="sorting wid-25" tabindex="0" rowspan="1"	colspan="1">Document Name</th>
+													<th class="sorting_asc wid-20" tabindex="0" rowspan="1"	colspan="1">Reg.No</th>
+													<th class="sorting wid-25" tabindex="0" rowspan="1"	colspan="1">File Name</th>
 													<th class="sorting wid-10" tabindex="0" rowspan="1"	colspan="1">Action</th>
 												</tr>
 											</thead>
@@ -209,7 +209,7 @@
 					<div class="modal-dialog modal-mm" role="document">
 						<div class="modal-content">
 							<div class="modal-header bg-warning">
-								<h4 class="modal-title text-white" id="modalLabelnews" style="margin-right: 275px;">Update School Details</h4>
+								<h4 class="modal-title text-white" id="modalLabelnews" style="margin-right: 275px;">Update Register Details</h4>
 							</div>
 							<div class="modal-body">
 								<form action="/SMGMT/AddDocument" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
@@ -217,7 +217,7 @@
 
 											<div class="form-group row">
 												<div class="col-lg-4  text-lg-right">
-													<label for="required2" class="col-form-label">Document Name<span style="color: red;">*</span></label>
+													<label for="required2" class="col-form-label">Register Name<span style="color: red;">*</span></label>
 												</div>
 												<div class="col-lg-6">
 												<input type="hidden" id="Updateid" name="UpdateId">

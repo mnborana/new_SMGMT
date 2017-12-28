@@ -7,7 +7,6 @@ public interface OutwardRegisterDAO  {
 	public void insertOutwardRegister(OutwardRegisterPojo pojo);
 	public OutwardRegisterPojo outwardNo();
 	
-	public List<OutwardRegisterPojo> selectReceiverName();
 	public List<OutwardRegisterPojo> selectSubjctName();
 
 	public List<OutwardRegisterPojo> selectOutwardRegister();
@@ -24,6 +23,12 @@ public interface OutwardRegisterDAO  {
 	
 	public OutwardRegisterPojo selectDocumentName(int id);
 	public OutwardRegisterPojo setDocumentInServlet(int id);
+	
+	public List getReceiverDetails(String receiverName);
+	
+	
+	public List searchName(String input);
+	
 	
 	
 

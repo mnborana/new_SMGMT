@@ -2,6 +2,7 @@ package com.servletStore.register.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +38,8 @@ public class OutwardRegister extends HttpServlet {
 		 int outNo=Integer.parseInt(outwardNo);
 		 String outwardDate=request.getParameter("reqdate");
 		 String receiverName=request.getParameter("receiverName");		 
-		 String address=request.getParameter("outwardAddress");				 
+		 String address=request.getParameter("outwardAddress");	
+		 String mobileNo=request.getParameter("mobileNumber");
 		 String subject=request.getParameter("subjectName");
 		 String description=request.getParameter("Description");
 		 String selectRegister=request.getParameter("selRegister");
@@ -50,6 +52,7 @@ public class OutwardRegister extends HttpServlet {
 		 pojo.setRequireddate(outwardDate);
 		 pojo.setReceiverName(receiverName);
 		 pojo.setAddress(address);
+		 pojo.setMobileNo(mobileNo);
 		 pojo.setSubject(subject);
 		 pojo.setDescription(description);
 		 pojo.setOutwardDoc(selectDocu);
@@ -58,15 +61,49 @@ public class OutwardRegister extends HttpServlet {
 		 response.sendRedirect("View/register/outwardRegister.jsp");
 	 }
 	 
+	 if(request.getParameter("receiverId")!=null)
+	 {
+		 String receiverName=request.getParameter("receiverId");
+		 System.out.println("receiver Id is:"+receiverName);
+		 List list=outwarddao.getReceiverDetails(receiverName);
+		 Iterator itr=list.iterator();
+		 while(itr.hasNext())
+		 {
+			 out.print(((String) itr.next())+",");
+		 }
+		 
+	 }
+	 
+	 if(request.getParameter("searchName")!=null)
+	 {
+		 String input=request.getParameter("searchName");
+		 System.out.println("search Name is:"+input);
+		 List list=outwarddao.searchName(input);
+		 Iterator itr=list.iterator();
+		 while(itr.hasNext())
+		 {
+			 out.print(itr.next()+","+itr.next()+",");
+		 }
+		 
+	 }
+	 
 	 if(request.getParameter("OutwardReceiverBtn")!=null)
 	 {
 		 String receiverName=request.getParameter("addReceiverName");
-		 String receiverAddress=request.getParameter("outwardAddress");
-		 session.setAttribute("outwardAddress",receiverAddress); 
+		 String receiverAddress=request.getParameter("outwardAddress");		
+		 String mobileNo=request.getParameter("mobileNumber");
+		 
+		 HashMap<String, String> userDetails = new HashMap<String, String>();
+		  userDetails.put("receiverName", receiverName);
+		  userDetails.put("receiverAddress", receiverAddress);
+		  userDetails.put("mobileNo", mobileNo);
+		  
+		  session.setAttribute("user", userDetails);
 		 
 		 pojo.setReceiverName(receiverName);
 		 pojo.setAddress(receiverAddress);
-		 
+		 pojo.setMobileNo(mobileNo);
+		
 		 outwarddao.addReciverName(pojo);
 		 response.sendRedirect("View/register/outwardRegister.jsp");
 	 }
@@ -85,11 +122,12 @@ public class OutwardRegister extends HttpServlet {
 			 String update=((OutwardRegisterPojo)pojo8).getRequireddate();
 			 String upreceiver=((OutwardRegisterPojo)pojo8).getReceiverName();
 			 String upaddress=((OutwardRegisterPojo)pojo8).getAddress();
-			 String upsubject=((OutwardRegisterPojo)pojo8).getSubject();
+			 String mobileNo=((OutwardRegisterPojo)pojo8).getMobileNo();
+			 String upsubject=((OutwardRegisterPojo)pojo8).getSubject();			
 			 String updescription=((OutwardRegisterPojo)pojo8).getDescription();
 			 String updatedocument=((OutwardRegisterPojo)pojo8).getOutwardDoc();
 			 
-			 out.print(uid+","+update+","+upreceiver+","+upaddress+","+upsubject+","+updescription+","+updatedocument);
+			 out.print(uid+","+update+","+upreceiver+","+upaddress+","+mobileNo+","+upsubject+","+updescription+","+updatedocument);
 		 }
 	 }
 	 
@@ -101,6 +139,7 @@ public class OutwardRegister extends HttpServlet {
 		 String upDate=request.getParameter("updatedDate");
 		 String updateReceiverName=request.getParameter("updatedReceiverName");
 		 String updateAddress=request.getParameter("updatedAddress");
+		 String upMobileNo=request.getParameter("updateMobileNumber");
 		 String updateSubject=request.getParameter("updatedSubject");
 		 String updateDscription=request.getParameter("updatedDescription");
 		 String updateDocumentId=request.getParameter("updateRegister");
@@ -114,6 +153,7 @@ public class OutwardRegister extends HttpServlet {
 		 pojo9.setRequireddate(upDate);
 		 pojo9.setReceiverName(updateReceiverName);
 		 pojo9.setAddress(updateAddress);
+		 pojo9.setMobileNo(upMobileNo);
 		 pojo9.setSubject(updateSubject);
 		 pojo9.setDescription(updateDscription);
 		 pojo9.setOutwardDoc(updateDocument);

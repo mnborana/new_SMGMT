@@ -36,6 +36,17 @@ public class AddDocument extends HttpServlet {
 			response.sendRedirect("View/settings/addDocumentInfo/addDocument.jsp");
 		}
 		
+		if(request.getParameter("submitFileName")!=null)
+		{
+			
+			String fileName=request.getParameter("getFileName");	
+			System.out.println("submit file:"+fileName);
+			pojo.setRegisterName(fileName);
+			dao.addFileName(pojo);
+			response.sendRedirect("View/register/inwardRegister.jsp");
+		
+		}
+		
 		
 		if(request.getParameter("documentId")!=null)
 		{
