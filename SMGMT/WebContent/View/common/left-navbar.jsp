@@ -279,7 +279,7 @@
                         </a>
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/attendance/generateCatlog/generateCatlog.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Generate Catlog
                                 </a>
