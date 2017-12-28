@@ -1,10 +1,13 @@
+<%@page import="com.servletStore.settings.subjects.model.SubjectPOJO"%>
+<%@page import="com.servletStore.settings.subjects.model.SubjectImpl"%>
+<%@page import="com.servletStore.settings.subjects.model.SubjectDAO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.servletStore.settings.standard.model.StandardPOJO"%>
 <%@page import="com.servletStore.settings.standard.model.StandardImpl"%>
 <%@page import="java.util.List"%>
 <%@page import="com.servletStore.settings.standard.model.StandardDAO"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -95,19 +98,19 @@
                                         Add New Subjects
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="/SMGMT/AddStandard" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/Subjects" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                             <div class="form-group row">
                                                 <div class="col-lg-4  text-lg-right">
                                                     <label for="required2" class="col-form-label">Subject Name <span style="color: red;">*</span></label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" class="form-control" placeholder="Enter Subject Name" name="standard_name" title="Enter Standard here" onkeyup="this.value=this.value.toUpperCase()"  onblur="this.value=$.trim(this.value)"required>
+                                                    <input type="text" class="form-control" placeholder="Enter Subject Name" name="subject_name" title="Enter Subject here" onkeyup="this.value=this.value.toUpperCase()"  onblur="this.value=$.trim(this.value)"required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Add Subject" class="btn btn-primary">
+                                                    <input type="submit" value="Add Subject" name="subjectSubmit" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </form>
@@ -123,7 +126,7 @@
                     <div class="inner bg-container">
                         <div class="card">
                             <div class="card-header bg-white">
-                               Standard List
+                               Subject List
                             </div>
                             <div class="card-block m-t-35" id="user_body">
                                 <div class="table-toolbar">
@@ -138,34 +141,28 @@
                                             <thead>
                                             <tr role="row">
                                                 <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No.</th>
-                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Standard Name</th>
+                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Subject Name</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             
                                             <%
-	                                            StandardDAO sdao = new StandardImpl();
-	                                        	List<StandardPOJO> l = sdao.getStandardDetails();
-	                                       
-	    										int count=1;
-	                                        	Iterator itr = l.iterator();
-	                                        	while(itr.hasNext()){
-	                                        		StandardPOJO stdPojo = (StandardPOJO)itr.next();
-	                                        		int id = stdPojo.getId();
+	                                            SubjectDAO subDao = new SubjectImpl();
+	                                        	request.setAttribute("subList", subDao.getSubjectDetails());
+	                                        	int count=0;
 		                                    %>
+		                                    <c:forEach var="i" items="${subList}">
                                             	<tr role="row" class="even">
-                                            		<td><%=count %></td>
-                                            		<td><%=stdPojo.getStdName() %></td>
+                                            		<td><%=++count %></td>
+                                            		<td><c:out value="${i.getSubjectName()}"></c:out></td>
                                             		<td>
-                                            			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard(<%=id%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
+                                            			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard()"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
                                             			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="#"><i class="fa fa-trash text-danger"></i></a>
                                             		</td>
                                             	</tr>
-                                            <%
-		                                     	count++;
-		                                    	}
-		                                    %> 
+                                            </c:forEach>
+                                            
                                             </tbody>
                                         </table>
                                     </div>

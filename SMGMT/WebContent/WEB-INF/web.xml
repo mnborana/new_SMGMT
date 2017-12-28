@@ -132,4 +132,12 @@
     <servlet-name>Setup</servlet-name>
     <url-pattern>/Setup</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Subjects</servlet-name>
+    <servlet-class>com.servletStore.settings.subjects.controller.Subjects</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Subjects</servlet-name>
+    <url-pattern>/Subjects</url-pattern>
+  </servlet-mapping>
 </web-app>
