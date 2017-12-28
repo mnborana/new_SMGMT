@@ -83,9 +83,9 @@ $(document).ready(function () {
     $("#alert_success").on("click",function () {
         iziToast.show({
             title: 'Success',
-            message: 'What would you like to add?',
+            message: 'Your record has been saved.',
             color:'#00cc99',
-            position: 'bottomCenter'
+            position: 'topCenter'
         });
         return false;
     });
