@@ -23,3 +23,5 @@
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
     <!-- end of page level styles -->
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_themify,_css,_themify-icons.css+vendors,_ionicons,_css,_ionicons.min.css+css,_pages,_icon.css.pagespeed.cc.V3vSn3K0aE.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_izitoast,_css,_iziToast.min.css.pagespeed.cc.hUh8XIbhbe.css"/>
+    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>

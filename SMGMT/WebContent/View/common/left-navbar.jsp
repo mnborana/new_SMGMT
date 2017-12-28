@@ -19,7 +19,7 @@
                 
                 
                     <li>
-                        <a href="#">
+                        <a href="/SMGMT/index.jsp">
                             <i class="fa fa-home"></i>
                             <span class="link-title menu_hide">&nbsp;Dashboard</span>
                         </a>
@@ -54,6 +54,21 @@
                                     &nbsp; Add Class Rooms
                                 </a>
                             </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/settings/subjects/subjects.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Subjects
+                                </a>
+                            </li>
+                            
+                             <li>
+                                <a href="/SMGMT/View/settings/subjects/subjectsAssignment.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Subject Assignment
+                                </a>
+                            </li>
+                            
                             <li>
                                 <a href="/SMGMT/View/settings/caste/addCategory&Religion.jsp">
                                     <i class="fa fa-angle-right"></i>
@@ -77,6 +92,13 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
+                        	<li>
+                                <a href="/SMGMT/View/trustee/setup.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Assign Privileges
+                                </a>
+                            </li>
+                        
                             <li>
                                 <a href="/SMGMT/View/settings/sections/section.jsp">
                                     <i class="fa fa-angle-right"></i>

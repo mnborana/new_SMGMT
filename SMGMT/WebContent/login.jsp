@@ -8,10 +8,12 @@
 <link rel="shortcut icon" href="img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
 <!--Global styles -->
 <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_bootstrapvalidator,_css,_bootstrapValidator.min.css+vendors,_wow,_css,_animate.css+css,_pages,_login1.css.pagespeed.cc.JIc_Vob0Bc.1f8.dela"/>
-
-<!-- <link type="text/css" rel="stylesheet"
+<!-- <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/components.css"/>
+<link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/chosen/css/chosen.css"/>
+ --><!-- <link type="text/css" rel="stylesheet"
 	href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_bootstrapvalidator,_css,_bootstrapValidator.min.css+css,_pages,_wizards.css.pagespeed.cc.42ti_Q82Gz.css" />
  -->
+ <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
 <title>Login</title>
 
 </head>
@@ -42,17 +44,30 @@ z-index: 999999">
                 <div class="col-lg-8 push-lg-2 col-md-10 push-md-1 col-sm-12">
                     <div class="login_logo login_border_radius1">
                         <h3 class="text-center">
-                            <img src="/SMGMT/config/img/logow2.png.pagespeed.ce.3qFWgMzjGO.png" alt="josh logo" class="admire_logo"><span class="text-white"> ADMIRE &nbsp;<br/>
+                            <img src="/SMGMT/config/img/logow2.png.pagespeed.ce.3qFWgMzjGO.png" alt="josh logo" class="admire_logo"><span class="text-white"> VERTICAL SOFT &nbsp;<br/>
                                 Log In</span>
                         </h3>
                     </div>
                     <div class="bg-white login_content login_border_radius">
-                        <form action="#" id="login_validator" method="post" class="login_validator">
+                        <form action="/SMGMT/UserLogin" id="" method="post" class="login_validator">
+                            
                             <div class="form-group">
-                                <label for="email" class="col-form-label"> E-mail</label>
+                                <label for="user" class="col-form-label"> Select Year</label>
                                 <div class="input-group">
-                                    <span class="input-group-addon input_email"><i class="fa fa-envelope text-primary"></i></span>
-                                    <input type="text" class="form-control  form-control-md" id="email" name="username" placeholder="E-mail">
+                                    <select class="form-control chzn-select" name="loginYear">
+                                    	<option value="2014">2013-14</option>
+                                    	<option value="2015">2014-15</option>
+                                    	<option value="2016">2015-16</option>
+                                    	<option value="2017">2016-17</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="user" class="col-form-label"> User Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user text-primary"></i></span>
+                                    <input type="text" class="form-control  form-control-md" id="user" name="username" placeholder="User Name">
                                 </div>
                             </div>
                             <!--</h3>-->
@@ -66,7 +81,7 @@ z-index: 999999">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <a href="/SMGMT/index.html"><input type="button" value="Log In" class="btn btn-primary btn-block login_button"></a>
+                                        <input type="submit" value="Log In" class="btn btn-primary btn-block login_button">
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +96,7 @@ z-index: 999999">
                                     </label>
                                 </div>
                                 <div class="col-6 text-right forgot_pwd">
-                                    <a href="forgot_password1.html" class="custom-control-description forgottxt_clr">Forgot password?</a>
+                                    <a href="#" class="custom-control-description forgottxt_clr">Forgot password?</a>
                                 </div>
                             </div>
                         </div>
@@ -121,5 +136,8 @@ z-index: 999999">
 <script type="text/javascript" src="/SMGMT/config/vendors/wow/js/wow.min.js.pagespeed.jm.2DNptdyRWs.js"></script>
 <!--End of plugin js-->
 <script type="text/javascript" src="/SMGMT/config/js/pages/login1.js"></script>
+<!-- <script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/chosen/js/chosen.jquery.js"></script> -->
+<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 </body>
 </html>

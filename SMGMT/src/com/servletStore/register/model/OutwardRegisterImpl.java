@@ -18,16 +18,17 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 
 	@Override
 	public void insertOutwardRegister(OutwardRegisterPojo pojo) {
-		String insertQuery="INSERT INTO `outward_register_master`(`outward_no`, `date`, `receiver_name`, `address`, `subject`, `description`,`document_Name`) VALUES (?,?,?,?,?,?,?)";
+		String insertQuery="INSERT INTO `outward_register_master`(`outward_no`, `date`, `receiver_name`, `address`,`mobileNo`,`subject`, `description`,`document_Name`) VALUES (?,?,?,?,?,?,?,?)";
 		try {
 			pstmt=connection.prepareStatement(insertQuery);
 			pstmt.setInt(1, pojo.getOutwardNo());
 			pstmt.setString(2, pojo.getRequireddate());
 			pstmt.setString(3, pojo.getReceiverName());
 			pstmt.setString(4, pojo.getAddress());
-			pstmt.setString(5, pojo.getSubject());
-			pstmt.setString(6, pojo.getDescription());
-			pstmt.setString(7, pojo.getOutwardDoc());
+			pstmt.setString(5, pojo.getMobileNo());
+			pstmt.setString(6, pojo.getSubject());
+			pstmt.setString(7, pojo.getDescription());
+			pstmt.setString(8, pojo.getOutwardDoc());
 			
 			int i=pstmt.executeUpdate();
 			
@@ -62,7 +63,7 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 	@Override
 	public List<OutwardRegisterPojo> selectOutwardRegister() {
 		
-		String selectOutwardRegister="SELECT outward_register_master.id,outward_register_master.outward_no,outward_register_master.date,outward_register_master.receiver_name,outward_register_master.address,outward_register_master.subject,outward_register_master.description,outward_register_master.document_Name FROM outward_register_master";
+		String selectOutwardRegister="SELECT outward_register_master.id,outward_register_master.outward_no,outward_register_master.date,outward_register_master.receiver_name,outward_register_master.address,outward_register_master.subject,outward_register_master.mobileNo,outward_register_master.description,outward_register_master.document_Name FROM outward_register_master";
 		try {
 			pstmt=connection.prepareStatement(selectOutwardRegister);
 			ResultSet rs=pstmt.executeQuery();
@@ -75,8 +76,9 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 				pojo.setReceiverName(rs.getString(4));
 				pojo.setAddress(rs.getString(5));
 				pojo.setSubject(rs.getString(6));
-				pojo.setDescription(rs.getString(7));
-				pojo.setOutwardDoc(rs.getString(8));
+				pojo.setMobileNo(rs.getString(7));
+				pojo.setDescription(rs.getString(8));
+				pojo.setOutwardDoc(rs.getString(9));
 				list.add(pojo);
 			}
 		} catch (SQLException e) {
@@ -109,11 +111,13 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 
 	@Override
 	public void addReciverName(OutwardRegisterPojo pojo) {
-		String addReceiver="INSERT INTO sender_receiver_master(sender_receiver_name,address) VALUES(?,?)";
+		String addReceiver="INSERT INTO sender_receiver_master(sender_receiver_name,address,mobileNo) VALUES(?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(addReceiver);
 			pstmt.setString(1,pojo.getReceiverName());
 			pstmt.setString(2, pojo.getAddress());
+			pstmt.setString(3, pojo.getMobileNo());
+			
 			pstmt.executeUpdate();
 			System.out.println("inserted Document Successfully");
 		} catch (Exception e) {
@@ -161,16 +165,17 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 
 	@Override
 	public void updateOutwardReg(OutwardRegisterPojo pojo, int id) {
-		String updateOutward="UPDATE outward_register_master SET outward_register_master.date=?,outward_register_master.receiver_name=?,outward_register_master.address=?,outward_register_master.subject=?,outward_register_master.description=?,outward_register_master.document_Name=? WHERE outward_register_master.id=?";
+		String updateOutward="UPDATE outward_register_master SET outward_register_master.date=?,outward_register_master.receiver_name=?,outward_register_master.address=?,outward_register_master.mobileNo=?,outward_register_master.subject=?,outward_register_master.description=?,outward_register_master.document_Name=? WHERE outward_register_master.id=?";
 		try {
 			pstmt = connection.prepareStatement(updateOutward);
 			pstmt.setString(1, pojo.getRequireddate());
 			pstmt.setString(2, pojo.getReceiverName());
 			pstmt.setString(3, pojo.getAddress());
-			pstmt.setString(4, pojo.getSubject());
-			pstmt.setString(5, pojo.getDescription());
-			pstmt.setString(6, pojo.getOutwardDoc());			
-			pstmt.setInt(7, id);
+			pstmt.setString(4, pojo.getMobileNo());
+			pstmt.setString(5, pojo.getSubject());
+			pstmt.setString(6, pojo.getDescription());
+			pstmt.setString(7, pojo.getOutwardDoc());			
+			pstmt.setInt(8, id);
 			pstmt.executeUpdate();
 			System.out.println("updated Successfully");
 		} catch (Exception e) {
@@ -193,7 +198,7 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 
 	@Override
 	public List<OutwardRegisterPojo> setOutwardDetails(int id) {
-		String setOutward="SELECT outward_register_master.id,outward_register_master.date,outward_register_master.receiver_name,outward_register_master.address,outward_register_master.subject,outward_register_master.description,outward_register_master.document_Name FROM outward_register_master WHERE outward_register_master.id=?";
+		String setOutward="SELECT outward_register_master.id,outward_register_master.date,outward_register_master.receiver_name,outward_register_master.address,outward_register_master.mobileNo,outward_register_master.subject,outward_register_master.description,outward_register_master.document_Name FROM outward_register_master WHERE outward_register_master.id=?";
 		try {
 			pstmt = connection.prepareStatement(setOutward);
 			pstmt.setInt(1, id);
@@ -205,9 +210,10 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 				pojo.setRequireddate(rs.getString(2));
 				pojo.setReceiverName(rs.getString(3));
 				pojo.setAddress(rs.getString(4));
-				pojo.setSubject(rs.getString(5));
-				pojo.setDescription(rs.getString(6));
-				pojo.setOutwardDoc(rs.getString(7));
+				pojo.setMobileNo(rs.getString(5));
+				pojo.setSubject(rs.getString(6));
+				pojo.setDescription(rs.getString(7));
+				pojo.setOutwardDoc(rs.getString(8));
 				list.add(pojo);
 			}
 		} catch (Exception e) {
@@ -273,23 +279,7 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 		return pojo;
 	}
 
-	@Override
-	public List<OutwardRegisterPojo> selectReceiverName() {
-		String selectQuery="SELECT sender_receiver_master.sender_receiver_name FROM sender_receiver_master";
-		try {
-			pstmt = connection.prepareStatement(selectQuery);
-			ResultSet rs=pstmt.executeQuery();
-			while(rs.next())
-			{
-				OutwardRegisterPojo pojo=new OutwardRegisterPojo();
-				pojo.setReceiverName(rs.getString(1));
-				list.add(pojo);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return list;
-	}
+	
 
 	@Override
 	public List<OutwardRegisterPojo> selectSubjctName() {
@@ -309,5 +299,50 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 		}
 		return list;
 	}
+
+	@Override
+	public List getReceiverDetails(String input) {
+		List list=new ArrayList<>();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			String checkName="SELECT outward_register_master.id,outward_register_master.receiver_name,outward_register_master.mobileNo FROM outward_register_master WHERE outward_register_master.receiver_name LIKE '%"+input+"%' UNION SELECT outward_register_master.id,outward_register_master.mobileNo,outward_register_master.receiver_name FROM outward_register_master WHERE outward_register_master.mobileNo LIKE '"+input+"%'";
+			pstmt=connection.prepareStatement(checkName);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				list.add(rs.getString(1));
+				list.add(rs.getString(2));
+				list.add(rs.getString(3));
+							
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+
+	@Override
+	public List searchName(String input) {
+		List list=new ArrayList<>();
+			String setReciver="SELECT outward_register_master.address,outward_register_master.mobileNo FROM outward_register_master WHERE outward_register_master.id='"+input+"'";
+			try {
+				pstmt = connection.prepareStatement(setReciver);
+				ResultSet rs=pstmt.executeQuery();
+				while(rs.next())
+				{
+					list.add(rs.getString(1));
+					list.add(rs.getString(2));
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			return list;
+	}
+
+	
 
 }

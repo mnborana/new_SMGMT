@@ -4,6 +4,8 @@
 <!-- end of global scripts-->
 <!-- plugin level scripts -->
 
+<script type="text/javascript" src="/SMGMT/config/vendors/izitoast/js/iziToast.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pages/izi_toastr.js"></script>
 
 
 
@@ -14,7 +16,6 @@
 <script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/jquery-tagsinput/js/jquery.tagsinput.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/pluginjs/jquery.validVal.min.js"></script>
-<!-- <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script> -->
 
 <script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/jquery.inputmask.bundle.js"></script>
 

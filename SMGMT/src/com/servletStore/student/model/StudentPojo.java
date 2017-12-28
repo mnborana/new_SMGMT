@@ -5,18 +5,14 @@ public class StudentPojo {
 //	=================OFFICIAL DETAILS (13{1})=================
 			private String schoolId;
 			private String academicYearId;
-			private String sectionId;
 			private String stdId;
-			private String divId;
 			private String bookNo;
 			private String grNo;
 			private String admissionDate;
 			private String classAllow;
 			private String previousSchool;
 			private String currentStdId;
-			private String currentdivId;
 			private String medium;
-			private String semiEnglish;
 
 //=================Personal Details (19)=================
 			private String firstName;
@@ -69,13 +65,6 @@ public class StudentPojo {
 			private String ifscCode;
 			private String accountNo;
 
-//	=================Transportation Details=================
-			private String busStop;
-			private String vehicleMonth;
-			private String totRate;
-
-//	=================Profile Picture=================
-			private String profilePicture;
 			
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Getters & Setters @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 			public String getSchoolId() {
@@ -94,28 +83,12 @@ public class StudentPojo {
 				this.academicYearId = academicYearId;
 			}
 
-			public String getSectionId() {
-				return sectionId;
-			}
-
-			public void setSectionId(String sectionId) {
-				this.sectionId = sectionId;
-			}
-
 			public String getStdId() {
 				return stdId;
 			}
 
 			public void setStdId(String stdId) {
 				this.stdId = stdId;
-			}
-
-			public String getDivId() {
-				return divId;
-			}
-
-			public void setDivId(String divId) {
-				this.divId = divId;
 			}
 
 			public String getBookNo() {
@@ -166,28 +139,12 @@ public class StudentPojo {
 				this.currentStdId = currentStdId;
 			}
 
-			public String getCurrentdivId() {
-				return currentdivId;
-			}
-
-			public void setCurrentdivId(String currentdivId) {
-				this.currentdivId = currentdivId;
-			}
-
 			public String getMedium() {
 				return medium;
 			}
 
 			public void setMedium(String medium) {
 				this.medium = medium;
-			}
-
-			public String getSemiEnglish() {
-				return semiEnglish;
-			}
-
-			public void setSemiEnglish(String semiEnglish) {
-				this.semiEnglish = semiEnglish;
 			}
 
 			public String getFirstName() {
@@ -510,37 +467,5 @@ public class StudentPojo {
 				this.accountNo = accountNo;
 			}
 
-			public String getBusStop() {
-				return busStop;
-			}
-
-			public void setBusStop(String busStop) {
-				this.busStop = busStop;
-			}
-
-			public String getVehicleMonth() {
-				return vehicleMonth;
-			}
-
-			public void setVehicleMonth(String vehicleMonth) {
-				this.vehicleMonth = vehicleMonth;
-			}
-
-			public String getTotRate() {
-				return totRate;
-			}
-
-			public void setTotRate(String totRate) {
-				this.totRate = totRate;
-			}
-
-			public String getProfilePicture() {
-				return profilePicture;
-			}
-
-			public void setProfilePicture(String profilePicture) {
-				this.profilePicture = profilePicture;
-			}
-			
 			
 }
