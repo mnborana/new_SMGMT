@@ -539,22 +539,23 @@
                              <li>
                                 <a href="/SMGMT/View/library/IssueBook.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Set Library Fee
+                                    &nbsp; Issue Book
+                                </a>
+                            </li>
+                             <li>
+                                <a href="/SMGMT/View/library/SetFine.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Set Library Fine
                                 </a>
                             </li>
                             
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/library/FineSub.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Fine Submission
                                 </a>
                             </li>
-                            <li>
-                                <a href="/SMGMT/View/library/IssueBook.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Issue Book
-                                </a>
-                            </li>
+                           
                             <li>
                                 <a href="#">
                                     <i class="fa fa-angle-right"></i>

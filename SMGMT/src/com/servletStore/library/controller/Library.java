@@ -19,6 +19,7 @@ import com.servletStore.library.model.AddBookPOJO;
 import com.servletStore.library.model.BookCatImpl;
 import com.servletStore.library.model.BookDAO;
 import com.servletStore.library.model.IssueBookPOJO;
+import com.servletStore.library.model.SetFinePOJO;
 
 /**
  * Servlet implementation class MainServlet
@@ -47,7 +48,6 @@ public class Library extends HttpServlet {
 			PrintWriter out=response.getWriter();
 		if(request.getParameter("savecat")!=null)
 		{
-			System.out.println("*********");
 			String catName=request.getParameter("catName");
 			BookCatImpl impl=new BookCatImpl();
 			try {
@@ -220,9 +220,33 @@ public class Library extends HttpServlet {
 					Iterator itr=list.iterator();
 					
 					while(itr.hasNext()){
-							out.print(itr.next()+ " - " +itr.next()+ " - " +itr.next() +",");			
+							out.print(itr.next()+ " - " +itr.next()+ " - " +itr.next() +",");
+							
 						}
 				}
+				
+				if(request.getParameter("returnBook")!=null)
+				{
+					String returnBookDetail = request.getParameter("returnBook");
+					try {
+						List list=dao.getReturnBookDetails(returnBookDetail);
+						
+						Iterator itr=list.iterator();
+						
+						while(itr.hasNext()){
+								//id //name //author
+								out.print(itr.next()+ " - " +itr.next()+ " - " +itr.next() +",");
+							}
+						
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//out.print("work");
+				}
+				
+				
 				
 				if(request.getParameter("studDetails")!=null)
 				{
@@ -289,15 +313,15 @@ public class Library extends HttpServlet {
 						
 						if(st>0)
 						{
-							//int status=dao.changeStatus();
+							int status=dao.changeStatus(st);
 							System.out.println("Issued Books");
 						}
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
 				//	request.setAttribute("status", dao.changeStatus());
-					request.getRequestDispatcher("View/library/IssueBook.jsp").forward(request, response);
-				//	response.sendRedirect("View/Library/AddBook.jsp");
+				//	request.getRequestDispatcher("View/library/IssueBook.jsp").forward(request, response);
+					response.sendRedirect("/SMGMT/View/library/IssueBook.jsp");
 					
 				}
 				
@@ -311,38 +335,128 @@ public class Library extends HttpServlet {
 					System.out.println(s[1]);*/
 					String s1[]=s[0].split("/");
 					String s2[]=s[1].split("/");
-					String query="SELECT * FROM issue_book WHERE issue_date between '"+ s1[2].trim()+"-"+s1[0]+"-"+s1[1]+"' AND '"+s2[2]+"-"+s2[0].trim()+"-"+s2[1]+"'";
-					List list=dao.getIssueBookList(query);
-					Iterator itr=list.iterator();
-					IssueBookPOJO pojo=new IssueBookPOJO();
 					
-					while(itr.hasNext()){
-						pojo=(IssueBookPOJO) itr.next();
-						int bId=pojo.getBookId();
-						//String bName=pojo.getBookName();
-						//String userType=pojo.getUserType();
-						//String userName=pojo.getUserName();
-						String issueDate=pojo.getIssueDate();
-						String dueDate=pojo.getDueDate();
-						String returnDate=pojo.getReturnDate();
-						//out.print(userType+","+ userName+","+bNo+","+bName+","+issueDate+","+dueDate+",");
-						out.print(bId+" "+issueDate+" "+dueDate+" "+returnDate+",");
-						//System.out.println(userType+","+ userName+","+bNo+","+bName+","+issueDate+","+dueDate+",");
+					
+					
+					String date1=s1[2].trim()+"-"+s1[0]+"-"+s1[1];
+					String date2=s2[2]+"-"+s2[0].trim()+"-"+s2[1];
+					try {
+						List list=dao.getDatewiseIssueList(date1, date2);
+						Iterator itr = list.iterator();
+						while(itr.hasNext())
+						{
+							Object name=itr.next();
+							Object bookName=itr.next();
+							Object issueDate=itr.next();
+							Object dueDate=itr.next();
+							System.out.println("----------------->>>>>>>>>>>>>>>------------------"+name+","+bookName+","+issueDate+","+dueDate+",");
+							out.print(name+","+bookName+","+issueDate+","+dueDate+",");
+						}
+					
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 					
-				}
+					
+					
+					
 				
+					
+				}
 				if(request.getParameter("bookdetail")!=null)
 				{
-					System.out.println("In search function");
-					String bookDetail = request.getParameter("bookdetail");
-					List list=dao.searchBookInfo(bookDetail);
-					Iterator itr=list.iterator();
+				try {
+						
+						System.out.println("In search function");
+						String bookDetail = request.getParameter("bookdetail");
+						String todayDate = request.getParameter("currentDate");
+						String bName = request.getParameter("bookName");
+						String aName = request.getParameter("authorName");
+						
+						
+						System.out.println(bName+"----"+aName);
+						
+						List list=dao.searchBookInfo(bookDetail,bName,aName);
+						Iterator itr=list.iterator();
+						Object bookNo = null ;
+						Object bookName= null;
+						Object authorName= null;
+						Object issueDate= null;
+						Object dueDate= null;
+						
+						
+						while(itr.hasNext()){
+							bookNo=itr.next();
+							bookName=itr.next();
+							authorName=itr.next();
+							issueDate=itr.next();
+							dueDate=itr.next();
+											
+							}
+						System.out.println("aajchi date"+todayDate);
+						System.out.println("due date"+dueDate);
+					   int totalDays=dao.daysCount(todayDate, dueDate);
 					
-					while(itr.hasNext()){
-							out.print(itr.next()+ " , " +itr.next()+ " , " +itr.next() +  " , " +itr.next()+ " , " +itr.next()+ " , " +itr.next()+ " , " +itr.next()+ " , " +itr.next()+",");			
-						}
+					
+					//out.print(totalDays);
+					
+		          out.print(bookNo+ " , " +bookName+ " , " +authorName+  " , " +issueDate+ " , " +dueDate+ " , ");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				
+				
+				if(request.getParameter("countDetail")!=null)
+				{
+					System.out.println("AJax WORKING------------");
+					
+					//out.println("AJax WORKING");
+					String todayDate = request.getParameter("currentDate");
+					String dueDate=request.getParameter("dueDate");
+					String fine=request.getParameter("fineAmount");
+					try {
+						
+						int totalDays=dao.daysCount(todayDate, dueDate);
+						int fineAmount=dao.getFine();
+						System.out.println("days diff-------- "+totalDays);
+						out.print(totalDays+","+fineAmount);
+						
+					
+					 
+					 } catch (SQLException e) {
+						
+						e.printStackTrace();
+					}
+				}
+				
+				
+				if(request.getParameter("fine")!=null)
+				{
+					//System.out.println("Fine Submission");
+					SetFinePOJO pojo=new SetFinePOJO();
+					String date=request.getParameter("date");
+					int fine=Integer.parseInt(request.getParameter("fine"));
+					System.out.println("fine***"+fine);
+					pojo.setDate(date);
+					pojo.setFine(fine);
+					
+					
+					try {
+						int st=dao.insertFine(pojo);
+						if(st>0)
+							System.out.println("Fine set");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					request.getRequestDispatcher("View/library/SetFine.jsp").forward(request, response);
+				}
+				
+				
 					
 				}
 	}
