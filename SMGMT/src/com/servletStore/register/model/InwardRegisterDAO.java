@@ -10,7 +10,7 @@ public interface InwardRegisterDAO {
 	public InwardRegisterPojo setInwordNo();
 	public List<InwardRegisterPojo> selectInwardRegister();
 	
-	public List<InwardRegisterPojo> selectSenderName();
+	public List<InwardRegisterPojo> selectSenderName(String selectSender);
 	public List<InwardRegisterPojo> selsectSubject();
 	
 	public void updateInwardRegister(InwardRegisterPojo pojo,int id);
@@ -26,6 +26,10 @@ public interface InwardRegisterDAO {
 	
 	public InwardRegisterPojo setDocumentName(int id);
 	public InwardRegisterPojo setdocument(int id);
+	
+	public List searchName(String input);
+	
+	public List<InwardRegisterPojo> selectInwardDetails(String input1,String input2);
 	
 	
 	

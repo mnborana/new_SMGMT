@@ -76,38 +76,7 @@
     <servlet-name>School</servlet-name>
     <url-pattern>/School</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>AddDocument</servlet-name>
-    <servlet-class>com.servletStore.settings.document.controller.AddDocument</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AddDocument</servlet-name>
-    <url-pattern>/AddDocument</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>InwardRegister</servlet-name>
-    <servlet-class>com.servletStore.register.controller.InwardRegister</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>InwardRegister</servlet-name>
-    <url-pattern>/InwardRegister</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>OutwardRegister</servlet-name>
-    <servlet-class>com.servletStore.register.controller.OutwardRegister</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>OutwardRegister</servlet-name>
-    <url-pattern>/OutwardRegister</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>StockRegister</servlet-name>
-    <servlet-class>com.servletStore.register.controller.StockRegister</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StockRegister</servlet-name>
-    <url-pattern>/StockRegister</url-pattern>
-  </servlet-mapping>
+ 
   <servlet>
     <servlet-name>StdSectionAssignment</servlet-name>
     <servlet-class>com.servletStore.settings.standard.controller.StdSectionAssignment</servlet-class>
@@ -188,4 +157,37 @@
     <servlet-name>AssignRoute</servlet-name>
     <url-pattern>/AssignRoute</url-pattern>
   </servlet-mapping>  
+  <servlet>
+    <servlet-name>AddDocument</servlet-name>
+    <servlet-class>com.servletStore.settings.document.controller.AddDocument</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddDocument</servlet-name>
+    <url-pattern>/AddDocument</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>InwardRegister</servlet-name>
+    <servlet-class>com.servletStore.register.controller.InwardRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InwardRegister</servlet-name>
+    <url-pattern>/InwardRegister</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>OutwardRegister</servlet-name>
+    <servlet-class>com.servletStore.register.controller.OutwardRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OutwardRegister</servlet-name>
+    <url-pattern>/OutwardRegister</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StockRegister</servlet-name>
+    <servlet-class>com.servletStore.register.controller.StockRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StockRegister</servlet-name>
+    <url-pattern>/StockRegister</url-pattern>
+  </servlet-mapping> 
 </web-app>

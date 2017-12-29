@@ -2,6 +2,7 @@ package com.servletStore.register.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,26 +33,36 @@ public class InwardRegister extends HttpServlet {
 		{
 			String senderName=request.getParameter("addSenderName");
 			String address=request.getParameter("addAddress");
+			String mobileNo=request.getParameter("mobileNumber");	
 			
-			 session.setAttribute("uname",address); 
-			
+			 HashMap<String, String> userDetails = new HashMap<String, String>();
+			  userDetails.put("senderName", senderName);
+			  userDetails.put("address", address);
+			  userDetails.put("mobileNo", mobileNo);
+			  
+			  session.setAttribute("user", userDetails);
+						
 			InwardRegisterPojo pojo=new InwardRegisterPojo();
 			pojo.setSenderName(senderName);
 			pojo.setAddress(address);
+			pojo.setMobileNo(mobileNo);
+			
 			impl.addNewSender(pojo);
+		
 			response.sendRedirect("View/register/inwardRegister.jsp");
 		}
 				
 		if(request.getParameter("InwardRegister")!=null)
 		{
-			System.out.println("hiiiii");
+			//System.out.println("hiiiii");
 			String inwardNo=request.getParameter("inwardNo");
 			int inwardno=Integer.parseInt(inwardNo);
+			
 			String addDate=request.getParameter("requireddate");
-			System.out.println("date is:"+addDate);
 			String senderName=request.getParameter("senderName");
 			String subject=request.getParameter("subject");
 			String address=request.getParameter("address");
+			String mobileNo=request.getParameter("mobileNum");
 			String description=request.getParameter("description");
 			String documentName=request.getParameter("selRegister");
 			
@@ -59,7 +70,7 @@ public class InwardRegister extends HttpServlet {
 			InwardRegisterPojo pojo1=impl.setdocument(id);
 			String document=pojo1.getDocmentName();
 			
-			System.out.println("document:"+document);
+			//System.out.println("document:"+document);
 			
 			InwardRegisterPojo pojo2=new InwardRegisterPojo();
 			pojo2.setInwardNo(inwardno);
@@ -67,17 +78,44 @@ public class InwardRegister extends HttpServlet {
 			pojo2.setSenderName(senderName);
 			pojo2.setSubject(subject);
 			pojo2.setAddress(address);
+			pojo2.setMobileNo(mobileNo);
 			pojo2.setDescription(description);
 			pojo2.setDocmentName(document);
 			
 			impl.inwardRegister(pojo2);
+		     request.setAttribute("status", "InwardRegister Inserted Successfully");
+			
 			response.sendRedirect("View/register/inwardRegister.jsp");
+		}
+		
+		if(request.getParameter("senderId")!=null)
+		{
+			String senderName=request.getParameter("senderId");
+			List list=impl.selectSenderName(senderName);
+			Iterator itr1=list.iterator();
+			while(itr1.hasNext())
+			{
+				out.print((String) itr1.next()+",");
+			}
+		}
+		
+		
+		if(request.getParameter("searchName")!=null)
+		{
+			String input=request.getParameter("searchName");
+			List list=impl.searchName(input);
+			Iterator itr2=list.iterator();
+			while(itr2.hasNext())
+			{
+				out.print(itr2.next()+","+itr2.next());
+			}
 		}
 		
 		if(request.getParameter("inwardId")!=null)
 		{
 			String inwardId=request.getParameter("inwardId");
 			int id=Integer.parseInt(inwardId);
+			System.out.println("id is:"+id);
 			List<InwardRegisterPojo> list=impl.setInwardDetails(id);
 			Iterator< InwardRegisterPojo> itr=list.iterator();
 			while(itr.hasNext())
@@ -87,10 +125,11 @@ public class InwardRegister extends HttpServlet {
 				String reqdate=((InwardRegisterPojo)pojo).getDate();
 				String senderName=((InwardRegisterPojo)pojo).getSenderName();
 				String address=((InwardRegisterPojo)pojo).getAddress();
+				String mobileNo=((InwardRegisterPojo)pojo).getMobileNo();
 				String subject=((InwardRegisterPojo)pojo).getSubject();
 				String description=((InwardRegisterPojo)pojo).getDescription();
 				String documentName=((InwardRegisterPojo)pojo).getDocmentName();
-				out.print(id1+","+reqdate+","+senderName+","+address+","+subject+","+description+","+documentName);
+				out.print(id1+","+reqdate+","+senderName+","+address+","+mobileNo+","+subject+","+description+","+documentName);
 			}
 		}
 		
@@ -103,6 +142,8 @@ public class InwardRegister extends HttpServlet {
 			String reqdate=request.getParameter("update");
 			String updateSenderName=request.getParameter("upsenderName");
 			String updateAddress=request.getParameter("upaddress");
+			String updateMobileNum=request.getParameter("updateMobileNum");
+			
 			String updateSubject=request.getParameter("upsubject");
 			String updateDescription=request.getParameter("updateDescription");
 			
@@ -115,6 +156,7 @@ public class InwardRegister extends HttpServlet {
 			pojo3.setDate(reqdate);
 			pojo3.setSenderName(updateSenderName);
 			pojo3.setAddress(updateAddress);
+			pojo3.setMobileNo(updateMobileNum);
 			pojo3.setSubject(updateSubject);
 			pojo3.setDescription(updateDescription);
 			pojo3.setDocmentName(documentName);
@@ -130,6 +172,29 @@ public class InwardRegister extends HttpServlet {
 			int id=Integer.parseInt(deleteId);
 			impl.deleteInwardRegister(id);
 			response.sendRedirect("View/register/inwardRegister.jsp");
+		}
+		
+		if(request.getParameter("createBtn")!=null)
+		{
+			String fromDate=request.getParameter("fromDate");
+			String toDate=request.getParameter("toDate");
+			
+			List<InwardRegisterPojo> list= impl.selectInwardDetails(fromDate, toDate);
+			Iterator<InwardRegisterPojo> itr=list.iterator();
+			while(itr.hasNext())
+			{
+				InwardRegisterPojo pojo=(InwardRegisterPojo)itr.next();
+				int inward=((InwardRegisterPojo)pojo).getInwardNo();
+				String date=((InwardRegisterPojo)pojo).getDate();
+				String sender=((InwardRegisterPojo)pojo).getSenderName();
+				String address=((InwardRegisterPojo)pojo).getAddress();
+				String subject=((InwardRegisterPojo)pojo).getSubject();
+				String description=((InwardRegisterPojo)pojo).getDescription();
+				
+				out.print(inward+","+date+","+sender+","+address+","+subject+","+description+",");
+			}
+			
+			
 		}
 		
 	}
