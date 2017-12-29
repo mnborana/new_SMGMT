@@ -100,191 +100,7 @@
                 
              <!-- start your code from here  -->  
               
-                <div class="outer">
-                    <div class="inner bg-container">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card">
-                                    <div class="card-header bg-white">
-                                        <i class="fa fa-file-text-o"></i>
-                                       Add New School
-                                    </div>
-                                    <div class="card-block m-t-35">
-                                        <form action="/SMGMT/School" method="post" class="form-horizontal  login_validator" id="form_block_validator">
-                                            <div class="form-group row">
-                                                <div class="col-lg-3  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> School Name *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="school_name" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
-                                                </div>
-                                                
-                                                <div class="col-lg-2 text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Select Section *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                   <select size="3" multiple class="form-control chzn-select" id="test_me_paddington" name="sectionList" tabindex="8">
-                                       		 <%
-											    SchoolDAO schooldao=new SchoolImpl();
-											 	List<SchoolPOJO> list=schooldao.getSchoolInfo();
-											 	Iterator itr=list.iterator();
-											 	while(itr.hasNext())
-											 	{									 		
-										 			
-										 			SchoolPOJO pobj = (SchoolPOJO)itr.next();	
-										 			int id=((SchoolPOJO)pobj).getSection_id();
-										 			String sectionList=((SchoolPOJO)pobj).getSectionName();
-											 %> 
-                                                   
-                                                    <option value="<%=id%>"><%=sectionList %></option>
-                                                    <%} %>
-                                                </select>
-                                          	  </div>
-                                            </div>
-                                            
-                                            
-                                             <div class="form-group row">
-                                                <div class="col-lg-3  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Address *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="school_address" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
-                                                </div>
-                                            
-                                            
-                                             <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Slogan *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="slogan" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-lg-3  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Index No *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="index_no" class="form-control" required >
-                                                </div>
-                                            
-                                            
-                                                <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Licence No *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="licence_no" class="form-control" required >
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-lg-3  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> UDISE *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="udise" class="form-control" required >
-                                                </div>
-                                            
-                                                <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> School Code *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="school_code" class="form-control" required >
-                                                </div>
-                                            </div>   
-                                            
-                                           <div class="form-group row">
-                                                <div class="col-xl-3 text-xl-right">
-                                                    <label for="email" class="col-form-label">E-mail *</label>
-                                                </div>
-                                                <div class="col-xl-3">
-                                                    <input type="email" id="email" name="email_id" class="form-control">
-                                                </div>
-                                           
-                                                <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label">Phone No *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="phone_no" class="form-control" required >
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-lg-3  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Board *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="board" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
-                                                </div>
-                                           
-                                                <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Punit Code*</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="punit_code" class="form-control" required >
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-lg-3  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Center *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="center" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
-                                                </div>
-                                            
-                                                <div class="col-lg-2 text-lg-right">
-                                                    <label class="col-form-label">Date *</label>
-                                                </div>
-                                                <%
-                                                SysDate requireddate=new SysDate(); 
-                                                
-                                                %>
-                                                <div class="col-lg-3">
-                                                    <input type="text" class="form-control form_val_popup_dp3" name="date_time" value="<%=requireddate.todayDate()%>"/>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-lg-3  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Jubilee Year*</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="jubilee_year" class="form-control" required >
-                                                </div>
-                                           
-                                                <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Establish Year*</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="establish_year" class="form-control" required >
-                                                </div>
-                                            </div>
-                                            
-                                             <div class="form-group row">
-                                                <div class="col-lg-3  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Medium*</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="medium" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
-                                                </div>
-                                            </div>
-                                           
-                                            <div class="form-actions form-group row">
-                                                <div class="col-lg-4 push-lg-4">
-                                                     <button type="submit" name="SchoolSubmitBtn" class="btn btn-success">Submit</button>
-                                                    <button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
-                                                </div>
-                                            </div>
-                                            
-                                        </form>
-                                    </div>
-                                </div>
-                            </div> <!-- /.col-lg-12 -->
-                        </div> <!-- /.row -->
-                    </div> <!-- /.inner -->
-                </div> <!-- /.outer -->
-            
+                
             
             <div class="outer">
                     <div class="inner bg-container">
@@ -295,6 +111,10 @@
                             <div class="card-block m-t-35" id="user_body">
                                 <div class="table-toolbar">
                                     
+                                    <%
+                                    SchoolDAO schooldao=new SchoolImpl();
+                                    
+                                    %>
                                     <div class="btn-group float-right users_grid_tools">
                                         <div class="tools"></div>
                                     </div>
@@ -332,7 +152,7 @@
                                         %>
                                       <tr class="gradeX">
 										<td id="<%=id1%>"><%=count%></td>
-										<td><%=((SchoolPOJO)Pojo).getName()%></td>
+										<td><%=((SchoolPOJO)Pojo).getSchoolName()%></td>
 										<td><%=sectionList%></td>
 										<td><%=((SchoolPOJO)Pojo).getAddress()%></td>
 										<td><%=((SchoolPOJO)Pojo).getPhoneno()%></td>
@@ -372,7 +192,7 @@
 							        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
 							      </span>
                                 </div>
-                            </div>
+                            </div>[]
                         </div>
                     </form>
                 </div>
@@ -399,7 +219,7 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                 	<input type="hidden" id="Updateid" name="UpdateId">
-                                                    <input type="text" id="schoolName" name="school_name" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
+                                                    <input type="text" id="schoolName" name="schoolName" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
                                                 </div>
                                                 
                                                 <div class="col-lg-2  text-lg-right">
@@ -506,6 +326,9 @@
                                                 <div class="col-lg-3 text-lg-right">
                                                     <label class="col-form-label" for="required2">Date *</label>
                                                 </div>
+                                                <%
+                                                SysDate requireddate=new SysDate();
+                                                %>
                                                
                                                 <div class="col-lg-3">
                                                     <input type="text" class="form-control form_val_popup_dp3" id="date" name="date_time" value="<%=requireddate.todayDate()%>"/>
@@ -677,7 +500,7 @@
 
 	function setFocusToTextBox() {
 		
-		document.getElementById("required2").focus();
+		
 		document.getElementById("schoolName").focus();
 		myFunction();
 	}

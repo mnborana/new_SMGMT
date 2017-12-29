@@ -40,13 +40,9 @@ public class PTAMemberImpl implements PTAMemberDAO {
 
 	@Override
 	public List getStudentNameList(PTAMemberPojo pojo) {
-		String schoolid=((PTAMemberPojo)pojo).getSchoolId();
-		System.out.println("student is:"+schoolid);
-		String studentList="SELECT student_details.id,student_details.first_name,student_details.middle_name,student_details.last_name FROM "
-				+ "student_details,class_allocation,classroom_master,fk_class_master,std_master,fk_school_section_details,"
-				+ "school_master WHERE fk_school_section_details.school_id='"+pojo.getSchoolId()+"' AND fk_class_master.std_id=std_master.id"
-				+ " AND classroom_master.fk_class_master_id=fk_class_master.id AND"
-				+ " class_allocation.student_id=student_details.id";
+		String stndardDivid=((PTAMemberPojo)pojo).getSchoolId();
+		System.out.println("student is:"+stndardDivid);
+		String studentList="SELECT student_details.id, student_details.first_name, student_details.middle_name,student_details.last_name FROM student_details,student_official_details,class_allocation WHERE student_official_details.classroom_master="+stndardDivid+" AND student_official_details.student_id =student_details.id AND student_official_details.lc_status=0 AND class_allocation.catalog_status=0 AND class_allocation.student_id=student_details.id";
 		List list=new ArrayList<>();
 		ResultSet rs=null;
 		

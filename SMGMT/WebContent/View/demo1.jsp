@@ -121,7 +121,7 @@ z-index: 999999">
 				                                    		SchoolPOJO stdPojo3 = (SchoolPOJO)itr3.next();
 				                                    		int id3 = stdPojo3.getId();
 				                                    %>
-				                                    	<option value="<%=id3 %>"><%=stdPojo3.getName() %></option>
+				                                    	<option value="<%=id3 %>"><%=stdPojo3.getSchoolName() %></option>
 														
 				                                     <%
 				                                     	count3++;

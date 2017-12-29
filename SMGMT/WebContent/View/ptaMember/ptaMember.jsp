@@ -171,96 +171,117 @@
                                       PTA Members
                                     </div>
                                     
-                               <div class="card-block m-t-35" style="margin-top: 47px;">
-                                   <form action="/SMGMT/PTAMember" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                              		 <div class="card-block m-t-35" style="margin-top: 47px;">
+                                   			<form action="/SMGMT/PTAMember" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                            
-                                       <div class="form-group row">
-                                          			 <div class="col-lg-3 text-lg-right">
-															<label for="stdIdAlo" class="col-form-label">Select	Standard & Division <span style="color:red;">*</span></label> 
-													  </div>
-													  	<div class="col-lg-4">
-															<select class="form-control chzn-select" name="stdId" id="stdId"	title="Select Standard">
-																<option disabled selected>Select Standard</option>
-															</select>
-														</div> 
-                                        </div>  
+		                                     		  <div class="form-group row">
+		                                          			 <div class="col-lg-3 text-lg-right">
+																	<label for="stdIdAlo" class="col-form-label">Select	Standard & Division <span style="color:red;">*</span></label> 
+															  </div>
+															  	<div class="col-lg-4">
+																	<select class="form-control chzn-select" name="stdId" id="stdId" onchange="studentNameList()"	title="Select Standard">
+																		<option disabled selected>Select Standard</option>
+																	</select>
+																</div> 
+		                                     			   </div>  
                                         
-                                         <div class="form-group row">
-                                          			 <div class="col-lg-3 text-lg-right">
-															<label for="stdIdAlo" class="col-form-label">Select	Student <span style="color:red;">*</span></label> 
-													  </div>
-													  	<div class="col-lg-4">
-															<select class="form-control chzn-select" name="studentId" id="studentId"	title="Select Student">
-																<option disabled selected>Select Student</option>
-															</select>
-														</div> 
-                                        </div> 
-                                                                    	 
-                                            <div class="modal-footer">
-                                                <div class="col-lg-4 push-lg-4">
-                                                     <button type="submit"  class="btn btn-primary" style="margin-left: -700px;">Submit</button>
-                                                    <button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
-                                                </div>
-                                            </div>                                         
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>  
-                            
-                        </div>                                      
-       		     </div>           
-           	 </div> 
-           	 
-           	 
-           	  <!-- <div class="outer">
-                    <div class="inner bg-container">
-                        <div class="card">
-                            <div class="card-header bg-white">
-                                Inward Register Details
-                            </div>
-                            <div class="card-block m-t-35" id="user_body">
-                                <div class="table-toolbar">
-                                    
-                                    <div class="btn-group float-right users_grid_tools">
-                                        <div class="tools"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div>
-                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
-                                            <thead>
-                                            <tr role="row">
-                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Parent Name</th>
-                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Relation</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Mobile No</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">AdharCard No</th>                                                
-                                                <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Assign</th>
-                                                
-
-		                                       </tr>     	
-                                           </thead>
-                                          
-                                             <tbody>
-                                            
-                                             </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                END EXAMPLE TABLE PORTLET
-                            </div>
-                        </div>
-                    </div>
-                    /.inner
-                </div> -->
-           	 
-        	</div>
-       	</div>
-     </div>
-        
-       <!--wrapper-->
-
+		                                        		 <div class="form-group row">
+		                                          			 <div class="col-lg-3 text-lg-right">
+																	<label for="stdIdAlo" class="col-form-label">Select	Student <span style="color:red;">*</span></label> 
+															  </div>
+															  	<div class="col-lg-4">
+																	<select class="form-control chzn-select" name="studentId" id="studentId"	title="Select Student">
+																		<option disabled selected>Select Student</option>
+																	</select>
+																</div> 
+                                      			  			</div>                                      
+                                                                                   
+			                                            </form>
+			                                         </div> 
+			                                    </div>
+			                                </div>
+			                            </div>  
+			                            
+			                        </div>                                      
+			       		     </div>   
+       		     
+       		   			  <div class="outer">
+                 		   <div class="inner bg-container">
+                 			       <div class="row">
+       		    						  <div class="col-lg-12">
+					                                <div class="card">
+					                                    <div class="card-header bg-white">
+					                                      Assign PTA Member
+					                                    </div>
+					                                    <div class="card-block">
+					                                        <div class="table-responsive m-t-35">
+					                                            <table class="table table-bordered">
+					                                                <thead>
+					                                                <tr>
+					                                                    <th>Sr.No</th>
+					                                                    <th>Parent Name</th>
+					                                                    <th>Relation</th>
+					                                                    <th>Mobile No</th>
+					                                                    <th>AdharCard No</th>
+					                                                    <th>Assign Member</th>
+					                                                </tr>
+					                                                </thead>
+					                                                <tbody>
+					                                                
+					                                                </tbody>
+					                                            </table>
+					                                        </div>
+					                                    </div>
+					                                </div>
+					                            </div>
+					                        </div>
+					                  </div>
+					              </div>                      
+			       		     
+			       		      <div class="outer">
+			                    <div class="inner bg-container">
+			                        <div class="card">
+			                            <div class="card-header bg-white">
+			                                PTA Members Details
+			                            </div>
+			                            <div class="card-block m-t-35" id="user_body">
+			                                <div class="table-toolbar">
+			                                    
+			                                    <div class="btn-group float-right users_grid_tools">
+			                                        <div class="tools"></div>
+			                                    </div>
+			                                </div>
+			                                <div>
+			                                    <div>
+			                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
+			                                            <thead>
+			                                            <tr role="row">
+			                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No</th>
+			                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Name</th>
+			                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Student Name</th>
+			                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Standard</th>
+			                                                <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Division</th>
+			                                                 <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Mobile No</th>
+			                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>
+			                                            </tr>
+			                                            </thead>
+			                                            <tbody>
+			                                         
+			                                            </tbody>
+			                                        </table>
+			                                    </div>
+			                                </div>
+			                                <!-- END EXAMPLE TABLE PORTLET-->
+			                            </div>
+			                        </div>
+			                    </div>
+			                    <!-- /.inner -->
+						      </div>        
+					         	 
+				        </div>
+				     </div>
+				  </div>
 	
-       
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
 
@@ -329,91 +350,19 @@
     
     <script type="text/javascript" src="/SMGMT/config/js/pages/datatable.js"></script>
       
-    
-
-<%-- <script type="text/javascript">
-
-function standardList(){	
-var std=<%=schoolId%>
-	alert(std);
-	if(std==""){
-		return;
-	}
-	
-	
-	document.getElementById("stdId").innerHTML="";
-		document.getElementById("stdIdAlo").innerHTML="";
-	var xhttp =new XMLHttpRequest();
-	try{
-		xhttp.onreadystatechange = function(){
-			if(this.readyState == 4 && this.status == 200){
-				var getData=this.responseText.split("~");
-				
-				//alert(getData);
-				var row="<option disabled selected>Select Standard </option>";
-				var i=0;
-				for(;getData[i];){
-					row += "<option value="+getData[i]+">";
-					i++;
-					row += getData[i] ;
-					i++;
-					row += " ("+ getData[i] +" - ";
-					i++;
-					row += getData[i]+ ")</option>";
-					i++;
-
-				}					
-				document.getElementById("stdId").innerHTML+=row;
-				$("#stdId").trigger('chosen:updated');
-				document.getElementById("stdIdAlo").innerHTML+=row;
-				$("#stdIdAlo").trigger('chosen:updated');
-			}
-		}
-		xhttp.open("POST", "/SMGMT/PTAMember?standardList="+std, true);
-		xhttp.send();
-	}catch(e){
-		alert("Unable to Connect Server!");
-	}
-}
-
-function loadFunction(){
-	getAcademicYear();
-	standardList();
-	
-	alert("heeeeee");
-	
-	<%
-		if(session.getAttribute("flag")!=null){ %>
-		$(window).load(function () {
-	        iziToast.show({
-	            title: 'Success',
-	            message: '<%=session.getAttribute("flag").toString()%>',
-	            color:'#00cc99',
-	            position: 'topCenter'
-	        });
-	        return false;
-	    });
-	<%} session.removeAttribute("flag");%>
-}
-
-</script> --%>
+   
 
 <script>
 function myFunction() {
 	standardList();
-	studentNameList();
 }
 
 function studentNameList(){
 	
+	var studentId=document.getElementById("stdId").value;
 	
-	var std=<%=schoolId%>
-	
-		if(std==""){
-			return;
-		}		
 		
-		document.getElementById("studentId").innerHTML="";
+	document.getElementById("studentId").innerHTML="";
 		var xhttp =new XMLHttpRequest();
 		
 		try{
@@ -422,7 +371,7 @@ function studentNameList(){
 					var getData=this.responseText.split("~");
 					
 					//alert(getData);
-					var row="<option disabled selected>Select Standard </option>";
+					var row="<option disabled selected>Select Student </option>";
 					var i=0;
 					for(;getData[i];){
 						row += "<option value="+getData[i]+">";
@@ -439,12 +388,12 @@ function studentNameList(){
 					$("#studentId").trigger('chosen:updated');
 				}
 			}
-			alert("standard:"+std);
-			xhttp.open("POST", "/SMGMT/PTAMember?studentNameList="+std, true);
+			alert(studentId);
+			xhttp.open("POST", "/SMGMT/PTAMember?studentNameList="+studentId, true);
 			xhttp.send();
 		}catch(e){
 			alert("Unable to Connect Server!");
-		}
+		} 
 	}
 	
 
