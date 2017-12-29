@@ -25,10 +25,7 @@ import com.servletStore.transportation.vehicle.model.VehicleDAO;
 import com.servletStore.transportation.vehicle.model.VehicleImpl;
 import com.servletStore.transportation.vehicle.model.VehiclePOJO;
 
-/**
- * Servlet implementation class Destination
- */
-@WebServlet("/Destination")
+
 public class Destination extends HttpServlet {
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

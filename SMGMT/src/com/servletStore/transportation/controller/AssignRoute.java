@@ -23,7 +23,6 @@ import com.servletStore.transportation.driver.model.DriverPOJO;
 /**
  * Servlet implementation class AssignRoute
  */
-@WebServlet("/AssignRoute")
 public class AssignRoute extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

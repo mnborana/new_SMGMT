@@ -213,7 +213,7 @@ z-index: 999999">
 
 
                 
-                          <div class="outer">
+                 <div class="outer">
                     <div class="inner bg-container">
                         <div class="card">
                             <div class="card-header bg-white">
@@ -321,7 +321,7 @@ z-index: 999999">
                                                 
                                                 <div class="col-lg-4">
                                             	<input type="hidden" id="Updateid" name="UpdateId">
-                                                	<select class="form-control chzn-select" tabindex="2" id="three11" name="route_name1">
+                                                	<select tabindex="2" id="three11" name="route_name1">
                                                 	    <%
                                                 	    	for(int j=0;j<route_list.size();j++)
                                                 			{
