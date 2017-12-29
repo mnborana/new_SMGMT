@@ -110,6 +110,54 @@
     <url-pattern>/Subjects</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>Vehicle</servlet-name>
+    <servlet-class>com.servletStore.transportation.controller.Vehicle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Vehicle</servlet-name>
+    <url-pattern>/Vehicle</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Driver</servlet-name>
+    <servlet-class>com.servletStore.transportation.controller.Driver</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Driver</servlet-name>
+    <url-pattern>/Driver</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Conductor</servlet-name>
+    <servlet-class>com.servletStore.transportation.controller.Conductor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Conductor</servlet-name>
+    <url-pattern>/Conductor</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Route</servlet-name>
+    <servlet-class>com.servletStore.transportation.controller.Route</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Route</servlet-name>
+    <url-pattern>/Route</url-pattern>
+  </servlet-mapping>  
+  <servlet>
+    <servlet-name>Destination</servlet-name>
+    <servlet-class>com.servletStore.transportation.controller.Destination</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Destination</servlet-name>
+    <url-pattern>/Destination</url-pattern>
+  </servlet-mapping>  
+  <servlet>
+    <servlet-name>AssignRoute</servlet-name>
+    <servlet-class>com.servletStore.transportation.controller.AssignRoute</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AssignRoute</servlet-name>
+    <url-pattern>/AssignRoute</url-pattern>
+  </servlet-mapping>  
+  <servlet>
     <servlet-name>AddDocument</servlet-name>
     <servlet-class>com.servletStore.settings.document.controller.AddDocument</servlet-class>
   </servlet>
