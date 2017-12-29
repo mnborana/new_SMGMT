@@ -125,7 +125,7 @@
 
 
 
- 										<form action="/SMGMT/RouteADD?id=<%=id %>" class="form-horizontal  login_validator" method="post" id="form_block_validator">
+ 										<form action="/SMGMT/Route?id=<%=id %>" class="form-horizontal  login_validator" method="post" id="form_block_validator">
                                         
                                       
                                             

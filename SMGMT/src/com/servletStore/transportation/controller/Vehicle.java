@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dbconnect.DBConnection;
+import com.itextpdf.text.log.SysoCounter;
 import com.servletStore.transportation.vehicle.model.VehicleDAO;
 import com.servletStore.transportation.vehicle.model.VehicleImpl;
 import com.servletStore.transportation.vehicle.model.VehiclePOJO;
@@ -34,8 +35,9 @@ public class Vehicle extends HttpServlet {
 		VehiclePOJO vehiclePojo=new VehiclePOJO();
 		VehicleDAO vehicleDAO=new VehicleImpl();
 		boolean redirect=true;
+		System.out.println("Servlet");
 		if(request.getParameter("add_vehicle_btn")!=null){
-			
+			System.out.println("add_vehicle_btn");
 			String veh_no=request.getParameter("mh")+"-"+request.getParameter("tt")+"-"+request.getParameter("m")+"-"+request.getParameter("fofe");
 			if(!request.getParameter("seats_no").trim().equals(""))
 			{
