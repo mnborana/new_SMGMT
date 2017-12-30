@@ -33,24 +33,23 @@ public class PTAMember extends HttpServlet {
 			PTAMemberPojo theStudent=new PTAMemberPojo();
 			theStudent.setSchoolId(standardList);
 			List theStandardList=dao.getStandardList(theStudent);
+			System.out.println("studentNameList is:"+theStandardList);
 			Iterator irt=theStandardList.iterator();
 			while (irt.hasNext()) {
 				out.print(irt.next()+"~");
 			}
 		}
-		
+				
 		if (studentNameList != null) {
 			PTAMemberPojo theStudent1=new PTAMemberPojo();
-			theStudent1.setSchoolId(studentNameList);
+			theStudent1.setStandardDivId(studentNameList);
 			List list=dao.getStudentNameList(theStudent1);
+			System.out.println("studentNameList is:"+list);
 			Iterator irt1=list.iterator();
 			while (irt1.hasNext()) {
-				System.out.print(irt1.next()+"~");
+				out.print(irt1.next()+",");
 			}
 		}
-		
-		
-		
 		
 	}
 

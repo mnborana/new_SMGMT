@@ -190,7 +190,7 @@
 																	<label for="stdIdAlo" class="col-form-label">Select	Student <span style="color:red;">*</span></label> 
 															  </div>
 															  	<div class="col-lg-4">
-																	<select class="form-control chzn-select" name="studentId" id="studentId"	title="Select Student">
+																	<select class="form-control chzn-select" name="studentId" id="studentId" onchange="selectParentDetails()" title="Select Student">
 																		<option disabled selected>Select Student</option>
 																	</select>
 																</div> 
@@ -368,7 +368,7 @@ function studentNameList(){
 		try{
 			xhttp.onreadystatechange = function(){
 				if(this.readyState == 4 && this.status == 200){
-					var getData=this.responseText.split("~");
+					var getData=this.responseText.split(",");
 					
 					//alert(getData);
 					var row="<option disabled selected>Select Student </option>";
@@ -383,6 +383,41 @@ function studentNameList(){
 						row += getData[i]+ " </option>";
 						i++;
 
+					}					
+					document.getElementById("studentId").innerHTML+=row;
+					$("#studentId").trigger('chosen:updated');
+				}
+			}
+			alert(studentId);
+			xhttp.open("POST", "/SMGMT/PTAMember?studentNameList="+studentId, true);
+			xhttp.send();
+		}catch(e){
+			alert("Unable to Connect Server!");
+		} 
+	}
+
+function selectParentDetails(){
+	
+	var studentId=document.getElementById("studentId").value;
+
+	document.getElementById("studentId").innerHTML="";
+		var xhttp =new XMLHttpRequest();
+		
+		try{
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var getData=this.responseText.split(",");
+					
+					//alert(getData);
+					var i=0;
+					var row="<table>";
+					row+="<tr><th>Parent Name</th><th>Relation</th><th>Mobile No</th><th>AdharCard No</th></tr>";
+					for(;demoStr[i];)
+						{
+						i++;
+						row+="<td>""</td>"
+						}
+					
 					}					
 					document.getElementById("studentId").innerHTML+=row;
 					$("#studentId").trigger('chosen:updated');
