@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface SchoolDAO {
 	
-	public void addSchool(SchoolPOJO schoolPojo);
+	
 	public List<SchoolPOJO> getSchoolInfo();
 	public List<SchoolPOJO> getSchoolDetails();
 	public void updateSchoolDetails(SchoolPOJO schoolPojo);
@@ -13,6 +13,8 @@ public interface SchoolDAO {
 	public int deleteSchool(int id);
 	public void insertSection(List list);
 	public String selectSection(int id);
+	
+	
 	
 	
 }

@@ -27,9 +27,7 @@ public class PTAMember extends HttpServlet {
 		
 		String standardList=request.getParameter("standardList");
 		String studentNameList=request.getParameter("studentNameList");
-		
-		
-		System.out.println("studnt id is:"+studentNameList);
+		System.out.println(" standard Div id:"+studentNameList);
 		
 		if (standardList != null) {
 			PTAMemberPojo theStudent=new PTAMemberPojo();
@@ -47,7 +45,7 @@ public class PTAMember extends HttpServlet {
 			List list=dao.getStudentNameList(theStudent1);
 			Iterator irt1=list.iterator();
 			while (irt1.hasNext()) {
-				out.print(irt1.next()+"~");
+				System.out.print(irt1.next()+"~");
 			}
 		}
 		

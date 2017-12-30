@@ -275,7 +275,7 @@
                   	 <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header bg-warning">
-                                <h4 class="modal-title text-white" id="modalLabelnews">Pulldown</h4>
+                                <h4 class="modal-title text-white" id="modalLabelnews">Update</h4>
                             </div>
                             <div class="modal-body">   
 								 <form action="/SMGMT/Library" method="post" class="form-horizontal  login_validator" id="form_block_validator">

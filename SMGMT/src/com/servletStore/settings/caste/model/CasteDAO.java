@@ -9,14 +9,13 @@ public interface CasteDAO {
 	
 	public List<CastePOJO> getCategoryDetails();
 	
-	public void deleteCategory(int category_id);
-	
-	
-	//Religion
-	public void addReligion(CastePOJO castePojo);
-	
-	public List<CastePOJO> getReligionDetails();
-	
+	public void deleteCategory(int category_id);        
+	                                                    
+	//Religion                                          
+	public void addReligion(CastePOJO castePojo);       
+	                                                    
+	public List<CastePOJO> getReligionDetails();        
+	                                                    
 	public void deleteReligion(int religion_id);
 	
 	//Caste

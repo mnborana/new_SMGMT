@@ -649,9 +649,8 @@
 	var flag=true;
 	var x,option;
 	
-	function searchDriver(id,Updateid,mod_required22,mod_required2,mod_autosize1,mod_autosize2,mod_date,mod_phone,mod_licen) {
-		//document.write("AP");
-		
+	function searchDriver(id,Updateid,mod_required22,mod_required2,mod_autosize1,mod_autosize2,mod_date,mod_phone,mod_licen) 
+	{
 		var xhttp;
 		xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
