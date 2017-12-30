@@ -23,11 +23,12 @@
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
 <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_inputlimiter,_css,_jquery.inputlimiter.css+vendors,_bootstrap-colorpicker,_css,_bootstrap-colorpicker.min.css+vendors,_jquery-tagsinput,_c"/>
+ <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_izitoast,_css,_iziToast.min.css.pagespeed.cc.hUh8XIbhbe.css"/>
    
     <!-- end of global styles-->
    
 </head>
-<body>
+<body onload="myFunction()">
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -426,9 +427,9 @@
 																			*</label>
 																		<div class="controls">
 																			<input type="radio" value="RETURN"
-																				style="margin-left: 1%;" name="select" id="selectRt" onclick="onBook(this.value)"> Return 
+																				style="margin-left: 1%;" name="returnRadio" id="selectRt" onclick="onBook(this.value)"> Return 
 																				<input type="radio" value="RENEW" style="margin-left: 1%;"
-																				name="select" id="selectRn"
+																				name="returnRadio" id="selectRn"
 																				onclick="onBook(this.value)"> Renewal
 																		</div>
 																	</div>
@@ -450,38 +451,65 @@
 																				<a href="#" onclick="getFineCount('countInfo')"
 																				class="btn btn-primary" value="Search" id="btn" style="margin-top: 34px">Count Fine</a>
 																			</div> -->
-																	</div>
-																	<div class="form-group row">
+																	
 																		<div class="col-lg-4">
 																			<label for="required2" class="col-form-label">Total
 																				Days </label> <input type="text" id="days" name="days"
 																				class="form-control">
 																		</div>
-																		</div>
-																		<div class="form-group row">
+																		
 																			<div class="col-lg-4">
 																				<label for="required2" class="col-form-label">Total
-																					Fine(5 Rs.per day) </label> <input type="text"
+																					Fine </label> <input type="text"
 																					id="fineAmount" name="fineAmount"
 																					class="form-control">
 																		   </div>
 																		</div>
+																		<div class="form-group row">
+																			<label class="custom-control custom-checkbox">
+					                                                        <input type="checkbox" class="custom-control-input" onclick="checkedPay(checkId)" >
+					                                                        <span class="custom-control-indicator"></span>
+					                                                        <span class="custom-control-description">Checked</span>
+					                                                    </label>
+					                                                 
+					                                                    <div class="form-group row" id="checkId">
+																																
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Discount
+																			 </label> <input type="text" id="days" name="days"
+																				class="form-control">
+																		</div>
+																		
+																			<div class="col-lg-4">
+																				<label for="required2" class="col-form-label">Paid Amount
+																				 </label> <input type="text"
+																					id="fineAmount" name="fineAmount"
+																					class="form-control">
+																		   </div>
+																		   
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Remaining Amount
+																			 </label> <input type="text" id="days" name="days"
+																				class="form-control">
+																		</div>
+																				
+																		</div>
 
-																	
-																	
+																</div>
+				
 																</div>
 																<div class="form-group row" id="renew"
 																	style="display: none">
 																	<div class="col-lg-4">
 																		<label class="col-form-label">Due Date *</label> <input
 																			type="text" class="form-control form_val_popup_dp3"
-																			id="dueDate" name="date_inline"
+																			id="dueDate" name="dueDate"
 																			placeholder="YYYY-MM-DD" />
 																	</div>
 																</div>
 																<div class="form-actions form-group row">
 																	<input type="submit" id="btnSubmit" value="Submit"
-																		name="issuebook" class="btn btn-primary">
+																		name="returnBook" class="btn btn-primary">
 																</div>
 
 															</form>
@@ -578,7 +606,8 @@
 <script type="text/javascript" src="/SMGMT/config/js/pages/datetime_piker.js"></script>
 <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
 <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
-    
+<script type="text/javascript" src="/SMGMT/config/vendors/izitoast/js/iziToast.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pages/izi_toastr.js"></script>    
 <!-- end plugin scripts -->
 <!--Page level scripts-->
     
@@ -595,6 +624,22 @@
 
 </body>
 <script type="text/javascript">
+
+function myFunction()
+{
+	<%
+	if(session.getAttribute("flag")!=null){ %>
+	$(window).load(function () {
+        iziToast.show({
+            title: 'Success',
+            message: '<%=session.getAttribute("flag").toString()%>',
+            color:'#00cc99',
+            position: 'topCenter'
+        });
+        return false;
+    });
+	<%} session.removeAttribute("flag");%>
+}
 
 function getReturnBooks(val)
 {
@@ -617,7 +662,7 @@ function getReturnBooks(val)
 	  xhttp.send();
 }
 
-
+/*<<<<<<<<<<<<<<<<<< Ajax for Serach book Info which is not issued >>>>>>>>>>>>>>>>>>>>>>>>>*/
 function getbookdetails(id){
 	//alert(id);
 	var xhttp = new XMLHttpRequest();
@@ -632,13 +677,13 @@ function getbookdetails(id){
 	    	 
 	    	 }
 			document.getElementById("browseBook").innerHTML = text;		 
-	     
 	    }
 	  };
 	  xhttp.open("POST", "/SMGMT/Library?detailId="+id, true);
 	  xhttp.send();
-	
 }
+
+/*<<<<<<<<<<<<<<<<<< Ajax for Serach Student Info >>>>>>>>>>>>>>>>>>>>>>>>>*/
 function getstuddetails(id){
 //	alert(id);
 	var xhttp = new XMLHttpRequest();
@@ -652,14 +697,12 @@ function getstuddetails(id){
 	    	 }
 	     //alert(text);
 			document.getElementById("browseStud").innerHTML = text;		 
-	      
-	     
 	    }
 	  };
 	  xhttp.open("POST", "/SMGMT/Library?studDetails="+id, true);
 	  xhttp.send();
-	
 }
+
 function getteacherDetails(id){
 //	alert(id);
 	var xhttp = new XMLHttpRequest();
@@ -727,7 +770,7 @@ function getExpData(val)
 					for(var i=0;i<demoStr.length-2;i=i+4){
 						wholeData+="<tr>"+
 						"<td style='text-align: center'>"+count+"</td>"+
-						"<td style='text-align: center'>'Student'</td>"+
+						"<td style='text-align: center'>Student</td>"+
 						"<td style='text-align: center'>"+demoStr[i]+"</td>"+
 						"<td style='text-align: center'>"+demoStr[i+1]+"</td>"+
 						"<td style='text-align: center'>"+demoStr[i+2]+"</td>"+
@@ -823,7 +866,19 @@ function getFineCount(tDate, dDate, radioValue) {
 	
 }
 	
-	
+function checkedPay(checkId)
+{
+	var x = document.getElementById("checkId");
+	if(document.getElementById(checkId).checked)
+		{
+			x.style.display = "block";
+			//alert('checked')
+		}
+	else 
+		{
+			x.style.display = "none";
+		}
+}
 	
 </script>
 

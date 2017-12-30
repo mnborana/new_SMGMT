@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.library.model.SetFinePOJO"%>
+<%@page import="com.servletStore.library.model.AddBookImpl"%>
+<%@page import="com.servletStore.library.model.AddBookDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -15,7 +18,7 @@
     <!-- end of global styles-->
    
 </head>
-<body>
+<body onload="getFine()">
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -90,13 +93,16 @@
                                         Fine Set
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator">
+                                    <%
+                                    	
+                                    %>
+                                        <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator" method="post">
                                             <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label class="col-form-label">Date *</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" class="form-control form_val_popup_dp3" name="date" placeholder="YYYY-MM-DD"/>
+                                                    <input type="text" class="form-control form_val_popup_dp3" name="date" id="date_id" placeholder="YYYY-MM-DD"/>
                                                 </div>
                                             </div> 
                                            <div class="form-group row">
@@ -104,12 +110,16 @@
                                                     <label for="required2" class="col-form-label">Set Fine *</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="required2" name="fine" class="form-control" required>(per Day)
+  	                                              <input type="hidden" id="id_id"  name="id_name" />
+                                                    <input type="text" id="fine_id"  name="fine_value" class="form-control" required placeholder="0.00"/>
+                                                </div>
+                                                <div id="msg">
+                                                	<strong>(Per Day)</strong>
                                                 </div>
                                             </div>
                                            <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="OK" name="fine" class="btn btn-primary">
+                                                    <input type="submit" value="OK" id="btn_id" name="fine" class="btn btn-primary">
                                                     <input type="submit" value="Exit" class="btn btn-primary">
                                                 </div>
                                             </div>
@@ -153,6 +163,37 @@
         
 
 <!-- /#wrap -->
+
+<script type="text/javascript" src="/SMGMT/config/js/jquery.min.js"></script>
+<script type="text/javascript">	
+	function getFine()		
+	{     
+		//alert("AP")
+		var xhttp;		
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var data=this.responseText.split(",");
+				var id=data[0];
+				var date=data[1];
+				var fine=data[2];
+				if(id!="0")
+				{
+					//action="Update";
+					//alert("AP"+id+"-"+date+"-"+fine);
+					document.getElementById("id_id").value=id;
+					document.getElementById("date_id").value=date;
+					document.getElementById("fine_id").value=fine;
+					document.getElementById("btn_id").value="Update";
+				}
+			}
+		};
+		xhttp.open("POST","/SMGMT/Library?fineAP=59", true);
+		xhttp.send();	
+	} 
+</script>
 
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
