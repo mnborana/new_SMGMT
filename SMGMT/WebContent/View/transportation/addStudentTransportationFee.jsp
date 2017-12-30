@@ -1,0 +1,944 @@
+<%@page import="com.servletStore.transportation.destination.model.DestinationPOJO"%>
+<%@page import="com.servletStore.transportation.destination.model.DestinationImpl"%>
+<%@page import="com.servletStore.transportation.destination.model.DestinationDAO"%>
+<%@page import="com.servletStore.transportation.studentdetails.model.*"%>
+<%@page import="com.servletStore.transportation.studentdetails.model.StudentDetailsImpl"%>
+<%@page import="com.servletStore.transportation.studentdetails.model.StudentDetailsDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
+    <%@page import="com.servletStore.transportation.route.model.RouteImpl"%>
+<%@page import="com.servletStore.transportation.route.model.RouteDAO"%>
+<%@page import="com.servletStore.transportation.route.model.RoutePOJO"%>
+<%@page import="java.util.List"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Form Elements | Admire</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
+    <!-- global styles-->
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/components.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/custom.css"/>
+    <!-- end of page level styles -->
+    <!--Plugin styles-->
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/inputlimiter/css/jquery.inputlimiter.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/chosen/css/chosen.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jquery-tagsinput/css/jquery.tagsinput.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/daterangepicker/css/daterangepicker.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/datepicker/css/bootstrap-datepicker.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-switch/css/bootstrap-switch.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jasny-bootstrap/css/jasny-bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/multiselect/css/multi-select.css"/>
+    <!--End of plugin styles-->
+    <!--Page level styles-->
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
+    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
+    <!-- end of page level styles -->
+   
+</head>
+<body>
+<div class="preloader" style=" position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  backface-visibility: hidden;
+  background: #ffffff;">
+    <div class="preloader_img" style="width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  background-position: center;
+  z-index: 999999">
+        <img src="/SMGMT/config/img/loader.gif.pagespeed.ce.pu_lpoGKrw.gif" style=" width: 40px;" alt="loading...">
+    </div>
+</div>
+    <div id="wrap">
+        <div id="top">
+            <!-- .navbar -->
+            	<jsp:include page="/View/common/header.jsp"></jsp:include>
+            <!-- /.navbar -->
+        </div>
+        <!-- /#top -->
+        
+        
+        <div class="wrapper">
+        	 <!-- /.left navbar -->
+                <jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
+             <!-- /.left navbar -->
+             
+             
+            <!-- /#left -->
+            <div id="content" class="bg-container">
+                <header class="head">
+                    <div class="main-bar">
+                        <div class="row no-gutters">
+                            <div class="col-sm-5 col-lg-6">
+                                <h4 class="nav_top_align">
+                                    <i class="fa fa-pencil"></i>
+                                    Add Route
+                                </h4>
+                            </div>
+                            <div class="col-sm-7 col-lg-6">
+                                <ol class="breadcrumb float-right nav_breadcrumb_top_align">
+                                    <li class="breadcrumb-item">
+                                        <a href="index1.html">
+                                            <i class="fa fa-home" data-pack="default" data-tags=""></i>
+                                            Dashboard
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#">Forms</a>
+                                    </li>
+                                    <li class="active breadcrumb-item">Add Route</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                
+             <!-- start your code from here  -->  
+              <%
+              		String std="",name="",div="";
+              		StudentDetailsDAO stud_dao=new StudentDetailsImpl();
+              		List<StudentDetailsPOJO> stud_pojo=stud_dao.getStudentDetails();
+              		System.out.println("GR1:"+stud_pojo.get(0).getGrNo());
+              		System.out.println("GR2:"+stud_pojo.get(1).getGrNo());
+              %>
+             
+	        <div class="outer">
+                <div class="inner bg-container">
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            Student Transmission Details
+                        </div>
+                        	<div class="card-block" id="tabs">
+	                            <ul class="nav nav-tabs m-t-35">
+	                                <li class="nav-item">
+	                                    <a class="nav-link active" href="#transmission" data-toggle="tab" onclick="hide()">Transmission Fee</a>
+	                                </li>
+	                                <li class="nav-item" id="themify_icon">
+	                                    <a class="nav-link" href="#global_search" data-toggle="tab" onclick="show()">Vehicle Details</a>
+	                                </li>
+	                            </ul>
+	                             <div class="tab-content">
+               
+              	<!-- Transmission Fee Tab -->
+              <div id="transmission">
+                <div class="outer" id="outer1">
+                    <div class="inner bg-container">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-header bg-white">
+                                        <i class="fa fa-file-text-o"></i>
+                                        Search Student
+                                    </div>
+                                    <div class="card-block m-t-35">
+                                      <%
+	                                      
+                                      %>
+   									<form action="#" class="form-horizontal  login_validator" method="post" id="form_block_validator">
+                                           <div class="form-group row">
+                                                	<div class="col-lg-3  text-lg-right">
+                                                	    <label for="required2" class="col-form-label">Search Student By Name *</label>
+                                               		 </div>
+                                                	 <div class="col-lg-4">                                                	 
+                                                	<select class="form-control chzn-select" tabindex="2" onchange="showInfo()" name="studinfoname" id="studinfoid">
+                                                	    <option disabled selected>Choose a Student</option>
+                                                	    <%
+                                                	    	for(int i=0;i<stud_pojo.size();i++)
+                                                	    	{
+                                                	  
+                                                	    		name=stud_pojo.get(i).getName();
+                                                	      		//System.out.print(name);
+                                                	    		std=stud_pojo.get(i).getStd();
+                                                	    		div=stud_pojo.get(i).getDiv();
+                                                	    		String info=name+" "+std+" "+div;
+                                                	    %>
+	                                                	    <option value="<%=info+" "+stud_pojo.get(i).getGrNo()+" "+stud_pojo.get(i).getId() %>"><%=info %></option>
+	                                                	<%
+                                                	    	} 
+	                                                	%>   
+                                                	</select>
+                                          	 		</div>
+                                                
+                                                 	<div class="col-lg-4">
+                                                		<a href="javascript:showMore()" id="moreless">Search More >>></a>
+                                          	 		</div>
+                                            </div>
+                                            
+                                            <div class="form-group row" id="std-div">
+                                                <div class="col-lg-3  text-lg-right">
+                                                    <label for="required2" class="col-form-label">Search By Std/Div *</label>
+                                                </div>
+                                                
+                                                 <div class="col-lg-4">
+                                                <select class="form-control chzn-select" tabindex="2">
+                                                    <option disabled selected>Choose Std and Div</option>
+                                                    <option value="5-A">5-A</option>
+                                                    <option value="9-P">9-P</option>
+                                                </select>
+                                          	 </div>
+                                                
+                                                <div class="col-lg-4">
+                                                <select class="form-control chzn-select" tabindex="2">
+                                                    <option disabled selected>Choose a Name</option>
+                                                    <option value="AP">AP</option>
+                                                </select>
+                                          	 </div>
+                                                
+                                            </div>
+                                          
+                                        </form>
+                                     
+                                    </div>
+                                </div>
+                            </div> <!-- /.col-lg-12 -->
+                        </div> <!-- /.row -->
+                    </div> <!-- /.inner -->
+                </div> <!-- /.outer -->
+                
+                     
+                <div class="outer" id="outer2">
+                    <div class="inner bg-container">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-header bg-white">
+                                        <i class="fa fa-file-text-o"></i>
+                                       Student Info
+                                    </div>
+                                    <div class="card-block m-t-35">
+                                      
+                                       <%
+                                       			RouteDAO rd=new RouteImpl();
+                                                List<RoutePOJO> route_list=rd.getRouteDetails(); 
+                                                DestinationDAO dd=new DestinationImpl();
+                                                List<DestinationPOJO> dest_list=dd.getDestinationDetails();
+                                               // system.out.print()
+                							 
+						                %>
+                                      
+   									<form action="/SMGMT/StudentTransmissionFee" class="form-horizontal  login_validator" method="post" id="form_block_validator">
+                                        
+                                      
+                                           <div class="form-group row">
+                                                <div class="col-lg-2  text-lg-right">
+                                                    <label class="col-form-label">GR No</label>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <input type="text" id="required1" name="gr_no" value="11659" class="form-control focused_input" readonly>                                                     
+                                                </div>
+                                                
+                                                <div class="col-lg-1 text-lg-right">
+                                                    <label for="required2" class="col-form-label">Std</label>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <input type="text" id="required2" name="std" value="5" class="form-control focused_input" readonly>                                                     
+                                                </div>
+                                                <div class="col-lg-1  text-lg-right">
+                                                    <label for="required2" class="col-form-label">Div</label>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <input type="text" id="required3" name="divi" value="AP" class="form-control focused_input" readonly>                                                     
+                                                </div>
+                                            </div> 
+                                            
+                                            <div class="form-group row">
+                                                	<div class="col-lg-2  text-lg-right">
+                                                	    <label for="required2" class="col-form-label">Select Route *</label>
+                                               		 </div>
+                                                	 <div class="col-lg-4">
+                                                	<select class="form-control chzn-select" id="route_name" name="routename_name" tabindex="2" onchange="getDestinations()">
+                                                	    <option disabled selected>Choose a  Route</option>
+                                                	    <%
+                                                	    	int j=0;
+                                                	    	while(j<route_list.size())
+                                                	    	{
+                                                	    %>
+                                                	    <option value="<%=route_list.get(j).getId()%>"><%=route_list.get(j).getRoute_name() %></option>
+                                                	    <%
+                                                	    		j++;
+                                                	    	}
+                                                	    %>
+                                                	</select>
+                                          	 		</div>
+                                                
+                                                	
+                                            </div>
+                                            
+                                            <div class="form-group row">                                                
+                                                	<div class="col-lg-2 text-lg-right ">
+                                                	    <label for="required2" class="col-form-label">Select Destination *</label>
+                                               		 </div>
+                                                	 <div class="col-lg-4">
+                                                	 <input type="hidden" name="months_name" id="months_id" value=""/>
+                                                	 <input type="hidden" name="fee_name" id="fee_id" value=""/>  
+                                                	 <input type="hidden" name="studid_name" id="studid_id" value=""/>
+                                                	 <input type="hidden" name="disco_name" id="disco_id" value=""/>
+                                                	<select class="form-control chzn-select" tabindex="2" name="destination_name" id="destination" onchange="getDestinations()">
+                                                	    <option disabled selected value="msg">Choose a  Destination </option>
+                                                	    <%--  <option disabled selected>Choose a  Destination</option>
+                                                	    <%
+                                                	    	int j1=0;
+                                                	    	while(j1<dest_list.size())
+                                                	    	{
+                                                	    %>
+                                                	    <option value="<%=dest_list.get(j1).getId()%>"><%=dest_list.get(j1).getDest()%></option>
+                                                	    <%
+                                                	    		j1++;
+                                                	    	}
+                                                	    %>  --%>
+                                                	</select>
+                                          	 		</div>
+                                                 	
+                                            </div>
+                                            <div class="form-actions form-group row">
+                                                <div class="col-lg-5 push-lg-5">
+                                                    <button class="btn btn-primary" name="assign_route_btn" onclick="setValues()">Assign</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                     
+                                    </div>
+                                </div>
+                            </div> <!-- /.col-lg-12 -->
+                        </div> <!-- /.row -->
+                    </div> <!-- /.inner -->
+                </div> <!-- /.outer -->
+            
+            <div class="outer" id="outer3">
+                    <div class="inner bg-container">
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                User Grid
+                            </div>
+                            <div class="card-block m-t-35" id="user_body">
+                                <div class="table-toolbar">
+                                    
+                                    <div class="btn-group float-right users_grid_tools">
+                                        <div class="tools"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                    <%
+                                    	String fees="0.00";
+                                    	String from_year="2016",to_year="2017";
+                                    	String months[]={"June-"+from_year,"July-"+from_year,"August-"+from_year,"September-"+from_year,"October-"+from_year,"November-"+from_year,"December-"+from_year,"January-"+to_year,"February-"+to_year,"March-"+to_year,"April-"+to_year,"May-"+to_year};                                    
+                                    %>
+                                    <form>
+                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
+                                            <thead>
+                                            <tr role="row">
+                                                <th>
+	                                            		<div >
+	                                                    	<label class="custom-control custom-checkbox">
+	                                                    	    <input type="checkbox" id="check_all" class="custom-control-input" onclick="checkAll()" checked>
+	                                                    	    <span class="custom-control-indicator"></span>
+	                                                    	    <span class="custom-control-description">Select All</span>
+	                                                    	</label>
+	                                                	</div>                                                		
+                                            		</th>
+                                            	<th tabindex="0" rowspan="1" colspan="1">Months</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">Fees</th>                                                                                               
+                                            </tr>
+                                            </thead>
+                                          
+                                            <tbody>
+                                            <%
+                                            	for(int i=0;i<months.length;i++)
+                                            	{
+                                            %>
+                                            	<tr role="row" class="even">
+		                                      		<td style="width:120px">
+	                                            		<div >
+	                                                    	<label class="custom-control custom-checkbox">
+	                                                    	    <input type="checkbox" class="custom-control-input" id="check<%=i %>" checked onclick="select_month(<%=i %>)">
+	                                                    	    <span class="custom-control-indicator"></span>
+	                                                    	    <span class="custom-control-description"></span>
+	                                                    	</label>
+	                                                	</div>                                                		
+                                            		</td>
+                                            		<td style="width:100px"><%=months[i] %></td>
+                                            		<td style="width:100px" id="fee<%=i%>"><%=fees%></td>
+                                            	</tr>                                             		
+                                            	<%
+                                            		
+                                            	}
+                                            	%>
+                                            	 <tr>
+                                            	<td style="width:100px">
+                                            		<input style="width:80px" type="text" id="required_total" name="total" value="" placeholder="Total Fee" class="form-control focused_input">                                                     
+                                                </td>
+                                                <td style="width:100px">
+                                            		<input style="width:80px" type="text" id="required_disc" name="disc" value="" placeholder="Discount" class="form-control focused_input" onkeyup="calculateTotal(this.value)">                                                     
+                                                </td>
+                                            	<td style="width:100px">
+                                            		<input style="width:80px" type="text" id="required_final" name="final" value="" placeholder="Final Fee" class="form-control focused_input">                                                     
+                                                </td>
+                                            	</tr>                                      	
+                                            	
+                                            	
+                                            	     
+                                            	</tbody>
+                                        </table>                                        
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- END EXAMPLE TABLE PORTLET-->
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                </div>
+               	<!-- Transmission Fee Tab End-->
+               	
+               	
+               	
+               	
+               		<!-- Global Search Tab Start-->
+               		
+               		<div id="global_search">
+            			<div class="outer">
+                    <div class="inner bg-container">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-header bg-white">
+                                        <i class="fa fa-file-text-o"></i>
+                                        Basic Validation
+                                    </div>
+                                    <div class="card-block m-t-35">
+                                        <form class="form-horizontal  login_validator" id="myForm">
+                                            <div class="form-group row">
+                                            <div class="col-lg-4  text-lg-right">
+                                                    <label for="required2" class="col-form-label">Search Field*</label>
+                                                     <input type="hidden" id="Updateid" name="UpdateId">
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <input type="text"  name="search1" id="myInput" value="MH-22-43-22" class="form-control" required >
+                                                </div>
+                                                <div class="col-lg-4 text-lg-right">
+                                                
+                                                <div class="left_align custom-controls-stacked">
+                                                 <div class="col-lg-4 text-lg-right">
+                                                   
+                                                </div>
+                                               
+                                               
+                                                    <label class="custom-control custom-radio">
+                                                        <input name="radio3" type="radio" id="r1" value=1 class="custom-control-input" onclick="searchByVehicle();"  checked>
+                                                        
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description">By Vehicle Number</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio">
+                                                        <input name="radio3" type="radio" id="r2" value=2 class="custom-control-input" onclick="searchByDest();">
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description">By Destination</span>
+                                                    </label>
+                                                    
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                           
+                                            <div class="form-actions form-group row">
+                                                <div class="col-lg-4 push-lg-4">
+                                                  <!--   <hidden input type="submit" value="Validate" class="btn btn-primary">
+ -->                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> <!-- /.col-lg-12 -->
+                        </div> <!-- /.row -->
+                    </div> <!-- /.inner -->
+                </div> <!-- /.outer -->
+            
+            
+            <div class="outer">
+                    <div class="inner bg-container">
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                User Grid
+                            </div>
+                            <div class="card-block m-t-35" id="user_body">
+                                <div class="table-toolbar">
+                                    
+                                    <div class="btn-group float-right users_grid_tools">
+                                        <div class="tools"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
+                                            <thead>
+                                            <tr role="row">
+                                                
+                                            </tr>
+                                            </thead>
+                                            
+                                           
+                                           		 <tbody id="showtable">
+                                            		
+                                            	</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- END EXAMPLE TABLE PORTLET-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.inner -->
+                </div>
+                <!-- /.outer -->
+                
+                	</div>
+               		
+               		<!-- Global Search Tab End-->
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                
+                
+                
+                <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span class="float-right" aria-hidden="true">&times;</span>
+                                </button>
+                                <div class="input-group search_bar_small">
+                                    <input type="text" class="form-control" placeholder="Search..." name="search">
+                                    <span class="input-group-btn">
+							        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+							      </span>
+                                </div>
+                            </div>
+                        </div>                   
+                </div>
+           </div>
+           </div>
+           </div>
+          
+    
+   <!--wrapper-->
+       
+               
+<!-- /#wrap -->
+<script type="text/javascript" src="/SMGMT/config/js/jquery.min.js"></script>
+<script type="text/javascript">
+	var ap,check,fee,total_months;
+	var month=["1","1","1","1","1","1","1","1","1","1","1","1"]
+	$(document).ready(function()
+	{     
+			document.getElementById("months_id").value=month.toString();		
+			fee="0.00"
+			total_months=12
+			check=true;
+			ap=0;
+			document.getElementById("global_search").style.display="none";
+	        $("#outer2").hide();
+	        $("#std-div").hide();
+	}); 
+	function showInfo()
+	{
+	    $("#outer2").show();
+	    var info=document.getElementById("studinfoid").value;
+		var split=info.split(" ");
+		//alert(split[0]+"-"+split[1]+"-"+split[2]+" "+split[3]);
+		document.getElementById("required1").value=split[3];
+		document.getElementById("required2").value=split[1];
+		document.getElementById("required3").value=split[2];
+		//alert("SID"+split[4])
+		document.getElementById("studid_id").value=split[4];
+	}
+	function showMore()
+	{	
+		ap=ap+1;
+		$("#std-div").toggle();
+		if(ap%2!=0)
+			$("#moreless").text("Less <<<");
+		else
+			$("#moreless").text("Search More >>>");
+	}
+	function show()
+	{
+		//alert("called...")
+		document.getElementById("global_search").style.display="block";
+		document.getElementById("transmission").style.display="none";
+	}
+	function hide()
+	{
+		//alert("called...")
+		document.getElementById("global_search").style.display="none";
+		document.getElementById("transmission").style.display="block";
+	}
+	function checkAll()
+	{
+			//alert("FALSE");
+			var len=<%=months.length%>;	
+			var i=0;
+			document.getElementById("fee"+i).value=fee;
+			if(document.getElementById("check_all").checked)
+				{
+					while(i<len)
+					{				
+						total_months=total_months+1;
+						$("#check"+i).prop("checked", true);
+						//document.getElementById("fee"+i).innerHTML=fee;
+						i++;
+					}	
+				}
+				else 
+				{
+						i=0;
+						while(i<len)
+						{				
+							total_months=total_months+1;
+							$("#check"+i).prop("checked", false);
+							//document.getElementById("fee"+i).innerHTML=fee;
+							i++;
+						}	
+				}	
+			/* else
+			{			
+			//alert(fee);
+			while(i<len)
+			{				
+				if(check)
+				{
+					//alert("********---*"+i)
+					total_months=total_months+1;
+					$("#check"+i).prop("checked", false);
+					//document.getElementById("fee"+i).innerHTML=fee;
+				}
+				else
+				{
+					//alert("*********"+fee)
+					total_months=total_months-1;
+					$("#check"+i).prop("checked", true);
+					//document.getElementById("fee"+i).innerHTML="0.00";
+				}
+				i++;
+			}			
+			if(check)
+				check=false
+			else
+				check=true	
+			} */
+				
+	}
+	function getDestinations()
+	{		
+		$('#destination').children('option:not(:first)').remove();
+		$("#destination option[value='msg']").remove();
+		var route_name=document.getElementById("route_name");
+		var route = route_name.options[route_name.selectedIndex].value;
+		//alert(route)
+		var xhttp;
+		var option;
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+								
+				var dest=this.responseText.split(",");
+				var x = document.getElementById("destination");							
+				option = document.createElement("option");
+				option.text = "Choose a Destination";
+				option.value = "msg";
+				option.disabled=true;
+				option.selected=true;
+				x.add(option);
+				for(var i=0;i<dest.length-1;i++)
+				{
+					var dest_id=dest[i].split("=");
+					alert(dest_id);
+					option = document.createElement("option");
+					option.text = dest_id[0];
+					option.value = dest_id[1];
+					x.add(option);
+				}
+				
+				//option.selectedIndex="0";
+				alert(demoStr[0]);							
+				}
+			};
+		xhttp.open("POST","/SMGMT/StudentTransmissionFee?route_name="+route, true);
+		xhttp.send();		
+	}
+	function getTableInfo()
+	{
+		//alert("59")
+		var route_name=document.getElementById("route_name");
+		var route = route_name.options[route_name.selectedIndex].value;
+		var dest_name=document.getElementById("destination");
+		var dest = dest_name.options[dest_name.selectedIndex].text;
+		alert(route+" "+dest)
+		var xhttp;
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+								
+				
+				fee=this.responseText;
+				document.getElementById("required_total").value=total_months*parseFloat(fee);
+				document.getElementById("required_final").value=parseFloat(document.getElementById("required_total").value);
+				//alert(fee+" ******** "+total_months)
+				for(var i=0;i<12;i++)
+				{
+					if(fee!="")
+						document.getElementById("fee"+i).innerHTML=fee;
+					else
+						document.getElementById("fee"+i).innerHTML="0.00";
+				}				
+				}
+			};
+		xhttp.open("POST","/SMGMT/StudentTransmissionFee?dest_name="+dest+"&route_name1="+route, true);
+		xhttp.send();
+	}
+	function calculateTotal(ap)
+	{
+		if(ap=="")
+		{
+			document.getElementById("required_final").value=parseFloat(document.getElementById("required_total").value);			
+		}
+		else
+		{		
+			document.getElementById("required_final").value=parseFloat(document.getElementById("required_total").value)-parseFloat(ap);
+		}	
+	}
+	function select_month(ap)
+	{
+		//alert(document.getElementById("check"+ap).checked)		
+		//month=["1","1","1","1","1","1","1","1","1","1","1","1"]
+		if(document.getElementById("check"+ap).checked)
+		{
+			month[ap]="1";
+			total_months=total_months+1;
+			document.getElementById("fee"+ap).innerHTML=fee;
+		}
+		else
+		{
+			month[ap]="0";
+			total_months=total_months-1;
+			document.getElementById("fee"+ap).innerHTML="0.00";						
+		}
+		document.getElementById("months_id").value=month.toString();
+		document.getElementById("required_total").value=total_months*fee;
+		document.getElementById("required_final").value=parseFloat(document.getElementById("required_total").value);
+		alert(document.getElementById("months_id").value)
+	}
+	function setValues()
+	{
+		alert("Function")
+		document.getElementById("fee_id").value=fee;
+		document.getElementById("disco_id").value=document.getElementById("required_disc").value;	
+		alert("Fee : "+document.getElementById("fee_id").value+" StudId:"+document.getElementById("studid_id").value+" Route:"+document.getElementById("route_name").value+" Dest:"+document.getElementById("destination").value+" Disc : "+document.getElementById("disc_id").value)
+		//alert(document.getElementById("disco_id").value)
+	}
+	
+	
+	
+	
+	
+    function searchByVehicle() {
+		//document.write("AP");
+		  var ch1=$('input[name=radio3]:checked', '#myForm').val(); 
+		var  vehicleNo=document.getElementById("myInput").value;
+	//	var ch = document.forms[0].elements["radio3"];
+		//var ch =$('input[name="radio3"]:checked').val();
+		var xhttp;   		
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			
+				var demoStr = this.responseText.split("~");	
+				
+				//var cnt=1;
+				var i=0;
+				
+				var row="<table>";
+				row+="<tr><th>Route name</th><th>Destination</th><th>fee</th></tr>";
+				var tr="";
+				
+				for(;demoStr[i];)
+					{
+						i++;
+						row+="</td><td>"+demoStr[i]+"</td>";
+						i++;
+						row+="</td><td>"+demoStr[i]+"</td>";
+						i++;
+						row+="</td><td>"+demoStr[i]+"</td></tr>";
+						i++;
+						/* tr+="<tr><td rowspan="+(J+1)+">";
+								J++;
+								tr+=demo[j]+"</td>"
+							}else{
+								tr+="<tr><td rowspan="+(J+1)+">";
+								J++;
+								tr+=demo[j]+"</td>"
+							}
+							row+="<tr><td>"+demo[j];
+							j++
+							
+							row+="</td><tr><td>"+demo[j];
+	   						j++;
+	   						
+	   						row+="</td><tr><td>"+demo[j];
+	   						j++;
+	   							
+							
+						}
+					/* if(j==j){
+							
+						} */
+					 
+					 
+					/*  j=demoStr[i];
+						i++; */
+						
+					//var routeName = demoStr.split("#");
+						//alert(routeName.length);
+						//var routeName=demoStr[i];
+						/* row+="<tr><td rowspan=''>"+demoStr[i];
+						i++;
+						
+						
+						row+="</td><tr><td>"+demoStr[i];
+						i++;
+						
+						row+="</td><td>"+demoStr[i]+"</td></tr>";
+						i++; */
+						
+						
+						
+						
+						//cnt++;
+
+					}
+				row+="</table>"
+				document.getElementById("showtable").innerHTML=row;
+				
+				 
+				}
+			};
+		xhttp.open("POST","/SMGMT/Search?vehicleNo="+vehicleNo+"&ch1="+ch1, true);
+		xhttp.send();
+	}
+
+
+	
+    
+    function searchByDest(ee) {
+   		//document.write("AP");
+   		var  dest=document.getElementById("myInput").value;
+   		 var ch1=$('input[name=radio3]:checked', '#myForm').val(); 
+   		var xhttp;   		
+   		xhttp = new XMLHttpRequest();
+   		xhttp.onreadystatechange = function() {
+   			if (this.readyState == 4 && this.status == 200) {
+   			
+   				var demoStr = this.responseText.split(",");	
+   				//var cnt=1;
+   				var i=0;
+   				var row="<table border=1>";
+   				row+="<tr><th>Vehicle No</th><th>Route Name</th></tr>";
+   				row+="<tr><td rowspan=30>"+demoStr[0];
+   				for(;demoStr[i];)
+   					{
+   						i++;
+   						row+="</td><td>"+demoStr[i]+"</td></tr>";
+   						i++;
+						//cnt++;
+
+   					}
+   				row+="</table>"
+   				document.getElementById("showtable").innerHTML=row;
+   				
+   				 
+   				}
+   			};
+   		xhttp.open("POST","/SMGMT/Search?dest="+dest+"&ch1="+ch1, true);
+   		xhttp.send();
+   	}
+
+    
+    
+    
+    
+    
+	
+</script>
+
+	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
+	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
+
+    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
+    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script>
+    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
+    <script type="text/javascript" src="/SMGMT/config/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
+	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
+    <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script>
+	<script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
+	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script>
+
+    <script type="text/javascript" src="/SMGMT/config/vendors/select2/js/select2.js.pagespeed.jm.Eugd1Y0BmV.js"></script>
+    <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
+    <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
+    
+    <script>eval(mod_pagespeed_g_o5ieHdNa);</script>
+    <script>eval(mod_pagespeed_UzcyJ5ysoL);</script>
+    <script>eval(mod_pagespeed_sB4kJD0xfI);</script>
+    <script>eval(mod_pagespeed_aYQJk4iDci);</script>
+    <script>eval(mod_pagespeed_wVkzf2s7YZ);</script>
+    <script>eval(mod_pagespeed_Ij0pRaH8BP);</script>
+    <script>eval(mod_pagespeed_wfmKXYO4Nj);</script>
+    <script>eval(mod_pagespeed_EYzby3B1$L);</script>
+
+    <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
+<!-- plugin level scripts -->
+<script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/chosen/js/chosen.jquery.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/jquery-tagsinput/js/jquery.tagsinput.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pluginjs/jquery.validVal.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/daterangepicker/js/daterangepicker.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/autosize/js/jquery.autosize.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/jquery.inputmask.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.date.extensions.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.extensions.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/multiselect/js/jquery.multi-select.js"></script>
+
+<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
+
+
+
+</body>
+
+</html>
