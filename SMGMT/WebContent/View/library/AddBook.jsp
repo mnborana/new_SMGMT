@@ -126,7 +126,7 @@
 										}
 										%>
                                                     	 </select>
-                                               		<a href="#category" data-toggle="modal" data-target="#category" class="btn btn-info" style="margin-left: 319px;margin-top: -34px; width:30px; height:29px">+</a>
+                                               		<a href="#category" data-toggle="modal" data-target="#category" class="btn btn-info" style="margin-left: 276px;margin-top: -34px; width:30px; height:29px">+</a>
                                                 </div>
                                                 <div class="col-lg-4 ">
                                                     <label for="required2" class="col-form-label">Book Name *</label>
@@ -149,15 +149,15 @@
                                                	    <input type="text" id="required2" name="price" class="form-control">
                                                 </div>
                                             	<div class="col-lg-4">
-                                                    <label for="required2" class="col-form-label">Cupboard No </label>
-                                                	 <input type="text" id="required2" name="cupbno" class="form-control">
+                                                    <label for="required2" class="col-form-label">Cupboard No *</label>
+                                                	 <input type="text" id="required2" name="cupbno" class="form-control" required>
                                                 </div>
                                                 <div class="col-lg-4">
                                                      <label for="required2" class="col-form-label">Quantity *</label>
                                                 	 <input type="text" id="required2" name="quan" class="form-control" required>
                                                 </div>
                                              	<div class="col-lg-4 input_field_sections">
-                                            		<h5>Select Language *</h5>
+                                            		<h6>Select Language *</h6>
                                           			  <div class="form-group">
                                                			 <select class="form-control" name="language">
 			                                                   	<option></option>
@@ -275,7 +275,7 @@
                   	 <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header bg-warning">
-                                <h4 class="modal-title text-white" id="modalLabelnews">Pulldown</h4>
+                                <h4 class="modal-title text-white" id="modalLabelnews">Update</h4>
                             </div>
                             <div class="modal-body">   
 								 <form action="/SMGMT/Library" method="post" class="form-horizontal  login_validator" id="form_block_validator">

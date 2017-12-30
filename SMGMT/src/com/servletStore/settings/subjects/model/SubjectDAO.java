@@ -6,6 +6,6 @@ import java.util.List;
 public interface SubjectDAO {
 	
 	public int addSubject(SubjectPOJO SubjectPojo) throws SQLException;
-	public List<SubjectPOJO> getSubjectDetails();
+	public List<SubjectPOJO> getSubjectDetails(String schoolId);
 	
 }

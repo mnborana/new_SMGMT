@@ -23,42 +23,7 @@ public class SchoolImpl implements SchoolDAO{
 	
 	
 	PreparedStatement pstmt = null;
-	
-	
-	public void addSchool(SchoolPOJO schoolPojo) {		
-		List<SchoolPOJO> list=new ArrayList<SchoolPOJO>();
-		try {
 
-			pstmt = conn.prepareStatement("INSERT INTO school_master(name,address,slogan,index_no,licence_no,udise,school_code,email_id,phone_no,board,punit_code,center,date,jubilee_year,establish_year,medium) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-
-			pstmt.setString(1, schoolPojo.getName());
-			pstmt.setString(2, schoolPojo.getAddress());
-			pstmt.setString(3, schoolPojo.getSlogan());
-			pstmt.setString(4, schoolPojo.getIndexno());
-			pstmt.setString(5, schoolPojo.getLicenceno());
-			pstmt.setString(6, schoolPojo.getUdise());
-			pstmt.setString(7, schoolPojo.getShoolcode());
-			pstmt.setString(8, schoolPojo.getEmailid());
-			pstmt.setString(9, schoolPojo.getPhoneno());
-			pstmt.setString(10, schoolPojo.getBoard());
-			pstmt.setString(11, schoolPojo.getPunitcode());
-			pstmt.setString(12, schoolPojo.getCenter());
-			pstmt.setString(13, schoolPojo.getDate());	
-			pstmt.setString(14, schoolPojo.getJubileeYear());
-			pstmt.setString(15, schoolPojo.getEstablishYear());
-			pstmt.setString(16, schoolPojo.getMedium());
-			
-			int i=pstmt.executeUpdate();	
-					
-			
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-	
-	}
 
 
 
@@ -95,7 +60,11 @@ public class SchoolImpl implements SchoolDAO{
 	public List<SchoolPOJO> getSchoolDetails() 
 	{
 		List<SchoolPOJO> list=new ArrayList<SchoolPOJO>();
-		String selectSchoolDetails="SELECT school_master.id,school_master.name,school_master.address,school_master.slogan,school_master.index_no,school_master.licence_no,school_master.udise,school_master.school_code,school_master.email_id,school_master.phone_no,school_master.board,school_master.punit_code,school_master.center,school_master.date,school_master.jubilee_year,school_master.establish_year,school_master.medium FROM school_master";
+		String selectSchoolDetails="SELECT school_master.id,school_master.school_name,school_master.address,school_master.slogan,"
+				+ "school_master.index_no,school_master.licence_no,school_master.udise,school_master.licence_no,"
+				+ "school_master.udise,school_master.school_code,school_master.email_id,school_master.phone_no,school_master.board,"
+				+ "school_master.punit_code,school_master.center,school_master.date,school_master.jubilee_year,"
+				+ "school_master.establish_year,school_master.medium FROM school_master";
 		try {
 			pstmt=conn.prepareStatement(selectSchoolDetails);
 			ResultSet rs = pstmt.executeQuery();
@@ -104,7 +73,7 @@ public class SchoolImpl implements SchoolDAO{
 				SchoolPOJO pojo=new SchoolPOJO();
 				//System.out.println("id:"+rs.getInt("id")+" name:"+rs.getString("name")+"address:"+rs.getString("address")+"slogan:"+rs.getString("slogan")+"index_no:"+rs.getString("index_no")+"licence_no:"+rs.getString("licence_no"));
 				pojo.setId(rs.getInt("id"));
-				pojo.setName(rs.getString("name"));
+				pojo.setSchoolName(rs.getString("school_name"));
 				pojo.setAddress(rs.getString("address"));
 				pojo.setPhoneno(rs.getString("phone_no"));
 				pojo.setMedium(rs.getString("medium"));
@@ -126,13 +95,13 @@ public class SchoolImpl implements SchoolDAO{
 		try {
 			
 			
-			String update_query="UPDATE school_master SET school_master.name=?,school_master.address=?,school_master.slogan=?,school_master.index_no=?,school_master.licence_no=?,school_master.udise=?,school_master.school_code=?,school_master.email_id=?,school_master.phone_no=?,school_master.board=?,school_master.punit_code=?,school_master.center=?,school_master.date=?,school_master.jubilee_year=?,school_master.establish_year=?,school_master.medium=?  WHERE school_master.id=?";
+			String update_query="UPDATE school_master SET school_master.school_name=?,school_master.address=?,school_master.slogan=?,school_master.index_no=?,school_master.licence_no=?,school_master.udise=?,school_master.school_code=?,school_master.email_id=?,school_master.phone_no=?,school_master.board=?,school_master.punit_code=?,school_master.center=?,school_master.date=?,school_master.jubilee_year=?,school_master.establish_year=?,school_master.medium=?  WHERE school_master.id=?";
 			//System.out.println("update idis:"+update_query);
 			
 			pstmt=conn.prepareStatement(update_query);		
 		
 			
-			pstmt.setString(1, schoolPojo.getName());
+			pstmt.setString(1, schoolPojo.getSchoolName());
 			pstmt.setString(2, schoolPojo.getAddress());
 			pstmt.setString(3, schoolPojo.getSlogan());
 			pstmt.setString(4, schoolPojo.getIndexno());
@@ -194,7 +163,7 @@ public class SchoolImpl implements SchoolDAO{
 				
 		try {
 
-			String selectModalDetails="SELECT school_master.id,school_master.name,school_master.address,school_master.slogan,school_master.index_no,school_master.licence_no,school_master.udise,school_master.school_code,school_master.email_id,school_master.email_id,school_master.phone_no,school_master.board,school_master.punit_code,school_master.center,school_master.date,school_master.jubilee_year,school_master.establish_year,school_master.medium FROM school_master WHERE school_master.id=?";
+			String selectModalDetails="SELECT school_master.id,school_master.school_name,school_master.address,school_master.slogan,school_master.index_no,school_master.licence_no,school_master.udise,school_master.school_code,school_master.email_id,school_master.email_id,school_master.phone_no,school_master.board,school_master.punit_code,school_master.center,school_master.date,school_master.jubilee_year,school_master.establish_year,school_master.medium FROM school_master WHERE school_master.id=?";
 			pstmt=conn.prepareStatement(selectModalDetails);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
@@ -202,7 +171,7 @@ public class SchoolImpl implements SchoolDAO{
 				SchoolPOJO pojo=new SchoolPOJO();
 								
 				pojo.setId(rs.getInt("id"));
-				pojo.setName(rs.getString("name"));
+				pojo.setSchoolName(rs.getString("school_name"));
 				pojo.setAddress(rs.getString("address"));
 				pojo.setSlogan(rs.getString("slogan"));
 				pojo.setIndexno(rs.getString("index_no"));
@@ -321,6 +290,10 @@ public class SchoolImpl implements SchoolDAO{
 			return section;
 			
 		}
+
+
+
+
 
 
 

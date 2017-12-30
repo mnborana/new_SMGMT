@@ -107,15 +107,13 @@
 									<div class="card-header bg-white">
 										<i class="fa fa-file-text-o"></i>Report
 									</div>
-									<form action="/SMGMT/AddDocument" method="post"
-										class="form-horizontal  login_validator"
-										id="form_block_validator">
+									<form action="/SMGMT/" method="post" class="form-horizontal  login_validator"	id="form_block_validator">
 										<div class="card-block m-t-35">
 											<div class="form-group row">
 
 												<div class="col-lg-1 text-lg-right"
 													style="margin-left: 199px;">
-													<label class="col-form-label"><strong>From:</strong></label>
+													<label class="col-form-label"><strong>From :</strong></label>
 												</div>
 												<%
 													SysDate requireddate = new SysDate();
@@ -146,44 +144,52 @@
 												</div>
 												<div class="col-lg-3">
 
-													<select class="form-control chzn-select" tabindex="2"
-														name="reportType" id="reportTypeId" required>
+													<select class="form-control chzn-select" tabindex="2" name="reportType" id="reportType"  onchange="generateName(this.value)" required>
 
-														<option value="Inward Register">Inward Register</option>
-														<option value="Outward Register">Outward Register</option>
-														<option value="Stock Register">Stock Register</option>
+														<option value="InwardRegister">Inward Register</option>
+														<option value="OutwardRegister">Outward Register</option>
+														<option value="StockRegister">Stock Register</option>
 													</select>
 												</div>
-
 											</div>
-
-
+											
 											<div class="row" style="margin-left: 300px;">
 
-												<div
-													class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-6 m-t-15">
-													<button class="btn btn-primary" style="margin-left: -13px;">Create</button>
+												<div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-6 m-t-15">
+													<button  type="button" class="btn btn-primary" style="margin-left: -13px;" name="createBtn" onclick="getReportData()">Create</button>
 												</div>
-												<div
-													class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-6 m-t-15">
-													<button class="btn btn-success"
-														style="margin-left: -220px;">Excel</button>
+												<div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-6 m-t-15">
+													<button type="button" class="btn btn-success" style="margin-left: -220px;" onClick="doExport('#wholeDataList', {type: 'excel', numbers: {output: false}, onMsoNumberFormat: DoOnMsoNumberFormat, worksheetName: 'MSO-FORMATS', excelstyles: ['background-color', 'color']});">Excel</button>
 												</div>
 
-												<div
-													class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-6 m-t-15"
-													style="">
-													<button class="btn btn-warning"
-														style="margin-left: -435px;">Print</button>
+												<div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-6 m-t-15" style="">
+													<button  type="button" class="btn btn-warning" style="margin-left: -435px;" onclick="printData()">Print</button>
 												</div>
 
-											</div>
-										</div>                              
+										  </div>
+										  
+										</div>                          
 
 									</form>
 								</div>
 							</div>
 						</div>
+						
+						<div class="col-lg-12">
+                                <div class="card m-t-35">
+                                    <div class="card-header bg-white">
+                                        Report
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="table-responsive m-t-35">
+                                            <table class="table table-bordered" id="wholeDataList">
+                                                
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+						
 					</div>
 				</div>
 				
@@ -249,9 +255,7 @@
 <script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
 
-<script type="text/javascript">
 
-</script>
 </body>
 
 </html>
