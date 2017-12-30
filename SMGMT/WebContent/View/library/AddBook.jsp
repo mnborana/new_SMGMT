@@ -126,7 +126,7 @@
 										}
 										%>
                                                     	 </select>
-                                               		<a href="#category" data-toggle="modal" data-target="#category" class="btn btn-info" style="margin-left: 319px;margin-top: -34px; width:30px; height:29px">+</a>
+                                               		<a href="#category" data-toggle="modal" data-target="#category" class="btn btn-info" style="margin-left: 276px;margin-top: -34px; width:30px; height:29px">+</a>
                                                 </div>
                                                 <div class="col-lg-4 ">
                                                     <label for="required2" class="col-form-label">Book Name *</label>
@@ -149,15 +149,15 @@
                                                	    <input type="text" id="required2" name="price" class="form-control">
                                                 </div>
                                             	<div class="col-lg-4">
-                                                    <label for="required2" class="col-form-label">Cupboard No </label>
-                                                	 <input type="text" id="required2" name="cupbno" class="form-control">
+                                                    <label for="required2" class="col-form-label">Cupboard No *</label>
+                                                	 <input type="text" id="required2" name="cupbno" class="form-control" required>
                                                 </div>
                                                 <div class="col-lg-4">
                                                      <label for="required2" class="col-form-label">Quantity *</label>
                                                 	 <input type="text" id="required2" name="quan" class="form-control" required>
                                                 </div>
                                              	<div class="col-lg-4 input_field_sections">
-                                            		<h5>Select Language *</h5>
+                                            		<h6>Select Language *</h6>
                                           			  <div class="form-group">
                                                			 <select class="form-control" name="language">
 			                                                   	<option></option>

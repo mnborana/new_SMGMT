@@ -36,9 +36,11 @@ public List getDatewiseIssueList(String date1,String date2) throws SQLException;
 
 public int daysCount(Object todayDate, Object dueDate) throws SQLException;
 
-public int insertFine(SetFinePOJO pojo) throws SQLException;
-
-public int getFine() throws SQLException;
-
 public List getReturnBookDetails(String returnBookDetails) throws SQLException;
+
+//Library Fine
+public int insertFine(SetFinePOJO pojo) throws SQLException;
+public SetFinePOJO getFineDetails();
+public void updateFineDetails(SetFinePOJO sp);
+public int getFine() throws SQLException;
 }

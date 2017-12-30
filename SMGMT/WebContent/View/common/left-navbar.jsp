@@ -539,7 +539,7 @@
                              <li>
                                 <a href="/SMGMT/View/library/IssueBook.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Issue Book
+                                    &nbsp; Issue Book/Return Book
                                 </a>
                             </li>
                              <li>

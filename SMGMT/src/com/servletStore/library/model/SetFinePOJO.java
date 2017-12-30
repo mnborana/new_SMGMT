@@ -2,7 +2,13 @@ package com.servletStore.library.model;
 
 public class SetFinePOJO {
 private String date;
-private int fine;
+private int fine,id;
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
 public String getDate() {
 	return date;
 }
