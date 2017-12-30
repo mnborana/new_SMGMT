@@ -9,13 +9,12 @@ public class DBConnection {
 
 
 	String driverName = "com.mysql.jdbc.Driver";
-	//String url = "jdbc:mysql://localhost:3306/";
-	String url = "jdbc:mysql://192.168.0.52:3306/";
 
+	String url = "jdbc:mysql://localhost:3306/";
+	//String url = "jdbc:mysql://192.168.0.52:3306/";
 	String dbName = "smgmt";
 	String userName = "root";
-//	String password = "";
-	String password = "root";
+	String password = "";
 	Connection con;
 	int rowsInserted=0;
 	ResultSet rs;

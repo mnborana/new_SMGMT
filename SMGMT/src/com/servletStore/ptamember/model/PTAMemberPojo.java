@@ -2,7 +2,7 @@ package com.servletStore.ptamember.model;
 
 public class PTAMemberPojo {
 	
-	String schoolId,StudName;
+	String schoolId,StudName,standardDivId;
 	
 	
 	public String getSchoolId() {
@@ -17,6 +17,13 @@ public class PTAMemberPojo {
 	public void setStudName(String studName) {
 		StudName = studName;
 	}
+	public String getStandardDivId() {
+		return standardDivId;
+	}
+	public void setStandardDivId(String standardDivId) {
+		this.standardDivId = standardDivId;
+	}
+	
 	
 	
 	
