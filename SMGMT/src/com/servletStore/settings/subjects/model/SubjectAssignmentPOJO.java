@@ -1,10 +1,9 @@
 package com.servletStore.settings.subjects.model;
 
-public class SubjectPOJO {
+public class SubjectAssignmentPOJO {
 	
 	private int subjectId;
 	private String subjectName;
-	private int schoolId;
 	
 	
 	public int getSubjectId() {
@@ -21,14 +20,6 @@ public class SubjectPOJO {
 	
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
-	}
-
-	public int getSchoolId() {
-		return schoolId;
-	}
-
-	public void setSchoolId(int schoolId) {
-		this.schoolId = schoolId;
 	}
 	
 	

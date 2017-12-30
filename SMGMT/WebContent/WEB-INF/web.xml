@@ -76,7 +76,6 @@
     <servlet-name>School</servlet-name>
     <url-pattern>/School</url-pattern>
   </servlet-mapping>
- 
   <servlet>
     <servlet-name>StdSectionAssignment</servlet-name>
     <servlet-class>com.servletStore.settings.standard.controller.StdSectionAssignment</servlet-class>
@@ -133,7 +132,6 @@
     <servlet-name>OutwardRegister</servlet-name>
     <url-pattern>/OutwardRegister</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>StockRegister</servlet-name>
     <servlet-class>com.servletStore.register.controller.StockRegister</servlet-class>
@@ -141,5 +139,5 @@
   <servlet-mapping>
     <servlet-name>StockRegister</servlet-name>
     <url-pattern>/StockRegister</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>
 </web-app>

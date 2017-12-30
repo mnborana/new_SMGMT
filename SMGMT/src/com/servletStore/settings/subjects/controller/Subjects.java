@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.servletStore.settings.subjects.model.SubjectDAO;
 import com.servletStore.settings.subjects.model.SubjectImpl;
@@ -26,11 +27,16 @@ public class Subjects extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		SubjectPOJO subjectPojo = new SubjectPOJO();
 		SubjectDAO subjectDao = new SubjectImpl();
+		HttpSession session = request.getSession();
 		
 		if(request.getParameter("subjectSubmit")!=null) {
 			
 			String subjectName = request.getParameter("subject_name");
+			String schoolId = (String) session.getAttribute("schoolId");
+			
 			subjectPojo.setSubjectName(subjectName);
+			subjectPojo.setSchoolId(Integer.parseInt(schoolId));
+			
 			int insertStatus;
 			try {
 				

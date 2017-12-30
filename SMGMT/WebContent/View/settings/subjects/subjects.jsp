@@ -55,7 +55,12 @@
         	 <!-- /.left navbar -->
                 <jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
              <!-- /.left navbar -->
-             
+           
+           
+           	<%
+				HttpSession session1 = request.getSession();
+				session1.setAttribute("schoolId", "1");
+			%>  
              
             <!-- /#left -->
             <div id="content" class="bg-container">
@@ -149,7 +154,7 @@
                                             
                                             <%
 	                                            SubjectDAO subDao = new SubjectImpl();
-	                                        	request.setAttribute("subList", subDao.getSubjectDetails());
+	                                        	request.setAttribute("subList", subDao.getSubjectDetails(session1.getAttribute("schoolId").toString()));
 	                                        	int count=0;
 		                                    %>
 		                                    <c:forEach var="i" items="${subList}">

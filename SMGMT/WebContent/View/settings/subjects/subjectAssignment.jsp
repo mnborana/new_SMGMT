@@ -1,9 +1,10 @@
-<%@page import="com.servletStore.settings.school.model.SchoolPOJO"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.servletStore.settings.subjects.model.SubjectAssignmentPOJO"%>
+<%@page import="com.servletStore.settings.subjects.model.SubjectAssignmentImpl"%>
+<%@page import="com.servletStore.settings.subjects.model.SubjectAssignmentDAO"%>
 <%@page import="java.util.Iterator"%>
-<%@page import="com.servletStore.settings.standard.model.StandardPOJO"%>
 <%@page import="java.util.List"%>
-<%@page import="com.servletStore.settings.standard.model.StandardImpl"%>
-<%@page import="com.servletStore.settings.standard.model.StandardDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -36,6 +37,24 @@
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
     <!-- end of page level styles -->
+    
+    <style type="text/css">
+    
+    #stdTable{
+    	width: 90%; 
+    	margin-left: 12%;
+    }
+    .stdTableTD1{
+    	width: 22%;
+    }
+     .stdTableTD2{
+    	width: 30%;
+    }
+     .stdTableTD3{
+    	width: 50%;
+    }
+    
+    </style>
 </head>
 
 <body>
@@ -71,6 +90,11 @@ z-index: 999999">
                 <jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
              <!-- /.left navbar -->
              
+        <%
+			HttpSession session1 = request.getSession();
+			session1.setAttribute("schoolId", "1");
+		%>      
+             
              
         <div id="content" class="bg-container">
             <header class="head">
@@ -79,7 +103,7 @@ z-index: 999999">
                        <div class="col-sm-5 col-lg-6 skin_txt">
                            <h4 class="nav_top_align">
                                <i class="fa fa-pencil"></i>
-                               Standard And Section Assignment
+                               Subject Assignment
                            </h4>
                        </div>
                        <div class="col-sm-7 col-lg-6">
@@ -88,12 +112,12 @@ z-index: 999999">
                                    <a href="index1.html">
                                        <i class="fa fa-home" data-pack="default" data-tags=""></i>
                                        Dashboard
-                                   </a>
+                                   </a>	
                                </li>	
                                <li class="breadcrumb-item">
                                    <a href="#">Settings</a>
                                </li>
-                               <li class="active breadcrumb-item">Class</li>
+                               <li class="active breadcrumb-item">Subject Assignment</li>
                            </ol>
                        </div>
                    </div>
@@ -110,51 +134,86 @@ z-index: 999999">
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                        Create New Class
+                                        Create New Subject
                                     </div>
                                     <div class="card-block m-t-35">
                                         <form action="/SMGMT/StdSectionAssignment" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                        <div class="form-group row">
                                            <div class="col-lg-4  text-lg-right">
-                                               <label for="required2" class="col-form-label">Select School <span style="color: red;">*</span> </label>
+                                               <label for="required2" class="col-form-label">Select Subject <span style="color: red;">*</span> </label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <select class="form-control chzn-select" name="schoolId" onchange="getSections()" id="schoolId" title="Select School"  required="required">
-			                                        <option>Select School</option>
+                                               <select class="form-control chzn-select" name="schoolId" id="schoolId" title="Select School"  required="required">
+			                                        <option>Select Subject</option>
 			                                        <%
-				                                    	StandardDAO sdao3 = new StandardImpl();
-				                                    	List<SchoolPOJO> l3 = sdao3.getSchoolDetails();
+				                                    	SubjectAssignmentDAO sdao = new SubjectAssignmentImpl();
+				                                    	HashMap<Integer, String> subList = sdao.getSubjectList(session1.getAttribute("schoolId").toString());
 				                                   
-														int count3=1;
-				                                    	Iterator itr3 = l3.iterator();
-				                                    	while(itr3.hasNext()){
-				                                    		SchoolPOJO stdPojo3 = (SchoolPOJO)itr3.next();
-				                                    		int id3 = stdPojo3.getId();
+				                                    	Set keys = subList.keySet();
+														Iterator itr = keys.iterator();
+														
+														while(itr.hasNext()){
+				                                    		int key = Integer.parseInt(itr.next().toString());
 				                                    %>
-				                                    	<option value="<%=id3 %>"><%=stdPojo3.getName() %></option>
+				                                    	<option value="<%=key %>"><%=subList.get(key)%></option>
 														
 				                                     <%
-				                                     	count3++;
 				                                    	}
 				                                     %>  
 			                                        
 			                                    </select>
                                            </div>
                                        </div>
-                                       <div class="form-group row">
-                                           <div class="col-lg-4 text-lg-right">
-                                               <label for="required2" class="col-form-label">Select Section <span style="color: red;">*</span></label>
-                                           </div>
-                                           <div class="col-lg-4">
-                                               <input class="form-control" placeholder="Select Section" list="browsers" onkeyup="this.value=this.value.toUpperCase()" name="sectionName" id="sectionName"autocomplete="off" required />
-                                                <datalist id="browsers">
-												</datalist>
-                                           </div>
-                                       </div>
                                        
+                                       <br>
                                        
                                        <div class=" form-group row" id="stdCheckboxes">
-                                      
+                                       
+	                                    <table id="stdTable" style=" ">
+                                      	
+                                      	<%
+	                                    	HashMap<Integer, String> stdList = sdao.getClassList(session1.getAttribute("schoolId").toString());
+	                                   
+	                                    	Set keys1 = stdList.keySet();
+											Iterator itr1 = keys1.iterator();
+											
+											while(itr1.hasNext()){
+	                                    		int key = Integer.parseInt(itr1.next().toString());
+	                                    %>
+	                                    	<tr>
+		                                    	<td class="stdTableTD1">
+			                                    	<div class='col-lg-4'> 
+										           		<div class='checkbox'>
+										                	<label class='text-mint'>
+										                    	<input type='checkbox' value='<%=key %>' name='stds' id='' >
+										                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span> <%=stdList.get(key) %>
+										                	</label>
+											    		</div>
+											    	</div>
+												</td>
+												<td class="stdTableTD2">
+		                                            <div class='col-lg-4'> 
+										           		<div class='checkbox'>
+										                	<label class='text-mint'>
+										                    	<input type='checkbox' value='<%=key %>' name='optinal' id='' >
+										                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span> Optinal
+										                	</label>
+											    		</div>
+											    	</div>
+	                                            </td>
+	                                            <td class="stdTableTD3">
+		                                            <div class="col-lg-4">
+		                                             	<input type="text" class="form-control" placeholder="Enter Subject Code" name="subject_code" title="Enter Subject Code here" onkeyup="this.value=this.value.toUpperCase()" style=" width: 200%;"  onblur="this.value=$.trim(this.value)">
+		                                            </div>
+	                                            </td>
+	                                            
+                                           </tr>
+                                           
+											
+	                                     <%
+	                                    	}
+	                                     %>  
+				                            </table>         
                                       </div>
                                       
                                       <br>
@@ -176,7 +235,7 @@ z-index: 999999">
                 <div class="inner bg-container">
                     <div class="card">
                         <div class="card-header bg-white">
-                            User Grid
+                            Assigned Subjects List
                         </div>
                         <div class="card-block m-t-35" id="user_body">
                             <div class="table-toolbar">
@@ -199,7 +258,7 @@ z-index: 999999">
                                         </thead>
                                         <tbody>
                                         
-                                        <%
+                                        <%-- <%
                                          StandardDAO sdao = new StandardImpl();
                                      	List<StandardPOJO> l = sdao.getClassDetails();
                                     
@@ -222,7 +281,7 @@ z-index: 999999">
                                         <%
                                    	count++;
                                   	}
-                                  %> 
+                                  %>  --%>
                                         </tbody>
                                     </table>
                                 </div>

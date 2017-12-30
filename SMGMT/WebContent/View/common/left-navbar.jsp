@@ -63,7 +63,7 @@
                             </li>
                             
                              <li>
-                                <a href="/SMGMT/View/settings/subjects/subjectsAssignment.jsp">
+                                <a href="/SMGMT/View/settings/subjects/subjectAssignment.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Subject Assignment
                                 </a>
