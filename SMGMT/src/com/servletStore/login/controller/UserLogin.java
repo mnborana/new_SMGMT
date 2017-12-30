@@ -3,6 +3,7 @@ package com.servletStore.login.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,18 +37,25 @@ public class UserLogin extends HttpServlet {
 		String loginYear=request.getParameter("loginYear");
 		
 		Encryption enc= new Encryption();
+		UserLoginDAO impl = new UserLoginImpl();
 		
 		try {
 			
 			Boolean authenticate=enc.login(username, password);
+			List sessionDetails = impl.getSessionDetails(username);
+			
+			Object userRollId=sessionDetails.get(0);
+			Object instituteId= sessionDetails.get(1);
 			
 			if(authenticate)
 			{
 				out.print("login successful "+loginYear);
+				out.print("userRollId "+userRollId);
+				out.print("instituteId "+instituteId);
 			}
 			else
 			{
-				out.print("login failed");
+				out.println("login failed");
 			}
 			
 			
@@ -55,21 +63,6 @@ public class UserLogin extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		

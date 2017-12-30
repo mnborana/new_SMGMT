@@ -155,7 +155,7 @@
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Add Vehicle" class="btn btn-primary" name="add_vehicle_btn">
+                                                    <input type="submit" value="Add Vehicle" class="btn btn-primary" name="add_vehicle_btn" value="add_vehicle_btn">
                                                 </div>
                                             </div>
                                         </form>

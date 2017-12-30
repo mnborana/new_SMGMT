@@ -20,14 +20,16 @@ public class SubjectImpl implements SubjectDAO{
 	}
 	
 	@Override
-	public int addSubject(SubjectPOJO SubjectPojo) throws SQLException {
+	public int addSubject(SubjectPOJO subjectPojo) throws SQLException {
 		
-		String insertQuery = "INSERT INTO `subject_master`(`subject_name`) VALUES (?)";
+		String insertQuery = "INSERT INTO `subject_master` (`subject_name`, `school_id`) VALUES (?, ?)";
 		int i=0;
 		try {
 
 			ps = connection.prepareStatement(insertQuery);
-			ps.setString(1, SubjectPojo.getSubjectName());
+			ps.setString(1, subjectPojo.getSubjectName());
+			ps.setInt(2, subjectPojo.getSchoolId());
+			
 			i = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -39,10 +41,10 @@ public class SubjectImpl implements SubjectDAO{
 	}
 
 	@Override
-	public List<SubjectPOJO> getSubjectDetails() {
+	public List<SubjectPOJO> getSubjectDetails(String schoolId) {
 		
 		List<SubjectPOJO> subjectList = new ArrayList<>();
-		String selectQuery = "SELECT `id`, `subject_name` FROM `subject_master`";
+		String selectQuery = "SELECT `id`, `subject_name` FROM `subject_master` where school_id="+schoolId;
 		try {
 			ps = connection.prepareStatement(selectQuery);
 			ResultSet rs = ps.executeQuery();

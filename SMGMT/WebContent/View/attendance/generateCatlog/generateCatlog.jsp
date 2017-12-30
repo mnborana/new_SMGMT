@@ -114,7 +114,7 @@ z-index: 999999">
                                         Generate Catlog
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="/SMGMT/" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/" method="post" class="form-horizontal  login_validator" id="form_block_validator" name="form_block_validator">
                                        <div class="form-group row">
                                            <div class="col-lg-4  text-lg-right">
                                                <label for="required2" class="col-form-label">Select Standard <span style="color: red;">*</span> </label>
@@ -128,7 +128,7 @@ z-index: 999999">
 			                                        %>
 			                                        
 			                                       	<c:forEach items="${list}" var="u">  
-														<option value="${u.getClassRoomMasterId()}">${u.getStdName()} (${u.getDivName()}) - ${u.getShift()}</option>
+														<option value="${u.getClassRoomMasterId()}">${u.getStdName()} ${u.getDivName()} - ${u.getShift()}</option>
 													</c:forEach>
 			                                        
 			                                    </select>
@@ -141,32 +141,62 @@ z-index: 999999">
                                           </div>
 	                                        <div class="radio order_by">
 	                                            <label>
-	                                                <input type="radio" name="order_by" value="boys">
+	                                                <input type="radio" name="order_by" id="order_by" value="boys">
 	                                                <span class="cr"><i class="cr-icon fa fa-circle"></i></span>
 	                                                Boys First
 	                                            </label>&nbsp;&nbsp;
 	                                            
 	                                            <label>
-	                                                <input type="radio" name="order_by" value="girls">
+	                                                <input type="radio" name="order_by" id="order_by" value="girls">
 	                                                <span class="cr"><i class="cr-icon fa fa-circle"></i></span>
 	                                                Girls First
 	                                            </label>&nbsp;&nbsp;
 	                                            
 	                                            <label>
-	                                                <input type="radio" name="order_by" value="all">
+	                                                <input type="radio" name="order_by" id="order_by" value="all">
 	                                                <span class="cr"><i class="cr-icon fa fa-circle"></i></span>
 	                                                All Student
 	                                            </label>	                                            
 	                                        </div>
                                       </div>
                                        
-                                       
+                                       <!-- checked -->
+                                      <div class="form-group custom-controls-stacked" style="padding-left: 21%;">
+                                          <label class="custom-control custom-checkbox">
+                                              <input type="checkbox" id="semi_eng_checkbox" class="custom-control-input" name="default_checkbox" onclick="myFunction()">
+                                              <span class="custom-control-indicator custom_checkbox_primary"></span>
+                                              <span class="custom-control-description text-primary">If Semi-English</span>
+                                          </label>
 
+										<div style="padding-left: 135px; margin-top: -33px; display: none;" id="showthis">
+                                          <label class="custom-control custom-radio">
+                                              <input name="radio3" type="radio" id="semi-english" class="custom-control-input" checked>
+                                              <span class="custom-control-indicator"></span>
+                                              <span class="custom-control-description">Semi English</span>
+                                          </label> 
+
+                                          <label class="custom-control custom-radio">
+                                              <input name="radio3" type="radio" id="marathi-medium" class="custom-control-input">
+                                              <span class="custom-control-indicator"></span>
+                                              <span class="custom-control-description">Marathi Medium</span>
+                                          </label>                                                                                    
+                                         </div> 
+                                          
+                                          
+                                          <label class="custom-control custom-checkbox">
+                                              <input type="checkbox" class="custom-control-input" name="default_checkbox" id="admissionDateWise">
+                                              <span class="custom-control-indicator custom_checkbox_primary"></span>
+                                              <span class="custom-control-description text-primary">Admission Date Wise</span>
+                                          </label>                                          
+                                      </div>
+
+
+                                  </div>
                                       <br>
                                                                             
                                        <div class="form-actions form-group row">
                                            <div class="col-lg-4 push-lg-4">
-                                               <input type="submit" value="Generate Class" class="btn btn-primary">
+                                               <input type="submit" value="Generate Catlog" class="btn btn-primary" onclick="checkedData()">
                                            </div>
                                        </div>
                                    </form>
@@ -237,7 +267,40 @@ z-index: 999999">
 
 	<script type="text/javascript" src="/SMGMT/config/js/pages/radio_checkbox.js.pagespeed.jm.nna8wpyJlw.js"></script>
 
+<script type="text/javascript">
 
+$(document).ready(function(){
+
+  $('[type="checkbox"]').change(function(){
+  
+    if(this.checked){
+       $('[type="checkbox"]').not(this).prop('checked', false);
+       myFunction();
+    }    
+  });
+
+});
+
+function myFunction() {
+    var checkBox = document.getElementById("semi_eng_checkbox");
+    var text = document.getElementById("showthis");
+    if (checkBox.checked == true){
+        text.style.display = "block";
+    } else {
+       text.style.display = "none";
+    }
+}
+
+var orderBy="";
+document.form_block_validator.onclick = function(){
+    orderBy = document.form_block_validator.order_by.value;
+}
+function checkedData() {
+	
+	alert(orderBy);	
+}
+
+</script>
 
 </body>
 

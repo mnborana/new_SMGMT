@@ -1,9 +1,10 @@
 
+<%@page import="com.servletStore.register.model.OutwardRegisterImpl"%>
+<%@page import="com.servletStore.register.model.OutwardRegisterPojo"%>
+<%@page import="com.servletStore.register.model.OutwardRegisterDAO"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.servletStore.register.model.InwardRegisterImpl"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="com.servletStore.register.model.OutwardRegisterPojo"%>
-<%@page import="com.servletStore.register.model.OutwardRegisterImpl"%>
-<%@page import="com.servletStore.register.model.OutwardRegisterDAO"%>
 
 <%@page import="utility.SysDate"%>
 <%@page import="java.util.Iterator"%>
@@ -107,7 +108,7 @@
                 <div class="outer">
                     <div class="inner bg-container">
                         <div class="row">
-                            <div class="col-xl-6">
+                            <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
@@ -117,7 +118,7 @@
                                         <form action="/SMGMT/OutwardRegister" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                             <div class="form-group row">
                                                 <div class="col-lg-3  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Outward No*</label>
+                                                    <label for="required2" class="col-form-label"> Outward No<span style="color:red;">*</span></label>
                                                 </div>
                                                 <%
 												int l=1;
@@ -127,83 +128,81 @@
 												
 												int outwardNo=outwardId+l;
 												%>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="required2" name="outwardNo"  value="<%=outwardNo %>" class="form-control" required >
+                                                <div class="col-lg-2">
+                                                    <input type="text" id="required2" name="outwardNo"  value="<%=outwardNo %>" class="form-control" required readonly>
                                                 </div>
                                                 
                                                 <div class="col-lg-1 text-lg-right">
-                                                    <label class="col-form-label">Date*</label>
+                                                    <label class="col-form-label">Date<span style="color:red;">*</span></label>
                                                 </div>
                                                 <%
                                                 SysDate requireddate=new SysDate(); 
                                                 
                                                 %>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-2">
                                                     <input type="text" class="form-control form_val_popup_dp3" name="reqdate"  value="<%=requireddate.todayDate()%>"/>
                                                 </div>
                                                 
                                           
                                             </div>
                                             
+                                            <%
+												  HashMap<String, String> userDetails =(HashMap)session.getAttribute("user");
+												  String receiverName = "";
+												  String receiverAddress = "";
+												  String mobileNo = "";
+												  if (userDetails != null) {
+													  receiverName = userDetails.get("receiverName");
+													  receiverAddress = userDetails.get("receiverAddress");
+													  mobileNo = userDetails.get("mobileNo");
+														
+												  }
+												 
+											 %>
+                                            
                                             <div class="form-group row">
-                                           <div class="col-lg-3 text-lg-right">
-                                               <label for="required2" class="col-form-label">Receiver Name*</label>
-                                           </div>
-                                           <%
-                                           OutwardRegisterDAO receiverdao=new OutwardRegisterImpl();
-                                           List<OutwardRegisterPojo> list=receiverdao.selectReceiverName();
-                                           Iterator<OutwardRegisterPojo> itr=list.iterator();
-                                           %>
+	                                           <div class="col-lg-3 text-lg-right">
+	                                               <label for="required2" class="col-form-label">Receiver Name<span style="color:red;">*</span></label>
+	                                           </div>
                                            
-                                           <div class="col-lg-8">
-                                               <input class="form-control" list="browsers" name="receiverName" onkeyup="this.value=this.value.toUpperCase()" autocomplete="off" required />
-                                                <datalist id="browsers">
-                                               <%
-                                               while(itr.hasNext())
-                                               {
-                                            	   OutwardRegisterPojo pojo1=(OutwardRegisterPojo)itr.next();
-                                            	   
-                                            	   String receiverName=((OutwardRegisterPojo)pojo1).getReceiverName();
-                                               		//System.out.println("senderName:"+senderName);
-                                               %>
-                                               
-													<option ><%=receiverName %></option>
-													
-											
-												<%} %>
-													
-												</datalist>
-                                          </div>                     	 
-                                     	  </div><input type="button" value="+" href="#addReceiver" data-toggle="modal" style="margin-left: 507px;margin-top: -53px;background-color: blue;color: white;"/>
+	                                           <div class="col-lg-5">
+	                                               <input class="form-control" list="receiverId" name="receiverName" id="selectSubjectId" value="<%=receiverName %>" onkeyup="this.value=this.value.toUpperCase();getReceiverDetails(this.value)" onblur="setDetails()()" autocomplete="off" required />
+	                                                <datalist id="receiverId">
+	                                              
+														
+													</datalist>
+	                                          </div>                     	 
+                                     	  </div>
+                                     	  
+                                     	  <input type="button" value="+" href="#addReceiver" data-toggle="modal" style="margin-left: 800px;margin-top: -53px;background-color: blue;color: white;"/>
                                      	 
                                             
                                       	 
                                      	  <div class="form-group row">
                                            	<div class="col-lg-3 text-lg-right">
-                                               <label for="required2" class="col-form-label">Address*</label>
+                                               <label for="required2" class="col-form-label">Address<span style="color:red;">*</span></label>
                                          	  </div>
-                                         	  <%
-                                         	 HttpSession sess=request.getSession(false);  
-                                              String n=(String)sess.getAttribute("outwardAddress");  
-                                            if(n==null)
-                                               {
-                                             // System.out.print("Hello "+n);  
-                                            		   
-                                         	  %> 
-                                           		<div class="col-lg-8">                                           				
-                                             		  <input class="form-control" name="outwardAddress" placeholder="-" id="setAddress" pattern="[A-Za-z]" onkeyup="this.value=this.value.toUpperCase()" required />                                                
-                                         		  </div>
-                                         		  <%}else{ %>
-                                         		  <div class="col-lg-8">                                           				
-                                             		  <input class="form-control" name="outwardAddress" value="<%=n%>" id="setAddress" pattern="[A-Za-z]" onkeyup="this.value=this.value.toUpperCase()" required />                                                
-                                         		  </div>
-                                         		  <%} %>
-                                     	  </div>                        	  
+                                         	 
+                                         	   <div class="col-lg-5">                                           				
+                                             		  <input class="form-control" name="outwardAddress"  id="setAddress" value="<%=receiverAddress %>" pattern="[A-Za-z 0-9]" onkeyup="this.value=this.value.toUpperCase()" required />                                                
+                                         	  </div>
+                                         		
+                                     	  </div>   
                                      	  
+                                     	  <div class="form-group row">
+                                           	<div class="col-lg-3 text-lg-right">
+                                               <label for="required2" class="col-form-label">Mobile No<span style="color:red;">*</span></label>
+                                         	  </div>
+                                         	   <div class="col-lg-5">                                           				
+                                             		  <input class="form-control" name="mobileNumber" value="<%=mobileNo %>" id="setMobileNum" pattern="[0-9]" maxlength="10" required />                                                
+                                         	  </div>	  
+                                         		 
+                                     	  </div>                               	                       	  
+                                     	  <%session.invalidate(); %>
                                      	  
                                      	  <div class="form-group row">
                                            <div class="col-lg-3 text-lg-right">
-                                               <label for="required2" class="col-form-label">Subject*</label>
+                                               <label for="required2" class="col-form-label" >Subject<span style="color:red;">*</span></label>
                                            </div>
                                            <%
                                            OutwardRegisterDAO outwardRegDao=new OutwardRegisterImpl();
@@ -211,8 +210,8 @@
                                             Iterator<OutwardRegisterPojo> itr3=sublist.iterator();
                                            %>
                                            
-                                           <div class="col-lg-8">
-                                               <input class="form-control" list="subject1" name="subjectName" onkeyup="this.value=this.value.toUpperCase()" autocomplete="off" required />
+                                           <div class="col-lg-5">
+                                               <input class="form-control" list="subject1" name="subjectName" onkeyup="this.value=this.value.toUpperCase()"  autocomplete="off" required />
                                                 <datalist id="subject1">
                                               	<%
                                               	while(itr3.hasNext())
@@ -235,9 +234,9 @@
                                      	  
                                      	  <div class="form-group row">
                                            <div class="col-lg-3 text-lg-right">
-                                               <label for="required2" class="col-form-label">Description*</label>
+                                               <label for="required2" class="col-form-label">Description<span style="color:red;">*</span></label>
                                            </div>
-                                           <div class="col-lg-8">
+                                           <div class="col-lg-5">
                                                <textarea class="form-control" name="Description" pattern="[A-Za-z]" id="required2" onkeyup="this.value=this.value.toUpperCase()" required ></textarea>
                                                 
                                            </div>
@@ -245,9 +244,9 @@
                                      	  
                                      	  <div class="form-group row">
                                             <div class="col-lg-3 text-lg-right">
-                                               <label for="required2" class="col-form-label">Select Register*</label>
+                                               <label for="required2" class="col-form-label">Select File<span style="color:red;">*</span></label>
                                            </div>
-                                           <div class="col-lg-8">
+                                           <div class="col-lg-5">
                                            <%
                                            
                                            OutwardRegisterDAO docdao=new OutwardRegisterImpl();
@@ -267,12 +266,14 @@
                                                   <%} %> 
                                                  </select>
                                            </div>
-                                          </div>
+                                          </div>  
+                                     	  <input type="button" value="+" href="#addReg" data-toggle="modal" style="margin-left: 800px;margin-top: -53px;background-color: blue;color: white;"/>
+                                     	
                                      	             	                                  
                                            
                                             <div class="modal-footer">
                                                 <div class="col-lg-4 push-lg-4">
-                                                     <button type="submit" name="OutwardRegister" class="btn btn-success" style="margin-left: -307px;">Submit</button>
+                                                     <button type="submit" name="OutwardRegister" class="btn btn-primary" style="margin-left: -700px;">Submit</button>
                                                     <button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
                                                 </div>
                                             </div>                                            
@@ -309,8 +310,9 @@
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Receiver Name</th>
                                                 <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Subject</th>
                                                 <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Address</th>
+                                                  <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Mobile No</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Description</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Register Name</th>
+                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">File Name</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Action</th>
 
 		                                       </tr>     	
@@ -336,8 +338,10 @@
                                              	<td><%=((OutwardRegisterPojo)outwardPojo).getReceiverName()%></td>
                                              	<td><%=((OutwardRegisterPojo)outwardPojo).getSubject() %></td>
                                              	<td><%=((OutwardRegisterPojo)outwardPojo).getAddress() %></td>
+                                             	<td><%=((OutwardRegisterPojo)outwardPojo).getMobileNo()%></td>
                                              	<td><%=((OutwardRegisterPojo)outwardPojo).getDescription() %></td>
                                              	<td><%=((OutwardRegisterPojo)outwardPojo).getOutwardDoc() %></td>
+                                             	
                                              	<td>
                                         			<a class="edit" data-toggle="modal" data-placement="top" title="Update" href="#modal-4" onclick="searchName(<%=((OutwardRegisterPojo)outwardPojo).getId()%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
                                         			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/OutwardRegister?deleteId=<%=((OutwardRegisterPojo)outwardPojo).getId()%>"><i class="fa fa-trash text-danger"></i></a>
@@ -373,13 +377,13 @@
 			<div class="modal-content">
 				<div class="modal-header bg-warning">
 					<h4 class="modal-title text-white" id="modalLabelnews"
-						style="margin-right: 332px;">Add New Sender</h4>
+						style="margin-right: 308px;">Add New Receiver</h4>
 				</div>
 				<div class="modal-body">
 					<form action="/SMGMT/OutwardRegister" method="post" class="form-horizontal  login_validator" id="form_block_validator">
 						<div class="form-group row">
 							<div class="col-lg-4  text-lg-right">
-								<label for="required2" class="col-form-label"> Receiver	Name*</label>
+								<label for="required2" class="col-form-label"> Receiver	Name<span style="color:red;">*</span></label>
 							</div>
 							<div class="col-lg-7">
 								<input type="text" id="required2" name="addReceiverName" class="form-control" onkeyup="this.value=this.value.toUpperCase()" required>
@@ -388,13 +392,23 @@
 
 						<div class="form-group row">
 							<div class="col-lg-4  text-lg-right">
-								<label for="required2" class="col-form-label"> Address*</label>
+								<label for="required2" class="col-form-label"> Address<span style="color:red;">*</span></label>
 							</div>
 							<div class="col-lg-7">
-								<input type="text" id="required2" name="outwardAddress" onkeyup="this.value=this.value.toUpperCase()" class="form-control" required>
+								<input type="text" id="required2" name="outwardAddress" onkeyup="this.value=this.value.toUpperCase()"  class="form-control" required>
 							</div>
 						</div>
-
+						
+						<div class="form-group row">
+							<div class="col-lg-4  text-lg-right">
+								<label for="required2" class="col-form-label"> Mobile No<span style="color:red;">*</span></label>
+							</div>
+							<div class="col-lg-7">
+								<input type="text" id="required2" name="mobileNumber" onkeyup="this.value=this.value.toUpperCase()"  maxlength="10" class="form-control" required>
+							</div>
+						</div>
+						
+						
 						<div class="modal-footer">
 							<button class="btn  btn-success" name="OutwardReceiverBtn" type="submit">Submit</button>
 							<button class="btn  btn-warning" data-dismiss="modal">Close</button>
@@ -472,7 +486,18 @@
                                              		  <input class="form-control" name="updatedAddress" placeholder="-"  id="updateAddress" onkeyup="this.value=this.value.toUpperCase()" required />                                                
                                          	  </div>
                                          		  
-                                      	  </div>                        	  
+                                      	  </div>       
+                                      	  
+                                      	    <div class="form-group row">
+                                           	<div class="col-lg-3 text-lg-right">
+                                               <label for="required2" class="col-form-label">Mobile No*</label>
+                                         	</div>
+                                         	  
+                                           		<div class="col-lg-6">                                           				
+                                             		  <input class="form-control" name="updateMobileNumber" placeholder="-"  id="updateMobileNumber"  maxlength="10" required />                                                
+                                         	  </div>
+                                         		  
+                                      	  </div>                  	  
                                      	  
                                      	  <div class="form-group row">
                                            <div class="col-lg-3 text-lg-right">
@@ -548,6 +573,39 @@
 						</div>
 					</div>
 <!-- end model -->	
+
+<!-- start modal -->
+
+	<div class="modal fade pullDown" id="addReg" role="dialog" aria-labelledby="modalLabelnews">
+		<div class="modal-dialog modal-mm" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title text-white" id="modalLabelnews"
+						style="margin-right: 332px;">Add New File</h4>
+				</div>
+				<div class="modal-body">
+					<form action="/SMGMT/AddDocument" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+						<div class="form-group row">
+							<div class="col-lg-4  text-lg-right">
+								<label for="required2" class="col-form-label"> File Name<span style="color:red;">*</span></label>
+							</div>
+							<div class="col-lg-7">
+								<input type="text" id="required2" name="getFileName" class="form-control" onkeyup="this.value=this.value.toUpperCase()" required>
+							</div>
+						</div>
+									
+						<div class="modal-footer">
+							<button class="btn  btn-success" name="submitFileName" type="submit">Submit</button>
+							<button class="btn  btn-warning" data-dismiss="modal">Close</button>
+						</div>
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- end modal -->
        
       
        
@@ -629,6 +687,33 @@
 
 <script type="text/javascript">
 
+function getReceiverDetails(id){
+
+	var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	     var demoData = this.responseText;
+	     var str=demoData.split(",");
+	     //alert(str);
+	     document.getElementById("receiverId").innerHTML = "";
+	     var text="";
+	     for(var i=0; i<str.length; i++)
+	    	 {
+	    	 text+="<option id='"+str[i]+"' ";
+	    	 i++;
+	    	 text+="value='"+str[i]+"'>";
+	    	 i++;
+	    	 text +=str[i]+"</option>";
+	    	 }
+			document.getElementById("receiverId").innerHTML = text;		 
+	     
+	    }
+	  };
+	  xhttp.open("POST", "/SMGMT/OutwardRegister?receiverId="+id, true);
+	  xhttp.send();
+	
+}
+
 
 function searchName(id1) {
 	
@@ -643,17 +728,18 @@ function searchName(id1) {
 			document.getElementById("updatedate").value = demoStr[1];
 			document.getElementById("updateReceiverName").value = demoStr[2];
 			document.getElementById("updateAddress").value = demoStr[3];
-			document.getElementById("updateSubject").value = demoStr[4];
-			document.getElementById("updateDescription").value = demoStr[5];
-			document.getElementById("updateDocumentId").value = demoStr[6];
+			document.getElementById("updateMobileNumber").value = demoStr[4];
+			document.getElementById("updateSubject").value = demoStr[5];
+			document.getElementById("updateDescription").value = demoStr[6];
+			document.getElementById("updateDocumentId").value = demoStr[7];
 			
 			 var dd=document.getElementById("updateDocumentId");
 			 
 				
 				for (var i = 0; i < dd.options.length; i++) {
-				    if (dd.options[i].text ==demoStr[6].trim()) {
+				    if (dd.options[i].text ==demoStr[7].trim()) {
 				        dd.selectedIndex = i;
-				        getSetSelect('s2id_updateDocumentId',demoStr[6]);
+				        getSetSelect('s2id_updateDocumentId',demoStr[7]);
 				        break;
 				    }
 				}
@@ -664,6 +750,31 @@ function searchName(id1) {
 	xhttp.send();	
 	
 } 
+
+function setDetails() {
+	
+	var val = document.getElementById('selectSubjectId').value;
+    var str = $('#receiverId').find('option[value="' + val + '"]').attr('id');
+
+	
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			
+			var demoStr = this.responseText.split(",");
+			//alert(demoStr);
+			document.getElementById("setAddress").value = demoStr[0];
+			document.getElementById("setMobileNum").value = demoStr[1];
+						
+		}
+		};
+	xhttp.open("POST","/SMGMT/OutwardRegister?searchName="+str, true);
+	xhttp.send();
+	
+} 
+
+
 
 
 function getSetSelect(id,value)

@@ -62,6 +62,10 @@
         <img src="/SMGMT/config/img/loader.gif.pagespeed.ce.pu_lpoGKrw.gif" style=" width: 40px;" alt="loading...">
     </div>
 </div>
+
+<% if(request.getAttribute("status")!=null){ %>
+<div id="snackbar"><%=request.getAttribute("status")%></div>
+<%} %>
     <div id="wrap">
         <div id="top">
             <!-- .navbar -->
@@ -132,7 +136,7 @@
 												int stockId=id+l;
 												%>
                                                 <div class="col-lg-2">
-                                                    <input type="text" id="required2" name="stockId"  value="<%=stockId %>" class="form-control" required >
+                                                    <input type="text" id="required2" name="stockId"  value="<%=stockId %>" class="form-control" required readonly>
                                                 </div>
                                                 
                                                 <div class="col-lg-2 text-lg-right">
@@ -161,7 +165,7 @@
                                            %>
                                            
                                            <div class="col-lg-7">
-                                               <input class="form-control" list="browsers" name="itemName" id="senderNameId" onkeyup="this.value=this.value.toUpperCase()" autocomplete="off" required />
+                                               <input class="form-control" list="browsers" name="itemName" id="senderNameId" onkeyup="this.value=this.value.toUpperCase()" autocomplete="off"  required />
                                                 <datalist id="browsers">
                                                <%
                                                while(itr.hasNext())
@@ -187,7 +191,7 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-2">
-                                                    <input type="text" id="myInput" oninput="myFunction()"" name="itemAmount" class="form-control" required >
+                                                    <input type="text" id="myInput" oninput="myFunction()" name="itemAmount" pattern="[0-9+]" class="form-control" required >
                                                 </div>
                                                 
                                                                                                
@@ -196,7 +200,7 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-3">
-                                                    <input type="text" id="deductionAmt" name="deductionAmount" class="form-control" required >
+                                                    <input type="text" id="deductionAmt" name="deductionAmount" pattern="[0-9+]" placeholder="-" pattern="[0-9+]" class="form-control" required readonly>
                                                 </div>
                                                 
                                           
@@ -208,7 +212,7 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-2">
-                                                    <input type="text" id="noofitemns" oninput="myFunction()" name="numberOfItems" class="form-control" required >
+                                                    <input type="text" id="noofitemns" oninput="myFunction()" name="numberOfItems"  pattern="[0-9+]" class="form-control" required >
                                                 </div>
                                                 
                                                 <div class="col-lg-2  text-lg-right">
@@ -216,7 +220,7 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-3">
-                                                    <input type="text" id="totalAmount" name="totalAmount" class="form-control" required >
+                                                    <input type="text" id="totalAmount" name="totalAmount" class="form-control"  pattern="[0-9+]" required readonly>
                                                 </div>
                                                 
                                           
@@ -228,15 +232,15 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-2">
-                                                    <input type="text" id="percentage" oninput="myFunction()" name="percentage" class="form-control" required >
+                                                    <input type="text" id="percentage" oninput="myFunction()" name="percentage" pattern="[0-9+]" class="form-control">
                                                 </div>
                                                 
                                                 <div class="col-lg-2  text-lg-right">
-                                                    <label class="col-form-label"> Voucher No.*</label>
+                                                    <label class="col-form-label"> Voucher No</label>
                                                 </div>
                                                 
                                                 <div class="col-lg-3">
-                                                    <input type="text"  value="0" name="voucherNo" placeholder="" class="form-control" >
+                                                    <input type="text"  value="0" name="voucherNo"  pattern="[0-9+]"  class="form-control" >
                                                 </div>                                    
                                           
                                             </div>   
@@ -246,14 +250,14 @@
                                                <label for="required2" class="col-form-label">Description*</label>
                                            </div>
                                            <div class="col-lg-7">
-                                               <textarea class="form-control" name="description" id="required2" onkeyup="this.value=this.value.toUpperCase()" required ></textarea>
+                                               <textarea class="form-control" name="description" id="required2" onkeyup="this.value=this.value.toUpperCase()" pattern="[A-Za-z]" required ></textarea>
                                                 
                                            </div>
                                      	  </div>                                 	               	                                  
                                            
                                             <div class="modal-footer">
                                                 <div class="col-lg-4 push-lg-4">
-                                                     <button type="submit" name="SubmitStock" class="btn btn-success" style="margin-left: -550px;">Submit</button>
+                                                     <button type="submit" name="SubmitStock" class="btn btn-primary" style="margin-left: -666px;">Submit</button>
                                                     <button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
                                                 </div>
                                             </div>                                            
@@ -626,7 +630,7 @@ function searchName(id1) {
 	    
 	    var deduction=x*y*z/100;
 	    document.getElementById("deductionAmt").value=deduction;
-	    var total=(x*y*z)-deduction;
+	    var total=(x*y)-deduction;
 	    document.getElementById("totalAmount").value=total;
 	}
 	
@@ -638,12 +642,22 @@ function searchName(id1) {
 		    
 		    var deduction1=x1*y1*z1/100;
 		    document.getElementById("deductAmt").value=deduction1;
-		    var total1=(x1*y1*z1)-deduction1;
+		    var total1=(x1*y1)-deduction1;
 		    document.getElementById("totAmount").value=total1;
 	}
 	
-
-
+	function addSnackbar() {
+	    var x = document.getElementById("snackbar")
+	    x.className = "show";
+	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	}
+	
+	function setFocusToTextBox() {	
+		
+		document.getElementById("senderNameId").focus();
+		addSnackbar();
+	}
+	
 	</script>
 </body>
 

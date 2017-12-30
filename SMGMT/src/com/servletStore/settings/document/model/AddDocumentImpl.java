@@ -112,6 +112,20 @@ public class AddDocumentImpl implements AddDocumentDAO{
 		
 		
 	}
+
+
+	@Override
+	public void addFileName(AddDocumentPojo pojo) {
+			String insertNEwFile="INSERT INTO inward_outward_document_master (document_name) VALUES(?)";
+			try {
+			
+				pstmt = connection.prepareStatement(insertNEwFile);
+				pstmt.setString(1, pojo.getRegisterName());
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+	}
 	
 
 }

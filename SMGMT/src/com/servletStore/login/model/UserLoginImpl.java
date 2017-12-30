@@ -95,19 +95,27 @@ public class UserLoginImpl implements UserLoginDAO {
 	}
 
 	@Override
-	public String getSessionDetails(String userName) throws SQLException {
+	public List getSessionDetails(String userName) throws SQLException {
 		
 		
 		DBConnection dbconnect=new DBConnection();
 		Connection connection=dbconnect.getConnection();
 		
+		List list = new ArrayList<>();
 		
-		
-		
-		
+		pstmt = connection.prepareStatement("SELECT user_roll_id,institute_id FROM user_master WHERE username=?");
+		pstmt.setString(1, userName);
+		ResultSet rs=pstmt.executeQuery();
+		while(rs.next())
+		{
+			list.add(rs.getInt(1));
+			list.add(rs.getInt(2));
+			
+		}
+	
 		connection.close();
 		
-		return null;
+		return list;
 	}
 
 }

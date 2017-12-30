@@ -54,6 +54,7 @@ public class StockRegister extends HttpServlet {
 			
 			
 			stockdao.insertStock(pojo);
+			request.setAttribute("status", "Inserted Successfully");
 			response.sendRedirect("View/register/stockRegister.jsp");	
 			
 		}

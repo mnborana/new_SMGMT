@@ -63,7 +63,7 @@
                             </li>
                             
                              <li>
-                                <a href="/SMGMT/View/settings/subjects/subjectsAssignment.jsp">
+                                <a href="/SMGMT/View/settings/subjects/subjectAssignment.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Subject Assignment
                                 </a>
@@ -467,27 +467,64 @@
                         </ul>
                     </li>
                     
-                    <li class="dropdown_menu">
+					<li class="dropdown_menu">
                         <a href="#">
-                            <i class="fa fa-bus"></i>
-                            <span class="link-title menu_hide">&nbsp; Transport</span>
+                            <i class="fa fa-car"></i>
+                            <span class="link-title menu_hide">&nbsp; Transportation</span>
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/transportation/addVehicle.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Bus Info
+                                    &nbsp; Add Vehicle
                                 </a>
                             </li>
+
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/transportation/AddDriver.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    <span class="link-title">&nbsp; Set Bus Fee </span>
+                                    &nbsp; Add Driver
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/transportation/AddConductor.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Conductor
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/transportation/AddRoute.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Route
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/transportation/AddDestination.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Destination
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/transportation/AssignRoute.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Assign Route
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/transportation/addStudentTransportationFee.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Transmission Fee
                                 </a>
                             </li>
                         </ul>
                     </li>
+
                     
                     <li class="dropdown_menu">
                         <a href="#">
@@ -539,22 +576,23 @@
                              <li>
                                 <a href="/SMGMT/View/library/IssueBook.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Set Library Fee
+                                    &nbsp; Issue Book/Return Book
+                                </a>
+                            </li>
+                             <li>
+                                <a href="/SMGMT/View/library/SetFine.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Set Library Fine
                                 </a>
                             </li>
                             
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/library/FineSub.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Fine Submission
                                 </a>
                             </li>
-                            <li>
-                                <a href="/SMGMT/View/library/IssueBook.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Issue Book
-                                </a>
-                            </li>
+                           
                             <li>
                                 <a href="#">
                                     <i class="fa fa-angle-right"></i>

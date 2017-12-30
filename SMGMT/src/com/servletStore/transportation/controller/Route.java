@@ -21,10 +21,6 @@ import com.servletStore.transportation.route.model.RouteDAO;
 import com.servletStore.transportation.route.model.RouteImpl;
 import com.servletStore.transportation.route.model.RoutePOJO;
 
-/**
- * Servlet implementation class RouteADD
- */
-@WebServlet("/RouteADD")
 public class Route extends HttpServlet
 {
 	

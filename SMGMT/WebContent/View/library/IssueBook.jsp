@@ -23,11 +23,12 @@
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
 <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_inputlimiter,_css,_jquery.inputlimiter.css+vendors,_bootstrap-colorpicker,_css,_bootstrap-colorpicker.min.css+vendors,_jquery-tagsinput,_c"/>
+ <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_izitoast,_css,_iziToast.min.css.pagespeed.cc.hUh8XIbhbe.css"/>
    
     <!-- end of global styles-->
    
 </head>
-<body>
+<body onload="myFunction()">
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -311,7 +312,7 @@
                                                 <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Due Date</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="displayDate">
                                        		 	<%
                                        		 		AddBookDAO dao1=new AddBookImpl();
                                        		 	//	System.out.print("***"+dao.getIssueBookDetails());
@@ -341,49 +342,7 @@
                                             		</tr>
 												  </c:forEach>
                                             </tbody>
-                                         <%--    <tr role="row">
-                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Sr.No</th>
-                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">User Type</th>
-                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">User Name</th>
-                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Book NO</th>
-                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Book Name</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Issue Date</th>
-                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Due Date</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="displayDate">
-                                       		 	<%
-                                       		 		AddBookDAO dao1=new AddBookImpl();
-                                       		 	request.setAttribute("display_book", dao.getIssueBookDetails());
-                                       		 		int bookCount1=0;
-                                       		 	%>
-												<%--<c:forEach items="${display_book}" var="d">
-													  <tr role="row" class="even">
-														<td><%=(++bookCount1) %></td>
-														 <td><c:out value="${d.userType}"></c:out></td>
-														<td><c:out value="${d.userName}"></c:out></td>
-														<td><c:out value="${d.bookNo}"></c:out></td> --%>
-												<%--		
-													<c:forEach items="${display_book}" var="d">
-													  <tr role="row" class="even">
-													   
-														<td><%=(++bookCount1) %></td>
-														<c:if test="${d.studName!=null }">
-															<td><c:out value="Student"></c:out></td>
-															<td><c:out value="${d.studName}"></c:out></td>
-														</c:if>
-														<c:if test="${d.staffName!=null }">
-															<td><c:out value="Teacher"></c:out></td>
-															<td><c:out value="${d.staffName}"></c:out></td>
-														</c:if>
-														<td><c:out value="${d.bookName}"></c:out></td>
-														<td><c:out value="${d.issueDate}"></c:out></td>
-														<td><c:out value="${d.dueDate}"></c:out></td>
-														 
-                                            		</tr>
-												  </c:forEach>
-												   </tbody> --%>
-										</table>
+                                       </table>
                                    
                                 <!-- END EXAMPLE TABLE PORTLET-->
                             </div>
@@ -395,100 +354,171 @@
 				                                  </div>
 				                               </div>
 				                               <!-- Third Tab -->
-				                                             <div class="tab-pane" id="bookReturn">
-				                              <div class="row">
-				                              <% //SysDate date1=new SysDate();
-				                              
-				                              %>
-				                                  <div class="col-12">
-				                                       <div class="col-lg-8 m-t-20">
-				                                          <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator">
-		                                     			<div class="form-group row">
-		                                     				<div class="col-lg-8">
-		                                     <!-- Search Book from here     ------- -->
-		                                               	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchId"  name="searchBook" placeholder="Search Books by BookNo/BookName/AuthorName">
-			                                                <datalist id="browseBook">
-			                                                </datalist>
-			                                                </div>
-			                                                <a href="#" onclick="getBookInfo('bookInfo')" class="btn btn-info" value="Search" id="btn">Search</a>
-		                                                 </div> 
-		                                                 <div id="bookInfo" Style="display: none">
-		                                                 <div class="form-group row">
-		                                                 <div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Book No *</label>
-                                               	    <input type="text" id="bNo" name="bookName" class="form-control" required>
-                                                </div>
-		                                                 	<div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Book Name *</label>
-                                               	    <input type="text" id="bName" name="bookName" class="form-control" required>
-                                                </div>
-                                             
-                                                 
-                                             	 <div class="col-lg-4">
-                                                    <label for="required2" class="col-form-label">Author Name *</label>
-                                                	 <input type="text" id="authrName" name="authorName" class="form-control" required>
-                                                </div></div>
-                                                <div class="form-group row">
-                                           		<div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Publisher Name *</label>
-                                               	    <input type="text" id="pubName" name="pubName" class="form-control" required>
-                                                </div>
-                                                
-                                                <div class="col-lg-4">
-                                                     <label for="required2" class="col-form-label">Edition *</label>
-                                                	 <input type="text"  id="edition" name="edition" class="form-control" required>
-                                                </div>
-                                                <div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Price *</label>
-                                               	    <input type="text" id="price" name="price" class="form-control" required>
-                                                </div></div>
-                                                <div class="form-group row">
-                                            	<div class="col-lg-4">
-                                                    <label for="required2" class="col-form-label">Cupboard No *</label>
-                                                	 <input type="text" id="cupbNo" name="cupbno" class="form-control">
-                                                </div>
-                                                <div class="col-lg-4">
-                                                     <label for="required2" class="col-form-label">Quantity *</label>
-                                                	 <input type="text" id="quan" name="quan" class="form-control" required>
-                                                </div>
-		                                                 </div>
-		                                                	</div>
-		                                         
-		                                         <div class="form-group row">	
-		                                                	<div class="col-lg-8 ">
-		                                                   	  <label for="required2" class="col-form-label">Renew/Return *</label>
-										                       <div class="controls">
-												                 <input type="radio" value="RETURN" style="margin-left: 1%;" name="select" id="selectRt" checked="checked"> Return
-												                 <input type="radio" value="RENEW" style="margin-left: 1%;" name="select" id="selectRn" onclick="renewBook('renew')" > Renewal
-												               </div>
-												             </div>
-			                                      	 	</div>
-		                                              <!-- Search stud from here     ----- -->
-		                                          	   <div class="form-group row" id="returnBk" style="display: block">
-		                                                   <div class="col-lg-4">
-                                                  		    <label class="col-form-label">Return Date *</label>
-                                                	 		<input type="text" class="form-control form_val_popup_dp3" id="returnDate" name="date_inline" placeholder="YYYY-MM-DD"/>
-                                               			 </div>
-                                           		 <div class="col-lg-4">
-                                                     <label for="required2" class="col-form-label">Fine Amont </label>
-                                                	 <input type="text"  id="fineAmount" name="fineAmount" class="form-control">
-                                                </div>
-                                                </div>
-                                                
-                                                 <div class="form-group row" id="renew" style="display: none">
-		                                                   <div class="col-lg-4">
-                                                  		    <label class="col-form-label">Due Date *</label>
-                                                	 		<input type="text" class="form-control form_val_popup_dp3" id="dueDate" name="date_inline" placeholder="YYYY-MM-DD"/>
-                                               			 </div>
-                                         
-                                                </div>
-                                                  	 </form>
-				                              </div>
-				                            </div>
+				                               <div class="tab-pane" id="bookReturn">
+			 								<div class="row">
+													<%
+														//SysDate date1=new SysDate();
+													%>
+													<div class="col-12">
+														<div class="col-lg-8 m-t-20">
+															<form action="/SMGMT/Library"
+																class="form-horizontal  login_validator"
+																id="form_block_validator">
+																<div class="form-group row">
+																	<div class="col-lg-8">
+																		<!-- Search Book from here     ------- -->
+																		<input type="text" list="returnBook"
+																			autocomplete="off"
+																			onkeyup="getReturnBooks(this.value)"
+																			onblur="getBookInfo('bookInfo',event)" class="form-control"
+																			id="searchId" name="searchBook"
+																			placeholder="Search Books by BookNo/BookName/AuthorName">
+																		<datalist id="returnBook"> </datalist>
+																		<!-- getBookInfo('bookInfo',event) -->
+																	</div>
+																	<!-- <a href="#" onclick="getBookInfo('bookInfo')"
+																		class="btn btn-primary" value="Search" id="btn">Search</a> -->
+																</div>
+																<div id="bookInfo" Style="display: none">
+																	<div class="form-group row">
+
+																		<div class="col-lg-4 ">
+																			<label for="required2" class="col-form-label">Book
+																				No</label> <input type="text" id="bNo" name="bookNo"
+																				class="form-control" required>
+																		</div>
+
+																		<div class="col-lg-4 ">
+																			<label for="required2" class="col-form-label">Book
+																				Name</label> <input type="text" id="bName" name="bookName"
+																				class="form-control" required>
+																		</div>
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Author
+																				Name</label> <input type="text" id="authrName"
+																				name="authorName" class="form-control" required>
+																		</div>
+																	</div>
+
+																	<div class="form-group row">
+																		<div class="col-lg-4 ">
+																			<label for="required2" class="col-form-label">Issue
+																				Date</label> <input type="text" id="issueDate1"
+																				name="issueDate" class="form-control" required>
+																		</div>
+
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Due
+																				Date *</label> <input type="text" id="dueDate1"
+																				name="dueDate" class="form-control" required>
+																		</div>
+
+
+
+																	</div>
+																</div>
+
+
+
+																<div class="form-group row">
+
+																	<div class="col-lg-4 ">
+																		<label for="required2" class="col-form-label">Renew/Return
+																			*</label>
+																		<div class="controls">
+																			<input type="radio" value="RETURN"
+																				style="margin-left: 1%;" name="returnRadio" id="selectRt" onclick="onBook(this.value)"> Return 
+																				<input type="radio" value="RENEW" style="margin-left: 1%;"
+																				name="returnRadio" id="selectRn"
+																				onclick="onBook(this.value)"> Renewal
+																		</div>
+																	</div>
+																</div>
+
+																<!-- Search stud from here     ----- -->
+																<div class="form-group row" id="returnBk" style="display: none">
+																	<%
+																		SysDate d = new SysDate();
+																	%>
+																	<div class="form-group row">
+																	
+																		<div class="col-lg-4">
+																			<label class="col-form-label">Return Date *</label>
+																			 <input type="text" class="form-control form_val_popup_dp3" value="<%=date.todayDate()%>" id="currentDate"
+																				name="currentDate" placeholder="YYYY-MM-DD"/>
+																		</div>
+																			<!-- <div class="col-lg-4">
+																				<a href="#" onclick="getFineCount('countInfo')"
+																				class="btn btn-primary" value="Search" id="btn" style="margin-top: 34px">Count Fine</a>
+																			</div> -->
+																	
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Total
+																				Days </label> <input type="text" id="days" name="days"
+																				class="form-control">
+																		</div>
+																		
+																			<div class="col-lg-4">
+																				<label for="required2" class="col-form-label">Total
+																					Fine </label> <input type="text"
+																					id="fineAmount" name="fineAmount"
+																					class="form-control">
+																		   </div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="custom-control custom-checkbox">
+					                                                        <input type="checkbox" class="custom-control-input" onclick="checkedPay(checkId)" >
+					                                                        <span class="custom-control-indicator"></span>
+					                                                        <span class="custom-control-description">Checked</span>
+					                                                    </label>
+					                                                 
+					                                                    <div class="form-group row" id="checkId">
+																																
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Discount
+																			 </label> <input type="text" id="days" name="days"
+																				class="form-control">
+																		</div>
+																		
+																			<div class="col-lg-4">
+																				<label for="required2" class="col-form-label">Paid Amount
+																				 </label> <input type="text"
+																					id="fineAmount" name="fineAmount"
+																					class="form-control">
+																		   </div>
+																		   
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Remaining Amount
+																			 </label> <input type="text" id="days" name="days"
+																				class="form-control">
+																		</div>
+																				
+																		</div>
+
+																</div>
+				
+																</div>
+																<div class="form-group row" id="renew"
+																	style="display: none">
+																	<div class="col-lg-4">
+																		<label class="col-form-label">Due Date *</label> <input
+																			type="text" class="form-control form_val_popup_dp3"
+																			id="dueDate" name="dueDate"
+																			placeholder="YYYY-MM-DD" />
+																	</div>
+																</div>
+																<div class="form-actions form-group row">
+																	<input type="submit" id="btnSubmit" value="Submit"
+																		name="returnBook" class="btn btn-primary">
+																</div>
+
+															</form>
+														</div>
+													</div>
+												</div>
+
+											</div>
 				                          </div>
-				 
-				                        </div>
-				                           </div>
 				                       </div>
 				                   </div>
 				                 </div>
@@ -576,7 +606,8 @@
 <script type="text/javascript" src="/SMGMT/config/js/pages/datetime_piker.js"></script>
 <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
 <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
-    
+<script type="text/javascript" src="/SMGMT/config/vendors/izitoast/js/iziToast.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pages/izi_toastr.js"></script>    
 <!-- end plugin scripts -->
 <!--Page level scripts-->
     
@@ -594,27 +625,65 @@
 </body>
 <script type="text/javascript">
 
+function myFunction()
+{
+	<%
+	if(session.getAttribute("flag")!=null){ %>
+	$(window).load(function () {
+        iziToast.show({
+            title: 'Success',
+            message: '<%=session.getAttribute("flag").toString()%>',
+            color:'#00cc99',
+            position: 'topCenter'
+        });
+        return false;
+    });
+	<%} session.removeAttribute("flag");%>
+}
 
-function getbookdetails(id){
-//	alert(id);
+function getReturnBooks(val)
+{
 	var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
 	     var demoData = this.responseText;
 	     var str=demoData.split(",");
+	    // alert(str);
+	     for(var i=0; i<str.length; i++)
+	    	 {
+	    	 var text=text+"<option value=\""+str[i]+"\"> </option>";
+	    	 
+	    	 }
+			document.getElementById("returnBook").innerHTML = text;		 
+	     
+	    }
+	  };
+	  xhttp.open("POST", "/SMGMT/Library?returnBook="+val, true);
+	  xhttp.send();
+}
+
+/*<<<<<<<<<<<<<<<<<< Ajax for Serach book Info which is not issued >>>>>>>>>>>>>>>>>>>>>>>>>*/
+function getbookdetails(id){
+	//alert(id);
+	var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	     var demoData = this.responseText;
+	     var str=demoData.split(",");
+	    // alert(str);
 	     for(var i=0; i<str.length; i++)
 	    	 {
 	    	 var text=text+"<option value=\""+str[i]+"\"> </option>";
 	    	 
 	    	 }
 			document.getElementById("browseBook").innerHTML = text;		 
-	     
 	    }
 	  };
 	  xhttp.open("POST", "/SMGMT/Library?detailId="+id, true);
 	  xhttp.send();
-	
 }
+
+/*<<<<<<<<<<<<<<<<<< Ajax for Serach Student Info >>>>>>>>>>>>>>>>>>>>>>>>>*/
 function getstuddetails(id){
 //	alert(id);
 	var xhttp = new XMLHttpRequest();
@@ -628,14 +697,12 @@ function getstuddetails(id){
 	    	 }
 	     //alert(text);
 			document.getElementById("browseStud").innerHTML = text;		 
-	      
-	     
 	    }
 	  };
 	  xhttp.open("POST", "/SMGMT/Library?studDetails="+id, true);
 	  xhttp.send();
-	
 }
+
 function getteacherDetails(id){
 //	alert(id);
 	var xhttp = new XMLHttpRequest();
@@ -687,30 +754,34 @@ function teacherDetails(teacher)
 
 function getExpData(val)
 {
-//	alert(val); 
+	//alert(val); 
 	
 	var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
 	    	var demoStr = this.responseText.split(",");
+	    	
 	    	if(demoStr==""){
 				document.getElementById("displayDate").innerHTML="<tr><td colspan=''>No Records Found!</td></tr>"}
 			else
 				{
 				var count=1;
 				var wholeData="";
-					for(var i=0;i<demoStr.length-2;i=i+6){
+					for(var i=0;i<demoStr.length-2;i=i+4){
 						wholeData+="<tr>"+
 						"<td style='text-align: center'>"+count+"</td>"+
+						"<td style='text-align: center'>Student</td>"+
 						"<td style='text-align: center'>"+demoStr[i]+"</td>"+
 						"<td style='text-align: center'>"+demoStr[i+1]+"</td>"+
 						"<td style='text-align: center'>"+demoStr[i+2]+"</td>"+
 						"<td style='text-align: center'>"+demoStr[i+3]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+4]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+5]+"</td>"+
+						/* "<td style='text-align: center'>"+demoStr[i+4]+"</td>"+ */
+						/* "<td style='text-align: center'>"+demoStr[i+5]+"</td>"+ */
 						"<tr>"
+						
 						count++;
 					}
+					//alert(wholeData);
 					document.getElementById("displayDate").innerHTML=wholeData;
 				}
 	    }
@@ -718,107 +789,96 @@ function getExpData(val)
 	  xhttp.open("POST", "/SMGMT/Library?getTableData="+val, true);
 	  xhttp.send();
 }
-	
-	
-	function getBookInfo(bookInfo){
-		 //alert(bookInfo);
-		var bInfo=document.getElementById("bookInfo").style.display="block";
-		/* if(bInfo.style.display !== "none" )
-			{
-			bInfo.style.display="none" ;
-			}
-		else{
-			bInfo.style.display= "block";
-		} */
-			 
-		id=document.getElementById("searchId").value;
-		//alert(id);
-		 var bookD=id.split("-");
-		var xhttp = new XMLHttpRequest();
-		  xhttp.onreadystatechange = function() {
-		    if (this.readyState == 4 && this.status == 200) {
-		     var demo = this.responseText;
-		    // alert(demo);
-		     var stud=demo.split(",");
-		    /*  for(var i=0; i<stud.length; i++)
-		    	 {
-		    	 var text=text+"<option value=\""+stud[i]+"\"> </option>";
-		    	 } */
-		     //alert(text);
-				//document.getElementById("browseStud").innerHTML = text;	
-				document.getElementById("bNo").value=stud[0];
-				document.getElementById("bName").value=stud[1];
-				document.getElementById("authrName").value=stud[2];
-				document.getElementById("pubName").value=stud[3];
-				document.getElementById("edition").value=stud[4];
-				document.getElementById("price").value=stud[5];
-				document.getElementById("cupbNo").value=stud[6];
-				document.getElementById("quan").value=stud[7];
-		    }
-		  };
+function getBookInfo(bookInfo,e) {
+	//alert(e+"  "+bookInfo);
+	//if (e.keyCode == 13 || e.keyCode == 9) {
+	var bInfo = document.getElementById("bookInfo").style.display = "block";
+	//alert(bookInfo);
+	var searchIdVal = document.getElementById("searchId").value;
+	//alert(id);
+	var bookD = searchIdVal.split("-");
+	///alert(bookD);
+	var tDate = document.getElementById("currentDate").value;
+
+	//alert(tDate);
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var demo = this.responseText;
+			// alert(demo);
+			var stud = demo.split(",");
+			document.getElementById("bNo").value = stud[0];
+			document.getElementById("bName").value = stud[1];
+			document.getElementById("authrName").value = stud[2];
+			document.getElementById("issueDate1").value = stud[3];
+			document.getElementById("dueDate1").value = stud[4];
+
+		}
+	};
 	//	  alert(bookD[0]);
-		  xhttp.open("POST", "/SMGMT/Library?bookdetail="+bookD[0].trim(), true);
-		  xhttp.send();
+	xhttp.open("POST", "/SMGMT/Library?bookdetail=" + bookD[0].trim()+ "&currentDate=" + tDate +"&bookName="+bookD[1].trim()+"&authorName="+bookD[2].trim(), true);
+	xhttp.send();
+	//}
+
+}
+
+function onBook(radioValue)
+	{
+	//alert(radioValue);
+
+	var tDate = document.getElementById("currentDate").value;
+	var dDate = document.getElementById("dueDate1").value;
 		
+	getFineCount(tDate, dDate, radioValue);
+			
 	}
-/* 
-	function returnBook(returnBk)
-	{
-		/* var returnBook = document.getElementById("id");
-		var renew = document.getElementById("id1");
-		if(returnBook==null)
-			{
-			document.getElementById("returnDate").required=false;
-			document.getElementById("fineAmount").required=false;
-			document.getElementById("dueDate").required=false;
-			
-			returnBook.style.display="none";
-			renew.style.display="none";
-			}
-		else if(returnBook != null && renew != null)
-			{
-			returnBook.style.display="block";
-			document.getElementById("returnDate").required=true;
-			document.getElementById("fineAmount").required=true;
-						
-			}
-		else{
-			renew.style.display="block";
-			document.getElementById("dueDate").required=true;
-			
-			
-		} */
-		/* function returnBook(returnBk)
+
+function getFineCount(tDate, dDate, radioValue) {
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var str = this.responseText.split(",");
+			var demo=str[0];
+			var totalFine = demo * str[1];
+			document.getElementById("days").value = demo;
+			document.getElementById("fineAmount").value = totalFine;
+			//alert(demo);
+			if(radioValue=="RETURN")
+ 			{
+	 			document.getElementById("returnBk").style.display="block";
+	 			document.getElementById("renew").style.display="none";
+ 			
+	        }
+	 		else if(radioValue=="RENEW"){
+	 			document.getElementById("renew").style.display="block";
+	 			document.getElementById("returnBk").style.display="none";
+	 			document.getElementById("dueDate").value="";
+	 			document.getElementById("dueDate").focus();
+	 		}
+
+		}
+	};
+	xhttp.open("POST", "/SMGMT/Library?countDetail=1"
+			+ "&currentDate=" + tDate + "&dueDate=" + dDate, true);
+	xhttp.send();
+
+	
+}
+	
+function checkedPay(checkId)
+{
+	var x = document.getElementById("checkId");
+	if(document.getElementById(checkId).checked)
 		{
-		//	var returnBook = document.getElementById("id");
-		//	var renew = document.getElementById("id1");
-		  var returnBook = document.getElementById("returnBk");
-		 if(document.getElementById("selectRt").value=="RETURN")
-			{
-				returnBook.style.display = "block";
-			}
-		else 
-			{
-				document.getElementById("returnBk").style.display="none";
-			} 
-	}  */
-	function renewBook(renew)
-	{
-	 var renewBook = document.getElementById("renew");
-	 var returnBook = document.getElementById("returnBk");
-	 if(document.getElementById("selectRn").value=="RENEW")
-		{
-		 returnBook.style.display = "none";
-		 renewBook.style.display = "block";
+			x.style.display = "block";
+			//alert('checked')
 		}
 	else 
 		{
-		//document.getElementById("renew").style.display="none";
-		returnBook.style.display = "block";
-		 renewBook.style.display = "none";
-		} 
+			x.style.display = "none";
+		}
 }
-	
 	
 </script>
 

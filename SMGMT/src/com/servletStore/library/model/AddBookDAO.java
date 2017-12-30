@@ -20,16 +20,27 @@ public List searchStudDetails(String studDetail);
 
 public int insertIssueBook(IssueBookPOJO pojo) throws SQLException;
 
-/*public int changeStatus() throws SQLException;*/
+public int changeStatus(int bookdetails_id) throws SQLException;
 
 public List<IssueBookPOJO> getIssueBookDetails() throws SQLException;
 
 public List<IssueBookPOJO> getIssueBookList(String query);
 
-public List searchBookInfo(String bookDetail);
+public List searchBookInfo(String bookDetail, String bookName, String authorName);
 
 public int getMaxBookInfoMaster() throws SQLException;
 
 int insertBookDetails(int bNo) throws SQLException;
 
+public List getDatewiseIssueList(String date1,String date2) throws SQLException;
+
+public int daysCount(Object todayDate, Object dueDate) throws SQLException;
+
+public List getReturnBookDetails(String returnBookDetails) throws SQLException;
+
+//Library Fine
+public int insertFine(SetFinePOJO pojo) throws SQLException;
+public SetFinePOJO getFineDetails();
+public void updateFineDetails(SetFinePOJO sp);
+public int getFine() throws SQLException;
 }
