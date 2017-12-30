@@ -110,7 +110,7 @@ public class StandardImpl implements StandardDAO{
 				//System.out.println("id "+rs.getInt("id") + " "+ rs.getString("name"));
 				SchoolPOJO schoolpojo=new SchoolPOJO();
 				schoolpojo.setId(rs.getInt("id"));
-				schoolpojo.setName(rs.getString("name"));
+				schoolpojo.setSchoolName(rs.getString("school_name"));
 				list.add(schoolpojo);			
 			}
 		} catch (SQLException e) {

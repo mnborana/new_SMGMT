@@ -12,6 +12,6 @@ public interface UserLoginDAO {
 	public Boolean checkUserExist(String userName) throws SQLException;
 	
 	//public List
-	public String getSessionDetails(String userName) throws SQLException;
+	public List getSessionDetails(String userName) throws SQLException;
 
 }

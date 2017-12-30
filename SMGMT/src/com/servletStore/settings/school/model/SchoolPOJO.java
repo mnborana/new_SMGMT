@@ -4,7 +4,7 @@ public class SchoolPOJO {
 	
 	 private int id, section_id,status;
 	 
-	 private String name,sectionName,address,slogan,indexno,licenceno,udise,shoolcode,emailid,phoneno,board,punitcode,center,date,jubileeYear,establishYear,medium;
+	 private String schoolName,sectionName,address,slogan,indexno,licenceno,udise,shoolcode,emailid,phoneno,board,punitcode,center,date,jubileeYear,establishYear,medium;
 	 
 
 	
@@ -27,12 +27,14 @@ public class SchoolPOJO {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public String getName() {
-		return name;
+	
+							
+	public String getSchoolName() {
+		return schoolName;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}	
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
 	public String getSectionName() {
 		return sectionName;
 	}
