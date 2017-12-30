@@ -153,7 +153,7 @@ public class StudentImpl implements StudentDAO {
 			}
 
 			pstmt = connection.prepareStatement("INSERT INTO `student_official_details`"
-					+ "(`student_id`, `fk_class_master`, `academic_year`, `book_no`, `gr_no`, "
+					+ "(`student_id`, `classroom_master`, `academic_year`, `book_no`, `gr_no`, "
 					+ "`admission_date`, `previous_school_name`, `medium`) VALUES"
 					+ "(?,?,?,?,?,?,?,?)");
 
@@ -175,7 +175,7 @@ public class StudentImpl implements StudentDAO {
 			}
 			if (theStudent.getClassAllow() != null) {
 				pstmt = connection.prepareStatement("INSERT INTO `class_allocation`"
-						+ "(`student_id`, `fk_class_master`, `academic_year`) VALUES"
+						+ "(`student_id`, `classroom_master`, `academic_year`) VALUES"
 						+ "(?,?,?)");
 
 				pstmt.setString(1, id);
@@ -201,8 +201,9 @@ public class StudentImpl implements StudentDAO {
 	public List<StudentPojo> getSectionList(StudentPojo theStudent) {
 		
 		ResultSet rs = null;
-		String maxid="SELECT sections_master.name FROM sections_master,fk_school_section_details,fk_class_master WHERE\n" + 
-				"fk_class_master.id="+theStudent.getSchoolId()+" AND\n" + 
+		String maxid="SELECT sections_master.name FROM sections_master,fk_school_section_details,fk_class_master,classroom_master WHERE\n" + 
+				"classroom_master.id="+theStudent.getSchoolId()+" AND\n" + 
+				"fk_class_master.id=classroom_master.fk_class_master_id AND\n" + 
 				"fk_school_section_details.id=fk_class_master.fk_school_sec_id AND\n" + 
 				"sections_master.id=fk_school_section_details.section_id";
 		List sectionList=new ArrayList<>();
@@ -221,7 +222,7 @@ public class StudentImpl implements StudentDAO {
 	@Override
 	public List getStandardList(StudentPojo theStudent) {
 		ResultSet rs = null;
-		String query="SELECT fk_class_master.id,std_master.name,classroom_master.division,classroom_master.shift FROM std_master,classroom_master,fk_class_master,fk_school_section_details WHERE\n" + 
+		String query="SELECT classroom_master.id,std_master.name,classroom_master.division,classroom_master.shift FROM std_master,classroom_master,fk_class_master,fk_school_section_details WHERE\n" + 
 				"fk_school_section_details.school_id="+theStudent.getSchoolId()+" AND\n" + 
 				"fk_class_master.fk_school_sec_id=fk_school_section_details.id AND\n" + 
 				"std_master.id=fk_class_master.std_id AND\n" + 
