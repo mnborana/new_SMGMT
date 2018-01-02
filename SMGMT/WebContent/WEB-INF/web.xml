@@ -188,4 +188,13 @@
     <servlet-name>StockRegister</servlet-name>
     <url-pattern>/StockRegister</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>SubjectAssignment</servlet-name>
+    <servlet-class>com.servletStore.settings.subjects.controller.SubjectAssignment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubjectAssignment</servlet-name>
+    <url-pattern>/SubjectAssignment</url-pattern>
+  </servlet-mapping>
 </web-app>
