@@ -137,7 +137,7 @@
 			                                   int id=0,count=1;                                  	 
 											   	List<SchoolPOJO> li=schooldao.getSchoolDetails();	
 									
-											 	Iterator itr1=li.iterator();
+											 	Iterator<SchoolPOJO> itr1=li.iterator();
 								 	
                                 		   %>
                                     <tbody>

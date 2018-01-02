@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.ptamember.model.PTAMemberImpl"%>
+<%@page import="com.servletStore.ptamember.model.PTAMemberDAO"%>
+<%@page import="com.servletStore.ptamember.model.PTAMemberPojo"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.servletStore.register.model.InwardRegisterPojo"%>
 <%@page import="com.servletStore.register.model.InwardRegisterImpl"%>
@@ -120,8 +123,9 @@
 			session.setAttribute("schoolId", "1");
 			
 			String schoolId=session.getAttribute("schoolId").toString();
-			System.out.println("school id:"+schoolId);
-		
+			
+			session.setAttribute("thisYear", "2016-17");
+				
 			%>
 	        
         <div class="wrapper">
@@ -159,6 +163,11 @@
                     </div>
                 </header>
                 
+                
+                <form action="">                
+                	<input type="hidden" id="studentName">
+                </form>
+                
              <!-- start your code from here  -->  
               
                 <div class="outer">
@@ -191,7 +200,6 @@
 															  </div>
 															  	<div class="col-lg-4">
 																	<select class="form-control chzn-select" name="studentId" id="studentId" onchange="selectParentDetails()" title="Select Student">
-																		<option disabled selected>Select Student</option>
 																	</select>
 																</div> 
                                       			  			</div>                                      
@@ -217,16 +225,16 @@
 					                                        <div class="table-responsive m-t-35">
 					                                            <table class="table table-bordered">
 					                                                <thead>
-					                                                <tr>
-					                                                    <th>Sr.No</th>
-					                                                    <th>Parent Name</th>
-					                                                    <th>Relation</th>
-					                                                    <th>Mobile No</th>
-					                                                    <th>AdharCard No</th>
-					                                                    <th>Assign Member</th>
-					                                                </tr>
+					                                              		  <tr role="row">
+					                                              		      <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Assign Member</th>
+								                                                  <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1"> Parent Name</th>
+								                                                 <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Relation</th>
+								                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Mobile No</th>
+								                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Aadhar Card</th>
+								                                                 
+						                                                    </tr>
 					                                                </thead>
-					                                                <tbody>
+					                                                <tbody id="showtable">
 					                                                
 					                                                </tbody>
 					                                            </table>
@@ -236,8 +244,8 @@
 					                            </div>
 					                        </div>
 					                  </div>
-					              </div>                      
-			       		     
+					              </div>    
+					          
 			       		      <div class="outer">
 			                    <div class="inner bg-container">
 			                        <div class="card">
@@ -263,10 +271,11 @@
 			                                                <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Division</th>
 			                                                 <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Mobile No</th>
 			                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>
-			                                            </tr>
+			                                           </tr>
 			                                            </thead>
-			                                            <tbody>
-			                                         
+														
+			                                            <tbody id="displayMembers">
+			                                           
 			                                            </tbody>
 			                                        </table>
 			                                    </div>
@@ -276,12 +285,12 @@
 			                        </div>
 			                    </div>
 			                    <!-- /.inner -->
-						      </div>        
+						      </div>         
 					         	 
 				        </div>
 				     </div>
 				  </div>
-	
+
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
 
@@ -353,16 +362,153 @@
    
 
 <script>
-function myFunction() {
+
+function myFunction()
+{
+	
 	standardList();
+}
+
+function getMembers()
+{
+
+	var xhttp =new XMLHttpRequest();
+	
+	try{
+		xhttp.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var getData=this.responseText.split("~");
+				
+				//alert(getData);
+				var row="";
+				var i=0;
+				var j=1;
+				for(;getData[i];){
+					row += "<tr><td>"+j+"</td><td>";
+					j++;
+					var id=getData[i];
+					i++;
+					row += getData[i]+"</td><td>";
+					i++;
+					row += getData[i]+"</td><td>";
+					i++;
+					row += getData[i]+"</td><td>";
+					i++;
+					row += getData[i]+"</td><td>";
+					i++;
+					row += getData[i]+"</td><td>";
+					i++;
+					row += "</td></tr>";
+
+				}					
+				document.getElementById("stdId").innerHTML+=row;
+				$("#stdId").trigger('chosen:updated');
+			}
+		}
+		
+		xhttp.open("POST", "/SMGMT/PTAMember?standardList="+std, true);
+		xhttp.send();
+	}catch(e){
+		alert("Unable to Connect Server!");
+	}
+	
+	
+}
+
+function submitAssignDetails(relation)
+{
+	
+	if(relation==1)
+		{
+			relation="father";
+			 document.getElementById("studentFather").disabled = true;
+			 document.getElementById("studentMother").disabled = true;
+		}
+	else
+		{
+			relation="mother";
+			 document.getElementById("studentMother").disabled = true;
+			 document.getElementById("studentFather").disabled = true;
+		}
+	
+	
+	/* var td=document.getElementById("rowData"+rowId).children;
+	var parentName=td[1].innerHTML;
+	var mobileNo=td[3].innerHTML;
+	var standard=document.getElementById("stdId").value;
+	*/
+	var e = document.getElementById("studentId").value;		
+	
+	var xhttp =new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+		var getData=this.responseText.split(",");
+		
+		}
+	}
+
+	
+	alert(relation);
+	 	xhttp.open("POST", "/SMGMT/PTAMember?studentId="+e+"&relation="+relation, true);
+		xhttp.send();  
+}
+
+function selectParentDetails(){
+	
+	var studId=document.getElementById("studentId").value;
+	
+	//document.getElementById("studentId").innerHTML="";
+	var xhttp =new XMLHttpRequest();
+		try{
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var demoStr=this.responseText.split(",");
+				
+					var i=0;
+					var row="";
+					
+					for(;demoStr[i];)
+						{
+					
+							var id=demoStr[i];
+							i++;
+							row+="<tr id='rowData"+id+"'><td> <label class='custom-control custom-radio'><input name='radio3' id='studentFather' type='radio' onclick='submitAssignDetails(1)' class='custom-control-input'><span class='custom-control-indicator'></span><span class='custom-control-description'></span></label></td>";
+							
+							row+="<td>"+demoStr[i]+"</td>";
+							i++;							
+							row+="<td>Father</td>";								
+							row+="<td>"+demoStr[i]+"</td>";
+							i++;							
+							row+="<td>"+demoStr[i]+"</td></tr>";
+							i++;
+							
+							row+="<tr id='rowData"+id+"'><td> <label class='custom-control custom-radio'><input name='radio3' id='studentMother' type='radio' onclick='submitAssignDetails(2)' class='custom-control-input'><span class='custom-control-indicator'></span><span class='custom-control-description'></span></label></td>";
+							
+							row+="<td>"+demoStr[i]+"</td>";
+							i++;							
+							row+="<td>mother</td>";								
+							row+="<td>"+demoStr[i]+"</td>";
+							i++;							
+							row+="<td>"+demoStr[i]+"</td></tr>";
+							i++;
+						}		
+					
+						document.getElementById("showtable").innerHTML=row;		
+					}	
+				};
+			//alert(studId);
+			xhttp.open("POST", "/SMGMT/PTAMember?parentName="+studId, true);
+			xhttp.send();
+		}catch(e){
+			alert("Unable to Connect Server!");
+		} 	
 }
 
 function studentNameList(){
 	
 	var studentId=document.getElementById("stdId").value;
-	
-		
-	document.getElementById("studentId").innerHTML="";
+			
+	//document.getElementById("studentId").innerHTML="";
 		var xhttp =new XMLHttpRequest();
 		
 		try{
@@ -384,11 +530,13 @@ function studentNameList(){
 						i++;
 
 					}					
-					document.getElementById("studentId").innerHTML+=row;
+					document.getElementById("studentId").innerHTML=row;
 					$("#studentId").trigger('chosen:updated');
+					 document.getElementById("studentFather").disabled = false;
+					 document.getElementById("studentMother").disabled = false;
 				}
 			}
-			alert(studentId);
+			//alert(studentId);
 			xhttp.open("POST", "/SMGMT/PTAMember?studentNameList="+studentId, true);
 			xhttp.send();
 		}catch(e){
@@ -396,46 +544,9 @@ function studentNameList(){
 		} 
 	}
 
-function selectParentDetails(){
-	
-	var studentId=document.getElementById("studentId").value;
 
-	document.getElementById("studentId").innerHTML="";
-		var xhttp =new XMLHttpRequest();
-		
-		try{
-			xhttp.onreadystatechange = function(){
-				if(this.readyState == 4 && this.status == 200){
-					var getData=this.responseText.split(",");
-					
-					//alert(getData);
-					var i=0;
-					var row="<table>";
-					row+="<tr><th>Parent Name</th><th>Relation</th><th>Mobile No</th><th>AdharCard No</th></tr>";
-					for(;demoStr[i];)
-						{
-						i++;
-						row+="<td>""</td>"
-						}
-					
-					}					
-					document.getElementById("studentId").innerHTML+=row;
-					$("#studentId").trigger('chosen:updated');
-				}
-			}
-			alert(studentId);
-			xhttp.open("POST", "/SMGMT/PTAMember?studentNameList="+studentId, true);
-			xhttp.send();
-		}catch(e){
-			alert("Unable to Connect Server!");
-		} 
-	}
-	
-
-function standardList(){
-	
-	
-	var std=<%=schoolId%>
+function standardList(){	
+	var std=<%=schoolId%>;
 	
 		if(std==""){
 			return;
