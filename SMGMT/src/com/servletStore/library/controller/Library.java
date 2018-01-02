@@ -16,6 +16,7 @@ import com.servletStore.library.model.AddBookDAO;
 import com.servletStore.library.model.AddBookImpl;
 import com.servletStore.library.model.AddBookPOJO;
 import com.servletStore.library.model.BookCatImpl;
+import com.servletStore.library.model.FineMasterPOJO;
 import com.servletStore.library.model.IssueBookPOJO;
 import com.servletStore.library.model.SetFinePOJO;
 
@@ -126,7 +127,6 @@ public class Library extends HttpServlet {
 			}
 			//request.getRequestDispatcher("View/library/AddBook.jsp").forward(request, response);
 			response.sendRedirect("View/library/AddBook.jsp");
-			
 		}
 		
 		else if(request.getParameter("bookNo")!=null){
@@ -245,13 +245,52 @@ public class Library extends HttpServlet {
 		else if(request.getParameter("studDetails")!=null)
 				{
 					String studDetail = request.getParameter("studDetails");
+				//	System.out.println(studDetail);
 					List list=dao.searchStudDetails(studDetail);
 					Iterator itr=list.iterator();
 					
 					while(itr.hasNext()){
-						out.print(itr.next()+ " - " +itr.next()+ " - " +itr.next()+ " - " +itr.next()+",");				
+						
+						Object studId=itr.next();
+						Object grNo=itr.next();
+						Object firstName=itr.next();
+						Object lastName=itr.next();
+						Object std=itr.next();
+						Object div=itr.next();
+						Object shift=itr.next();
+						
+						
+						out.print(grNo+" - "+firstName+" "+lastName+ " - " +std+" - "+div+" - "+shift+",");				
 						}
 				}
+		
+		else if(request.getParameter("getstudId")!=null)
+		{
+			String studDetail=request.getParameter("getstudId");
+			String theStudeDetails[]=studDetail.split(" - ");
+			
+			String grNo=theStudeDetails[0];
+			String name[]=theStudeDetails[1].split(" ");
+			String firstName=name[0];
+			String lastName=name[1];
+			String std=theStudeDetails[2];
+			String div=theStudeDetails[3];
+			String shift[]=theStudeDetails[4].split(",");
+			
+			
+			try {
+				
+				int studid=dao.getStudId(grNo, firstName, std, div, shift[0], lastName);
+				out.print(studid);
+				} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			
+		}
 				
 				
 				//Add Issue Books//////
@@ -265,20 +304,25 @@ public class Library extends HttpServlet {
 					String issueDate=request.getParameter("issueDate");
 					String dueDate=request.getParameter("dueDate");
 					String returnDate=request.getParameter("returnDate");
+					String studId=request.getParameter("studId");
+				//	System.out.println("####### "+studId);
 				//	System.out.println("dfghjklkjnhgth "+searchBook+" "+searchStud+" "+issueDate+" "+dueDate+" "+returnDate);
 					String str[] = searchBook.split("-");
 					System.out.println("bno "+str[0]);
 					System.out.println("bname "+str[1]);
 					String str1[]=searchStud.split("-");
-					System.out.println("id"+str1[0]);
-					System.out.println("stdname"+str1[1]);
 					pojo.setBookId(Integer.parseInt(str[0].trim()));
+					
+					//int id=dao.getId(Integer.parseInt(studId));
 					if(user.equalsIgnoreCase("Student")){
-						pojo.setStudId(Integer.parseInt(str1[0].trim()));
+						pojo.setStudId(Integer.parseInt(studId));
+					//	pojo.setStudName(str1[0].trim());
 					}
 					else{
 						pojo.setStaffId(Integer.parseInt(str1[0].trim()));
+						//	pojo.setStaffName(str1[0].trim());
 					}
+					
 					/*pojo.setBookName(str[1].trim());
 					//pojo.setUserName(searchStud);
 					pojo.setUserName(str1[1].trim());
@@ -413,12 +457,13 @@ public class Library extends HttpServlet {
 				}
 				
 				
-		else if(request.getParameter("fineAP")!=null)
+			else if(request.getParameter("fineAP")!=null)
 				{
 					SetFinePOJO fine_pojo=dao.getFineDetails();
                 	out.print(fine_pojo.getId()+","+fine_pojo.getDate()+","+fine_pojo.getFine());
                 	//out.print("AP");
 				}
+		
 				else if(request.getParameter("fine").equals("OK")&&request.getParameter("fine")!=null)
 				{
 					System.out.println("Btn Name : "+request.getParameter("fine"));
@@ -466,37 +511,34 @@ public class Library extends HttpServlet {
 					}
 				}
 		
-				
-			
-				
-				
-				
-				
-				/*if(request.getParameter("fine")!=null)
+				else if(request.getParameter("submitBook")!=null)
 				{
-					//System.out.println("Fine Submission");
-					SetFinePOJO pojo=new SetFinePOJO();
-					String date=request.getParameter("date");
-					int fine=Integer.parseInt(request.getParameter("fine"));
-					System.out.println("fine***"+fine);
-					pojo.setDate(date);
-					pojo.setFine(fine);
-					
-					
-					try {
-						int st=dao.insertFine(pojo);
-						if(st>0)
-							System.out.println("Fine set");
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				int dueDays=Integer.parseInt(request.getParameter("dueDays"));
+				int fineAmount=Integer.parseInt(request.getParameter("fineAmount"));
+				int discount=Integer.parseInt(request.getParameter("discount"));
+				int finePaid=Integer.parseInt(request.getParameter("finePaid"));
+				int remainingFine=Integer.parseInt(request.getParameter("remainAmt"));
+				
+				FineMasterPOJO pojo=new FineMasterPOJO();
+				pojo.setDueDays(dueDays);
+				pojo.setFineAmount(fineAmount);
+				pojo.setDiscount(discount);
+				pojo.setFinePaidAmount(finePaid);
+				pojo.setRemainingFine(remainingFine);
+				
+				try {
+					int st=dao.insertFineDetails(pojo);
+					if(st>0)
+					{
+						System.out.println("Return book");
+						response.sendRedirect("View/library/IssueBook.jsp");
 					}
-					request.getRequestDispatcher("View/library/SetFine.jsp").forward(request, response);
-				}*/
-				
-				
-					
+					} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+				//response.sendRedirect("View/library/IssueBook.jsp");
+			}
 	}
-
+}
 

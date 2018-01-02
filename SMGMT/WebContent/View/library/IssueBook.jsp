@@ -130,28 +130,30 @@
 			                                                </datalist>
 			                                                </div>
 		                                                 </div> 
+		                                                 
 		                                                	<div class="form-group row">	
 		                                                	<div class="col-lg-8 ">
 		                                                   	  <label for="required2" class="col-form-label">User Type *</label>
 										                       <div class="controls">
-												                 <input type="radio" value="Student" style="margin-left: 1%;" name="userType" id="userType" onclick="studentDetails('stud')" checked="checked"> Student
-												                 <input type="radio" value="Teacher" style="margin-left: 1%;" name="userType" id="userType" onclick="teacherDetails('teacher')" > Teacher
+												                 <input type="radio" value="Student" style="margin-left: 1%;" name="userType" id="userType" onclick="searchDetails(this.value)" checked="checked"> Student
+												                 <input type="radio" value="Teacher" style="margin-left: 1%;" name="userType" id="userType" onclick="searchDetails(this.value)" > Teacher
 												               </div>
 												             </div>
 			                                      	 	</div>
-		                                         <!-- Search stud from here     ----- -->
-		                                          	   <div class="form-group row" id="stud" style="display: block">
+		                                        <!-- Search stud from here     ----- -->
+		                                          	   <div class="form-group row" id="stud" style="display: none">
 		                                          	      <div class="col-lg-8">
-		                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search Student by Id/Name">
+		                                          	      <input type="hidden" name="studId" id="stud_Id">
+		                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" oninput="getStudId(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search Student by Id/Name">
 			                                                <datalist id="browseStud">
 			                                                </datalist>
 		                                                 </div> 
 		                                              </div>
 		                                             
 		                                             
-		                                          <div class="form-group row" id="teacher" style="display:none;">
+		                                       		  <div class="form-group row" id="teacher" style="display:none;">
 		                                          	     <div class="col-lg-8">
-		                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search by Id/Name">
+		                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" class="form-control" id="searchTeacher"  name="searchTeacher" placeholder="Search Teacher by Id/Name">
 			                                                <datalist id="browseStud">
 			                                                </datalist>
 		                                                 </div> 
@@ -421,7 +423,6 @@
 
 
 																<div class="form-group row">
-
 																	<div class="col-lg-4 ">
 																		<label for="required2" class="col-form-label">Renew/Return
 																			*</label>
@@ -454,7 +455,7 @@
 																	
 																		<div class="col-lg-4">
 																			<label for="required2" class="col-form-label">Total
-																				Days </label> <input type="text" id="days" name="days"
+																				Days </label> <input type="text" id="days" name="dueDays"
 																				class="form-control">
 																		</div>
 																		
@@ -465,39 +466,7 @@
 																					class="form-control">
 																		   </div>
 																		</div>
-																		<div class="form-group row">
-																			<label class="custom-control custom-checkbox">
-					                                                        <input type="checkbox" class="custom-control-input" onclick="checkedPay(checkId)" >
-					                                                        <span class="custom-control-indicator"></span>
-					                                                        <span class="custom-control-description">Checked</span>
-					                                                    </label>
-					                                                 
-					                                                    <div class="form-group row" id="checkId">
-																																
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Discount
-																			 </label> <input type="text" id="days" name="days"
-																				class="form-control">
 																		</div>
-																		
-																			<div class="col-lg-4">
-																				<label for="required2" class="col-form-label">Paid Amount
-																				 </label> <input type="text"
-																					id="fineAmount" name="fineAmount"
-																					class="form-control">
-																		   </div>
-																		   
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Remaining Amount
-																			 </label> <input type="text" id="days" name="days"
-																				class="form-control">
-																		</div>
-																				
-																		</div>
-
-																</div>
-				
-																</div>
 																<div class="form-group row" id="renew"
 																	style="display: none">
 																	<div class="col-lg-4">
@@ -507,9 +476,34 @@
 																			placeholder="YYYY-MM-DD" />
 																	</div>
 																</div>
+																<div class="form-group row">
+																			<label class="custom-control custom-checkbox">
+					                                                        <input type="checkbox" class="custom-control-input" onclick="checkedPay(this)" >
+					                                                        <span class="custom-control-indicator"></span>
+					                                                        <span class="custom-control-description">Checked</span>
+					                                                    </label>
+					                                              </div>  
+					                                               <div class="form-group row" id="checkId" style="display: none">
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Discount
+																			 </label> <input type="text" id="discount" name="discount"
+																				class="form-control" onkeyup="countPay()">
+																		</div>
+																		<div class="col-lg-4">
+																				<label for="required2" class="col-form-label">Paid Amount
+																				 </label> <input type="text"
+																					id="paidAmountId" name="finePaid"
+																					class="form-control">
+																		  </div>
+																		  <div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Remaining Amount
+																			 </label> <input type="text" id="remainAmount" name="remainAmt"
+																				class="form-control">
+																			</div>
+																	</div>	
 																<div class="form-actions form-group row">
 																	<input type="submit" id="btnSubmit" value="Submit"
-																		name="returnBook" class="btn btn-primary">
+																		name="submitBook" class="btn btn-primary">
 																</div>
 
 															</form>
@@ -555,8 +549,7 @@
        <!--wrapper-->
        
         
-        
-</div>
+
 <!-- /#wrap -->
 <!-- 
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
@@ -625,6 +618,31 @@
 </body>
 <script type="text/javascript">
 
+function getStudId(val)
+{
+	var opts = document.getElementById('browseStud').childNodes;
+	for (var i = 0; i < opts.length; i++) {
+		 if (opts[i].value === val) 
+		 {
+			 var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			     var demo = this.responseText;
+			     var stud=demo.split(",");
+			     var studId=demo.split("#");
+			     document.getElementById("stud_Id").value=studId;
+			    //alert(studId);
+			     
+					
+			    }
+			  };
+			  xhttp.open("POST", "/SMGMT/Library?getstudId="+val, true);
+			  xhttp.send(); 
+	    	  break;
+		 }
+	}
+}
+
 function myFunction()
 {
 	<%
@@ -633,7 +651,7 @@ function myFunction()
         iziToast.show({
             title: 'Success',
             message: '<%=session.getAttribute("flag").toString()%>',
-            color:'#00cc99',
+            color:'#cc7fe5',       //'#00cc99'
             position: 'topCenter'
         });
         return false;
@@ -683,6 +701,21 @@ function getbookdetails(id){
 	  xhttp.send();
 }
 
+/*<<<<<<<<<<<Display Student/ Teacher Block >>>>>>>>>>>>>>>>  */
+function searchDetails(radioValue)
+	{
+			if(radioValue=="Student")
+ 			{
+	 			document.getElementById("stud").style.display="block";
+	 			document.getElementById("teacher").style.display="none";
+ 			
+	        }
+	 		else if(radioValue=="Teacher"){
+	 			document.getElementById("teacher").style.display="block";
+	 			document.getElementById("stud").style.display="none";
+	 		}
+	}
+
 /*<<<<<<<<<<<<<<<<<< Ajax for Serach Student Info >>>>>>>>>>>>>>>>>>>>>>>>>*/
 function getstuddetails(id){
 //	alert(id);
@@ -691,12 +724,17 @@ function getstuddetails(id){
 	    if (this.readyState == 4 && this.status == 200) {
 	     var demo = this.responseText;
 	     var stud=demo.split(",");
-	     for(var i=0; i<stud.length; i++)
-	    	 {
-	    	 var text=text+"<option value=\""+stud[i]+"\"> </option>";
+	     
+	     //var studId=demo.split("#");
+	    // document.getElementById("stud_Id").value=studId[0];
+	    // alert(x[0]);
+	     for(var i=1; i<stud.length; i++)
+	    	 {	
+	    	 	var text=text+"<option value=\""+stud[i]+"\"> </option>";
 	    	 }
-	     //alert(text);
-			document.getElementById("browseStud").innerHTML = text;		 
+	     
+			document.getElementById("browseStud").innerHTML = text;	
+			
 	    }
 	  };
 	  xhttp.open("POST", "/SMGMT/Library?studDetails="+id, true);
@@ -725,8 +763,9 @@ function getteacherDetails(id){
 	
 }
 
-/* <!-- Display Student Block        -------- --> */
-function studentDetails(stud)
+/* */
+
+/* function studentDetails(stud)
 {
 	var x = document.getElementById("stud");
 	if(document.getElementById("userType").value=="Student")
@@ -750,7 +789,7 @@ function teacherDetails(teacher)
 		{
 		document.getElementById("teacher").style.display = "none";
 		}
-}
+} */
 
 function getExpData(val)
 {
@@ -868,11 +907,13 @@ function getFineCount(tDate, dDate, radioValue) {
 	
 function checkedPay(checkId)
 {
+	var famount=document.getElementById("fineAmount").value;
+	//alert(famount);
 	var x = document.getElementById("checkId");
-	if(document.getElementById(checkId).checked)
+	if($(checkId).is(":checked"))
 		{
+			checkId.disabled=false;
 			x.style.display = "block";
-			//alert('checked')
 		}
 	else 
 		{
@@ -880,6 +921,20 @@ function checkedPay(checkId)
 		}
 }
 	
+function countPay()
+{
+	var famount=document.getElementById("fineAmount").value;
+	
+	
+   var discount=document.getElementById("discount").value;
+  // alert(discount);
+	var paid=famount-discount;
+	document.getElementById("paidAmountId").value=paid;
+	document.getElementById("paidAmountId").value=paid;
+	document.getElementById("remainAmount").value=0;
+	
+	
+}
 </script>
 
 
