@@ -13,5 +13,7 @@ public interface UserLoginDAO {
 	
 	//public List
 	public List getSessionDetails(String userName) throws SQLException;
+	
+	public List getYear() throws SQLException;
 
 }

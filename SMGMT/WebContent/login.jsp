@@ -1,5 +1,8 @@
+<%@page import="com.servletStore.login.model.UserLoginImpl"%>
+<%@page import="com.servletStore.login.model.UserLoginDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -54,11 +57,14 @@ z-index: 999999">
                             <div class="form-group">
                                 <label for="user" class="col-form-label"> Select Year</label>
                                 <div class="input-group">
+                                <%
+                                	UserLoginDAO dao = new UserLoginImpl();
+                                	request.setAttribute("year", dao.getYear());
+                                %>
                                     <select class="form-control chzn-select" name="loginYear">
-                                    	<option value="2014">2013-14</option>
-                                    	<option value="2015">2014-15</option>
-                                    	<option value="2016">2015-16</option>
-                                    	<option value="2017">2016-17</option>
+                                    	<c:forEach items="${year}" var="y">
+                                    		<option value="${y}">${y}</option>
+                                    	</c:forEach>
                                     </select>
                                 </div>
                             </div>
