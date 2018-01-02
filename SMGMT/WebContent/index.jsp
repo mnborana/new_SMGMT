@@ -20,6 +20,17 @@
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
 
 </head>
+ 
+ <%
+	if(session.getAttribute("userName")==null)
+	{
+		response.sendRedirect("/SMGMT");
+	}
+ 
+ String schoolId=session.getAttribute("schoolId").toString();
+ String academicYear=session.getAttribute("year").toString();
+%>
+ 
 
 <body class="body">
 <div class="preloader" style=" position: fixed;
