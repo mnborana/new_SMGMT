@@ -90,6 +90,7 @@ public class Student extends HttpServlet {
 		
 		System.out.println("in Post");
 		String submit=request.getParameter("submitBtn");
+		
 		if(submit!=null)
 		{
 			System.out.println("in Loop");
@@ -218,15 +219,6 @@ public class Student extends HttpServlet {
 			theStudent.setBankName(bankName);
 			theStudent.setIfscCode(ifscCode);
 			theStudent.setAccountNo(accountNo);
-			
-			
-			
-			
-			
-			
-			
-			out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			out.println("classAllow >>"+classAllow);
 			
 			sd=new StudentImpl();
 			

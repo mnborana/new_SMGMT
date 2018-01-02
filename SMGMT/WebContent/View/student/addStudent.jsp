@@ -41,7 +41,7 @@
 
 <body onload="loadFunction()">
 	<%
-	session.setAttribute("schoolId", "1");
+	session.setAttribute("schoolId", "2");
 	String schoolId=session.getAttribute("schoolId").toString();
 	%>
 	<div class="preloader"
@@ -637,15 +637,6 @@
 
 
 	<!-- /#content -->
-
-	<!-- /#wrap -->
-	<!-- global scripts-->
-
-	<script type="text/javascript">
-
-
-
-</script>
 
 
 	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
