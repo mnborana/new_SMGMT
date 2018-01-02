@@ -421,7 +421,7 @@ public class AddBookImpl implements AddBookDAO{
 		List list = new ArrayList();
 		
 		String query="";
-		pstmt=connection.prepareStatement("SELECT student_details.name,book_info_master.book_name,issue_book.issue_date,issue_book.due_date FROM student_details,issue_book,book_info_master,book_details_master WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND issue_book.stud_id=student_details.id AND issue_date between ? AND ?");
+		pstmt=connection.prepareStatement("SELECT student_details.first_name,book_info_master.book_name,issue_book.issue_date,issue_book.due_date FROM student_details,issue_book,book_info_master,book_details_master WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND issue_book.stud_id=student_details.id AND issue_date between ? AND ?");
 		pstmt.setString(1, date1);
 		pstmt.setString(2, date2);
 		ResultSet rs = pstmt.executeQuery();
