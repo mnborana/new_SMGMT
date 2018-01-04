@@ -32,5 +32,5 @@
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_izitoast,_css,_iziToast.min.css.pagespeed.cc.hUh8XIbhbe.css"/>
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
 
-<link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_modal,_css,_component.css+vendors,_bootstrap-tagsinput,_css,_bootstrap-tagsinput.css+vendors,_animate,_css,_animate.min.css+css,_pages,_po"/>
+<!-- <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_modal,_css,_component.css+vendors,_bootstrap-tagsinput,_css,_bootstrap-tagsinput.css+vendors,_animate,_css,_animate.min.css+css,_pages,_po"/> -->
    	
