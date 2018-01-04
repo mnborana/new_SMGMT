@@ -16,11 +16,11 @@
     <title>Form Validations | Admire</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
-    <!-- global styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
-
+<!--     <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/> -->
+<!--     global styles -->
+<!--     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/> -->
+<!--     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/> -->
+<jsp:include page="/View/common/commonCss.jsp"></jsp:include>
     <!-- end of global styles-->
    
 </head>
@@ -87,99 +87,132 @@
 	                    </div>
 	                </header>
 	                
-             <!-- start your code from here  -->  
-              
-                <div class="outer">
-                    <div class="inner bg-container">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card">
-                                    <div class="card-header bg-white">
-                                        <i class="fa fa-file-text-o"></i>
-                                         Add Books
-                                    </div>
-                                    <div class="card-block m-t-35">
-                                        <form action="/SMGMT/Library" method="post" class="form-horizontal  login_validator" id="form_block_validator">
-                                           <div class="form-group row">
-                                             	<%
+             <!-- start your code from here  --> 
+             <div class="outer">
+						<div class="inner bg-container forms">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="card">
+										<div class="card-header bg-white">
+											<h3>Add Book</h3>
+										</div>
+										<div class="card-block">
+											<div class="row">
+
+												<div class="card-block seclect_form">
+												<form action="/SMGMT/Library" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+													<div class="row">
+													<%
                                              		SysDate date=new SysDate();
                                              	%> 
-                                                <div class="col-lg-4">
-                                                    <label class="col-form-label">Date *</label>
-                                                    <input type="text" class="form-control form_val_popup_dp3" value="<%=date.todayDate()%>" name="date" placeholder="YYYY-MM-DD"/>
-                                                </div>
-                                                 <div class="col-lg-4">
-                                                    <label for="sport" class="col-form-label">Select Category *</label>
-                                               			<select name="category" class="validate[required] form-control select2">
-	                                               			<%
-	                                               				BookDAO addb=new BookCatImpl();
-                                                    		List list=addb.getCategoryDetails();   
-                   											Iterator itr1=list.iterator();
-                   											while(itr1.hasNext()){
-                   												
-                   												BookCatPOJO b=(BookCatPOJO)itr1.next();
-	                                               		%>
-	                                               		
-														 			<option value="<%=b.getId()%>"><%=b.getCatName()%></option>
-														 	
-														 	<%
-										}
-										%>
-                                                    	 </select>
-                                               		<a href="#category" data-toggle="modal" data-target="#category" class="btn btn-info" style="margin-left: 276px;margin-top: -34px; width:30px; height:29px">+</a>
-                                                </div>
-                                                <div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Book Name *</label>
-                                               	    <input type="text" id="required2" name="bookName" class="form-control" required>
-                                                </div>
-                                             	 <div class="col-lg-4">
-                                                    <label for="required2" class="col-form-label">Author Name *</label>
-                                                	 <input type="text" id="required2" name="authorName" class="form-control" required>
-                                                </div>
-                                           		<div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Publisher Name </label>
-                                               	    <input type="text" id="required2" name="pubName" class="form-control" >
-                                                </div>
-                                                <div class="col-lg-4">
-                                                     <label for="required2" class="col-form-label">Edition </label>
-                                                	 <input type="text"  id="required2" name="edition" class="form-control" >
-                                                </div>
-                                                <div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Price </label>
-                                               	    <input type="text" id="required2" name="price" class="form-control">
-                                                </div>
-                                            	<div class="col-lg-4">
-                                                    <label for="required2" class="col-form-label">Cupboard No *</label>
-                                                	 <input type="text" id="required2" name="cupbno" class="form-control" required>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                     <label for="required2" class="col-form-label">Quantity *</label>
-                                                	 <input type="text" id="required2" name="quan" class="form-control" required>
-                                                </div>
-                                             	<div class="col-lg-4 input_field_sections">
-                                            		<h6>Select Language *</h6>
-                                          			  <div class="form-group">
-                                               			 <select class="form-control" name="language">
-			                                                   	<option></option>
-			                                                    <option>English</option>
-			                                                    <option>Hindi</option>
-			                                                    <option>Marathi</option>
-			                                                    <option>Urdu</option>
-                                                  		</select>
-                                            		</div> 
-                                        		</div>
-                                           </div>
-                                       <div class="form-actions form-group row">
-	                                            <input type="submit" value="Add Book" name="addbook" class="btn btn-primary">
-	                                             &nbsp;&nbsp;&nbsp;<input type="reset" value="Cancel" class="btn btn-primary">
-	                                  </div>
-                                     </form>
-								 </div>
-                                </div>
-                            </div> <!-- /.col-lg-12 -->
-                        </div> <!-- /.row -->
-                    </div> <!-- /.inner -->
-                </div> <!-- /.outer -->
+													 
+													<div class="form-group col-lg-4 input_field_sections">
+													
+															<label for="addbook_date" class="col-form-label">Addbook
+																Date *</label>
+															<div class="input-group input-append date" id="dp1"
+																data-date-format="dd-mm-yyyy">
+																<input type="text" class="form-control form_val_popup"
+																	name="addbookdate" id="date"  value="<%=date.todayDate()%>"
+																	placeholder="dd-mm-yyyy" required> <span
+																	class="input-group-addon add-on"> <i
+																	class="fa fa-calendar"></i>
+																</span>
+															</div>
+														</div>
+														
+														<div class="form-group col-lg-4 input_field_sections">
+															<label for="stdId" class="col-form-label">Select Category *</label> 
+															<select class="form-control chzn-select" name="category"  required>
+																<%
+	                                               					BookDAO addb=new BookCatImpl();
+                                                    				List list=addb.getCategoryDetails();   
+                   													Iterator itr1=list.iterator();
+                   														while(itr1.hasNext())
+                   														{
+                   															BookCatPOJO b=(BookCatPOJO)itr1.next();
+	                                               				%>
+	                                               		            <option value="<%=b.getId()%>"><%=b.getCatName()%></option>
+														 	   <%}%>
+										                   
+										
+															</select>
+															<a href="#category" data-toggle="modal" data-target="#category" class="btn btn-info" style="margin-left: 101%;margin-top: -34px; width:30px; height:29px">+</a>
+														</div>
+													
+														<div class="form-group col-lg-4 input_field_sections">
+															<label for="firstName" class="col-form-label">Book
+																Name *</label> <input type="text" id="bookName"
+																name="bookName" class="form-control"
+																placeholder="Book Name" required>
+														</div>
+													</div>
+													<div class="row">
+														<div class="form-group col-lg-4 input_field_sections">
+															<label for="lastname" class="col-form-label">Author
+																Name *</label> <input type="text" id="authorName" name="authorName"
+																class="form-control" placeholder="Author Name" required />
+														</div>
+														<div class="form-group col-lg-4 input_field_sections">
+															<label for="age" class="col-form-label">Publisher Name</label> <input
+																type="text" id="pubName" name="pubName" class="form-control"
+																placeholder="Publisher Name" />
+														</div>
+														<div class="form-group col-lg-4 input_field_sections">
+															<label for="birthplace" class="col-form-label">Edition
+																</label> <input type="text" id="edition"
+																name="edition" class="form-control"
+																placeholder="Edition" />
+														</div>
+													</div>
+													<div class="row">
+														
+														<div class="form-group col-lg-4 input_field_sections">
+															<label for="height" class="col-form-label">Price*</label>
+															<input type="text" id="price" name="price"
+																class="form-control" placeholder="Price" required />
+														</div>
+													
+													
+														<div class="form-group col-lg-4 input_field_sections">
+															<label for="weight" class="col-form-label">Coupboard No*</label>
+															<input type="text" id="cupbno" name="cupbno"
+																class="form-control" placeholder="Coupboard No" required />
+														</div>
+														<div class="form-group col-lg-4 input_field_sections">
+															<label for="adharno" class="col-form-label">Quantity*
+																</label> <input type="text" id="quan" name="quan"
+																class="form-control" placeholder="Quantity" required />
+														</div>
+													</div>
+														<div class="row">
+														 <div class="form-group col-lg-4 input_field_sections">
+															<label for="lastname" class="col-form-label">Book
+																Language</label> <select class="form-control chzn-select"
+																name="language">
+																<option disabled selected>Choose a Language</option>
+																<option value="English">English</option>
+																<option value="Marathi">Marathi</option>
+																<option value="Hindi">Hindi</option>
+																<option value="English">Urdu</option>
+															</select>
+														</div>
+														</div>
+														<div class="form-actions form-group row">
+	                                           				 <input type="submit" value="Add Book" name="addbook" class="btn btn-primary"  style="margin-top: 3%;margin-left: 2%;">
+	                                             				&nbsp;&nbsp;&nbsp;<input type="reset" value="Cancel" class="btn btn-primary" style="margin-top: 3%;">
+	                                  					</div>
+														
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
             
             <!-- Modal for category -->
             <div class="modal fade pullDown" id="category" role="dialog" aria-labelledby="modalLabelnews">
@@ -281,6 +314,7 @@
 								 <form action="/SMGMT/Library" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                              <div class="form-group row">
                                              
+                                             
                                                 <div class="col-lg-4">
                                                		 <input type="hidden" name="bno" id="bid">
                                                      <label class="col-form-label">Date *</label>
@@ -350,36 +384,36 @@
 </div>
 <!-- /#wrap -->
 
-	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
+<!-- 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script> -->
+<!-- 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script> -->
 
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script>
-	<script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
-	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script>
+<!--     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script> -->
+<!--     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script> -->
+<!--     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script> -->
+<!--     <script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script> -->
+<!--     <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script> -->
+<!--     <script type="text/javascript" src="/SMGMT/config/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script> -->
+<!--     <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script> -->
+<!-- 	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script> -->
+<!--     <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script> -->
+<!-- 	<script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script> -->
+<!-- 	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script> -->
 
-    <script type="text/javascript" src="/SMGMT/config/vendors/select2/js/select2.js.pagespeed.jm.Eugd1Y0BmV.js"></script>
-    <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
-    <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
+<!--     <script type="text/javascript" src="/SMGMT/config/vendors/select2/js/select2.js.pagespeed.jm.Eugd1Y0BmV.js"></script> -->
+<!--     <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script> -->
+<!--     <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script> -->
     
-    <script>eval(mod_pagespeed_g_o5ieHdNa);</script>
-    <script>eval(mod_pagespeed_UzcyJ5ysoL);</script>
-    <script>eval(mod_pagespeed_sB4kJD0xfI);</script>
-    <script>eval(mod_pagespeed_aYQJk4iDci);</script>
-    <script>eval(mod_pagespeed_wVkzf2s7YZ);</script>
-    <script>eval(mod_pagespeed_Ij0pRaH8BP);</script>
-    <script>eval(mod_pagespeed_wfmKXYO4Nj);</script>
-    <script>eval(mod_pagespeed_EYzby3B1$L);</script>
+<!--     <script>eval(mod_pagespeed_g_o5ieHdNa);</script> -->
+<!--     <script>eval(mod_pagespeed_UzcyJ5ysoL);</script> -->
+<!--     <script>eval(mod_pagespeed_sB4kJD0xfI);</script> -->
+<!--     <script>eval(mod_pagespeed_aYQJk4iDci);</script> -->
+<!--     <script>eval(mod_pagespeed_wVkzf2s7YZ);</script> -->
+<!--     <script>eval(mod_pagespeed_Ij0pRaH8BP);</script> -->
+<!--     <script>eval(mod_pagespeed_wfmKXYO4Nj);</script> -->
+<!--     <script>eval(mod_pagespeed_EYzby3B1$L);</script> -->
 
-    <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
-
+<!--     <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script> -->
+<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 </body>
 
 <script type="text/javascript">
