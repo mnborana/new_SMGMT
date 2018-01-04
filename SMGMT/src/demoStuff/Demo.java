@@ -1,5 +1,6 @@
 package demoStuff;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -10,12 +11,15 @@ public class Demo {
 
 	public static void main(String[] args) throws SQLException {
 		
-
+		 	long millis=System.currentTimeMillis();  
+		  java.sql.Date date=new java.sql.Date(millis);  
+		  String newDate=date.toString();
+		
+		  System.out.println(newDate);
 		
 		
 		
-		
-		UserLoginDAO login= new UserLoginImpl();
+		/*UserLoginDAO login= new UserLoginImpl();
 		
 		List list=login.getUserCredentials("admin");
 		
@@ -31,7 +35,7 @@ public class Demo {
 		else
 		{
 			System.out.println("available");
-		}
+		}*/
 		
 		/*String userName="something";
 		String Password="password";
