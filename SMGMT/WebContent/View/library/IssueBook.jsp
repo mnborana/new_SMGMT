@@ -18,16 +18,15 @@
     <title>Form Validations | Admire</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!--  <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
-    global styles
+    <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
+   <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
+<!--     global styles -->
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
 <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_inputlimiter,_css,_jquery.inputlimiter.css+vendors,_bootstrap-colorpicker,_css,_bootstrap-colorpicker.min.css+vendors,_jquery-tagsinput,_c"/>
  <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_izitoast,_css,_iziToast.min.css.pagespeed.cc.hUh8XIbhbe.css"/>
-   --> 
-   <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
+<%--    <jsp:include page="/View/common/commonCss.jsp"></jsp:include> --%>
     <!-- end of global styles-->
-   
 </head>
 <body onload="myFunction()">
 <div class="preloader" style=" position: fixed;
@@ -574,11 +573,14 @@
     <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
      -->
      
-     <!-- global scripts-->
-<!-- <script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
+<!--      global scripts -->
+<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
+
+
 <script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
-end of global scripts
-plugin scripts
+
+<!-- end of global scripts -->
+<!-- plugin scripts -->
 <script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
@@ -596,7 +598,7 @@ plugin scripts
 <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/j_timepicker/js/jquery.timepicker.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/clockpicker/js/jquery-clockpicker.min.js"></script>
-end of plugin scripts
+<!-- end of plugin scripts -->
 <script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/pages/datetime_piker.js"></script>
 <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
@@ -607,7 +609,7 @@ end of plugin scripts
 <jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 
 <!-- end plugin scripts -->
-<!--Page level scripts-->
+<!-- Page level scripts -->
     
     <script>eval(mod_pagespeed_g_o5ieHdNa);</script>
     <script>eval(mod_pagespeed_UzcyJ5ysoL);</script>
