@@ -19,12 +19,18 @@
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/multiselect/css/multi-select.css"/>
     
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
-    
+   	
+   	
     <!--End of plugin styles-->
     <!--Page level styles-->
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
-    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
-    <!-- end of page level styles -->
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_sweetalert,_css,_sweetalert2.min.css+css,_pages,_sweet_alert.css.pagespeed.cc.vBvlhaOlzl.css"/>
+    
+      <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
+<!--     end of page level styles -->
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_themify,_css,_themify-icons.css+vendors,_ionicons,_css,_ionicons.min.css+css,_pages,_icon.css.pagespeed.cc.V3vSn3K0aE.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_izitoast,_css,_iziToast.min.css.pagespeed.cc.hUh8XIbhbe.css"/>
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
+
+<link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_modal,_css,_component.css+vendors,_bootstrap-tagsinput,_css,_bootstrap-tagsinput.css+vendors,_animate,_css,_animate.min.css+css,_pages,_po"/>
+   	
