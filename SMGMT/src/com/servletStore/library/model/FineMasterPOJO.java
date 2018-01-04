@@ -2,6 +2,24 @@ package com.servletStore.library.model;
 
 public class FineMasterPOJO {
 private int id,dueDays,fineAmount,discount,finePaidAmount,remainingFine,studId,issueId;
+private String dueDate,returnDate;
+
+
+public String getDueDate() {
+	return dueDate;
+}
+
+public void setDueDate(String dueDate) {
+	this.dueDate = dueDate;
+}
+
+public String getReturnDate() {
+	return returnDate;
+}
+
+public void setReturnDate(String returnDate) {
+	this.returnDate = returnDate;
+}
 
 public int getStudId() {
 	return studId;

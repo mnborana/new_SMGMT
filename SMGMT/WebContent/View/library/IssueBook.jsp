@@ -18,13 +18,14 @@
     <title>Form Validations | Admire</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
-    <!-- global styles-->
+   <!--  <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
+    global styles
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
 <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_inputlimiter,_css,_jquery.inputlimiter.css+vendors,_bootstrap-colorpicker,_css,_bootstrap-colorpicker.min.css+vendors,_jquery-tagsinput,_c"/>
  <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_izitoast,_css,_iziToast.min.css.pagespeed.cc.hUh8XIbhbe.css"/>
-   
+   --> 
+   <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
     <!-- end of global styles-->
    
 </head>
@@ -124,7 +125,7 @@
 				                                          <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator">
 		                                     			<div class="form-group row">
 		                                     				<div class="col-lg-8">
-		                        <!-- Search Book from here     ------- -->
+		                       	   <!-- Search Book from here     ------- -->
 		                                               	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchtext"  name="searchBook" placeholder="Search Books by BookId/BookName/AuthorName">
 			                                                <datalist id="browseBook">
 			                                                </datalist>
@@ -140,8 +141,8 @@
 												               </div>
 												             </div>
 			                                      	 	</div>
-		                                        <!-- Search stud from here     ----- -->
-		                                          	   <div class="form-group row" id="stud" style="display: none">
+		                            <!-- Search stud from here     ----- -->
+		                                          	   <div class="form-group row" id="stud" style="display: block">
 		                                          	      <div class="col-lg-8">
 		                                          	      <input type="hidden" name="studId" id="stud_Id">
 		                                                	<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" oninput="getStudId(this.value)" class="form-control" id="searchStud"  name="searchStud" placeholder="Search Student by Id/Name">
@@ -372,8 +373,8 @@
 																		<input type="text" list="returnBook"
 																			autocomplete="off"
 																			onkeyup="getReturnBooks(this.value)"
-																			onblur="getBookInfo('bookInfo',event)" class="form-control"
-																			id="searchId" name="searchBook"
+																			onblur="getBookInfo('bookInfo',event)" oninput="getStudentId(this.value)" class="form-control"
+																			id="searchId" name="searchBookDetails"
 																			placeholder="Search Books by BookNo/BookName/AuthorName">
 																		<datalist id="returnBook"> </datalist>
 																		<!-- getBookInfo('bookInfo',event) -->
@@ -385,8 +386,9 @@
 																	<div class="form-group row">
 
 																		<div class="col-lg-4 ">
+																		<input type="hidden" name="studentId" id="student_Id">
 																			<label for="required2" class="col-form-label">Book
-																				No</label> <input type="text" id="bNo" name="bookNo"
+																				No</label> <input type="text" id="bNo" name="bookNum"
 																				class="form-control" required>
 																		</div>
 
@@ -410,7 +412,7 @@
 																		</div>
 
 																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Due
+																			<label for="required2" class="col-form-label" id="oldDueDate">Due
 																				Date *</label> <input type="text" id="dueDate1"
 																				name="dueDate" class="form-control" required>
 																		</div>
@@ -431,7 +433,7 @@
 																				style="margin-left: 1%;" name="returnRadio" id="selectRt" onclick="onBook(this.value)"> Return 
 																				<input type="radio" value="RENEW" style="margin-left: 1%;"
 																				name="returnRadio" id="selectRn"
-																				onclick="onBook(this.value)"> Renewal
+																				onclick="onBook(this.value)" > Renewal
 																		</div>
 																	</div>
 																</div>
@@ -466,17 +468,7 @@
 																					class="form-control">
 																		   </div>
 																		</div>
-																		</div>
-																<div class="form-group row" id="renew"
-																	style="display: none">
-																	<div class="col-lg-4">
-																		<label class="col-form-label">Due Date *</label> <input
-																			type="text" class="form-control form_val_popup_dp3"
-																			id="dueDate" name="dueDate"
-																			placeholder="YYYY-MM-DD" />
-																	</div>
-																</div>
-																<div class="form-group row">
+																		<div class="form-group row">
 																			<label class="custom-control custom-checkbox">
 					                                                        <input type="checkbox" class="custom-control-input" onclick="checkedPay(this)" >
 					                                                        <span class="custom-control-indicator"></span>
@@ -486,13 +478,13 @@
 					                                               <div class="form-group row" id="checkId" style="display: none">
 																		<div class="col-lg-4">
 																			<label for="required2" class="col-form-label">Discount
-																			 </label> <input type="text" id="discount" name="discount"
+																			 </label> <input type="text" id="discount" name="discount" value="0"
 																				class="form-control" onkeyup="countPay()">
 																		</div>
 																		<div class="col-lg-4">
 																				<label for="required2" class="col-form-label">Paid Amount
 																				 </label> <input type="text"
-																					id="paidAmountId" name="finePaid"
+																					id="paidAmountId" name="finePaid" value="0"
 																					class="form-control">
 																		  </div>
 																		  <div class="col-lg-4">
@@ -501,11 +493,21 @@
 																				class="form-control">
 																			</div>
 																	</div>	
+																		</div>
+																<div class="form-group row" id="renew"
+																	style="display: none">
+																	<div class="col-lg-4">
+																		<label class="col-form-label">New Due Date *</label> <input
+																			type="text" class="form-control form_val_popup_dp3"
+																			id="dueDate" name="newdueDate"
+																			placeholder="YYYY-MM-DD" />
+																	</div>
+																</div>
+																
 																<div class="form-actions form-group row">
 																	<input type="submit" id="btnSubmit" value="Submit"
 																		name="submitBook" class="btn btn-primary">
 																</div>
-
 															</form>
 														</div>
 													</div>
@@ -573,10 +575,10 @@
      -->
      
      <!-- global scripts-->
-<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
+<!-- <script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
-<!-- end of global scripts-->
-<!-- plugin scripts -->
+end of global scripts
+plugin scripts
 <script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
@@ -594,13 +596,16 @@
 <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/j_timepicker/js/jquery.timepicker.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/clockpicker/js/jquery-clockpicker.min.js"></script>
-<!--end of plugin scripts-->
+end of plugin scripts
 <script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/pages/datetime_piker.js"></script>
 <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
 <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/izitoast/js/iziToast.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/js/pages/izi_toastr.js"></script>    
+<script type="text/javascript" src="/SMGMT/config/js/pages/izi_toastr.js"></script>     -->
+
+<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
+
 <!-- end plugin scripts -->
 <!--Page level scripts-->
     
@@ -617,7 +622,29 @@
 
 </body>
 <script type="text/javascript">
-
+function getStudentId(val)
+{
+	var opts = document.getElementById('returnBook').childNodes;
+	for (var i = 0; i < opts.length; i++) {
+		 if (opts[i].value === val) 
+		 {
+			 //alert(val);
+			var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			    	
+			      var demo = this.responseText;
+			     var stud=demo.split(",");
+			     alert(stud);
+			     document.getElementById("student_Id").value=stud;
+			      }
+			  };
+			  xhttp.open("POST", "/SMGMT/Library?getstudentId="+val, true);
+			  xhttp.send(); 
+	    	  break;
+		}
+	}
+}
 function getStudId(val)
 {
 	var opts = document.getElementById('browseStud').childNodes;
@@ -632,9 +659,7 @@ function getStudId(val)
 			     var studId=demo.split("#");
 			     document.getElementById("stud_Id").value=studId;
 			    //alert(studId);
-			     
-					
-			    }
+			     }
 			  };
 			  xhttp.open("POST", "/SMGMT/Library?getstudId="+val, true);
 			  xhttp.send(); 
@@ -676,7 +701,7 @@ function getReturnBooks(val)
 	     
 	    }
 	  };
-	  xhttp.open("POST", "/SMGMT/Library?returnBook="+val, true);
+	  xhttp.open("POST", "/SMGMT/Library?returnBooks="+val, true);
 	  xhttp.send();
 }
 
@@ -728,7 +753,7 @@ function getstuddetails(id){
 	     //var studId=demo.split("#");
 	    // document.getElementById("stud_Id").value=studId[0];
 	    // alert(x[0]);
-	     for(var i=1; i<stud.length; i++)
+	     for(var i=0; i<stud.length; i++)
 	    	 {	
 	    	 	var text=text+"<option value=\""+stud[i]+"\"> </option>";
 	    	 }
@@ -762,34 +787,6 @@ function getteacherDetails(id){
 	  xhttp.send();
 	
 }
-
-/* */
-
-/* function studentDetails(stud)
-{
-	var x = document.getElementById("stud");
-	if(document.getElementById("userType").value=="Student")
-		{
-			x.style.display = "block";
-		}
-	else
-		{
-		document.getElementById("stud").style.display = "none";
-		}
-}
-
-function teacherDetails(teacher)
-{
-	var x = document.getElementById("teacher");
-	if(document.getElementById("userType").value=="Teacher")
-		{
-			x.style.display = "block";
-		}
-	else
-		{
-		document.getElementById("teacher").style.display = "none";
-		}
-} */
 
 function getExpData(val)
 {
@@ -867,7 +864,8 @@ function onBook(radioValue)
 
 	var tDate = document.getElementById("currentDate").value;
 	var dDate = document.getElementById("dueDate1").value;
-		
+	document.getElementById("oldDueDate").innerHTML="Old Due Date";
+	document.getElementById("dueDate1").disabled=true;
 	getFineCount(tDate, dDate, radioValue);
 			
 	}
@@ -882,12 +880,20 @@ function getFineCount(tDate, dDate, radioValue) {
 			var totalFine = demo * str[1];
 			document.getElementById("days").value = demo;
 			document.getElementById("fineAmount").value = totalFine;
+			var tDate = document.getElementById("currentDate").value;
+			var dDate = document.getElementById("dueDate1").value;
 			//alert(demo);
 			if(radioValue=="RETURN")
  			{
 	 			document.getElementById("returnBk").style.display="block";
 	 			document.getElementById("renew").style.display="none";
- 			
+	 			document.getElementById("remainAmount").value=totalFine;
+	 			if(dDate>tdate)
+ 				{
+	 				alert("sdafafd");
+ 				/* document.getElementById("days").value = 0;
+ 				document.getElementById("fineAmount").value = 0; */
+ 				}
 	        }
 	 		else if(radioValue=="RENEW"){
 	 			document.getElementById("renew").style.display="block";
@@ -914,6 +920,7 @@ function checkedPay(checkId)
 		{
 			checkId.disabled=false;
 			x.style.display = "block";
+			document.getElementById("remainAmount").value=famount;
 		}
 	else 
 		{
@@ -930,11 +937,10 @@ function countPay()
   // alert(discount);
 	var paid=famount-discount;
 	document.getElementById("paidAmountId").value=paid;
-	document.getElementById("paidAmountId").value=paid;
 	document.getElementById("remainAmount").value=0;
-	
-	
 }
+	
+
 </script>
 
 

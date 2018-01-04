@@ -1,6 +1,7 @@
 package com.servletStore.library.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -203,15 +204,15 @@ public class AddBookImpl implements AddBookDAO{
 		List list=new ArrayList();
 		ResultSet rs=null;
 		try {
-			// by author name
-			String query2="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master WHERE book_details_master.book_no=book_info_master.book_no AND book_details_master.issue_status=0 AND book_info_master.author_name LIKE '"+bookDetail+"%'";
-			PreparedStatement ps2=(PreparedStatement) connection.prepareStatement(query2);
-			rs=ps2.executeQuery();
+			// by book name
+			String query1="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master WHERE book_details_master.book_no=book_info_master.book_no AND book_details_master.issue_status=0 AND book_info_master.book_name LIKE '"+bookDetail+"%'";
+			PreparedStatement ps1=(PreparedStatement) connection.prepareStatement(query1);
+			rs=ps1.executeQuery();
 				if(!rs.isBeforeFirst()){
-					// by book name
-					String query1="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master WHERE book_details_master.book_no=book_info_master.book_no AND book_details_master.issue_status=0 AND book_info_master.book_name LIKE '"+bookDetail+"%'";
-					PreparedStatement ps1=(PreparedStatement) connection.prepareStatement(query1);
-					rs=ps1.executeQuery();
+					// by author name
+					String query2="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master WHERE book_details_master.book_no=book_info_master.book_no AND book_details_master.issue_status=0 AND book_info_master.author_name LIKE '"+bookDetail+"%'";
+					PreparedStatement ps2=(PreparedStatement) connection.prepareStatement(query2);
+					rs=ps2.executeQuery();
 				if(!rs.isBeforeFirst()){
 					// by book Id
 					String query="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master WHERE book_details_master.book_no=book_info_master.book_no AND book_details_master.issue_status=0 AND book_details_master.book_id LIKE '"+bookDetail+"%'";
@@ -564,18 +565,39 @@ public class AddBookImpl implements AddBookDAO{
 	public List getReturnBookDetails(String returnBookDetails)
 			throws SQLException {
 		List list = new ArrayList();
-		
-		pstmt=connection.prepareStatement("SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1");
-		ResultSet rs=pstmt.executeQuery();
-		
-		while(rs.next())
-		{
-			list.add(rs.getInt(1));
-			list.add(rs.getString(2));
-			list.add(rs.getString(3));
+		ResultSet rs=null;
+		try {
+			// by book name
+			String query2="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_info_master.book_name LIKE '"+returnBookDetails+"%'";
+			PreparedStatement ps2=(PreparedStatement) connection.prepareStatement(query2);
+			rs=ps2.executeQuery();
+				if(!rs.isBeforeFirst()){
+					// by author name
+					String query1="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_info_master.author_name LIKE '"+returnBookDetails+"%'";
+					PreparedStatement ps1=(PreparedStatement) connection.prepareStatement(query1);
+					rs=ps1.executeQuery();
+				if(!rs.isBeforeFirst()){
+					// by book Id
+					String query="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_details_master.book_no=book_info_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_details_master.book_id LIKE '"+returnBookDetails+"%'";
+					PreparedStatement ps;
+					ps = (PreparedStatement) connection.prepareStatement(query);
+					rs=ps.executeQuery();
+				}
+			}
+			while(rs.next())
+			{
+				list.add(rs.getInt(1));
+			    list.add(rs.getString(2));
+				list.add((rs.getString(3)));
+				
+			}
+			//System.out.println("list "+list);	
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return list;
 	}
+
 	@Override
 	public int getId(int studId) throws SQLException {
 		int id=0;
@@ -612,22 +634,38 @@ public class AddBookImpl implements AddBookDAO{
 		 }
 		return id;
 	}
+	
 	@Override
 	public int insertFineDetails(FineMasterPOJO pojo) throws SQLException{
-		System.out.println("************");
-		String query="INSERT into fine_master_details(due_days,fine_amt,discount,fine_paid_amt,remaining_fine_amt) VALUES(?,?,?,?,?)";
+		System.out.println("in Fine section");
+		String query="INSERT into fine_master_details(stud_id,issue_id,due_days,fine_amt,discount,fine_paid_amt,remaining_fine_amt) VALUES(?,?,?,?,?,?,?)";
 		pstmt=connection.prepareStatement(query);
-		
-		pstmt.setInt(1, pojo.getDueDays());
-		pstmt.setInt(2, pojo.getFineAmount());
-		pstmt.setInt(3, pojo.getDiscount());
-		pstmt.setInt(4, pojo.getFinePaidAmount());
-		pstmt.setInt(5, pojo.getRemainingFine());
-			
+		pstmt.setInt(1, pojo.getStudId());
+		pstmt.setInt(2, pojo.getIssueId());
+		pstmt.setInt(3, pojo.getDueDays());
+		pstmt.setInt(4, pojo.getFineAmount());
+		pstmt.setInt(5, pojo.getDiscount());
+		pstmt.setInt(6, pojo.getFinePaidAmount());
+		pstmt.setInt(7, pojo.getRemainingFine());
+		System.out.println( "Detailssssssssss"+pojo.getStudId()+" "+pojo.getIssueId()+" "+pojo.getDueDays()+" "+pojo.getFineAmount()+" "+ pojo.getDiscount()+" "+pojo.getFinePaidAmount()+" "+pojo.getRemainingFine());
 		int status= pstmt.executeUpdate();
 		return status;
 		
 	}
+	
+	@Override
+	public int getDate(FineMasterPOJO pojo) throws SQLException {
+		
+		String query1="UPDATE `issue_book` SET `return_date`=? WHERE issue_book.id=?";
+		System.out.println(query1);
+		pstmt=connection.prepareStatement(query1);
+		pstmt.setString(1, pojo.getReturnDate());
+		pstmt.setInt(2, pojo.getIssueId());
+		int st=pstmt.executeUpdate();
+		
+		return st;
+	}
+	
 	@Override
 	public List<FineMasterPOJO> getFineMaster() throws SQLException {
 		List< FineMasterPOJO> list = new ArrayList<FineMasterPOJO>();
@@ -646,6 +684,48 @@ public class AddBookImpl implements AddBookDAO{
 			list.add(pojo);
 		}
 		return list;
+	}
+	@Override
+	public List getStudentId(int bookId) throws SQLException
+	{
+		int id=0;
+		int studId=0;
+		List list=new ArrayList();
+		String str="SELECT issue_book.id,issue_book.stud_id FROM issue_book WHERE issue_book.bookdetails_id=?";
+		 pstmt=connection.prepareStatement(str);
+		 pstmt.setInt(1, bookId);
+		
+		 
+		 ResultSet rs=pstmt.executeQuery();
+		 while(rs.next())
+		 {
+			 list.add(rs.getInt(1));
+			 list.add(rs.getInt(2));
+			 //System.out.println("@@@@@@@@@@@@@@@@"+id);
+		 }
+		return list;
+	}
+	@Override
+	public int changeStatusReturn(int id) throws SQLException {
+		int status=0;
+		String query="UPDATE `book_details_master`,issue_book SET `issue_status`=0 WHERE issue_book.bookdetails_id=book_details_master.book_id AND issue_book.id="+id;
+		pstmt=connection.prepareStatement(query);
+		status=pstmt.executeUpdate();
+		return status;
+	}
+	@Override
+	public int updateRenewBook(FineMasterPOJO pojo, String date) throws SQLException {
+		int status=0;
+		//String query="UPDATE issue_book,fine_master_details SET due_date=? WHERE fine_master_details.issue_id=issue_book.id AND fine_master_details.issue_id="+id;
+		String query="UPDATE `issue_book` SET`issue_date`=? ,`due_date`=? WHERE issue_book.id=?";
+		pstmt=connection.prepareStatement(query);
+		pstmt.setString(1, date);
+		pstmt.setString(2, pojo.getDueDate());
+		pstmt.setInt(3, pojo.getIssueId());
+		System.out.println(query);
+		status=pstmt.executeUpdate();
+		System.out.println("Execute");
+		return status;
 	}
 	
 	
