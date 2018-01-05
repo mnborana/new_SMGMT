@@ -16,6 +16,8 @@ import com.servletStore.student.model.StudentDAO;
 import com.servletStore.student.model.StudentImpl;
 import com.servletStore.student.model.StudentPojo;
 
+import utility.CommonStudent;
+
 /**
  * Servlet implementation class Student
  */
@@ -44,11 +46,9 @@ public class Student extends HttpServlet {
 			}
 		}
 		if (standardList != null) {
-			StudentPojo theStudent=new StudentPojo();
-			theStudent.setSchoolId(standardList);
-			sd=new StudentImpl();
-			List theStandardList=sd.getStandardList(theStudent);
-			Iterator irt=theStandardList.iterator();
+			CommonStudent cs=new CommonStudent();
+			List<Object> theStandardList=cs.getStandardList(standardList);
+			Iterator<Object> irt=theStandardList.iterator();
 			while (irt.hasNext()) {
 				out.print(irt.next()+"~");
 			}
