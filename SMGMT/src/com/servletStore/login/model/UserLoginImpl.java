@@ -141,4 +141,26 @@ public class UserLoginImpl implements UserLoginDAO {
 		
 	}
 
+	@Override
+	public String getSchoolName(String schoolId) throws SQLException {
+		String schoolName=null;
+		
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		
+		pstmt = connection.prepareStatement("SELECT school_master.name FROM school_master WHERE school_master.id=?");
+		pstmt.setString(1, schoolId);
+		
+		ResultSet rs=pstmt.executeQuery();
+		while(rs.next())
+		{
+			schoolName=rs.getString(1);
+		}
+	
+		connection.close();
+	
+		
+		return schoolName;
+	}
+
 }

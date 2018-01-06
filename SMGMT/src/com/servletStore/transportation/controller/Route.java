@@ -21,6 +21,10 @@ import com.servletStore.transportation.route.model.RouteDAO;
 import com.servletStore.transportation.route.model.RouteImpl;
 import com.servletStore.transportation.route.model.RoutePOJO;
 
+/**
+ * Servlet implementation class RouteADD
+ */
+//@WebServlet("/RouteADD")
 public class Route extends HttpServlet
 {
 	
@@ -101,7 +105,7 @@ public class Route extends HttpServlet
 			{
 				redirect=false;
 				try {				
-						pstmt=connection.prepareStatement("SELECT * FROM add_route where id="+request.getParameter("id"));
+						pstmt=connection.prepareStatement("SELECT * FROM route_master where id="+request.getParameter("id"));
 						ResultSet rs= pstmt.executeQuery();
 						while(rs.next())
 						{						

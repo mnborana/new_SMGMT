@@ -1,7 +1,6 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.servletStore.attendance.catalogYearChange.model.CatalogYearChangeDAO"%>
-<%@page import="com.servletStore.attendance.catalogYearChange.model.CatalogYearChangeImpl"%>
-<%@page import="com.servletStore.attendance.catalogYearChange.model.CatalogYearChangePOJO"%>
+<%@page import="com.servletStore.attendance.schoolTransfer.model.SchoolTransferPOJO"%>
+<%@page import="com.servletStore.attendance.schoolTransfer.model.SchoolTransferImpl"%>
+<%@page import="com.servletStore.attendance.schoolTransfer.model.SchoolTransferDAO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -20,11 +19,8 @@
     <!-- end of global styles-->
    
 </head>
-<body onload="loadFunction()">
-<%
-	session.setAttribute("schoolId", "1");
-	String schoolId=session.getAttribute("schoolId").toString();
-%>
+<body>
+
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -66,7 +62,7 @@
                             <div class="col-sm-5 col-lg-6">
                                 <h4 class="nav_top_align">
                                     <i class="fa fa-pencil"></i>
-                                    Set Fine Submission
+                                   School Transfer
                                 </h4>
                             </div>
                             <div class="col-sm-7 col-lg-6">
@@ -80,7 +76,7 @@
                                     <li class="breadcrumb-item">
                                         <a href="#">Attendance</a>
                                     </li>
-                                    <li class="active breadcrumb-item">CatalogYearChange</li>
+                                    <li class="active breadcrumb-item">School Transfer</li>
                                 </ol>
                             </div>
                         </div>
@@ -98,29 +94,63 @@
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                        Catalog Details
+                                        School Transfer Details
                                     </div>
                                     <div class="card-block m-t-35" id="catalog_info">
-                                     <%
-	                                     List<CatalogYearChangePOJO> stud_list=new ArrayList<>();;
-                                    	CatalogYearChangeDAO s_dao=new CatalogYearChangeImpl();
-                                    	List<CatalogYearChangePOJO> aca_year_pojo=s_dao.getAcademicYears();
-                                    	if(session.getAttribute("student_list")!=null)
-                                    	{
-                                    		System.out.println("*********Assigned********");
-                                    		stud_list=(List<CatalogYearChangePOJO>)session.getAttribute("student_list");
-                                    	}
-                                    	session.removeAttribute("student_list");
+                                    <%
+                                    	SchoolTransferDAO s_dao=new SchoolTransferImpl();
+                                    	List<SchoolTransferPOJO> school_pojo=s_dao.getSchoolList();
+                                    	List<SchoolTransferPOJO> aca_year_pojo=s_dao.getAcademicYears();
+                                    
                                     %>
+                                        <form action="" class="form-horizontal  login_validator" id="form_block_validator" method="post">
+                                        	 
+                                        	 <div class="form-group row">
+                                                <div class="col-lg-2 text-lg-right">
+                                                    <label class="col-form-label">Select School</label>
+                                                </div>
+                                               
+                                                <div class="col-lg-4">
+                                               		<select class="form-control chzn-select" id="school_id1" name="school_name1" onchange="standardList('school_id1','std_div_id1','DESC')">
+                                                		<option disabled selected>Select a School Name</option>
+                                                		<%
+                                                	    	for(int i=0;i<school_pojo.size();i++)
+                                                			{
+                                                	    %>
+	                                                	    	<option value="<%=school_pojo.get(i).getSchoolId()%>"><%=school_pojo.get(i).getSchool_name()%></option>
+                                                	    <%
+                                                	    	}
+                                                	    %>                                             		
+                                                	</select>
+                                               	</div>
+                                               	
+                                                <div class="col-lg-2 text-lg-right">
+                                                    <label class="col-form-label">Select School</label>
+                                                </div>
+                                               
+                                                <div class="col-lg-4">
+                                               		<select class="form-control chzn-select" id="school_id2" name="school_name2" onchange="getStdDivList();">
+                                                		<option disabled selected>Select a School Name</option> 
+                                                		<%
+                                                	    	for(int i=0;i<school_pojo.size();i++)
+                                                			{
+                                                	    %>
+	                                                	    	<option value="<%=school_pojo.get(i).getSchoolId()%>"><%=school_pojo.get(i).getSchool_name()%></option>
+                                                	    <%
+                                                	    	}
+                                                	    %>                                                		
+                                                	</select>
+                                               	</div>
+                                            </div> 
                                         
-                                        <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator" method="post">
                                             <div class="form-group row">
                                                 <div class="col-lg-2 text-lg-right">
                                                     <label class="col-form-label">Select Std/Div</label>
                                                 </div>
                                                
                                                 <div class="col-lg-4">
-                                               		<select class="form-control chzn-select" id="std_div_id1" name="std_div_name1" onchange="selectToStdDiv()">
+                                                	<input type="hidden" id="sec_id" name="sec_name"/>
+                                               		<select class="form-control chzn-select" id="std_div_id1" name="std_div_name1" onchange="getSectionsList();">
                                                 		<option disabled selected>Select a Std/Div</option>                                                		
                                                 	</select>
                                                	</div>
@@ -129,7 +159,7 @@
                                                     <label class="col-form-label">Select Std/Div</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                               		<select class="form-control chzn-select" id="std_div_id2" name="std_div_name2">
+                                               		<select class="form-control chzn-select" id="std_div_id2" name="std_div_name2" onchange="">
                                                 		<option disabled selected>Select a Std/Div</option>                                                		
                                                 	</select>
                                                	</div>
@@ -139,7 +169,7 @@
                                                     <label class="col-form-label">Select Academic Year</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                               		<select class="form-control chzn-select" id="academic_id1" name="academic_name1" onchange="getStudentDetails()">
+                                               		<select class="form-control chzn-select" id="academic_id1" name="academic_name1" onchange="getStudentDetails();getHigherSchoolList();">
                                                 		<option disabled selected>Choose a year</option>
                                                 		<%
                                                 	    	for(int i=0;i<aca_year_pojo.size();i++)
@@ -148,7 +178,7 @@
 	                                                	    	<option value="<%=aca_year_pojo.get(i).getAca_year()%>"><%=aca_year_pojo.get(i).getAca_year()%></option>
                                                 	    <%
                                                 	    	}
-                                                	    %>  
+                                                	    %>   
                                                 	</select>
                                                	</div>
                                                	
@@ -165,10 +195,31 @@
 	                                                	    	<option value="<%=aca_year_pojo.get(i).getAca_year()%>"><%=aca_year_pojo.get(i).getAca_year()%></option>
                                                 	    <%
                                                 	    	}
-                                                	    %>  
+                                                	    %>   
                                                 	</select>
                                                	</div>
                                             </div> 
+                                            
+                                           <div class="form-group row">
+                                           
+                                               <div class="col-lg-4 push-lg-4">
+                                                    <label class="custom-control custom-radio">
+                                                        <input name="radio3" type="radio" class="custom-control-input" checked>
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description"><strong>Same As Previous</strong></span>
+                                                    </label>
+                                               </div>     
+                                               <div class="col-lg-4 push-lg-2">
+                                                    <label class="custom-control custom-radio">
+                                                        <input name="radio3" type="radio" class="custom-control-input">
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description"><strong> Start From</strong></span>
+                                                    </label>
+                                               </div>
+                                                <div class="col-lg-2 push-lg-0">
+                                                    <input type="text" id="required2" name="driver_name"  value="" class="form-control" required >
+                                                </div>
+                                            </div>
                                          </form>
                                     </div>
                                 </div>
@@ -181,49 +232,56 @@
       
       
       		<!-- Table Start -->      	
-          <div class="outer" id="table_div">
+          <div class="outer" id="outer3">
                     <div class="inner bg-container">
                         <div class="card">
                             <div class="card-header bg-white">
                                 Catalog Info
-                            </div>
-                            <br>                    
-                            	    <div class="form-group row">
+                            </div>        
+                            <br>    <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label class="col-form-label">Search:</label>
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <input type="text" class="form-control focused_input" id="myInput" onkeyup="myFunction()" placeholder="Search"/>
-                                                </div>                                              
-                                            </div>
+                                                </div>
+                                            </div>                                     
                             <div class="card-block m-t-35" id="user_body">
-                                <div class="table-toolbar">
-                                    
+                                <div class="table-toolbar">                                   
                                     <div class="btn-group float-right users_grid_tools">
-                                        <div class="tools"></div>
+                                        <div class="tools">
+                                         
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
                                  <div>
-                                    <form id="form_id">
+                                    <form>
                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
-                                            <thead id="thead_id">
-	                                            <tr>
-		                                            <th>Roll no</th>
-	                                                <th>GR. No</th> 
-	                                                <th>Student Name</th>
+                                            <thead>
+	                                            <tr role="row">
+		                                            <th tabindex="0" rowspan="1" colspan="1">Roll no</th>
+	                                                <th tabindex="0" rowspan="1" colspan="1">GR. No</th> 
+	                                                <th tabindex="0" rowspan="1" colspan="1">Student Name</th>
+	                                                <th tabindex="0" rowspan="1" colspan="1">New Roll no</th>
+	                                                <th tabindex="0" rowspan="1" colspan="1">New GR. No</th> 
 	                                                <th>
-		                                            		<div id="head_id">
-		                                                    	
+		                                            		<div >
+		                                                    	<label class="custom-control custom-checkbox">
+		                                                    	    <input type="checkbox" id="check_all" class="custom-control-input" checked>
+		                                                    	    <span class="custom-control-indicator"></span>
+		                                                    	    <span class="custom-control-description">Select All</span>
+		                                                    	</label>
 		                                                	</div>                                                		
 	                                            	</th>
 	                                            </tr>
-                                            </thead>                                          
-                                            <tbody id="tbody_id">                                              
-                                             	                           		
-                                            </tbody> 
-                                        </table> 
-                                       </form>
+                                            </thead>
+                                          
+                                            <tbody id="tbody_id">
+                                                                      		
+                                            </tbody>
+                                        </table>                                        
+                                      </form>
                                     </div>
                                 </div>
                                 <!-- END EXAMPLE TABLE PORTLET-->
@@ -299,6 +357,7 @@
 <script type="text/javascript">	
 	
 var getData=[];
+
 function myFunction() {
 	  // Declare variables 
 	  var input, filter, table, tr, td, i;
@@ -327,21 +386,12 @@ function myFunction() {
 	  }
 	}
 
-function loadFunction()
+function standardList(schoolID,stdID,order)
 {
-	//getAcademicYear();
-	var ap='<label class="custom-control custom-checkbox"><input type="checkbox" id="check_all" class="custom-control-input" onclick="checkAll()" checked ><span class="custom-control-indicator"></span><span class="custom-control-description">Select All</span></label>';
-	standardList();
-	document.getElementById("head_id").innerHTML=ap;
-}
-function standardList()
-{
-	var std=<%=schoolId %>
-	if(std=="")
-	{
-		return;
-	}
-	document.getElementById("std_div_id1").innerHTML="";
+	var std=document.getElementById(schoolID).value;
+	//alert("OREDR BY "+order);
+	
+	document.getElementById(stdID).innerHTML="";
 	//document.getElementById("std_div_id2").innerHTML="";
 	//document.getElementById("stdIdAlo").innerHTML="";
 	var xhttp =new XMLHttpRequest();
@@ -363,14 +413,14 @@ function standardList()
 					i++;
 
 				}					
-				document.getElementById("std_div_id1").innerHTML+=row;
-				$("#std_div_id1").trigger('chosen:updated');
+				document.getElementById(stdID).innerHTML+=row;
+				$("#"+stdID).trigger('chosen:updated');
 				//document.getElementById("std_div_id2").innerHTML+=row;
 				//$("#std_div_id2").trigger('chosen:updated');				
 			}
 		}
 		
-		xhttp.open("POST", "/SMGMT/CatalogYearChange?standardList="+std, true);
+		xhttp.open("POST", "/SMGMT/SchoolTransfer?standardList="+std+"&order="+order, true);
 		xhttp.send();
 	}
 	catch(e)
@@ -382,44 +432,60 @@ function getStudentDetails()
 {
 	var id=document.getElementById("std_div_id1").value;
 	var year=document.getElementById("academic_id1").value;
-	var markup="";
 	var xhttp =new XMLHttpRequest();
 	try{
 		xhttp.onreadystatechange = function(){
-			if(this.readyState == 4 && this.status == 200)
-			{
-				//alert("Refresh")
-				//$("#editable_table").load( "addCatalogYearChange.jsp #editable_table");
-				//$("#editable_table").trigger("chosen:updated");
-				//$("#editable_table").ajax.reload();
-				
+			if(this.readyState == 4 && this.status == 200){
 				getData=this.responseText.split("~");
 				$("#editable_table > tbody").empty();
 				//alert("GetData : "+getData.length)
-				var myTable = document.getElementById('editable_table');
-				//myTable.rows[0].cells[1].innerHTML = 'Hello';
 				for(var i=0;i<getData.length-1;i++)
 				{
 					var info=getData[i].split("/");
-					//myTable.rows[i+1].cells[0].innerHTML = info[0];
-					//myTable.rows[i+1].cells[1].innerHTML = info[1];
-					//myTable.rows[i+1].cells[2].innerHTML = info[2];
 					var markup = "<tr><td>"+info[0]+"</td> <td>"+info[1]+"</td> <td>"+info[2]+"</td>";					
-					markup+= "<td> <label class='custom-control custom-checkbox'><input type='checkbox' name="+info[0]+" id="+i+" class='custom-control-input' onclick='selectStudents(this.id)'><span class='custom-control-indicator'></span></label></td></tr>";
+					markup += "<td>"+info[1]+"</td> <td>"+info[1]+"</td>";
+					markup+= "<td> <input type='checkbox' name="+info[0]+" id="+i+" onclick='selectStudents(this.id)'></td></tr>";
 					$("table tbody").append(markup);					
 					document.getElementById(i).checked = true;
+					
 					//alert("Checked "+document.getElementById(info[0]).id);
-				}
+				}						
 			}
 		}
 		
-		xhttp.open("POST", "/SMGMT/CatalogYearChange?studentList="+id+"&year="+year, true);
+		xhttp.open("POST", "/SMGMT/SchoolTransfer?studentList="+id+"&year="+year, true);
 		xhttp.send();
 	}
 	catch(e)
 	{
 		alert("Unable to Connect Server!");
 	}
+}
+function getSectionsList()
+{
+	var std_id=document.getElementById("std_div_id1").value;
+	//alert(std_id);
+	var xhttp =new XMLHttpRequest();
+	try
+	{
+		xhttp.onreadystatechange = function()
+		{
+			if(this.readyState == 4 && this.status == 200)
+			{
+				var sec_id=this.responseText;
+				document.getElementById("sec_id").value=sec_id;
+				//alert("Section ID : "+document.getElementById("sec_id").value);
+			}
+		}
+		
+		xhttp.open("POST", "/SMGMT/SchoolTransfer?sectionList="+std_id, true);
+		xhttp.send();
+	}
+	catch(e)
+	{
+		alert("Unable to Connect Server!");
+	}
+
 }
 function selectStudents(ap)
 {
@@ -492,20 +558,97 @@ function selectToStdDiv()
 	document.getElementById("std_div_id2").innerHTML+=row;
 	
 }
-function checkAll()
+function getHigherSchoolList()
 {
-	//alert("Called..")
+		document.getElementById("school_id2").innerHTML="";
+		alert("School ID : "+document.getElementById("school_id1").value+" Section ID : "+document.getElementById("sec_id").value);
+		var sec_id=document.getElementById("sec_id").value;
+		//alert(std_id);
+		var xhttp =new XMLHttpRequest();
+		try
+		{
+			xhttp.onreadystatechange = function()
+			{
+				if(this.readyState == 4 && this.status == 200)
+				{
+					var i=0;
+					var schoolList=this.responseText.split("/");
+					alert("GetData : "+schoolList.length)
+					var row="<option disabled selected>Select a School Name</option>";
+					for(;i<schoolList.length-1;)
+					{
+							row += "<option value="+schoolList[i]+">";
+							i++;
+							row += schoolList[i]+"</option>";
+							//alert(schoolList[i]);
+							i++;
+							
+					}
+					document.getElementById("school_id2").innerHTML+=row;
+					$("#school_id2").trigger('chosen:updated');
+				}
+			}
+			
+			xhttp.open("POST", "/SMGMT/SchoolTransfer?sectionID="+sec_id, true);
+			xhttp.send();
+		}
+		catch(e)
+		{
+			alert("Unable to Connect Server!");
+		}
+}
+function getStdDivList()
+{
+	var sec_id=document.getElementById("sec_id").value;
+	var school_id=document.getElementById("school_id2").value;
+	document.getElementById("std_div_id2").innerHTML="";
+	alert("Sec : "+sec_id+"School ID : "+school_id);
+	var xhttp =new XMLHttpRequest();
+	try
+	{
+		xhttp.onreadystatechange = function()
+		{
+			if(this.readyState == 4 && this.status == 200)
+			{
+				var i=0;
+				var stdList=this.responseText.split("/");
+				alert("Std1 : "+stdList[0]+"Std2 : "+stdList[1]+"Std3 : "+stdList[2]+"Std4 : "+stdList[3])
+				var row="<option disabled selected>Select a Std/Div</option>";
+				for(;i<stdList[i].length-1;)
+				{
+					row += "<option value="+stdList[i]+">";
+					i++;
+					row += stdList[i] ;
+					i++;
+					row += "\t"+stdList[i] +"\t( ";
+					i++;
+					row += stdList[i]+ ")</option>";
+					i++;
+						
+				}
+				document.getElementById("std_div_id2").innerHTML+=row;
+				$("#std_div_id2").trigger('chosen:updated');
+			}
+		}
+		
+		xhttp.open("POST", "/SMGMT/SchoolTransfer?sectionID1="+sec_id+"&schoolID1="+school_id, true);
+		xhttp.send();
+	}
+	catch(e)
+	{
+		alert("Unable to Connect Server!");
+	}
+}
+/* function checkAll()
+{
 	var i=0;
-	//$("#"+i).prop("checked", false);
 	//document.getElementById(0).checked=false;
-	 if(document.getElementById("check_all").checked)
+	/* if(document.getElementById("check_all").checked)
 		{
 			while(i<getData.length)
-			{		
-				//alert("Called..")
-				$("#"+i).prop("checked", true);
-				document.getElementById("btn_id").disabled=false;
-				//document.getElementById(i).checked=true;
+			{				
+				//$("#"+i).prop("checked", true);
+				document.getElementById(i).checked=true;
 				//document.getElementById("fee"+i).innerHTML=fee;
 				i++;
 			}	
@@ -516,12 +659,11 @@ function checkAll()
 				while(i<getData.length)
 				{
 					document.getElementById(i).checked=false;
-					document.getElementById("btn_id").disabled=true;
 					i++;
 				}	
 		} 
 
-} 
+} */
 </script>
 
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>

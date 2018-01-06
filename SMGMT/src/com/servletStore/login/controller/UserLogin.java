@@ -75,37 +75,6 @@ public class UserLogin extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		
-		
-		/*//redirecting
-		if(request.getParameter("login")!=null) 
-		{
-			response.sendRedirect("/SMGMT/dashboard.jsp");
-		}
-		
-		//ajax checking status of user
-		if(request.getParameter("getStatus")!=null) 
-		{
-			UserLoginDAO uldao=new UserLoginImpl();
-			String username=request.getParameter("username").trim();
-			String password=request.getParameter("password").trim();
-			UserLoginPojo ul=new UserLoginPojo();
-			ul.setUsername(username);
-			ul.setPassword(password);
-			
-			String status=uldao.getLoginStatus(ul);
-			
-			if(status.equals("noData")) {
-				out.print("0");
-			}
-			else if(status.equals("wrongUser")) {
-				out.print("2");
-			}
-			else if(status.equals("success")) {
-				out.print("1");
-			}
-			
-		}*/	
 	}
 
 }

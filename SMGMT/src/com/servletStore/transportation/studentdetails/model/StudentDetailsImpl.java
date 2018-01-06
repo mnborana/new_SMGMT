@@ -40,11 +40,11 @@ public class StudentDetailsImpl implements StudentDetailsDAO
 				pojo.setStd(rs.getString(4));
 				pojo.setDiv(rs.getString(5));
 				pojo.setGrNo(rs.getString(3));
-				System.out.println("Id:"+rs.getInt(1));
-				System.out.println("Name:"+rs.getString(2));
-				System.out.println("GR No:"+rs.getString(3));
-				System.out.println("STD:"+rs.getString(4));
-				System.out.println("Div:"+rs.getString(5));
+			//	System.out.println("Id:"+rs.getInt(1));
+				//System.out.println("Name:"+rs.getString(2));
+				//System.out.println("GR No:"+rs.getString(3));
+				///System.out.println("STD:"+rs.getString(4));
+				//System.out.println("Div:"+rs.getString(5));
 				list.add(pojo);
 				
 			}

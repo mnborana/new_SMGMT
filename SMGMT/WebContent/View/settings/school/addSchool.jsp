@@ -126,7 +126,7 @@
                                             <tr role="row">
                                                 <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No</th>
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">School Name</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Select Section</th>
+                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Section</th>
                                                 <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Address</th>
                                                	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Phone No</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Medium</th>
@@ -148,15 +148,19 @@
                                         	SchoolPOJO Pojo=(SchoolPOJO)itr1.next();
                                         	int id1=((SchoolPOJO)Pojo).getId();  
                                         	String sectionList=schooldao.selectSection(id1);
-                                        
+                                        	String secList=null;
+                                        	if (sectionList != null && sectionList.length() > 0 && sectionList.charAt(sectionList.length() - 1) == ',') {
+                                        		secList=sectionList.substring(0, sectionList.length()-1);
+                                            }
+                                        	
                                         %>
                                       <tr class="gradeX">
 										<td id="<%=id1%>"><%=count%></td>
 										<td><%=((SchoolPOJO)Pojo).getSchoolName()%></td>
-										<td><%=sectionList%></td>
-										<td><%=((SchoolPOJO)Pojo).getAddress()%></td>
-										<td><%=((SchoolPOJO)Pojo).getPhoneno()%></td>
-										<td><%=((SchoolPOJO)Pojo).getMedium()%></td>
+										<td><%if(secList!=null){%><%=secList%><%} %></td>
+										<td><%if(((SchoolPOJO)Pojo).getAddress()!=null){%><%=((SchoolPOJO)Pojo).getAddress()%><%} %></td>
+										<td><%if(((SchoolPOJO)Pojo).getPhoneno()!=null){%><%=((SchoolPOJO)Pojo).getPhoneno()%><%} %></td>
+										<td><%if(((SchoolPOJO)Pojo).getMedium()!=null){%><%=((SchoolPOJO)Pojo).getMedium()%><%} %></td>
                   								<td>
                                         			<a class="edit" data-toggle="modal" data-placement="top" title="Update" href="#update" onclick="searchSchool(<%=id1%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
                                         			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href=""><i class="fa fa-trash text-danger"></i></a>
@@ -192,7 +196,7 @@
 							        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
 							      </span>
                                 </div>
-                            </div>[]
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -223,107 +227,131 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Address *</label>
+                                                    <label for="required2" class="col-form-label"> Medium*</label>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input type="text" id="schoolAddress" name="school_address" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
-                                                </div>                                                
-                                         
+                                                    <input type="text" id="medium" name="medium" onkeyup="this.value = this.value.toUpperCase()" class="form-control"  >
+                                                </div>
+                                                
+                                                
+                                                
+                                                 
                                             </div>
                                             
                                             
                                              <div class="form-group row">
+                                                
+                                                <div class="col-lg-3  text-lg-right">
+                                                    <label for="required2" class="col-form-label"> Address *</label>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="text" id="schoolAddress" name="school_address" onkeyup="this.value = this.value.toUpperCase()" class="form-control"  >
+                                                </div>                                                
+                                        
+                                                
+                                                
                                                                                    
-                                             <div class="col-lg-3  text-lg-right">
+                                             <div class="col-lg-2  text-lg-right">
                                                     <label for="required2" class="col-form-label"> Slogan *</label>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input type="text" id="sloganId" name="slogan" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
+                                                    <input type="text" id="sloganId" name="slogan" onkeyup="this.value = this.value.toUpperCase()" class="form-control"  >
                                                 </div>
                                                 
-                                                 <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Index No *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="indexNo" name="index_no" class="form-control" required >
-                                                </div>
+                                                 
                                                 
                                             </div>
                                             
                                             <div class="form-group row">                                     
                                             
                                                 <div class="col-lg-3  text-lg-right">
+                                                    <label for="required2" class="col-form-label"> Index No *</label>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="text" id="indexNo" name="index_no" class="form-control"  >
+                                                </div>
+                                                
+                                                <div class="col-lg-2  text-lg-right">
                                                     <label for="required2" class="col-form-label"> Licence No *</label>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input type="text" id="licenceNo" name="licence_no" class="form-control" required >
+                                                    <input type="text" id="licenceNo" name="licence_no" class="form-control"  >
                                                 </div>
-                                                     <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> UDISE *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="udise" name="udise" class="form-control" required >
-                                                </div>
+                                                
+                                                
                                                 
                                             </div>
                                             
                                             <div class="form-group row">                                          
                                             
                                                 <div class="col-lg-3  text-lg-right">
+                                                    <label for="required2" class="col-form-label"> UDISE *</label>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="text" id="udise" name="udise" class="form-control"  >
+                                                </div>
+                                                
+                                                <div class="col-lg-2  text-lg-right">
                                                     <label for="required2" class="col-form-label"> School Code *</label>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input type="text" id="schoolCode" name="school_code" class="form-control" required >
+                                                    <input type="text" id="schoolCode" name="school_code" class="form-control"  >
                                                 </div>
-                                                 <div class="col-xl-2 text-xl-right">
-                                                    <label for="required2" class="col-form-label">E-mail *</label>
-                                                </div>
-                                                <div class="col-xl-3">
-                                                    <input type="email" id="emailId" name="email_id" class="form-control">
-                                                </div>
+                                                 
                                                 
                                             </div>   
                                             
                                            <div class="form-group row">
                                                
+                                               <div class="col-xl-3 text-xl-right">
+                                                    <label for="required2" class="col-form-label">E-mail *</label>
+                                                </div>
+                                                <div class="col-xl-3">
+                                                    <input type="email" id="emailId" name="email_id" class="form-control">
+                                                </div>
+                                               
                                            
-                                                <div class="col-lg-3  text-lg-right">
+                                                <div class="col-lg-2  text-lg-right">
                                                     <label for="required2" class="col-form-label">Phone No *</label>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input type="text" id="phoneNo" name="phone_no" class="form-control" required >
+                                                    <input type="text" id="phoneNo" name="phone_no" class="form-control"  >
                                                 </div>
                                                 
-                                                <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Board *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="board" name="board" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
-                                                </div>
+                                                
                                                 
                                             </div>
                                             
                                             <div class="form-group row">
-                                                                                           
+                                                
                                                 <div class="col-lg-3  text-lg-right">
+                                                    <label for="required2" class="col-form-label"> Board *</label>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="text" id="board" name="board" onkeyup="this.value = this.value.toUpperCase()" class="form-control"  >
+                                                </div>
+                                                                                           
+                                                <div class="col-lg-2  text-lg-right">
                                                     <label for="required2" class="col-form-label"> Punit Code*</label>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input type="text" id="PunitCode" name="punit_code" class="form-control" required >
-                                                </div>
-                                                
-                                                <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Center *</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="center" name="center" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
+                                                    <input type="text" id="PunitCode" name="punit_code" class="form-control"  >
                                                 </div>
                                                 
                                             </div>
                                             
                                             <div class="form-group row">                                                
                                             
-                                                <div class="col-lg-3 text-lg-right">
+                                                <div class="col-lg-3  text-lg-right">
+                                                    <label for="required2" class="col-form-label"> Center *</label>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="text" id="center" name="center" onkeyup="this.value = this.value.toUpperCase()" class="form-control"  >
+                                                </div>
+                                                
+                                                
+                                                
+                                                <div class="col-lg-2 text-lg-right">
                                                     <label class="col-form-label" for="required2">Date *</label>
                                                 </div>
                                                 <%
@@ -334,33 +362,45 @@
                                                     <input type="text" class="form-control form_val_popup_dp3" id="date" name="date_time" value="<%=requireddate.todayDate()%>"/>
                                                 </div>
                                                 
-                                                <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Jubilee Year*</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="jubileeYear" name="jubileeYear" class="form-control" required >
-                                                </div>
-                                                
-                                                
                                             </div>
                                             
                                             <div class="form-group row">                                                
                                            
-                                                <div class="col-lg-3  text-lg-right">
+                                           		<div class="col-lg-3  text-lg-right">
+                                                    <label for="required2" class="col-form-label"> Jubilee Year*</label>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="text" id="jubileeYear" name="jubileeYear" class="form-control"  >
+                                                </div>
+                                           		
+                                                <div class="col-lg-2  text-lg-right">
                                                     <label for="required2" class="col-form-label"> Establish Year*</label>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input type="text" id="establishYear" name="establishYear" class="form-control" required >
+                                                    <input type="text" id="establishYear" name="establishYear" class="form-control"  >
                                                 </div>
                                                 
-                                                 <div class="col-lg-2  text-lg-right">
-                                                    <label for="required2" class="col-form-label"> Medium*</label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="text" id="medium" name="medium" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required >
-                                                </div>
+                                                 
                                                 
                                             </div>
+                                            
+                                            <div class="form-group row">    
+                                            
+                                            
+                                            	<div class="col-lg-3  text-lg-right">
+                                                    <label for="" class="col-form-label"> Select Section *</label>
+                                                </div>
+                                                
+                                                
+                                                <div class="col-lg-8">
+                                                	<select size="3" multiple class="form-control chzn-select" id="secList" name="sectionList" >
+                                                    	
+                                                    </select>
+                                    
+                                                </div>                                            
+                                           	
+                                           		
+                                           	</div>
                                 
                           				  <div class="modal-footer">
                          					   <button class="btn  btn-success" type="submit" name="updateSchool">Submit</button>
@@ -442,7 +482,6 @@
 
 	function searchSchool(id) {
 		
-		alert(id);
 		var xhttp;
 		xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
@@ -451,23 +490,74 @@
 				var demoStr = this.responseText.split(",");
 					
 				document.getElementById("Updateid").value = demoStr[0];				 
-				document.getElementById("schoolName").value = demoStr[1];	
-				document.getElementById("schoolAddress").value = demoStr[2];
-				document.getElementById("sloganId").value = demoStr[3];
-				document.getElementById("indexNo").value = demoStr[4];
-				document.getElementById("licenceNo").value = demoStr[5];
-				document.getElementById("udise").value = demoStr[6];
-				document.getElementById("schoolCode").value = demoStr[7];
-				document.getElementById("emailId").value = demoStr[8];
-				document.getElementById("phoneNo").value = demoStr[9];
-				document.getElementById("board").value = demoStr[10];
-				document.getElementById("PunitCode").value = demoStr[11];
-				document.getElementById("center").value = demoStr[12];
-				document.getElementById("date").value = demoStr[13];
-				document.getElementById("jubileeYear").value = demoStr[14];
-				document.getElementById("establishYear").value = demoStr[15];
-				document.getElementById("medium").value = demoStr[16];		
-			     
+				document.getElementById("schoolName").value = demoStr[1];
+				
+				if(demoStr[2]=='null'){document.getElementById("schoolAddress").value = '';}
+				else{document.getElementById("schoolAddress").value = demoStr[2];}
+				
+				if(demoStr[3]=='null'){document.getElementById("sloganId").value = '';}
+				else{document.getElementById("sloganId").value = demoStr[3];}
+				
+				if(demoStr[4]=='null'){document.getElementById("indexNo").value = '';}
+				else{document.getElementById("indexNo").value = demoStr[4];}
+				
+				if(demoStr[5]=='null'){document.getElementById("licenceNo").value = '';}
+				else{document.getElementById("licenceNo").value = demoStr[5];}
+				
+				if(demoStr[6]=='null'){document.getElementById("udise").value = '';}
+				else{document.getElementById("udise").value = demoStr[6];}
+				
+				if(demoStr[7]=='null'){document.getElementById("schoolCode").value = '';}
+				else{document.getElementById("schoolCode").value = demoStr[7];}
+				
+				if(demoStr[8]=='null'){document.getElementById("emailId").value = '';}
+				else{document.getElementById("emailId").value = demoStr[8];}
+				
+				if(demoStr[9]=='null'){document.getElementById("phoneNo").value = '';}
+				else{document.getElementById("phoneNo").value = demoStr[9];}
+				
+				if(demoStr[10]=='null'){document.getElementById("board").value = '';}
+				else{document.getElementById("board").value = demoStr[10];}
+				
+				if(demoStr[11]=='null'){document.getElementById("PunitCode").value = '';}
+				else{document.getElementById("PunitCode").value = demoStr[11];}
+				
+				if(demoStr[12]=='null'){document.getElementById("center").value = '';}
+				else{document.getElementById("center").value = demoStr[12];}
+				
+				if(demoStr[13]=='null'){document.getElementById("date").value = '';}
+				else{document.getElementById("date").value = demoStr[13];}
+				
+				if(demoStr[14]=='null'){document.getElementById("jubileeYear").value = '';}
+				else{document.getElementById("jubileeYear").value = demoStr[14];}
+				
+				if(demoStr[15]=='null'){document.getElementById("establishYear").value = '';}
+				else{document.getElementById("establishYear").value = demoStr[15];}
+				
+				if(demoStr[16]=='null'){document.getElementById("medium").value = '';}
+				else{document.getElementById("medium").value = demoStr[16];}
+						
+				//document.getElementById("sectionList").value = demoStr[16];
+				var demo=demoStr[17].split("@");
+				var i=0;
+				var section ="" ;
+				document.getElementById("secList").innerHTML="";
+				for(;demo[i];)
+				{
+					
+					section+="<option value='"+demo[i]+"'>";
+					i++;
+					
+					section += demo[i]+"</option>";
+					i++;
+					
+					
+				}
+				
+				document.getElementById("secList").innerHTML=section;
+				$('#secList').trigger('chosen:updated');
+				//alert(demo);
+				
 				}
 			};
 		xhttp.open("POST","/SMGMT/School?schoolid="+id, true);

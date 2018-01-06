@@ -1,9 +1,9 @@
-package com.servletStore.attendance.catalogYearChange.model;
+package com.servletStore.attendance.schoolTransfer.model;
 
-public class CatalogYearChangePOJO 
+public class SchoolTransferPOJO 
 {
 	private int id;
-	private String gr_no,name,roll_no,std,div,aca_year;
+	private String gr_no,name,roll_no,std,div,school_name,aca_year,shift;
 	private String schoolId;
 	public int getId() {
 		return id;
@@ -47,10 +47,22 @@ public class CatalogYearChangePOJO
 	public void setSchoolId(String schoolId) {
 		this.schoolId = schoolId;
 	}
+	public String getSchool_name() {
+		return school_name;
+	}
+	public void setSchool_name(String school_name) {
+		this.school_name = school_name;
+	}
 	public String getAca_year() {
 		return aca_year;
 	}
 	public void setAca_year(String aca_year) {
 		this.aca_year = aca_year;
+	}
+	public String getShift() {
+		return shift;
+	}
+	public void setShift(String shift) {
+		this.shift = shift;
 	}
 }

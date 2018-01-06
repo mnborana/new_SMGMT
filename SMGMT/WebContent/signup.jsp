@@ -9,6 +9,7 @@
 <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_select2,_css,_select2.min.css+vendors,_bootstrapvalidator,_css,_bootstrapValidator"/>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<jsp:include page="/View/common/commonCss.jsp"></jsp:include>
 <title>Sign Up</title>
 </head>
 <body>
@@ -37,12 +38,24 @@ z-index: 999999">
                 <div class="col-lg-6 push-lg-3 col-sm-10 push-sm-1">
                     <div class="login_logo login_border_radius1">
                         <h3 class="text-center">
-                            <img src="/SMGMT/config/img/logow2.png.pagespeed.ce.3qFWgMzjGO.png" alt="josh logo" class="admire_logo"><span class="text-white"> ADMIRE<br/>
+                            <img src="/SMGMT/config/img/logow2.png.pagespeed.ce.3qFWgMzjGO.png" alt="josh logo" class="admire_logo"><span class="text-white"> VERTICAL SOFT<br/>
                                 Sign Up</span>
                         </h3>
                     </div>
                     <div class="bg-white login_content login_border_radius">
                         <form class="form-horizontal login_validator m-b-20" id="register_valid" action="#" method="post">
+                            
+                            <div class="form-group row">
+                            	<div class="col-sm-12">
+	                                <label for="user" class="col-form-label"> Select School</label>
+	                                <div class="input-group">
+	                                    <select class="form-control chzn-select" name="loginYear">
+	                                    		<option value="">School Name</option>
+	                                    </select>
+	                                </div>
+                                </div>
+                            </div>
+                           
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <label for="username" class="col-form-label">Username *</label>
@@ -97,34 +110,7 @@ z-index: 999999">
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-form-label">Gender</label>
-                                </div>
-                                <div class="col-sm-2 col-12">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" name="radio" class="custom-control-input form-control">
-                                        <span class="custom-control-indicator"></span>
-                                        <a class="custom-control-description">Male</a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-2 col-12">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" name="radio" class="custom-control-input form-control">
-                                        <span class="custom-control-indicator"></span>
-                                        <a class="custom-control-description">Female</a>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-9">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input form-control">
-                                        <span class="custom-control-indicator"></span>
-                                        <a class="custom-control-description">Send me latest news and updates.</a>
-                                    </label>
-                                </div>
-                            </div>
+                            
                             <div class="form-group row">
                                 <div class="col-sm-9">
                                     <input type="submit" value="Submit" class="btn btn-primary"/>
@@ -159,5 +145,6 @@ z-index: 999999">
 'use strict';$(document).ready(function(){new WOW().init();$(window).on("load",function(){$('.preloader img').fadeOut();$('.preloader').fadeOut(1000);});$('#register_valid').bootstrapValidator({fields:{UserName:{validators:{notEmpty:{message:'The user name is required and cannot be empty'}}},email:{validators:{notEmpty:{message:'The email address is required'},regexp:{regexp:/^\S+@\S{1,}\.\S{1,}$/,message:'The input is not a valid email address'}}},password:{validators:{notEmpty:{message:'Please provide a password'}}},confirmpassword:{validators:{notEmpty:{message:'The confirm password is required and can\'t be empty'},identical:{field:'password',message:'Please enter the same password as above'}}},phone:{validators:{notEmpty:{message:'Please enter valid phone number'},regexp:{regexp:/^[0-9]{10}$/,message:'The phone number can only consist of numbers with 10 digits'}}},check:{validators:{notEmpty:{message:'Check on the field'}}}}});});
 //]]></script>
 <!-- end of page level js -->
+<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 </body>
 </html>
