@@ -2661,7 +2661,7 @@
 				checkString = checkString
 						+ "<div id='checkContain"+count+"'><div class='checkbox' style='margin-top: "+margin+"px;margin-left: 30px;'>"
 						+ "<label class='text-success'>"
-						+ "<input type='checkbox' value='' id='checkBox"
+						+ "<input type='checkbox' value='1' name='checkBox"+count+"' id='checkBox" 
 						+ count
 						+ "' onclick='upass("
 						+ count

@@ -23,6 +23,7 @@ import com.servletStore.transportation.driver.model.DriverPOJO;
 /**
  * Servlet implementation class AssignRoute
  */
+//@WebServlet("/AssignRoute")
 public class AssignRoute extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,22 +42,35 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		AssignRouteDAO assignDAO=new AssignRouteImpl();
 		boolean redirect=true;
 		//add-CasteCategory
-		if(request.getParameter("assign_route_btn")!=null){
+		if(request.getParameter("assign_route_btn")!=null)
+		{
 			
 			String veh_no=request.getParameter("vehicle_no");
-			String route_name=request.getParameter("route_name");
-			System.out.println(veh_no+"  "+route_name);
-			assignPOJO.setVeh_id(Integer.parseInt(veh_no));
-			assignPOJO.setRoute_id(Integer.parseInt(route_name));
+			String[] route_name=request.getParameterValues("route_name");
+			System.out.println(veh_no+" casdfg "+route_name);
+			
+			if(!request.getParameter("vehicle_no").trim().equals(""))
+			{
+				assignPOJO.setVeh_id(Integer.parseInt(veh_no));
+			}
+		
+			
+			for(int i=0;i<route_name.length;i++)
+			{
+				System.out.println("routes are: "+route_name[i]);
+			assignPOJO.setRoute_id(Integer.parseInt(route_name[i]));
+			assignDAO.assignRoute(assignPOJO);
+			}
 			//assignPOJO.setVeh_no(veh_no);
 			//assignPOJO.setRoute_name(route_name);
-			assignDAO.assignRoute(assignPOJO);
-			System.out.println("OOOOOOOOOOUUUUUUUUUUUUUUTTTTTT");
+			
+			//System.out.println("OOOOOOOOOOUUUUUUUUUUUUUUTTTTTT");
 		}
 		else if(request.getParameter("updateAssign")!=null)
 		{
 			assignPOJO.setId(Integer.parseInt(request.getParameter("UpdateId")));
 			//assignPOJO.setVeh_no(request.getParameter("vehicle_no"));
+			
 			assignPOJO.setVeh_id(Integer.parseInt(request.getParameter("vehicle_no")));
 			//assignPOJO.setRoute_name(request.getParameter("route_name"));
 			assignPOJO.setRoute_id(Integer.parseInt(request.getParameter("route_name")));

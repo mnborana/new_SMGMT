@@ -125,7 +125,7 @@
 
 
 
- 										<form action="/SMGMT/Route?id=<%=id %>" class="form-horizontal  login_validator" method="post" id="form_block_validator">
+ 										<form action="/SMGMT/RouteADD?id=<%=id %>" class="form-horizontal  login_validator" method="post" id="form_block_validator">
                                         
                                       
                                             
@@ -186,7 +186,7 @@
                                         <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
                                             <thead>
                                             <tr role="row">
-                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">ID</th>
+                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Sr No</th>
                                                 <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Route Code</th>
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Route Name</th>
                                                 
@@ -208,7 +208,7 @@
                                             	{
                                             %>
                                             	<tr role="row" class="even">
-		                                      		<td class="sorting_1"><%=ap.get(i).getId()%></td>
+		                                      		<td class="sorting_1"><%=i+1%></td>
                                             		<td><%=ap.get(i).getRoute_code()%></td>
                                             		<td><%=ap.get(i).getRoute_name() %></td>
                                             		

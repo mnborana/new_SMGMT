@@ -15,5 +15,7 @@ public interface UserLoginDAO {
 	public List getSessionDetails(String userName) throws SQLException;
 	
 	public List getYear() throws SQLException;
+	
+	public String getSchoolName(String schoolId) throws SQLException;
 
 }

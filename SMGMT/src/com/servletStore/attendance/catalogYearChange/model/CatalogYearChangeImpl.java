@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dbconnect.DBConnection;
+import com.servletStore.attendance.schoolTransfer.model.SchoolTransferPOJO;
 import com.servletStore.student.model.StudentPojo;
 
 public class CatalogYearChangeImpl implements CatalogYearChangeDAO
@@ -52,9 +53,28 @@ public class CatalogYearChangeImpl implements CatalogYearChangeDAO
 	}
 
 	@Override
-	public void UpdateCatalog(CatalogYearChangePOJO cp) {
-		// TODO Auto-generated method stub
-		
+	public void UpdateCatalog(String stddiv_id,String year,List<String> stud_ids) 
+	{
+		try
+		{
+			System.out.println("*************");
+			for(int i=0;i<stud_ids.size();i++)
+			{
+				System.out.println(stddiv_id);
+				System.out.println(year);
+				System.out.println(stud_ids.get(i));
+				pstmt=connection.prepareStatement("UPDATE class_allocation SET classroom_master=?,academic_year=? WHERE student_id=?");
+				pstmt.setInt(1, Integer.parseInt(stddiv_id));
+				pstmt.setString(2,year);
+				pstmt.setInt(3, Integer.parseInt(stud_ids.get(i)));
+				pstmt.executeUpdate();
+				System.out.println("INSERTED...");
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public List<CatalogYearChangePOJO> getStudentList(String id,String year) 
@@ -79,11 +99,11 @@ public class CatalogYearChangeImpl implements CatalogYearChangeDAO
 				pojo.setGr_no(rs.getString("gr_no"));
 				pojo.setName(rs.getString("first_name")+" "+rs.getString("middle_name")+" "+rs.getString("last_name"));
 				studList.add(pojo);
-				System.out.println(rs.getInt("id"));				
-				System.out.println(rs.getString("first_name"));
-				System.out.println(rs.getString("middle_name"));
-				System.out.println(rs.getString("last_name"));
-				System.out.println(rs.getString("gr_no"));
+				System.out.println("IDDDDDD:"+rs.getInt("id"));				
+//				System.out.println(rs.getString("first_name"));
+//				System.out.println(rs.getString("middle_name"));
+//				System.out.println(rs.getString("last_name"));
+//				System.out.println(rs.getString("gr_no"));
 			}
 		} 
 		catch (SQLException e) 
@@ -91,6 +111,28 @@ public class CatalogYearChangeImpl implements CatalogYearChangeDAO
 			e.printStackTrace();
 		}
 		return studList;
+	}
+	@Override
+	public List<CatalogYearChangePOJO> getAcademicYears() {
+		ResultSet rs = null;
+		String query="SELECT * FROM academy_year;";		
+		List<CatalogYearChangePOJO> aca_year=new ArrayList<>();
+		try 
+		{
+			pstmt=connection.prepareStatement(query);
+			rs=pstmt.executeQuery();			
+			while (rs.next()) 
+			{
+				CatalogYearChangePOJO pojo=new CatalogYearChangePOJO();
+				pojo.setAca_year(rs.getString("year"));
+				aca_year.add(pojo);
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return aca_year;
 	}
 
 }

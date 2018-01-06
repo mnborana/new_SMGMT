@@ -43,6 +43,9 @@ public class School extends HttpServlet {
 			int id=Integer.parseInt(schoolId);
 			
 			List list1=schoolDAO.selectSchoolDetails(schoolPojo,id);
+			
+			List getSectionDetails=schoolDAO.getSection();
+			
 			Iterator itr=list1.iterator();
 			while(itr.hasNext())
 			{
@@ -82,7 +85,19 @@ public class School extends HttpServlet {
 				
 				String medium=((SchoolPOJO)schoolPojo1).getMedium();
 				
-				out.print(id1+","+schoolName+","+address+","+slogan+","+indexNo+","+licenceNo+","+udise+","+schoolCode+","+email+","+phoneNo+","+board+","+punitCode+","+center+","+date+","+jubileeYear+","+establishYear+","+medium);
+				//int secId=schoolPojo1.getSection_id();
+				
+				//String section=schoolPojo1.getSectionName();
+				
+				
+				out.print(id1+","+schoolName+","+address+","+slogan+","+indexNo+","+licenceNo+","+udise+","+schoolCode+","+email+","+phoneNo+","+board+","+punitCode+","+center+","+date+","+jubileeYear+","+establishYear+","+medium+",");
+			}
+			
+			List getSecDetails=schoolDAO.getSectionDetails();
+			Iterator itr1=getSecDetails.iterator();
+			while(itr1.hasNext())
+			{
+				out.print(itr1.next()+"@");
 			}
 		}
 		
@@ -107,6 +122,7 @@ public class School extends HttpServlet {
 			String jubileeYear=request.getParameter("jubileeYear");
 			String establishYear=request.getParameter("establishYear");
 			String medium=request.getParameter("medium");
+			String[] section=request.getParameterValues("sectionList");
 			
 						
 			schoolPojo.setId(id);
@@ -127,7 +143,15 @@ public class School extends HttpServlet {
 			schoolPojo.setEstablishYear(establishYear);
 			schoolPojo.setMedium(medium);
 			
-			
+			if(section!=null)
+			{
+				for(int i=0;i<section.length;i++)
+				{
+					//out.println();
+					schoolDAO.insertSchoolSection(id, Integer.parseInt(section[i]));
+					//schoolPojo.setSection_id(Integer.parseInt(section[i]));
+				}
+			}
 			
 			schoolDAO.updateSchoolDetails(schoolPojo);			
 			response.sendRedirect("View/settings/school/addSchool.jsp");		

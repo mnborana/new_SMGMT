@@ -23,40 +23,9 @@ public class SchoolImpl implements SchoolDAO{
 	
 	
 	PreparedStatement pstmt = null;
-
-
-
-
-	public List<SchoolPOJO> getSchoolInfo() {
-				
-		List<SchoolPOJO> list=new ArrayList<SchoolPOJO>();
-		
-		String select="SELECT `id`,`name` FROM `sections_master`";
-		
-		try {
-			pstmt=conn.prepareStatement(select);
-			ResultSet rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				SchoolPOJO pojo=new SchoolPOJO();
-				
-				pojo.setSection_id(rs.getInt("id"));
-				pojo.setSectionName(rs.getString("name"));
-				list.add(pojo);
-			
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-		
-		
-		
-	}
-
-
-
 	
+	
+
 	public List<SchoolPOJO> getSchoolDetails() 
 	{
 		List<SchoolPOJO> list=new ArrayList<SchoolPOJO>();
@@ -129,8 +98,6 @@ public class SchoolImpl implements SchoolDAO{
 		
 	}
 
-
-
 	@Override
 	public List<SchoolPOJO> getSection() {
 		List<SchoolPOJO> list=new ArrayList<SchoolPOJO>();
@@ -167,6 +134,7 @@ public class SchoolImpl implements SchoolDAO{
 			pstmt=conn.prepareStatement(selectModalDetails);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
+			
 			while (rs.next()) {
 				SchoolPOJO pojo=new SchoolPOJO();
 								
@@ -293,11 +261,52 @@ public class SchoolImpl implements SchoolDAO{
 
 
 
+		@Override
+		public List getSectionDetails() {
+			
+			List list=new ArrayList();
+			
+			String select="SELECT `id`,`name` FROM `sections_master`";
+			try {
+				pstmt=conn.prepareStatement(select);
+				ResultSet rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					
+					list.add(rs.getInt("id"));
+					list.add(rs.getString("name"));
+				
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return list;
+		
+		}
 
 
 
+		@Override
+		public int insertSchoolSection(int schoolId, int sectionId) {
+			
+			int status=0;
+			
+			String query="INSERT INTO `fk_school_section_details`(`school_id`, `section_id`) VALUES (?,?)";
+			try{
+				pstmt=conn.prepareStatement(query);
+				pstmt.setInt(1, schoolId);
+				pstmt.setInt(2, sectionId);
+				status=pstmt.executeUpdate();
+			}
+			catch(Exception e)
+			{
+				
+			}
+			
+			
+			return status;
+		}
 
 
-	
 		
 }

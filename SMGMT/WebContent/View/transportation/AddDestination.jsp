@@ -213,7 +213,7 @@ z-index: 999999">
 
 
                 
-                 <div class="outer">
+                          <div class="outer">
                     <div class="inner bg-container">
                         <div class="card">
                             <div class="card-header bg-white">
@@ -231,7 +231,7 @@ z-index: 999999">
                                         <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
                                             <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc wid-2" tabindex="0" rowspan="1" colspan="1">Id</th>
+                                                <th class="sorting_asc wid-2" tabindex="0" rowspan="1" colspan="1">Sr NO</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Route Name</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Destination</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Fee</th> 
@@ -252,7 +252,7 @@ z-index: 999999">
                                             	{
                                             %>
                                             		<tr role="row" class="even">
-                                            		<td class="sorting_1"><%=ap.get(i).getId() %></td>
+                                            		<td class="sorting_1"><%=i+1%></td>
                                             		<td><%=ap.get(i).getRoute_name() %></td>
                                             		<td><%=ap.get(i).getDest() %></td>
                                             		<td><%=ap.get(i).getFee() %></td>
@@ -321,7 +321,7 @@ z-index: 999999">
                                                 
                                                 <div class="col-lg-4">
                                             	<input type="hidden" id="Updateid" name="UpdateId">
-                                                	<select tabindex="2" id="three11" name="route_name1">
+                                                	<select class="form-control chzn-select" tabindex="2" id="three11" name="route_name1">
                                                 	    <%
                                                 	    	for(int j=0;j<route_list.size();j++)
                                                 			{
@@ -495,7 +495,7 @@ z-index: 999999">
 				option.value =demoStr[4];
 				if(flag)
 				{	
-					alert("IN"+option.text);
+					//alert("IN"+option.text);
 					x.add(option,0);
 					x.selectedIndex="0";					
 					flag=false;	

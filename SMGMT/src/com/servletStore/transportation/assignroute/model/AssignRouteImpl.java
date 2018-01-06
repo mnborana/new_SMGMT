@@ -116,16 +116,26 @@ public class AssignRouteImpl implements AssignRouteDAO
 	
 	public List searchVehicleNo(String vehicleNo) {
 		List list=new ArrayList<>();
-		String searchVehicle="SELECT route_master.id, route_master.route_name,destination_master.destination,destination_master.fee from vehicle_master,destination_master,route_master,assignroute_master where assignroute_master.vehicle_id=vehicle_master.id AND route_master.id=destination_master.route_id and vehicle_master.vehicle_no='"+vehicleNo+"'";
+		String searchVehicle="SELECT route_master.id, route_master.route_name, destination_master.destination, destination_master.fee FROM route_master, assignroute_master, destination_master WHERE  assignroute_master.route_id=route_master.id AND assignroute_master.vehicle_id=(SELECT vehicle_master.id FROM vehicle_master WHERE vehicle_master.vehicle_no='"+vehicleNo+"') AND destination_master.route_id=assignroute_master.route_id";
 	//String searchVehicle="SELECT route_master.route_name,destination_master.destination,destination_master.fee from vehicle_master,destination_master,route_master,assignroute_master where assignroute_master.vehicle_id=vehicle_master.id AND route_master.id=destination_master.route_id and vehicle_master.vehicle_no='"+vehicleNo+"'";
 		//String searchVehicle="select vehicle_master.vehicle_no,destination_master.destination,destination_master.fee,route_master.route_name FROM route_master,assignroute_master,destination_master,vehicle_master where route_master.id=assignroute_master.route_id and vehicle_master.id=assignroute_master.vehicle_id and vehicle_master.vehicle_no='"+vehicleNo+"'";
-		System.out.println(searchVehicle);
+		//System.out.println(searchVehicle);
 		try {
 			pstmt = connection.prepareStatement(searchVehicle);
 			ResultSet rs=pstmt.executeQuery();
 			while(rs.next())
 			{
 				list.add(rs.getInt(1));
+				
+				String s2="SELECT COUNT(destination_master.id) FROM destination_master WHERE destination_master.route_id="+rs.getString(1);
+				pstmt = connection.prepareStatement(s2);
+				ResultSet rs1=pstmt.executeQuery();
+				
+				while(rs1.next())
+				{
+					list.add(rs1.getInt(1));
+				}
+				
 				list.add(rs.getString(2));
 				list.add(rs.getString(3));
 				list.add(rs.getDouble(4));
@@ -135,6 +145,7 @@ public class AssignRouteImpl implements AssignRouteDAO
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		//System.out.println("dfghjk "+list);
 		return list;
 	}
 
@@ -142,7 +153,7 @@ public class AssignRouteImpl implements AssignRouteDAO
 	public List searchDestination(String dest)
 	{
 		List list=new ArrayList<>();
-		String s1="SELECT vehicle_master.vehicle_no,route_master.route_name from destination_master,route_master,assignroute_master,vehicle_master where route_master.id=destination_master.route_id and vehicle_master.id=assignroute_master.vehicle_id and destination_master.destination='"+dest+"'";
+		String s1="SELECT vehicle_master.vehicle_no,route_master.route_name from route_master,destination_master,vehicle_master,assignroute_master where route_master.id=destination_master.route_id and destination_master.route_id=assignroute_master.route_id and vehicle_master.id=assignroute_master.vehicle_id and destination_master.destination='"+dest+"'";
 		//String s1="select destination_master.destination,destination_master.fee,route_master.route_name FROM route_master,assignroute_master,destination_master,vehicle_master where route_master.id=assignroute_master.route_id and vehicle_master.id=assignroute_master.vehicle_id and destination_master.destination='"+dest+"'";
 		try	{
 			pstmt = connection.prepareStatement(s1);
@@ -156,6 +167,7 @@ public class AssignRouteImpl implements AssignRouteDAO
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		System.out.println("vvvvvvvvvvv "+s1);
 		return list;
 	}
 

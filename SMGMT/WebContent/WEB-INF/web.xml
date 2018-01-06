@@ -5,22 +5,6 @@
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-    <servlet-name>Index</servlet-name>
-    <servlet-class>com.servletStore.common.DoLoginAction</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Index</servlet-name>
-    <url-pattern>/Index</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>LoginAction</servlet-name>
-    <servlet-class>com.servletStore.common.DoLoginAction</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoginAction</servlet-name>
-    <url-pattern>/LoginAction</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>AddClassRoom</servlet-name>
     <servlet-class>com.servletStore.settings.classRoom.controller.AddClassRoom</servlet-class>
   </servlet>
@@ -139,7 +123,7 @@
   <servlet-mapping>
     <servlet-name>Route</servlet-name>
     <url-pattern>/Route</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
     <servlet-name>Destination</servlet-name>
     <servlet-class>com.servletStore.transportation.controller.Destination</servlet-class>
@@ -147,7 +131,7 @@
   <servlet-mapping>
     <servlet-name>Destination</servlet-name>
     <url-pattern>/Destination</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
     <servlet-name>AssignRoute</servlet-name>
     <servlet-class>com.servletStore.transportation.controller.AssignRoute</servlet-class>
@@ -155,7 +139,7 @@
   <servlet-mapping>
     <servlet-name>AssignRoute</servlet-name>
     <url-pattern>/AssignRoute</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
     <servlet-name>AddDocument</servlet-name>
     <servlet-class>com.servletStore.settings.document.controller.AddDocument</servlet-class>
@@ -187,5 +171,37 @@
   <servlet-mapping>
     <servlet-name>StockRegister</servlet-name>
     <url-pattern>/StockRegister</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UserLogout</servlet-name>
+    <servlet-class>com.servletStore.login.controller.UserLogout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserLogout</servlet-name>
+    <url-pattern>/UserLogout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SchoolTransferServlet</servlet-name>
+    <servlet-class>com.servletStore.attendance.schoolTransfer.controller.SchoolTransfer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SchoolTransferServlet</servlet-name>
+    <url-pattern>/SchoolTransfer</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ChangeCatalogServlet</servlet-name>
+    <servlet-class>com.servletStore.attendance.catalogYearChange.controller.CatalogYearChange</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangeCatalogServlet</servlet-name>
+    <url-pattern>/CatalogYearChange</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Signup</servlet-name>
+    <servlet-class>com.servletStore.signup.controller.Signup</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Signup</servlet-name>
+    <url-pattern>/Signup</url-pattern>
   </servlet-mapping>
 </web-app>

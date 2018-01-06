@@ -106,22 +106,7 @@ z-index: 999999">
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-6 col-sm-6 m-t-10">
-                                    <div class="icon-white btn-facebook icon_padding loginpage_border">
-                                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                                        <span class="text-white icon_padding text-center question_mark">Log In With Facebook</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-sm-6 pull-lg-right m-t-10">
-                                    <div class="icon-white btn-google icon_padding loginpage_border">
-                                        <i class="fa fa-google-plus" aria-hidden="true"></i>
-                                        <span class="text-white icon_padding question_mark">Log In With Google+</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="form-group">
                             <label class="col-form-label">Don't you have an Account? </label>
                             <a href='signup.jsp' class="text-primary"><b>Sign Up</b></a>
