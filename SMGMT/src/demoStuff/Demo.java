@@ -1,5 +1,6 @@
 package demoStuff;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
@@ -12,12 +13,18 @@ public class Demo {
 
 	public static void main(String[] args) throws SQLException {
 		
-		SetupDAO dao = new SetupImpl();
-		List list=dao.getAccessControlDetails(3);
-		Iterator<SetupPOJO> itr= list.iterator();
-		SetupPOJO pojo = new SetupPOJO();
 		
-		while(itr.hasNext())
+		/*UserLoginDAO login= new UserLoginImpl();
+		
+		List list=login.getUserCredentials("admin");
+		
+		System.out.println(list.get(0));
+		System.out.println(list.get(1));
+		
+		
+		Boolean result=login.checkUserExist("trusteeadmin");
+		if(result)
+>>>>>>> refs/remotes/origin/HEAD
 		{
 			pojo=itr.next();
 			
@@ -25,6 +32,7 @@ public class Demo {
 		
 		if(pojo.getDashboard()!=0)
 		{
+<<<<<<< HEAD
 			System.out.println("dashboard");
 		}
 		if(pojo.getSetting()!=0)
@@ -83,6 +91,9 @@ public class Demo {
 		
 		
 		
+=======
+			System.out.println("available");
+		}*/
 		
 		/*String userName="something";
 		String Password="password";
