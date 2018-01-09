@@ -3,7 +3,7 @@ package com.servletStore.attendance.catalogYearChange.model;
 public class CatalogYearChangePOJO 
 {
 	private int id;
-	private String gr_no,name,roll_no,std,div;
+	private String gr_no,name,roll_no,std,div,aca_year;
 	private String schoolId;
 	public int getId() {
 		return id;
@@ -46,5 +46,11 @@ public class CatalogYearChangePOJO
 	}
 	public void setSchoolId(String schoolId) {
 		this.schoolId = schoolId;
+	}
+	public String getAca_year() {
+		return aca_year;
+	}
+	public void setAca_year(String aca_year) {
+		this.aca_year = aca_year;
 	}
 }

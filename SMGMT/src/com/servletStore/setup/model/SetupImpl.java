@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.dbconnect.DBConnection;
 import com.servletStore.login.model.Encryption;
@@ -34,19 +35,20 @@ public class SetupImpl implements SetupDAO {
 	}
 
 	@Override
-	public int insertInstituteDetails(SetupPOJO setup) throws SQLException {
+	public int insertInstituteDetails(SetupPOJO setup, String status) throws SQLException {
 		
-		int status=0;
+		int sucessStatus=0;
 		
 		DBConnection dbconnect=new DBConnection();
 		Connection connection=dbconnect.getConnection();
 		
-		pstmt=connection.prepareStatement("INSERT INTO `school_master`(`name`) VALUES (?)");
+		pstmt=connection.prepareStatement("INSERT INTO `school_master`(`name`,`status`) VALUES (?,?)");
 		pstmt.setString(1,setup.getSchoolName());
-		status=pstmt.executeUpdate();
+		pstmt.setString(2, status);
+		sucessStatus=pstmt.executeUpdate();
 		connection.close();
 				
-		return status;
+		return sucessStatus;
 	}
 
 	@Override
@@ -142,6 +144,46 @@ public class SetupImpl implements SetupDAO {
 			connection.close();
 				
 		return status;
+	}
+
+	@Override
+	public List getAccessControlDetails(int userRoll) throws SQLException {
+		
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		
+		List list = new ArrayList<>();
+		SetupPOJO setup = new SetupPOJO();
+		
+		
+		pstmt=connection.prepareStatement("SELECT `dashboard`, `setting`, `management`, `admission`, `fee`, `attendance`, `exam`, `teacher`, `register`, `cashbook`, `transport`, `salary`, `library`, `other`, `e_msg` FROM `access_control_master` WHERE access_control_master.user_roll_id=?");
+		pstmt.setInt(1, userRoll);
+		ResultSet rs=pstmt.executeQuery();
+		while(rs.next())
+		{
+			setup.setDashboard(rs.getInt(1));
+			setup.setSetting(rs.getInt(2));
+			setup.setManagement(rs.getInt(3));
+			setup.setAdmission(rs.getInt(4));
+			setup.setFee(rs.getInt(5));
+			setup.setAttendance(rs.getInt(6));
+			setup.setExam(rs.getInt(7));
+			setup.setTeacher(rs.getInt(8));
+			setup.setRegister(rs.getInt(9));
+			setup.setCashbook(rs.getInt(10));
+			setup.setTransport(rs.getInt(11));
+			setup.setSalary(rs.getInt(12));
+			setup.setLibrary(rs.getInt(13));
+			setup.setOther(rs.getInt(14));
+			setup.setEmsg(rs.getInt(15));
+			
+			list.add(setup);
+		}
+		
+		
+		connection.close();
+		
+		return list;
 	}
 
 }

@@ -26,14 +26,14 @@ public class StudTransportationFeeImpl implements StudTransportationFeeDAO
 			pstmt.setString(5,st.getMonths());
 			pstmt.setDouble(6,st.getDiscount());
 			//pstmt.setDate(5, java.sql.Date.valueOf(vp.getDate()));
-			//pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
-			System.out.println(st.getDest_id());
-			System.out.println(st.getDiscount());
-			System.out.println(st.getFee());
-			System.out.println(st.getMonths());
-			System.out.println(st.getStud_id());
-			System.out.println(st.getRoute_id());
+			//System.out.println(st.getDest_id());
+			//System.out.println(st.getDiscount());
+			//System.out.println(st.getFee());
+			//System.out.println(st.getMonths());
+			//System.out.println(st.getStud_id());
+			//System.out.println(st.getRoute_id());
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();

@@ -22,7 +22,7 @@ public class Encryption {
 		
 		
 		Encryption encrypt = new Encryption();
-		System.out.println("pass ----"+encrypt.signup("admin"));;
+		System.out.println("pass ----"+encrypt.signup("library"));;
 		
 	}
 	

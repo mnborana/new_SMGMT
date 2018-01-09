@@ -719,7 +719,6 @@
                                 <h4 class="modal-title text-white" id="modalLabelnews"><strong>Do you want to give discount?</strong></h4>
                             </div>
                             <div class="modal-body">
-                            
                             	
                             		<ul>
 	                            		<li id="tFine"><strong>Total Fine =</strong></li>

@@ -20,7 +20,7 @@ public class Setup extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//doPost(request, response);
+		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -64,25 +64,9 @@ public class Setup extends HttpServlet {
 			String trusteeName = request.getParameter("tUname");
 			String trusteePassword = request.getParameter("tPass");
 			int nSchools = Integer.parseInt(request.getParameter("nSchools"));
-			out.print("No of Schools " + nSchools + "<br>");
 			int count = 1;
 			int counter = 1;
-			for (int i = 0; i < nSchools; i++) {
-				String schoolName = request.getParameter("sName" + i);
-
-				out.print("School Name " + schoolName + "<br>");
-
-				String principalUserName = request.getParameter("pUName" + count);
-				String principalPassword = request.getParameter("pUPass" + count);
-				if (principalUserName != null) {
-					out.println(
-							"Principal Name " + principalUserName + "<br> Principal Pass " + principalPassword + "<br>");
-				}
-				count++;
-			}
-			out.println("eduName " + eduName);
-			out.println("trusteeName " + trusteeName);
-			out.println("trusteePassword " + trusteePassword + "<br>");
+			int checkBoxCounter=1;
 
 			// trustee env ends--------------------------------------------------------------------
 
@@ -90,9 +74,9 @@ public class Setup extends HttpServlet {
 			pojo.setSocietyName(eduName);
 			pojo.setNoOfSchools(nSchools);
 			
-			//int trusteeStatus=0;
 			try {
 				
+				//inserting trust information (no.od schools and name)
 				int trusteeStatus = dao.insertTrusteeInfo(pojo);
 				
 				if(trusteeStatus>0)
@@ -100,7 +84,18 @@ public class Setup extends HttpServlet {
 					for (int i = 0; i < nSchools; i++) {
 						String schoolName = request.getParameter("sName" + i);
 						pojo.setSchoolName(schoolName);
-						int instituteStatus=dao.insertInstituteDetails(pojo);
+						String status=request.getParameter("checkBox"+checkBoxCounter);
+						if(status!=null)
+						{
+							status="1"; //access 
+						}
+						else
+						{
+							status="0"; //not access
+						}
+						
+						//inserting school name and status
+						int instituteStatus=dao.insertInstituteDetails(pojo,status);
 						if(instituteStatus>0)
 						{
 							int maxId=dao.getMaxSchoolId();
@@ -113,6 +108,7 @@ public class Setup extends HttpServlet {
 								pojo.setPrincipalUserName(principalUserName);
 								pojo.setPrincipalPassword(principalPassword);
 								
+								//inserting principle username and password
 								dao.insertPrincipalDetails(pojo,maxId);
 								
 							}
@@ -120,10 +116,13 @@ public class Setup extends HttpServlet {
 							counter++;
 							System.out.println("insterted in institute details for "+i);
 						}
+						checkBoxCounter++;
 					}
 					
 					pojo.setTrusteeUsername(trusteeName);
 					pojo.setTrusteePassword(trusteePassword);
+					
+					//inserting trustee username password
 					dao.insertTrusteeLoginDetails(pojo);
 					
 					System.out.println("inserted in trustee info");
@@ -182,12 +181,8 @@ public class Setup extends HttpServlet {
 				if(librarianAccessControlStatus>0)
 				{
 					System.out.println("Librarian Access Control Granted");
+					response.sendRedirect("/SMGMT/View/settings/sections/section.jsp");
 				}
-				
-				
-				
-				
-				
 				
 				
 			} catch (Exception e1) {
@@ -199,48 +194,6 @@ public class Setup extends HttpServlet {
 		
 
 		
-		
-		/*// pricipal env------------------------------------------------------------------------
-
-		out.println("<br>-------Principal Environment----------<br>");
-		for (String thePrincipal : principal) {
-			out.print(radioNames[navCount] + " " + thePrincipal + "<br>");
-			navCount++;
-		}
-		navCount = 0;
-		// principal env ends------------------------------------------------------------------------
-
-		// clerk env-------------------------------------------------------------------------------
-
-		out.println("<br>-------Clerk Environment----------<br>");
-		for (String theClerk : clerk) {
-			out.print(radioNames[navCount] + " " + theClerk + "<br>");
-			navCount++;
-		}
-		navCount = 0;
-		// clerk env ends------------------------------------------------------------------------
-
-		// Teacher env-------------------------------------------------------------------------------
-		out.println("<br>-------Teacher Environment----------<br>");
-		for (String theTeacher : teacher) {
-			out.print(radioNames[navCount] + " " + theTeacher + "<br>");
-			navCount++;
-		}
-		navCount = 0;
-		// Teacher env ends------------------------------------------------------------------------
-
-		// Librarian env-------------------------------------------------------------------------------
-
-		out.println("<br>-------Librarian Environment----------<br>");
-		for (String theLibrarian : librarian) {
-			out.print(radioNames[navCount] + " " + theLibrarian + "<br>");
-			navCount++;
-		}
-		navCount = 0;
-		// Librarian env ends------------------------------------------------------------------------
-*/	
-		
-	
 	
 	
 	

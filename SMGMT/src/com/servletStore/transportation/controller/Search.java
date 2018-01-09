@@ -24,53 +24,68 @@ import com.servletStore.transportation.vehicle.model.VehicleImpl;
 import com.servletStore.transportation.vehicle.model.VehiclePOJO;
 
 
-@WebServlet("/Search")
+//@WebServlet("/Search")
 public class Search extends HttpServlet
 {
-	
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		doPost(request, response);
-	}
-
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		
-		AssignRouteDAO assignDAO=new AssignRouteImpl();
 		
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
+		AssignRouteDAO assignDAO=new AssignRouteImpl();
+		
+	
 		String ch=request.getParameter("ch1");
-		System.out.println(ch);
+		
 		if(ch.equals("1"))
 		{
-			System.out.println("in");
-		String vehicleNo=request.getParameter("vehicleNo");
-		String dest=request.getParameter("dest");
-		List list=assignDAO.searchVehicleNo(vehicleNo);
-		Iterator itr=list.iterator();
+			//System.out.println("in");
+			String vehicleNo=request.getParameter("vehicleNo");
+			String dest=request.getParameter("dest");
+			List list=assignDAO.searchVehicleNo(vehicleNo);
+			String s = "";
+			
+			//System.out.println("listtttttttt   "+list);
+			Iterator itr=list.iterator();
 			while (itr.hasNext()) {
-				Object id=itr.next();
-			Object rounteName=itr.next();
-			Object destination=itr.next();
-			Object fee=itr.next();
-			System.out.println("\n"+rounteName);
-			System.out.println("\n"+destination);
-			System.out.println("\n"+fee);
-			out.print(id+"~"+rounteName+"~"+destination+"~"+fee+"@");
-		}
+				
+
+				String id = itr.next().toString();
+				String cnt = itr.next().toString();
+				
+				s += cnt+"~";
+				int num = Integer.parseInt(cnt);
+				
+				int num1=1;
+				while(num>0){
+					if(num1==1){
+						s+=itr.next()+"~"+itr.next()+"~"+itr.next()+"~";
+					}
+					else{
+						itr.next();
+						itr.next();
+						itr.next();
+						s+=itr.next()+"~"+itr.next()+"~";
+					}
+					num--;
+					num1++;
+				}
+			}
+		//	System.out.println("mmm "+s);
+			out.print(s);
 		}
 		else
 		if(ch.equals("2"))
 		{
 			String dest=request.getParameter("dest");
+			System.out.println("dest is "+dest);
 		List l1=assignDAO.searchDestination(dest);
 		Iterator itr1=l1.iterator();
 		while(itr1.hasNext())
 		{
 			out.print(itr1.next()+","+itr1.next()+",");
+			//System.out.print(itr1.next()+","+itr1.next()+",");
 		}
 		}
 		

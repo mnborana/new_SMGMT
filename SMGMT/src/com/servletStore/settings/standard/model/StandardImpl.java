@@ -99,7 +99,7 @@ public class StandardImpl implements StandardDAO{
 	public List<SchoolPOJO> getSchoolDetails() 
 	{
 		List<SchoolPOJO> list=new ArrayList<SchoolPOJO>();
-		String query="SELECT `id`, `name` FROM `school_master";
+		String query="SELECT `id`, `name` FROM `school_master` where school_master.status=1";
 		
 		try {
 			ps = connection.prepareStatement(query);
@@ -110,7 +110,7 @@ public class StandardImpl implements StandardDAO{
 				//System.out.println("id "+rs.getInt("id") + " "+ rs.getString("name"));
 				SchoolPOJO schoolpojo=new SchoolPOJO();
 				schoolpojo.setId(rs.getInt("id"));
-				schoolpojo.setSchoolName(rs.getString("school_name"));
+				schoolpojo.setSchoolName(rs.getString("name"));
 				list.add(schoolpojo);			
 			}
 		} catch (SQLException e) {

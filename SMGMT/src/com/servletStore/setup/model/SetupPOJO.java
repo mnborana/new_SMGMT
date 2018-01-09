@@ -5,100 +5,102 @@ public class SetupPOJO {
 	String societyName, trusteeUsername, trusteePassword, schoolName, principalUserName, principalPassword;
 	int noOfSchools;
 	
-	String dashboard,setting,management,admission,fee,attendance,exam,teacher,register,cashbook,transport,salary,library,other,emsg;
+	int dashboard,setting,management,admission,fee,attendance,exam,teacher,register,cashbook,transport,salary,library,other,emsg;
+	
 	
 	
 	//permission
-	public String getDashboard() {
+	public int getDashboard() {
 		return dashboard;
 	}
-	public void setDashboard(String dashboard) {
+	public void setDashboard(int dashboard) {
 		this.dashboard = dashboard;
 	}
-	public String getSetting() {
+	public int getSetting() {
 		return setting;
 	}
-	public void setSetting(String setting) {
+	public void setSetting(int setting) {
 		this.setting = setting;
 	}
-	public String getManagement() {
+	public int getManagement() {
 		return management;
 	}
-	public void setManagement(String management) {
+	public void setManagement(int management) {
 		this.management = management;
 	}
-	public String getAdmission() {
+	public int getAdmission() {
 		return admission;
 	}
-	public void setAdmission(String admission) {
+	public void setAdmission(int admission) {
 		this.admission = admission;
 	}
-	public String getFee() {
+	public int getFee() {
 		return fee;
 	}
-	public void setFee(String fee) {
+	public void setFee(int fee) {
 		this.fee = fee;
 	}
-	public String getAttendance() {
+	public int getAttendance() {
 		return attendance;
 	}
-	public void setAttendance(String attendance) {
+	public void setAttendance(int attendance) {
 		this.attendance = attendance;
 	}
-	public String getExam() {
+	public int getExam() {
 		return exam;
 	}
-	public void setExam(String exam) {
+	public void setExam(int exam) {
 		this.exam = exam;
 	}
-	public String getTeacher() {
+	public int getTeacher() {
 		return teacher;
 	}
-	public void setTeacher(String teacher) {
+	public void setTeacher(int teacher) {
 		this.teacher = teacher;
 	}
-	public String getRegister() {
+	public int getRegister() {
 		return register;
 	}
-	public void setRegister(String register) {
+	public void setRegister(int register) {
 		this.register = register;
 	}
-	public String getCashbook() {
+	public int getCashbook() {
 		return cashbook;
 	}
-	public void setCashbook(String cashbook) {
+	public void setCashbook(int cashbook) {
 		this.cashbook = cashbook;
 	}
-	public String getTransport() {
+	public int getTransport() {
 		return transport;
 	}
-	public void setTransport(String transport) {
+	public void setTransport(int transport) {
 		this.transport = transport;
 	}
-	public String getSalary() {
+	public int getSalary() {
 		return salary;
 	}
-	public void setSalary(String salary) {
+	public void setSalary(int salary) {
 		this.salary = salary;
 	}
-	public String getLibrary() {
+	public int getLibrary() {
 		return library;
 	}
-	public void setLibrary(String library) {
+	public void setLibrary(int library) {
 		this.library = library;
 	}
-	public String getOther() {
+	public int getOther() {
 		return other;
 	}
-	public void setOther(String other) {
+	public void setOther(int other) {
 		this.other = other;
 	}
-	public String getEmsg() {
+	public int getEmsg() {
 		return emsg;
 	}
-	public void setEmsg(String emsg) {
+	public void setEmsg(int emsg) {
 		this.emsg = emsg;
 	}
+	
 	
 	//trustee
 	public String getSocietyName() {
