@@ -315,12 +315,9 @@ public class AddBookImpl implements AddBookDAO{
 		 SysDate sd=new SysDate();
 		 String query="SELECT `id`, `bookdetails_id`, `stud_id`, `staff_id`, `issue_date`, `due_date` FROM `issue_book` WHERE issue_book.issue_date='"+sd.todayDate()+"' ORDER BY issue_book.id DESC";
 		 PreparedStatement ps, ps1, ps2, ps3;
-		
-		try {
+		 try {
 			ps =connection.prepareStatement(query);
 			ResultSet rs=ps.executeQuery(query);
-			
-			
 			while(rs.next())
 			{
 				
@@ -562,23 +559,45 @@ public class AddBookImpl implements AddBookDAO{
 	}
 	
 	@Override
+	public int getPreviousFine(String studentId) throws SQLException {
+		int previousfine=0;
+		//pass studId in setString
+		String query="SELECT fine_master_details.remaining_fine_amt FROM fine_master_details WHERE fine_master_details.stud_id=? ORDER BY fine_master_details.id DESC LIMIT 1";
+		System.out.println(query);
+		pstmt=connection.prepareStatement(query);
+		pstmt.setString(1,studentId);
+		 ResultSet rs=pstmt.executeQuery();
+		 System.out.println("stud Id********"+studentId);
+		
+		 while(rs.next())
+		 {
+			 System.out.println("IN WHILE");
+			 previousfine=rs.getInt(1);
+			 System.out.println("Remain Fine in impl"+previousfine);
+		 }
+		
+		
+		return previousfine;
+	}
+	
+	@Override
 	public List getReturnBookDetails(String returnBookDetails)
 			throws SQLException {
 		List list = new ArrayList();
 		ResultSet rs=null;
 		try {
 			// by book name
-			String query2="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_info_master.book_name LIKE '"+returnBookDetails+"%'";
+			String query2="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_info_master.book_name LIKE '"+returnBookDetails+"%' GROUP BY book_details_master.book_id";
 			PreparedStatement ps2=(PreparedStatement) connection.prepareStatement(query2);
 			rs=ps2.executeQuery();
 				if(!rs.isBeforeFirst()){
 					// by author name
-					String query1="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_info_master.author_name LIKE '"+returnBookDetails+"%'";
+					String query1="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_info_master.author_name LIKE '"+returnBookDetails+"%' GROUP BY book_details_master.book_id";
 					PreparedStatement ps1=(PreparedStatement) connection.prepareStatement(query1);
 					rs=ps1.executeQuery();
 				if(!rs.isBeforeFirst()){
 					// by book Id
-					String query="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_details_master.book_no=book_info_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_details_master.book_id LIKE '"+returnBookDetails+"%'";
+					String query="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_details_master.book_no=book_info_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_details_master.book_id LIKE '"+returnBookDetails+"%'  GROUP BY book_details_master.book_id";
 					PreparedStatement ps;
 					ps = (PreparedStatement) connection.prepareStatement(query);
 					rs=ps.executeQuery();
@@ -691,7 +710,8 @@ public class AddBookImpl implements AddBookDAO{
 		int id=0;
 		int studId=0;
 		List list=new ArrayList();
-		String str="SELECT issue_book.id,issue_book.stud_id FROM issue_book WHERE issue_book.bookdetails_id=?";
+		String str="SELECT issue_book.id,issue_book.stud_id FROM issue_book WHERE issue_book.bookdetails_id=? ORDER BY issue_book.id DESC LIMIT 1";
+		
 		 pstmt=connection.prepareStatement(str);
 		 pstmt.setInt(1, bookId);
 		
@@ -727,6 +747,33 @@ public class AddBookImpl implements AddBookDAO{
 		System.out.println("Execute");
 		return status;
 	}
+	
+	@Override
+	public List getStudent(int id) throws SQLException {
+		List list=new ArrayList();
+		FineMasterPOJO pojo=new FineMasterPOJO();
+
+		String query="SELECT student_details.first_name,student_details.last_name,std_master.name,classroom_master.division FROM student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1 AND student_details.id=?";
+		System.out.println("Query "+query);
+		pstmt=connection.prepareStatement(query);
+		/*pstmt.setString(1, "first_name");
+		pstmt.setString(2, "last_name");
+		pstmt.setString(3, "std");
+		pstmt.setString(4, "div");*/
+		pstmt.setInt(1, id);
+		ResultSet rs=pstmt.executeQuery();
+		System.out.println("***execute");
+		while(rs.next())
+		{
+			list.add(rs.getString(1));
+			list.add(rs.getString(2));
+			list.add(rs.getString(3));
+			list.add(rs.getString(4));
+			//id=rs.getInt(1);
+		}
+		return list;
+	}
+	
 	
 	
 }

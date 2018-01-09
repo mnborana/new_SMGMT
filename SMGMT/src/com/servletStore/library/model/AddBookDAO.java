@@ -47,6 +47,9 @@ public List getStudentId(int bookId)throws SQLException;
 
 public int changeStatusReturn(int id) throws SQLException;
 
+public List getStudent(int id) throws SQLException;
+
+
 
 //Library Fine
 public int insertFine(SetFinePOJO pojo) throws SQLException;
@@ -59,5 +62,7 @@ public List<FineMasterPOJO> getFineMaster() throws SQLException;
 public int updateRenewBook(FineMasterPOJO pojo, String date) throws SQLException;
 
 public int getDate(FineMasterPOJO pojo) throws SQLException;
+
+public int getPreviousFine(String studentId) throws SQLException;
 
 }
