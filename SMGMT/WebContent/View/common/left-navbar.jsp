@@ -130,7 +130,7 @@
 	                            </li>
 	                            
 	                            <li>
-	                                <a href="/SMGMT/View/library/FineSub.jsp">
+	                                <a href="/SMGMT/View/library/FineSubmission.jsp">
 	                                    <i class="fa fa-angle-right"></i>
 	                                    &nbsp; Fine Submission
 	                                </a>
