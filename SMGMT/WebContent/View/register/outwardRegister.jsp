@@ -174,7 +174,7 @@
 	                                          </div>                     	 
                                      	  </div>
                                      	  
-                                     	  <input type="button" value="+" href="#addReceiver" data-toggle="modal" style="margin-left: 800px;margin-top: -53px;background-color: blue;color: white;"/>
+                                     	  <input type="button" value="+" href="#addReceiver" data-toggle="modal" style="margin-left: 942px;margin-top: -50px;background-color: blue;color: white;"/>
                                      	 
                                             
                                       	 
@@ -267,13 +267,13 @@
                                                  </select>
                                            </div>
                                           </div>  
-                                     	  <input type="button" value="+" href="#addReg" data-toggle="modal" style="margin-left: 800px;margin-top: -53px;background-color: blue;color: white;"/>
+                                     	  <input type="button" value="+" href="#addReg" data-toggle="modal" style="margin-left: 942px;margin-top: -50px;background-color: blue;color: white;"/>
                                      	
                                      	             	                                  
                                            
                                             <div class="modal-footer">
                                                 <div class="col-lg-4 push-lg-4">
-                                                     <button type="submit" name="OutwardRegister" class="btn btn-primary" style="margin-left: -700px;">Submit</button>
+                                                     <button type="submit" name="OutwardRegister" class="btn btn-primary" style="margin-left: -834px;">Submit</button>
                                                     <button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
                                                 </div>
                                             </div>                                            
