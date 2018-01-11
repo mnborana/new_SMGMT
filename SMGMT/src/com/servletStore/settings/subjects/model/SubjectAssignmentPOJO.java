@@ -2,9 +2,28 @@ package com.servletStore.settings.subjects.model;
 
 public class SubjectAssignmentPOJO {
 	
+	private int id;
+	private int fkClassMasterId;
 	private int subjectId;
-	private String subjectName;
+	private String subjectCode;
+	private String optinalStatus;
 	
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getFkClassMasterId() {
+		return fkClassMasterId;
+	}
+	
+	public void setFkClassMasterId(int fkClassMasterId) {
+		this.fkClassMasterId = fkClassMasterId;
+	}
 	
 	public int getSubjectId() {
 		return subjectId;
@@ -14,12 +33,20 @@ public class SubjectAssignmentPOJO {
 		this.subjectId = subjectId;
 	}
 	
-	public String getSubjectName() {
-		return subjectName;
+	public String getSubjectCode() {
+		return subjectCode;
 	}
 	
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
+	public void setSubjectCode(String subjectCode) {
+		this.subjectCode = subjectCode;
+	}
+	
+	public String getOptinalStatus() {
+		return optinalStatus;
+	}
+	
+	public void setOptinalStatus(String optinalStatus) {
+		this.optinalStatus = optinalStatus;
 	}
 	
 	

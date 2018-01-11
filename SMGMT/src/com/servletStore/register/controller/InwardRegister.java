@@ -65,10 +65,11 @@ public class InwardRegister extends HttpServlet {
 			String mobileNo=request.getParameter("mobileNum");
 			String description=request.getParameter("description");
 			String documentName=request.getParameter("selRegister");
-			
+			System.out.println("document id:"+documentName);
 			int id=Integer.parseInt(documentName);
-			InwardRegisterPojo pojo1=impl.setdocument(id);
-			String document=pojo1.getDocmentName();
+			
+			/*InwardRegisterPojo pojo1=impl.setdocument(id);
+			String document=pojo1.getDocmentName();*/
 			
 			//System.out.println("document:"+document);
 			
@@ -80,7 +81,7 @@ public class InwardRegister extends HttpServlet {
 			pojo2.setAddress(address);
 			pojo2.setMobileNo(mobileNo);
 			pojo2.setDescription(description);
-			pojo2.setDocmentName(document);
+			pojo2.setDocumentId(id);
 			
 			impl.inwardRegister(pojo2);
 		     request.setAttribute("status", "InwardRegister Inserted Successfully");
