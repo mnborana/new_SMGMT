@@ -547,160 +547,6 @@
 												</div>
 
 											</div>
-				                              <%--  <div class="tab-pane" id="bookReturn">
-			 								<div class="row">
-													<%
-														//SysDate date1=new SysDate();
-													%>
-													<div class="col-12">
-														<div class="col-lg-8 m-t-20">
-															<form action="/SMGMT/Library"
-																class="form-horizontal  login_validator"
-																id="form_block_validator">
-																<div class="form-group row">
-																	<div class="col-lg-8">
-																		<!-- Search Book from here     ------- -->
-																		<input type="text" list="returnBook"
-																			autocomplete="off"
-																			onkeyup="getReturnBooks(this.value)"
-																			onblur="getBookInfo('bookInfo',event)" oninput="getStudentId(this.value)" class="form-control"
-																			id="searchId" name="searchBookDetails"
-																			placeholder="Search Books by BookNo/BookName/AuthorName" required>
-																		<datalist id="returnBook"> </datalist>
-																		<!-- getBookInfo('bookInfo',event) -->
-																	</div>
-																	<!-- <a href="#" onclick="getBookInfo('bookInfo')"
-																		class="btn btn-primary" value="Search" id="btn">Search</a> -->
-																</div>
-																<div id="bookInfo" Style="display: none">
-																	<div class="form-group row">
-
-																		<div class="col-lg-4 ">
-																		<input type="hidden" name="studentId" id="student_Id">
-																			<label for="required2" class="col-form-label">Book
-																				No</label> <input type="text" id="bNo" name="bookNum"
-																				class="form-control" >
-																		</div>
-
-																		<div class="col-lg-4 ">
-																			<label for="required2" class="col-form-label">Book
-																				Name</label> <input type="text" id="bName" name="bookName"
-																				class="form-control" >
-																		</div>
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Author
-																				Name</label> <input type="text" id="authrName"
-																				name="authorName" class="form-control" >
-																		</div>
-																	</div>
-
-																	<div class="form-group row">
-																		<div class="col-lg-4 ">
-																			<label for="required2" class="col-form-label">Issue
-																				Date</label> <input type="text" id="issueDate1"
-																				name="issueDate" class="form-control" readonly="readonly">
-																		</div>
-
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label" id="oldDueDate">Due
-																				Date *</label> <input type="text" id="dueDate1"
-																				name="dueDate" class="form-control" readonly="readonly">
-																		</div>
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label" id="oldDueDate">Student
-																			Details *</label> <input type="text" id="studdId"
-																				name="student" class="form-control" readonly="readonly">
-																		</div>
-																	</div>
-																</div>
-																<div class="form-group row">
-																	<div class="col-lg-4 ">
-																		<label for="required2" class="col-form-label">Renew/Return
-																			*</label>
-																		<div class="controls">
-																			<input type="radio" value="RETURN"
-																				style="margin-left: 1%;" name="returnRadio" id="selectRt" onclick="onBook(this.value)"> Return 
-																				<input type="radio" value="RENEW" style="margin-left: 1%;"
-																				name="returnRadio" id="selectRn"
-																				onclick="onBook(this.value)" > Renewal
-																		</div>
-																	</div>
-																</div>
-
-																<!-- Search stud from here     ----- -->
-																<div class="form-group row" id="returnBk" style="display: none">
-																	<%
-																		SysDate d = new SysDate();
-																	%>
-																	<div class="form-group row">
-																	
-																		<div class="col-lg-4">
-																			<label class="col-form-label">Return Date *</label>
-																			 <input type="text" class="form-control" value="<%=date.todayDate()%>" id="currentDate"
-																				name="currentDate" placeholder="YYYY-MM-DD" readonly="readonly"/>
-																		</div>
-																			<!-- <div class="col-lg-4">
-																				<a href="#" onclick="getFineCount('countInfo')"
-																				class="btn btn-primary" value="Search" id="btn" style="margin-top: 34px">Count Fine</a>
-																			</div> -->
-																	
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Total
-																				Days </label> <input type="text" id="days" name="dueDays"
-																				class="form-control">
-																		</div>
-																		
-																			<div class="col-lg-4">
-																				<label for="required2" class="col-form-label">Total
-																					Fine </label> <input type="text"
-																					id="fineAmount" name="fineAmount"
-																					class="form-control">
-																		   </div>
-																		   <div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Discount
-																			 </label> <input type="text" id="discount" name="discount" value="0"
-																				class="form-control" onkeyup="countPay()">
-																		</div>
-																		<div class="col-lg-4">
-																				<label for="required2" class="col-form-label">Paid Amount
-																				 </label> <input type="text"
-																					id="paidAmountId" name="finePaid" value="0"
-																					class="form-control">
-																		  </div>
-																		  <div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Remaining Amount
-																			 </label> <input type="text" id="remainAmount" name="remainAmt"
-																				class="form-control">
-																			</div>
-																		</div>
-																		<div class="form-group row">
-																			<label class="custom-control custom-checkbox">
-					                                                        <input type="checkbox" class="custom-control-input" onclick="checkedPay(this)" >
-					                                                        <span class="custom-control-indicator"></span>
-					                                                        <span class="custom-control-description">Checked(Return book with fine pending)</span>
-					                                                    </label>
-					                                              </div>  
-					                                  			</div>
-																<div class="form-group row" id="renew"
-																	style="display: none">
-																	<div class="col-lg-4">
-																		<label class="col-form-label">New Due Date *</label> <input
-																			type="text" class="form-control form_val_popup_dp3"
-																			id="dueDateRn" name="newdueDate"
-																			placeholder="YYYY-MM-DD" />
-																	</div>
-																</div>
-																
-																<div class="form-actions form-group row">
-																	<input type="submit" id="returnSubmit" value="Submit"
-																		name="submitBook" class="btn btn-primary">
-																</div>
-															</form>
-														</div>
-													</div>
-												</div>
-
-											</div> --%>
 				                          </div>
 				                       </div>
 				                   </div>
@@ -1258,7 +1104,8 @@ function getExpData(val)
 }
 
 /*<<<<<<<<<<<<< When selected book from serach bar get the info of book in return book form  >>>>>>>>>>>>> */
-function getBookInfo(bookInfo,e) {
+function getBookInfo(bookInfo,e)
+{
 	//alert(e+"  "+bookInfo);
 	//if (e.keyCode == 13 || e.keyCode == 9) {
 	var bInfo = document.getElementById("bookInfo").style.display = "block";
@@ -1288,7 +1135,6 @@ function getBookInfo(bookInfo,e) {
 	xhttp.open("POST", "/SMGMT/Library?bookdetail=" + bookD[0].trim()+ "&currentDate=" + tDate +"&bookName="+bookD[1].trim()+"&authorName="+bookD[2].trim(), true);
 	xhttp.send();
 	//}
-
 }
 
 
