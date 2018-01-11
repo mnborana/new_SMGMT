@@ -109,7 +109,7 @@
                                                   <label for="required2" class="col-form-label">Vehicle Type</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="required2" name="vehicle_type" type="text" value=" "  tabindex="1" class="form-control" autofocus>                                                   
+                                                    <input type="text" id="required2" name="vehicle_type" type="text" value=" "  tabindex="1" class="form-control" onkeyup="this.value=this.value.toUpperCase();" autofocus>                                                   
                                                     
                                                 </div>
                                             </div>
@@ -155,7 +155,7 @@
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Add Vehicle" class="btn btn-primary" name="add_vehicle_btn" value="add_vehicle_btn">
+                                                    <input type="submit" value="Add Vehicle" class="btn btn-primary" name="add_vehicle_btn">
                                                 </div>
                                             </div>
                                         </form>
@@ -338,7 +338,7 @@
                                         <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
                                             <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc wid-2" tabindex="0" rowspan="1" colspan="1">Id</th>
+                                                <th class="sorting_asc wid-2" tabindex="0" rowspan="1" colspan="1">Sr NO</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Vehicle No</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">No. of Seats</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Max. Allowed</th>
@@ -360,7 +360,7 @@
                                             	{
                                             %>
                                             		<tr role="row" class="even">
-                                            		<td class="sorting_1"><%=ap.get(i).getId() %></td>
+                                            		<td class="sorting_1"><%=i+1%></td>
                                             		<td><%=ap.get(i).getVeh_no() %></td>
                                             		<td><%=ap.get(i).getNo_seats() %></td>
                                             		<td><%=ap.get(i).getMax_seats() %></td>

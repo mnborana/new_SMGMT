@@ -219,7 +219,7 @@
 	                                          </div>
                                      	  </div> 
                                      	  
-                                     	  <input type="button" value="+" href="#addSender" data-toggle="modal" style="margin-left: 800px;margin-top: -53px;background-color: blue;color: white;"/>
+                                     	  <input type="button" value="+" href="#addSender" data-toggle="modal" style="margin-left: 942px;margin-top: -50px;background-color: blue;color: white;"/>
                                      	 
                                      	  <div class="form-group row">
                                            	<div class="col-lg-3 text-lg-right">
@@ -294,6 +294,7 @@
 	                                           Iterator<InwardRegisterPojo> itr10=l1.iterator();
 	                                           %>
 	                                              <select class="form-control chzn-select" tabindex="2" name="selRegister" id="required2" required>
+	                                             <option disabled selected>select File</option>
 	                                              <%
 	                                              while(itr10.hasNext())
 	                                              {
@@ -308,7 +309,7 @@
 	                                           </div>
                                           </div>
                                           
-                                           <input type="button" value="+" href="#addRegister" data-toggle="modal" style="margin-left: 800px;margin-top: -53px;background-color: blue;color: white;"/>
+                                           <input type="button" value="+" href="#addRegister" data-toggle="modal" style="margin-left: 942px;margin-top: -50px;background-color: blue;color: white;"/>
                                      	
                                      	 
                                             <div class="modal-footer">

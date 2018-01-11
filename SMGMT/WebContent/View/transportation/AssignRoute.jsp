@@ -184,16 +184,16 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-4">
-                                                	<select class="form-control chzn-select" tabindex="2" id="required2" name="vehicle_no">
+                                                	<select class="form-control chzn-select" tabindex="2" id="required2" name="vehicle_no" required>
                                                 	    <option disabled selected>Choose a Vehicle</option>
-                                                	    <%
-                                                	    	for(int i=0;i<al3_id.size();i++)
+                                                	  <%
+                                                	  for(int i=0;i<veh_list.size();i++)
                                                 			{
                                                 	    %>
-	                                                	    	<option value="<%=al3_id.get(i)%>"><%=al3.get(i)%></option>
+	                                                	    	<option value="<%=veh_list.get(i).getId()%>"><%=veh_list.get(i).getVeh_no()%></option>
                                                 	    <%
                                                 	    	}
-                                                	    %>
+                                                	    %>>
                                                 	</select>
                                           	 	</div>
                                             </div>
@@ -204,8 +204,11 @@
                                                 </div>
                                                 
                                                  <div class="col-lg-4">
-                                                	<select class="form-control chzn-select" tabindex="2" id="required3" name="route_name">
-                                                	    <option disabled selected>Choose a Route</option>
+                                                	
+                                                	     <select class="form-control chzn-select-deselect" id="required3" name="route_name" multiple required>
+                                                    <optgroup label="choose a Route">
+                                                        
+                                                   
                                                 	    <%
                                                 	    	for(int i=0;i<rao_list.size();i++)
                                                 			{
@@ -214,6 +217,7 @@
                                                 	    <%
                                                 	    	}
                                                 	    %>
+                                                	    </optgroup>
                                                 	</select>
                                           	 	</div>
                                             </div>  
@@ -369,7 +373,7 @@
                                         <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
                                             <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">ID
+                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr No</th>
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Vehicle No</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Route Name</th>
                                                 <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Status</th>
@@ -390,7 +394,7 @@
                                             	{
                                             %>
                                             	<tr role="row" class="even">
-                                            		<td class="sorting_1"><%=ap.get(i).getId() %></td>
+                                            		<td class="sorting_1"><%=i+1%></td>
                                             		<td><%=ap.get(i).getVeh_no() %></td>
                                             		<td><%=ap.get(i).getRoute_name() %></td>
                                             		<td class="center">Approved</td>
@@ -453,10 +457,9 @@
 
 	<script type="text/javascript">
 
-	function assignRoute(id,Updateid,required2,required3,status) 
-	{
+	function assignRoute(id,Updateid,required2,required3,status) {
 		//document.write("AP");
-		alert(status)
+		//alert(status)
 		var flag=true;
 		var x,option,x1,option1;
 		var xhttp;
@@ -482,7 +485,7 @@
 					option1 = document.createElement("option");
 					option1.text =demoStr[4];
 					option1.value =demoStr[2];
-					alert(demoStr[2]+"  "+demoStr[4]);
+					//alert(demoStr[2]+"  "+demoStr[4]);
 					if(flag)
 					{	
 						x.add(option,0);
@@ -493,6 +496,8 @@
 					}
 				}
 				//alert(demoStr[3]);
+				$("#required2").trigger('chosen:updated');	
+				$("#required3").trigger('chosen:updated');	
 			}	
 		}
 		xhttp.open("POST","/SMGMT/AssignRoute?id="+id, true);

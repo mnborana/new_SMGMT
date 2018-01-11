@@ -11,15 +11,34 @@
     <link rel="shortcut icon" href="img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
 
     <!--global styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_chartist,_css,_chartist.min.css+vendors,_circliful,_css,_jquery.circliful.css+css,_pages,_index.css.pagespeed.cc.PvgmTaPSee.css"/>
-   
-    <!-- end of global styles-->
+    <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
+    
+ <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_chartist,_css,_chartist.min.css+vendors,_circliful,_css,_jquery.circliful.css+css,_pages,_index.css.pagespeed.cc.PvgmTaPSee.css"/>
+   	<linl type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_sweetalert,_css,_sweetalert2.min.css+css,_pages,_sweet_alert.css.pagespeed.cc.vBvlhaOlzl.css">
+     <!-- end of global styles-->
     
     
     
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
 
 </head>
+ 
+ <%
+	 String schoolId=null;
+	 String academicYear=null;
+	if(session.getAttribute("userName")==null)
+	{
+		response.sendRedirect("/SMGMT");
+	}
+	else
+	{
+		schoolId=session.getAttribute("schoolId").toString();
+		academicYear=session.getAttribute("year").toString();		
+	}
+ 
+ 
+%>
+ 
 
 <body class="body">
 <div class="preloader" style=" position: fixed;
@@ -377,10 +396,12 @@ z-index: 999999">
 </div>
 <!-- /#wrap -->
 <!-- global scripts-->
+
+<%-- <jsp:include page="/View/common/commonJs.jsp"></jsp:include> --%>
 <script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
-<!--end of global scripts-->
-<!--  plugin scripts -->
+end of global scripts
+ plugin scripts
 <script src="/SMGMT/config/vendors/countUp.js%2c_js%2c_countUp.min.js%2bflip%2c_js%2c_jquery.flip.min.js.pagespeed.jc.noHZWqcdrd.js"></script><script>eval(mod_pagespeed_roqmVRzz_b);</script>
 <script>eval(mod_pagespeed_5dZxOfn$md);</script>
 <script type="text/javascript" src="/SMGMT/config/js/pluginjs/jquery.sparkline.js"></script>
@@ -390,9 +411,18 @@ z-index: 999999">
 <script type="text/javascript" src="/SMGMT/config/vendors/circliful/js/jquery.circliful.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/flotchart/js/jquery.flot.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/flotchart/js/jquery.flot.resize.js"></script>
-<!--end of plugin scripts-->
+end of plugin scripts
 
 <script type="text/javascript" src="/SMGMT/config/js/pages/index.js"></script>
+
+
+
+
+<script type="text/javascript" src="/SMGMT/config/vendors/sweetalert/js/sweetalert2.min.js"></script>
+end plugin scripts
+Page level scripts
+<script type="text/javascript" src="/SMGMT/config/js/pages/sweet_alerts.js.pagespeed.jm.jAodyAc47W.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pages/modals.js.pagespeed.jm.IHft_nCaZ7.js"></script>
 </body>
 
 

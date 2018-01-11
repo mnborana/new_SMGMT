@@ -24,8 +24,7 @@ public class VehicleImpl implements VehicleDAO
 			pstmt.setString(1,vp.getVeh_no());
 			pstmt.setInt(2,vp.getNo_seats());
 			pstmt.setInt(3,vp.getMax_seats());
-			pstmt.setString(4,vp.getVeh_type());
-			System.out.println("Impl");
+			pstmt.setString(4,vp.getVeh_type());			
 			//pstmt.setDate(5, java.sql.Date.valueOf(vp.getDate()));
 			pstmt.executeUpdate();
 		} 

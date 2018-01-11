@@ -13,17 +13,32 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Conductor Information| Admire</title>
+    <title>Form Elements | Admire</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
     <!-- global styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
-
-    <!-- end of global styles-->
-   
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/components.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/custom.css"/>
+    <!-- end of page level styles -->
+    <!--Plugin styles-->
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/inputlimiter/css/jquery.inputlimiter.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/chosen/css/chosen.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jquery-tagsinput/css/jquery.tagsinput.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/daterangepicker/css/daterangepicker.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/datepicker/css/bootstrap-datepicker.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-switch/css/bootstrap-switch.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jasny-bootstrap/css/jasny-bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/multiselect/css/multi-select.css"/>
+    <!--End of plugin styles-->
+    <!--Page level styles-->
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
+    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
+    <!-- end of page level styles -->
 </head>
+
 <body>
 <div class="preloader" style=" position: fixed;
   width: 100%;
@@ -185,7 +200,7 @@
                                                     <label for="required2" class="col-form-label">Name*</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="required2" name="driver_name"  value=" " class="form-control" required>
+                                                    <input type="text" id="required2" name="driver_name"  value=" " class="form-control" onkeyup="this.value=this.value.toUpperCase();" required>
                                                 </div>
                                             </div>
                                          
@@ -195,7 +210,7 @@
                                                     <label for="email2" class="col-form-label">Present Address </label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                     <textarea id="autosize1" class="form-control" cols="15" rows="3" name="temp_addrs" onkeydown="show_checkbox('autosize1')" onfocus="uncheck('check_disable')"></textarea>
+                                                     <textarea id="autosize1" class="form-control" cols="15" rows="3" name="temp_addrs" onkeyup="this.value=this.value.toUpperCase();" onkeydown="show_checkbox('autosize1')" onfocus="uncheck('check_disable')"></textarea>
                                                     
                                                 </div>
                                               
@@ -207,7 +222,7 @@
                                                     <label for="email2" class="col-form-label">Permanent Address </label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                     <textarea id="autosize2" class="form-control" cols="15" rows="3" name="perm_addrs" onfocus="hide_checkbox(this)"></textarea>
+                                                     <textarea id="autosize2" class="form-control" cols="15" rows="3" name="perm_addrs" onkeyup="this.value=this.value.toUpperCase();"  onfocus="hide_checkbox(this)"></textarea>
                                                     
                                                 </div>
                                                 <div class="col-lg-4" id="hide_check">
@@ -485,7 +500,7 @@
                                         <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
                                             <thead>
                                             <tr role="row">
-	                                            <th class="sorting_asc wid-2" tabindex="0" rowspan="1" colspan="1">Id</th>
+	                                            <th class="sorting_asc wid-2" tabindex="0" rowspan="1" colspan="1">Sr. No</th>
                                                 <th class="sorting_asc wid-10" tabindex="0" rowspan="1" colspan="1">Vehicle No.</th>
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Name</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Temp. Address</th>                                                                                                
@@ -507,7 +522,7 @@
                                             	{
                                             %>
                                             	<tr role="row" class="even">
-	                                            	<td class="sorting_1"><%=ap.get(i).getId() %></td>
+	                                            	<td class="sorting_1"><%=i+1%></td>
                                             		<td><%=ap.get(i).getVeh_no() %></td>
                                             		<td><%=ap.get(i).getName() %></td>
                                             		<td><%=ap.get(i).getTemp_addrs() %></td>
@@ -638,6 +653,8 @@
 	</script>
 
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
 
     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
@@ -652,27 +669,31 @@
 	<script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
 	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script>
 
-    <script type="text/javascript" src="/SMGMT/config/vendors/select2/js/select2.js.pagespeed.jm.Eugd1Y0BmV.js"></script>
-    <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
-    <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
-    
-   
-    
-    
-    <script>eval(mod_pagespeed_g_o5ieHdNa);</script>
-    <script>eval(mod_pagespeed_UzcyJ5ysoL);</script>
-    <script>eval(mod_pagespeed_sB4kJD0xfI);</script>
-    <script>eval(mod_pagespeed_aYQJk4iDci);</script>
-    <script>eval(mod_pagespeed_wVkzf2s7YZ);</script>
+<!-- end of global scripts-->
+<!-- plugin level scripts -->
+<script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/chosen/js/chosen.jquery.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/jquery-tagsinput/js/jquery.tagsinput.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pluginjs/jquery.validVal.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/daterangepicker/js/daterangepicker.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/autosize/js/jquery.autosize.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/jquery.inputmask.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.date.extensions.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.extensions.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/multiselect/js/jquery.multi-select.js"></script>
 
-    <script>eval(mod_pagespeed_Ij0pRaH8BP);</script>
-    <script>eval(mod_pagespeed_wfmKXYO4Nj);</script>
-    <script>eval(mod_pagespeed_EYzby3B1$L);</script>
+<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
 
-    <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
 
 </body>
-
 </html>
 </body>
 </html>

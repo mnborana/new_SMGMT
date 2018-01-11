@@ -5,6 +5,18 @@
 <%@page import="com.servletStore.transportation.studentdetails.model.StudentDetailsImpl"%>
 <%@page import="com.servletStore.transportation.studentdetails.model.StudentDetailsDAO"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="com.servletStore.transportation.route.model.RoutePOJO"%>
+<%@page import="com.servletStore.transportation.route.model.RouteImpl"%>
+<%@page import="com.servletStore.transportation.route.model.RouteDAO"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.servletStore.transportation.vehicle.model.VehicleDAO"%>
+<%@page import="com.servletStore.transportation.assignroute.model.AssignRouteDAO"%>
+<%@page import="com.servletStore.transportation.assignroute.model.AssignRoutePOJO"%>
+<%@page import="com.servletStore.transportation.vehicle.model.VehiclePOJO"%>
+<%@page import="com.servletStore.transportation.assignroute.model.AssignRouteImpl"%>
+<%@page import="com.servletStore.transportation.vehicle.model.VehicleImpl"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
@@ -43,7 +55,7 @@
     <!-- end of page level styles -->
    
 </head>
-<body>
+<body onload="getVehicle()">
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -109,11 +121,13 @@
              <!-- start your code from here  -->  
               <%
               		String std="",name="",div="";
+              int sid;
               		StudentDetailsDAO stud_dao=new StudentDetailsImpl();
               		List<StudentDetailsPOJO> stud_pojo=stud_dao.getStudentDetails();
               		System.out.println("GR1:"+stud_pojo.get(0).getGrNo());
               		System.out.println("GR2:"+stud_pojo.get(1).getGrNo());
               %>
+          <form name="MyForm" action="/SMGMT/StudentTransmissionFee" class="form-horizontal  login_validator" method="post" id="form_block_validator">
              
 	        <div class="outer">
                 <div class="inner bg-container">
@@ -147,7 +161,7 @@
                                       <%
 	                                      
                                       %>
-   									<form action="#" class="form-horizontal  login_validator" method="post" id="form_block_validator">
+   									
                                            <div class="form-group row">
                                                 	<div class="col-lg-3  text-lg-right">
                                                 	    <label for="required2" class="col-form-label">Search Student By Name *</label>
@@ -158,7 +172,7 @@
                                                 	    <%
                                                 	    	for(int i=0;i<stud_pojo.size();i++)
                                                 	    	{
-                                                	  
+                                                	  			sid=stud_pojo.get(i).getId();
                                                 	    		name=stud_pojo.get(i).getName();
                                                 	      		//System.out.print(name);
                                                 	    		std=stud_pojo.get(i).getStd();
@@ -173,33 +187,9 @@
                                           	 		</div>
                                                 
                                                  	<div class="col-lg-4">
-                                                		<a href="javascript:showMore()" id="moreless">Search More >>></a>
+                                                		<a href="javascript:showMore()" id="moreless"></a>
                                           	 		</div>
                                             </div>
-                                            
-                                            <div class="form-group row" id="std-div">
-                                                <div class="col-lg-3  text-lg-right">
-                                                    <label for="required2" class="col-form-label">Search By Std/Div *</label>
-                                                </div>
-                                                
-                                                 <div class="col-lg-4">
-                                                <select class="form-control chzn-select" tabindex="2">
-                                                    <option disabled selected>Choose Std and Div</option>
-                                                    <option value="5-A">5-A</option>
-                                                    <option value="9-P">9-P</option>
-                                                </select>
-                                          	 </div>
-                                                
-                                                <div class="col-lg-4">
-                                                <select class="form-control chzn-select" tabindex="2">
-                                                    <option disabled selected>Choose a Name</option>
-                                                    <option value="AP">AP</option>
-                                                </select>
-                                          	 </div>
-                                                
-                                            </div>
-                                          
-                                        </form>
                                      
                                     </div>
                                 </div>
@@ -225,13 +215,12 @@
                                                 List<RoutePOJO> route_list=rd.getRouteDetails(); 
                                                 DestinationDAO dd=new DestinationImpl();
                                                 List<DestinationPOJO> dest_list=dd.getDestinationDetails();
-                                               // system.out.print()
+                                             
                 							 
 						                %>
                                       
-   									<form action="/SMGMT/StudentTransmissionFee" class="form-horizontal  login_validator" method="post" id="form_block_validator">
-                                        
-                                      
+   									   	<form action="/SMGMT/StudentTransmissionFee" class="form-horizontal  login_validator" method="post" id="form_block_validator">
+
                                            <div class="form-group row">
                                                 <div class="col-lg-2  text-lg-right">
                                                     <label class="col-form-label">GR No</label>
@@ -286,8 +275,8 @@
                                                 	 <input type="hidden" name="fee_name" id="fee_id" value=""/>  
                                                 	 <input type="hidden" name="studid_name" id="studid_id" value=""/>
                                                 	 <input type="hidden" name="disco_name" id="disco_id" value=""/>
-                                                	<select class="form-control chzn-select" tabindex="2" name="destination_name" id="destination" onchange="getDestinations()">
-                                                	    <option disabled selected value="msg">Choose a  Destination </option>
+                                                	<select class="form-control chzn-select" tabindex="2" name="destination_name" id="destination" onchange="getTableInfo()">
+                                                	    <option disabled selected value="msg">Choose a  Destination</option>
                                                 	    <%--  <option disabled selected>Choose a  Destination</option>
                                                 	    <%
                                                 	    	int j1=0;
@@ -303,12 +292,7 @@
                                           	 		</div>
                                                  	
                                             </div>
-                                            <div class="form-actions form-group row">
-                                                <div class="col-lg-5 push-lg-5">
-                                                    <button class="btn btn-primary" name="assign_route_btn" onclick="setValues()">Assign</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                         
                                      
                                     </div>
                                 </div>
@@ -337,21 +321,21 @@
                                     	String from_year="2016",to_year="2017";
                                     	String months[]={"June-"+from_year,"July-"+from_year,"August-"+from_year,"September-"+from_year,"October-"+from_year,"November-"+from_year,"December-"+from_year,"January-"+to_year,"February-"+to_year,"March-"+to_year,"April-"+to_year,"May-"+to_year};                                    
                                     %>
-                                    <form>
-                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
+                                    
+                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" >
                                             <thead>
-                                            <tr role="row">
+                                            <tr role="row" class="even">
                                                 <th>
 	                                            		<div >
 	                                                    	<label class="custom-control custom-checkbox">
 	                                                    	    <input type="checkbox" id="check_all" class="custom-control-input" onclick="checkAll()" checked>
 	                                                    	    <span class="custom-control-indicator"></span>
-	                                                    	    <span class="custom-control-description">Select All</span>
+	                                                    	    <span class="sorting_asc wid-20">Select All</span>
 	                                                    	</label>
 	                                                	</div>                                                		
                                             		</th>
-                                            	<th tabindex="0" rowspan="1" colspan="1">Months</th>
-                                                <th tabindex="0" rowspan="1" colspan="1">Fees</th>                                                                                               
+                                            	<th class="sorting_asc wid-20" tabindex="0">Months</th>
+                                                <th class="sorting_asc wid-20" tabindex="0" >Fees</th>                                                                                               
                                             </tr>
                                             </thead>
                                           
@@ -360,8 +344,8 @@
                                             	for(int i=0;i<months.length;i++)
                                             	{
                                             %>
-                                            	<tr role="row" class="even">
-		                                      		<td style="width:120px">
+                                            	<tr>
+		                                      		<td>
 	                                            		<div >
 	                                                    	<label class="custom-control custom-checkbox">
 	                                                    	    <input type="checkbox" class="custom-control-input" id="check<%=i %>" checked onclick="select_month(<%=i %>)">
@@ -370,22 +354,22 @@
 	                                                    	</label>
 	                                                	</div>                                                		
                                             		</td>
-                                            		<td style="width:100px"><%=months[i] %></td>
-                                            		<td style="width:100px" id="fee<%=i%>"><%=fees%></td>
+                                            		<td><%=months[i] %></td>
+                                            		<td id="fee<%=i%>"><%=fees%></td>
                                             	</tr>                                             		
                                             	<%
                                             		
                                             	}
                                             	%>
-                                            	 <tr>
+                                            	<tr>
                                             	<td style="width:100px">
-                                            		<input style="width:80px" type="text" id="required_total" name="total" value="" placeholder="Total Fee" class="form-control focused_input">                                                     
+                                            		Total Fee<input style="width:80px" type="text" id="required_total" name="total" value="" placeholder="Total Fee" class="form-control focused_input" required>                                                     
                                                 </td>
                                                 <td style="width:100px">
-                                            		<input style="width:80px" type="text" id="required_disc" name="disc" value="" placeholder="Discount" class="form-control focused_input" onkeyup="calculateTotal(this.value)">                                                     
+                                            		Discount<input style="width:80px" type="text" id="required_disc" name="disc" value="" placeholder="Discount" class="form-control focused_input" onkeyup="calculateTotal(this.value)" required>                                                     
                                                 </td>
                                             	<td style="width:100px">
-                                            		<input style="width:80px" type="text" id="required_final" name="final" value="" placeholder="Final Fee" class="form-control focused_input">                                                     
+                                            		Final Fee<input style="width:80px" type="text" id="required_final" name="final" value="" placeholder="Final Fee" class="form-control focused_input" required>                                                     
                                                 </td>
                                             	</tr>                                      	
                                             	
@@ -393,19 +377,29 @@
                                             	     
                                             	</tbody>
                                         </table>                                        
+                                     <div class="form-actions form-group row">
+                                                <div class="col-lg-5 push-lg-5">
+                                                    <button class="btn btn-primary" name="assign_route_btn" onclick="setValues();MyFun()">Assign</button>
+                                                </div>
+                                            </div>
                                         </form>
+               	<!-- Transmission Fee Tab End-->
+               	
+               	
+               	
                                     </div>
                                 </div>
+                                  
                                 <!-- END EXAMPLE TABLE PORTLET-->
                             </div>
                         </div>
                     </div>                    
                 </div>
+                
+                 						
                 </div>
-               	<!-- Transmission Fee Tab End-->
-               	
-               	
-               	
+                
+                	
                	
                		<!-- Global Search Tab Start-->
                		
@@ -420,14 +414,25 @@
                                         Basic Validation
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form class="form-horizontal  login_validator" id="myForm">
+                                       
                                             <div class="form-group row">
                                             <div class="col-lg-4  text-lg-right">
                                                     <label for="required2" class="col-form-label">Search Field*</label>
                                                      <input type="hidden" id="Updateid" name="UpdateId">
                                                 </div>
+                                                <%
+                                                VehicleDAO dao=new VehicleImpl();
+                                                List<VehiclePOJO> list=dao.getVehicleDetails();
+                                                 DestinationDAO destdao=new DestinationImpl();
+                                                 List<DestinationPOJO> dlist=destdao.getDestinationDetails();
+                                                
+                                                %>
                                                 <div class="col-lg-4">
-                                                    <input type="text"  name="search1" id="myInput" value="MH-22-43-22" class="form-control" required >
+                                                <select class="form-control chzn-select" tabindex="2" name="search1" id="vehicleList" onchange="dataList()">
+                                                	    <option value="vehi"></option>
+                                                	    
+                                                	</select>
+                                                    
                                                 </div>
                                                 <div class="col-lg-4 text-lg-right">
                                                 
@@ -438,13 +443,13 @@
                                                
                                                
                                                     <label class="custom-control custom-radio">
-                                                        <input name="radio3" type="radio" id="r1" value=1 class="custom-control-input" onclick="searchByVehicle();"  checked>
+                                                        <input name="radio3" type="radio" id="vehicleradio" value=1 class="custom-control-input" onclick="getVehicle()"  checked>
                                                         
                                                         <span class="custom-control-indicator"></span>
                                                         <span class="custom-control-description">By Vehicle Number</span>
                                                     </label>
                                                     <label class="custom-control custom-radio">
-                                                        <input name="radio3" type="radio" id="r2" value=2 class="custom-control-input" onclick="searchByDest();">
+                                                        <input name="radio3" type="radio" id="destradio" value=2 class="custom-control-input" onclick="getDestination()">
                                                         <span class="custom-control-indicator"></span>
                                                         <span class="custom-control-description">By Destination</span>
                                                     </label>
@@ -459,7 +464,7 @@
                                                   <!--   <hidden input type="submit" value="Validate" class="btn btn-primary">
  -->                                                </div>
                                             </div>
-                                        </form>
+                                      
                                     </div>
                                 </div>
                             </div> <!-- /.col-lg-12 -->
@@ -483,7 +488,7 @@
                                 </div>
                                 <div>
                                     <div>
-                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
+                                        <table class="table table-bordered" border=2 id="editable_table" role="grid">
                                             <thead>
                                             <tr role="row">
                                                 
@@ -567,6 +572,7 @@
 		document.getElementById("required3").value=split[2];
 		//alert("SID"+split[4])
 		document.getElementById("studid_id").value=split[4];
+	
 	}
 	function showMore()
 	{	
@@ -616,36 +622,125 @@
 							i++;
 						}	
 				}	
-			/* else
-			{			
-			//alert(fee);
-			while(i<len)
-			{				
-				if(check)
-				{
-					//alert("********---*"+i)
-					total_months=total_months+1;
-					$("#check"+i).prop("checked", false);
-					//document.getElementById("fee"+i).innerHTML=fee;
-				}
-				else
-				{
-					//alert("*********"+fee)
-					total_months=total_months-1;
-					$("#check"+i).prop("checked", true);
-					//document.getElementById("fee"+i).innerHTML="0.00";
-				}
-				i++;
-			}			
-			if(check)
-				check=false
-			else
-				check=true	
-			} */
+			
 				
 	}
+	function MyFun()
+	{
+		alert("data inserted successfully");
+		
+	}
+	
+/****************************************/	
+	function getVehicle() 
+	{
+		document.getElementById("vehicleList").innerHTML="";
+		var x="";
+		if(document.getElementById("vehicleradio").checked)
+			{
+			x="1";
+			}
+		else
+			{
+			x="2";
+			}
+		//var vehicle=this.responseText.split("~");
+		//option = document.createElement("option");
+		//option.text = "Choose a Destination";
+		//option.value = "val";
+		//alert(x);
+		var option;
+		var xhttp;   		
+		var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200)
+		    {
+		    	var vehicle=this.responseText.split("~");
+		    	//alert(vehicle);
+		    	var x1 = document.getElementById('vehicleList');							
+				//option = document.createElement("option");
+		    	option = document.createElement("option");
+				option.text = "Choose a vehicle";
+				option.value ="vehi";
+				option.disabled=true;
+				option.selected=true;
+				x1.add(option);
+				//alert(x1.add(option));
+				//alert(option.text);
+				for(var i=0;i<vehicle.length-1;i++)
+				{
+					option = document.createElement("option");
+					option.text = vehicle[i];
+					option.value = vehicle[i];
+					x1.add(option);
+					
+					//alert($('#vehicleList').val(vehicle[i]));
+
+					//alert("option  "+option.value);
+				
+				}
+				$("#vehicleList").trigger('chosen:updated');
+		     // document.getElementById("vehicleList").innerHTML+=option;
+		    }
+		  };
+			//System.out.print("xxxxxxxxx "+x);
+		  xhttp.open("POST","/SMGMT/StudentTransmissionFee?ch2="+x, true);
+			xhttp.send();	
+	}
+	/********************************/
+	function getDestination()
+	{
+		var x="";
+		if(document.getElementById("vehicleradio").checked)
+			{
+			x="1";
+			}
+		else
+			{
+			x="2";
+			}
+		//alert(x);
+		document.getElementById("vehicleList").innerHTML="";
+		var option;
+		var xhttp;   		
+		var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200)
+		    {
+		    	var dest=this.responseText.split("~");
+		    	//alert(dest);
+		    	var x1 = document.getElementById('vehicleList');							
+				//option = document.createElement("option");
+		    	option = document.createElement("option");
+				option.text = "Choose a Destination";
+				option.value ="vehi";
+				option.disabled=true;
+				option.selected=true;
+				x1.add(option);
+				//alert(x1.add(option));
+				//alert(option.text);
+				for(var i=0;i<dest.length-1;i++)
+				{
+					//alert("hiii");
+					option = document.createElement("option");
+					option.text = dest[i];
+					option.value = dest[i];
+					x1.add(option);
+					
+					
+				}
+				$("#vehicleList").trigger('chosen:updated');
+		     
+		    }
+		  };
+			
+		  xhttp.open("POST","/SMGMT/StudentTransmissionFee?ch2="+x, true);
+			xhttp.send();		
+		
+	}
+	/*****************************************/
 	function getDestinations()
-	{		
+	{				
 		$('#destination').children('option:not(:first)').remove();
 		$("#destination option[value='msg']").remove();
 		var route_name=document.getElementById("route_name");
@@ -664,19 +759,19 @@
 				option.value = "msg";
 				option.disabled=true;
 				option.selected=true;
-				x.add(option);
+				//alert(x.add(option));
 				for(var i=0;i<dest.length-1;i++)
 				{
 					var dest_id=dest[i].split("=");
-					alert(dest_id);
+					//alert(dest_id);
 					option = document.createElement("option");
 					option.text = dest_id[0];
 					option.value = dest_id[1];
+					//alert(option.value)
 					x.add(option);
 				}
 				
-				//option.selectedIndex="0";
-				alert(demoStr[0]);							
+				$("#destination").trigger('chosen:updated');							
 				}
 			};
 		xhttp.open("POST","/SMGMT/StudentTransmissionFee?route_name="+route, true);
@@ -689,7 +784,9 @@
 		var route = route_name.options[route_name.selectedIndex].value;
 		var dest_name=document.getElementById("destination");
 		var dest = dest_name.options[dest_name.selectedIndex].text;
-		alert(route+" "+dest)
+		var dest_id = dest_name.options[dest_name.selectedIndex].value;
+		//alert(route+" "+dest+" "+dest_id)
+		
 		var xhttp;
 		xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
@@ -708,6 +805,7 @@
 						document.getElementById("fee"+i).innerHTML="0.00";
 				}				
 				}
+			$("#destination").trigger('chosen:updated');	
 			};
 		xhttp.open("POST","/SMGMT/StudentTransmissionFee?dest_name="+dest+"&route_name1="+route, true);
 		xhttp.send();
@@ -725,8 +823,7 @@
 	}
 	function select_month(ap)
 	{
-		//alert(document.getElementById("check"+ap).checked)		
-		//month=["1","1","1","1","1","1","1","1","1","1","1","1"]
+		
 		if(document.getElementById("check"+ap).checked)
 		{
 			month[ap]="1";
@@ -742,114 +839,121 @@
 		document.getElementById("months_id").value=month.toString();
 		document.getElementById("required_total").value=total_months*fee;
 		document.getElementById("required_final").value=parseFloat(document.getElementById("required_total").value);
-		alert(document.getElementById("months_id").value)
+		//alert(document.getElementById("months_id").value)
 	}
 	function setValues()
 	{
-		alert("Function")
-		document.getElementById("fee_id").value=fee;
+		document.getElementById("fee_id").value=document.getElementById("required_final").value;
+		document.getElementById("months_id").value=month.toString();
 		document.getElementById("disco_id").value=document.getElementById("required_disc").value;	
-		alert("Fee : "+document.getElementById("fee_id").value+" StudId:"+document.getElementById("studid_id").value+" Route:"+document.getElementById("route_name").value+" Dest:"+document.getElementById("destination").value+" Disc : "+document.getElementById("disc_id").value)
-		//alert(document.getElementById("disco_id").value)
+		var dest_name=document.getElementById("destination");
+		var dest = dest_name.options[dest_name.selectedIndex].text;
+		var dest_id = dest_name.options[dest_name.selectedIndex].value;
+		var info=document.getElementById("studinfoid").value;
+		var split=info.split(" ");
+		document.getElementById("studid_id").value=split[4];
+	
+		document.getElementById("disco_id").value=dis;
+	
 	}
 	
-	
+	function dataList() {
+		var x="";
+		if(document.getElementById("vehicleradio").checked)
+			{
+			x="1";
+			}
+		else
+			{
+			x="2";
+			}
+		//alert(x);
+		/* /* var ch1=$('input[name=radio3]:checked', '#myForm').val(); 
+		alert(ch1); */
+		if(x==1){
+			searchByVehicle();
+		}else{
+			searchByDest();
+		}	 
+	}
 	
 	
 	
     function searchByVehicle() {
-		//document.write("AP");
-		  var ch1=$('input[name=radio3]:checked', '#myForm').val(); 
-		var  vehicleNo=document.getElementById("myInput").value;
-	//	var ch = document.forms[0].elements["radio3"];
-		//var ch =$('input[name="radio3"]:checked').val();
+		
+		 // var ch1=$('input[name=radio3]:checked', '#myForm').val(); 
+		  //alert(ch1);
+		  
+		  var x="";
+			if(document.getElementById("vehicleradio").checked)
+				{
+				x="1";
+				}
+			else
+				{
+				x="2";
+				}
+		var  vehicleNo=document.getElementById("vehicleList").value;
+	
 		var xhttp;   		
 		xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 			
-				var demoStr = this.responseText.split("~");	
-				
-				//var cnt=1;
+				var demoStr1 = this.responseText;
+				var demoStr = demoStr1.split("~");
+				//alert(demoStr1);
 				var i=0;
 				
-				var row="<table>";
-				row+="<tr><th>Route name</th><th>Destination</th><th>fee</th></tr>";
+				var row="<table border=2>";
+				row+="<tr><th>Sr.No.</th><th>Route name</th><th>Destination</th><th>fee</th></tr>";
 				var tr="";
-				
+				var count=0;
 				for(;demoStr[i];)
-					{
-						i++;
-						row+="</td><td>"+demoStr[i]+"</td>";
-						i++;
+				{	
+					count++;
+					var cnt = demoStr[i];
+					i++;
+					row+="<tr><td rowspan='"+cnt+"'>"+count+"</td>";
+					row+="</td><td rowspan='"+cnt+"'>"+demoStr[i]+"</td>";
+					i++;
+				//	alert(cnt);
+					while(cnt>0){
 						row+="</td><td>"+demoStr[i]+"</td>";
 						i++;
 						row+="</td><td>"+demoStr[i]+"</td></tr>";
 						i++;
-						/* tr+="<tr><td rowspan="+(J+1)+">";
-								J++;
-								tr+=demo[j]+"</td>"
-							}else{
-								tr+="<tr><td rowspan="+(J+1)+">";
-								J++;
-								tr+=demo[j]+"</td>"
-							}
-							row+="<tr><td>"+demo[j];
-							j++
-							
-							row+="</td><tr><td>"+demo[j];
-	   						j++;
-	   						
-	   						row+="</td><tr><td>"+demo[j];
-	   						j++;
-	   							
-							
-						}
-					/* if(j==j){
-							
-						} */
-					 
-					 
-					/*  j=demoStr[i];
-						i++; */
-						
-					//var routeName = demoStr.split("#");
-						//alert(routeName.length);
-						//var routeName=demoStr[i];
-						/* row+="<tr><td rowspan=''>"+demoStr[i];
-						i++;
-						
-						
-						row+="</td><tr><td>"+demoStr[i];
-						i++;
-						
-						row+="</td><td>"+demoStr[i]+"</td></tr>";
-						i++; */
-						
-						
-						
-						
-						//cnt++;
-
+						cnt--;
 					}
+					
+				}
+				
 				row+="</table>"
 				document.getElementById("showtable").innerHTML=row;
 				
-				 
 				}
 			};
-		xhttp.open("POST","/SMGMT/Search?vehicleNo="+vehicleNo+"&ch1="+ch1, true);
+		xhttp.open("POST","/SMGMT/Search?vehicleNo="+vehicleNo+"&ch1="+x, true);
 		xhttp.send();
 	}
 
 
 	
     
-    function searchByDest(ee) {
-   		//document.write("AP");
-   		var  dest=document.getElementById("myInput").value;
-   		 var ch1=$('input[name=radio3]:checked', '#myForm').val(); 
-   		var xhttp;   		
+    function searchByDest() {
+   		
+   		var  dest=document.getElementById("vehicleList").value;
+   		// var ch1=$('input[name=radio3]:checked', '#myForm').val(); 
+   		var x="";
+			if(document.getElementById("vehicleradio").checked)
+				{
+				x="1";
+				}
+			else
+				{
+				x="2";
+				}
+   		 var xhttp;   		
    		xhttp = new XMLHttpRequest();
    		xhttp.onreadystatechange = function() {
    			if (this.readyState == 4 && this.status == 200) {
@@ -859,9 +963,10 @@
    				var i=0;
    				var row="<table border=1>";
    				row+="<tr><th>Vehicle No</th><th>Route Name</th></tr>";
-   				row+="<tr><td rowspan=30>"+demoStr[0];
+   				
    				for(;demoStr[i];)
-   					{
+   					{	
+   						row+="<tr><td>"+demoStr[i];
    						i++;
    						row+="</td><td>"+demoStr[i]+"</td></tr>";
    						i++;
@@ -874,7 +979,7 @@
    				 
    				}
    			};
-   		xhttp.open("POST","/SMGMT/Search?dest="+dest+"&ch1="+ch1, true);
+   		xhttp.open("POST","/SMGMT/Search?dest="+dest+"&ch1="+x, true);
    		xhttp.send();
    	}
 
@@ -885,36 +990,10 @@
     
 	
 </script>
+<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
 
-	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
-
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script>
-	<script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
-	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script>
-
-    <script type="text/javascript" src="/SMGMT/config/vendors/select2/js/select2.js.pagespeed.jm.Eugd1Y0BmV.js"></script>
-    <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
-    <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
-    
-    <script>eval(mod_pagespeed_g_o5ieHdNa);</script>
-    <script>eval(mod_pagespeed_UzcyJ5ysoL);</script>
-    <script>eval(mod_pagespeed_sB4kJD0xfI);</script>
-    <script>eval(mod_pagespeed_aYQJk4iDci);</script>
-    <script>eval(mod_pagespeed_wVkzf2s7YZ);</script>
-    <script>eval(mod_pagespeed_Ij0pRaH8BP);</script>
-    <script>eval(mod_pagespeed_wfmKXYO4Nj);</script>
-    <script>eval(mod_pagespeed_EYzby3B1$L);</script>
-
-    <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
+<!-- end of global scripts-->
 <!-- plugin level scripts -->
 <script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
@@ -936,6 +1015,7 @@
 
 <script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
+
 
 
 
