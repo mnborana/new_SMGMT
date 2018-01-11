@@ -608,6 +608,54 @@ public class Library extends HttpServlet {
 						}	
 					}
 			}
+				else if(request.getParameter("studFineDetail")!=null)
+				{
+					System.out.println("Studentttttttttttt");
+					String studInfo=request.getParameter("studFineDetail");
+					String sInfo[]=studInfo.split(",");
+					System.out.println("studId "+ sInfo[0]);
+					
+					try {
+						List list=dao.getFineSubmission(Integer.parseInt(sInfo[0]));
+						Iterator itr=list.iterator();
+						Object firstName = null ;
+						Object middleName= null;
+						Object lastName= null;
+						Object std= null;
+						Object div= null;
+						Object fine= null;
+												
+						while(itr.hasNext()){
+							firstName=itr.next();
+							middleName=itr.next();
+							lastName=itr.next();
+							std=itr.next();
+							div=itr.next();
+							fine=itr.next();
+							}
+
+						
+							
+						System.out.println("Information of student "+firstName+ "," +middleName+ "," +lastName+  "," +std+ "," +div+ ","+fine);
+						out.print(firstName+ "," +middleName+ "," +lastName+  "," +std+ "," +div+ ","+fine+ ",");
+					
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+		
+		
+		if(request.getParameter("submitfine")!=null)
+		{
+			
+		}
+		
+		
+		
 	}
 }
 

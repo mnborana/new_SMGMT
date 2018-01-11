@@ -25,7 +25,7 @@ public int changeStatus(int bookdetails_id) throws SQLException;
 
 public List<IssueBookPOJO> getIssueBookDetails() throws SQLException;
 
-public List<IssueBookPOJO> getIssueBookList(String query);
+//public List<IssueBookPOJO> getIssueBookList(String query);
 
 public List searchBookInfo(String bookDetail, String bookName, String authorName);
 
@@ -64,5 +64,7 @@ public int updateRenewBook(FineMasterPOJO pojo, String date) throws SQLException
 public int getDate(FineMasterPOJO pojo) throws SQLException;
 
 public int getPreviousFine(String studentId) throws SQLException;
+
+public List getFineSubmission(int id) throws SQLException;
 
 }
