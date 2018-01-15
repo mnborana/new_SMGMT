@@ -103,7 +103,7 @@ public class UserLoginImpl implements UserLoginDAO {
 		
 		List list = new ArrayList<>();
 		
-		pstmt = connection.prepareStatement("SELECT user_roll_id,institute_id FROM user_master WHERE username=?");
+		pstmt = connection.prepareStatement("SELECT user_roll_id,school_id FROM user_master WHERE username=?");
 		pstmt.setString(1, userName);
 		ResultSet rs=pstmt.executeQuery();
 		while(rs.next())
@@ -116,6 +116,51 @@ public class UserLoginImpl implements UserLoginDAO {
 		connection.close();
 		
 		return list;
+	}
+
+	@Override
+	public List getYear() throws SQLException {
+		//
+		
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		
+		List list = new ArrayList<>();
+		
+		pstmt = connection.prepareStatement("SELECT year FROM `academy_year`");
+		//pstmt.setString(1, userName);
+		ResultSet rs=pstmt.executeQuery();
+		while(rs.next())
+		{
+			list.add(rs.getString("year"));
+		}
+	
+		connection.close();
+		
+		return list;
+		
+	}
+
+	@Override
+	public String getSchoolName(String schoolId) throws SQLException {
+		String schoolName=null;
+		
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		
+		pstmt = connection.prepareStatement("SELECT school_master.name FROM school_master WHERE school_master.id=?");
+		pstmt.setString(1, schoolId);
+		
+		ResultSet rs=pstmt.executeQuery();
+		while(rs.next())
+		{
+			schoolName=rs.getString(1);
+		}
+	
+		connection.close();
+	
+		
+		return schoolName;
 	}
 
 }

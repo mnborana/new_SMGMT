@@ -1,14 +1,17 @@
 <script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
 
-<!-- end of global scripts-->
-<!-- plugin level scripts -->
+<!-- <script type="text/javascript" src="/SMGMT/config/js/components.js.pagespeed.jm.vxV3GQYFro.js"></script> -->
+<!-- <script type="text/javascript" src="/SMGMT/config/js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script> -->
+
+<!-- <script type="text/javascript" src="/SMGMT/config/js/components.js.pagespeed.jm.vxV3GQYFro.js"></script> -->
+
+<script type="text/javascript" src="/SMGMT/config/vendors/sweetalert/js/sweetalert2.min.js"></script>
+<!-- <script type="text/javascript" src="/SMGMT/config/js/pages/sweet_alerts.js.pagespeed.jm.jAodyAc47W.js"></script> -->
+
 
 <script type="text/javascript" src="/SMGMT/config/vendors/izitoast/js/iziToast.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/pages/izi_toastr.js"></script>
-
-
-
 
 <script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
@@ -46,7 +49,21 @@
 <script type="text/javascript" src="/SMGMT/config/vendors/j_timepicker/js/jquery.timepicker.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/clockpicker/js/jquery-clockpicker.min.js"></script>
 
-<!-- <script type="text/javascript" src="../../cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.min.js"></script> -->
+
+
+<script type="text/javascript" src="/SMGMT/config/vendors/select2/js/select2.js.pagespeed.jm.Eugd1Y0BmV.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
+<script>eval(mod_pagespeed_g_o5ieHdNa);</script>
+    <script>eval(mod_pagespeed_UzcyJ5ysoL);</script>
+<script type="text/javascript" src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
+  <script>eval(mod_pagespeed_aYQJk4iDci);</script>
+    <script>eval(mod_pagespeed_wVkzf2s7YZ);</script>
+    <script>eval(mod_pagespeed_Ij0pRaH8BP);</script>
+    <script>eval(mod_pagespeed_wfmKXYO4Nj);</script>
+    <script>eval(mod_pagespeed_EYzby3B1$L);</script>
+<script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
+
+
 <!--end of plugin scripts-->
 <script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
@@ -54,3 +71,6 @@
 <script type="text/javascript" src="/SMGMT/config/js/pages/datetime_piker.js"></script>
 
 <script type="text/javascript" src="/SMGMT/config/js/pages/radio_checkbox.js.pagespeed.jm.nna8wpyJlw.js"></script>
+
+<script type="text/javascript" src="/SMGMT/config/js/pages/modals.js.pagespeed.jm.IHft_nCaZ7.js"></script>
+

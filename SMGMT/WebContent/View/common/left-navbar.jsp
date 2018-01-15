@@ -1,4 +1,31 @@
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <section>
+<%
+	String userName=null;
+	int roll=0;
+	if(session.getAttribute("userName")==null)
+	{
+		response.sendRedirect("/SMGMT");
+	}
+	else
+	{
+		userName=session.getAttribute("userName").toString();
+		roll=(Integer)session.getAttribute("rollId");
+		
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		SetupPOJO pojo = new SetupPOJO();
+		
+		while(itr.hasNext())
+		{
+			pojo=itr.next();
+		}
+%>
 	<div id="left">
             <div class="menu_scroll">
                 <div class="left_media">
@@ -9,7 +36,7 @@
                         <div class="user-wrapper">
                             <a class="user-link" href="#">
                                 <img class="media-object img-thumbnail user-img rounded-circle admin_img3" alt="User Picture" src="">
-                                <p class="user-info menu_hide">Welcome Micheal</p>
+                                <p class="user-info menu_hide">Welcome <%=userName%> </p>
                             </a>
                         </div>
                     </div>
@@ -26,6 +53,103 @@
                     </li>
                      
                     
+                    
+                    
+                    <%if(roll==1) {%>
+                    
+                    <li class="dropdown_menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-cog fa-fw"></i>
+                            <span class="link-title menu_hide">&nbsp; Organization Settings</span>
+                            <span class="fa arrow menu_hide"></span>
+                        </a>
+                        <ul>
+                        	<li>
+                                <a href="/SMGMT/View/trustee/setup.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Assign Privileges
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/SMGMT/View/settings/sections/section.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Section
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/settings/school/addSchool.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Update School Details
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/settings/standard/addStandard.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Standard
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/SMGMT/View/settings/standard/stdSectionAssignment.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Generate Classes
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <%}else if(roll==6){ %>
+                    
+	                     <li class="dropdown_menu">
+	                        <a href="javascript:;">
+	                            <i class="fa fa-book fa-fw"></i>
+	                            <span class="link-title menu_hide">&nbsp; Library</span>
+	                            <span class="fa arrow menu_hide"></span>
+	                        </a>
+	                        <ul>
+	                            <li>
+	                                <a href="/SMGMT/View/library/AddBook.jsp">
+	                                    <i class="fa fa-angle-right"></i>
+	                                    &nbsp; Add Books
+	                                </a>
+	                            </li>
+	                             <li>
+	                                <a href="/SMGMT/View/library/IssueBook.jsp">
+	                                    <i class="fa fa-angle-right"></i>
+	                                    &nbsp; Issue Book/Return Book
+	                                </a>
+	                            </li>
+	                             <li>
+	                                <a href="/SMGMT/View/library/SetFine.jsp">
+	                                    <i class="fa fa-angle-right"></i>
+	                                    &nbsp; Set Library Fine
+	                                </a>
+	                            </li>
+	                            
+	                            <li>
+	                                <a href="/SMGMT/View/library/FineSubmission.jsp">
+	                                    <i class="fa fa-angle-right"></i>
+	                                    &nbsp; Fine Submission
+	                                </a>
+	                            </li>
+	                           
+	                            <li>
+	                                <a href="#">
+	                                    <i class="fa fa-angle-right"></i>
+	                                    &nbsp; Report
+	                                </a>
+	                            </li>
+	
+	                        </ul>
+	                    </li>
+	                    
+	                    
+                    
+                    <%}if(pojo.getSetting()!=0){ %>
+                    
                     <li class="dropdown_menu">
                         <a href="javascript:;">
                             <i class="fa fa-cog fa-fw"></i>
@@ -33,13 +157,6 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
-                            
-                            <li>
-                                <a href="/SMGMT/View/settings/school/addSchool.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Add School
-                                </a>
-                            </li>
                             
                               <li>
                                 <a href="/SMGMT/View/settings/addDocumentInfo/addDocument.jsp">
@@ -84,43 +201,7 @@
                             </li>
                         </ul>
                     </li>
-                    
-                    <li class="dropdown_menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-cog fa-fw"></i>
-                            <span class="link-title menu_hide">&nbsp; Organization Settings</span>
-                            <span class="fa arrow menu_hide"></span>
-                        </a>
-                        <ul>
-                        	<li>
-                                <a href="/SMGMT/View/trustee/setup.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Assign Privileges
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/SMGMT/View/settings/sections/section.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Add Section
-                                </a>
-                            </li>
-                            
-                            <li>
-                                <a href="/SMGMT/View/settings/standard/addStandard.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Add Standard
-                                </a>
-                            </li>
-                            
-                            <li>
-                                <a href="/SMGMT/View/settings/standard/stdSectionAssignment.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Generate Classes
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <%}if(pojo.getManagement()!=0){ %>
                     
                     <li class="dropdown_menu">
                         <a href="#">
@@ -197,7 +278,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+                    <%}if(pojo.getAdmission()!=0){ %>
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-graduation-cap"></i>
@@ -255,7 +336,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+                    <%}if(pojo.getFee()!=0){ %>
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-inr"></i>
@@ -277,6 +358,7 @@
                             </li>
                         </ul>
                     </li>
+                    <%}if(pojo.getAttendance()!=0) {%>
                     
                     <li class="dropdown_menu">
                         <a href="#">
@@ -317,7 +399,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+                    <%}if(pojo.getExam()!=0){ %>
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa  fa-pencil-square-o"></i>
@@ -351,7 +433,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+                    <%}if(pojo.getTeacher()!=0){ %>
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-group (alias)"></i>
@@ -391,7 +473,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+                    <%}if(pojo.getRegister()!=0){ %>
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-calendar"></i>
@@ -426,7 +508,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+                    <%}if(pojo.getCashbook()!=0){ %>
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-file-text"></i>
@@ -466,7 +548,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+                    <%}if(pojo.getTransport()!=0){ %>
 					<li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-car"></i>
@@ -525,7 +607,7 @@
                         </ul>
                     </li>
 
-                    
+                    <%}if(pojo.getSalary()!=0){ %>
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-money"></i>
@@ -559,50 +641,8 @@
                             </li>
                         </ul>
                     </li>
-                    
-                    <li class="dropdown_menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-book fa-fw"></i>
-                            <span class="link-title menu_hide">&nbsp; Library</span>
-                            <span class="fa arrow menu_hide"></span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="/SMGMT/View/library/AddBook.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Add Books
-                                </a>
-                            </li>
-                             <li>
-                                <a href="/SMGMT/View/library/IssueBook.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Issue Book/Return Book
-                                </a>
-                            </li>
-                             <li>
-                                <a href="/SMGMT/View/library/SetFine.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Set Library Fine
-                                </a>
-                            </li>
-                            
-                            <li>
-                                <a href="/SMGMT/View/library/FineSub.jsp">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Fine Submission
-                                </a>
-                            </li>
-                           
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Report
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-                    
+                    <%}if(pojo.getOther()!=0){ %>
+                                       
                     <!-- <li>
                         <a href="/SMGMT/View/student/addStudent.jsp">
                             <i class="fa fa-mortar-board"></i>
@@ -651,7 +691,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+                    <%}if(pojo.getEmsg()!=0){ %>
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-envelope"></i>
@@ -673,10 +713,33 @@
                             </li>
                         </ul>
                     </li>
-                    
-                   
+					<%}if(roll==3) {%>
+					<li class="dropdown_menu">
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span class="link-title menu_hide">&nbsp; Sign Up New User</span>
+                            <span class="fa arrow menu_hide"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/SMGMT/View/signup/adduser.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add New User
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Change User Details
+                                </a>
+                            </li>
+                        </ul>
+                    </li>   
+                    <%} %>                
                 </ul>
+				
                 <!-- /#menu -->
             </div>
         </div>
 </section>
+<%}%>

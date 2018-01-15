@@ -57,7 +57,7 @@
              <!-- /.left navbar -->
            
            
-           	<%
+           	<%	
 				HttpSession session1 = request.getSession();
 				session1.setAttribute("schoolId", "1");
 			%>  

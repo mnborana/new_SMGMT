@@ -16,6 +16,8 @@ import com.servletStore.student.model.StudentDAO;
 import com.servletStore.student.model.StudentImpl;
 import com.servletStore.student.model.StudentPojo;
 
+import utility.CommonStudent;
+
 /**
  * Servlet implementation class Student
  */
@@ -44,11 +46,9 @@ public class Student extends HttpServlet {
 			}
 		}
 		if (standardList != null) {
-			StudentPojo theStudent=new StudentPojo();
-			theStudent.setSchoolId(standardList);
-			sd=new StudentImpl();
-			List theStandardList=sd.getStandardList(theStudent);
-			Iterator irt=theStandardList.iterator();
+			CommonStudent cs=new CommonStudent();
+			List<Object> theStandardList=cs.getStandardList(standardList);
+			Iterator<Object> irt=theStandardList.iterator();
 			while (irt.hasNext()) {
 				out.print(irt.next()+"~");
 			}
@@ -90,6 +90,7 @@ public class Student extends HttpServlet {
 		
 		System.out.println("in Post");
 		String submit=request.getParameter("submitBtn");
+		
 		if(submit!=null)
 		{
 			System.out.println("in Loop");
@@ -218,15 +219,6 @@ public class Student extends HttpServlet {
 			theStudent.setBankName(bankName);
 			theStudent.setIfscCode(ifscCode);
 			theStudent.setAccountNo(accountNo);
-			
-			
-			
-			
-			
-			
-			
-			out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			out.println("classAllow >>"+classAllow);
 			
 			sd=new StudentImpl();
 			

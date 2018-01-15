@@ -256,7 +256,7 @@
     <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
 
 <script type="text/javascript">
-       function searchByVehicle() {
+       function searchByVehicle(ee) {
    		//document.write("AP");
    		  var ch1=$('input[name=radio3]:checked', '#myForm').val(); 
    		var  vehicleNo=document.getElementById("myInput").value;
@@ -267,7 +267,7 @@
    		xhttp.onreadystatechange = function() {
    			if (this.readyState == 4 && this.status == 200) {
    			
-   				var demoStr = this.responseText.split("@");	
+   				var demoStr = this.responseText.split("~");	
    				
    				//var cnt=1;
    				var i=0;
@@ -278,15 +278,18 @@
    				
    				for(;demoStr[i];)
    					{
-   						var j=0;
-   						var demo = demoStr.split("~");
-   						var k=demo[0];
-   						
-   						for(;demo[j];)
+   					if(demoStr[i].equals(demoStr[i+1]))
    						{
-   							
-   							if(k == demo[j]){
-   								tr+="<tr><td rowspan="+(J+1)+">";
+   						i++;
+						row+="</td><td>"+demoStr[i]+"</td>";
+   						}
+   						
+						i++;
+						row+="</td><td>"+demoStr[i]+"</td>";
+						i++;
+						row+="</td><td>"+demoStr[i]+"</td></tr>";
+						i++;
+   						/* tr+="<tr><td rowspan="+(J+1)+">";
    								J++;
    								tr+=demo[j]+"</td>"
    							}else{
@@ -307,8 +310,8 @@
    						}
    					/* if(j==j){
 							
-						}
-   					 */	
+						} */
+   					 
    					 
    					/*  j=demoStr[i];
    						i++; */

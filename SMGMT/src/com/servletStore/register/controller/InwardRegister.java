@@ -65,10 +65,11 @@ public class InwardRegister extends HttpServlet {
 			String mobileNo=request.getParameter("mobileNum");
 			String description=request.getParameter("description");
 			String documentName=request.getParameter("selRegister");
-			
+			System.out.println("document id:"+documentName);
 			int id=Integer.parseInt(documentName);
-			InwardRegisterPojo pojo1=impl.setdocument(id);
-			String document=pojo1.getDocmentName();
+			
+			/*InwardRegisterPojo pojo1=impl.setdocument(id);
+			String document=pojo1.getDocmentName();*/
 			
 			//System.out.println("document:"+document);
 			
@@ -80,11 +81,13 @@ public class InwardRegister extends HttpServlet {
 			pojo2.setAddress(address);
 			pojo2.setMobileNo(mobileNo);
 			pojo2.setDescription(description);
-			pojo2.setDocmentName(document);
+			pojo2.setDocumentId(id);
 			
-			impl.inwardRegister(pojo2);
-		     request.setAttribute("status", "InwardRegister Inserted Successfully");
-			
+			int i=impl.inwardRegister(pojo2);
+			if(i>0)
+			{
+				session.setAttribute("status","Inserted response has recorded ");
+			}			
 			response.sendRedirect("View/register/inwardRegister.jsp");
 		}
 		
@@ -128,7 +131,7 @@ public class InwardRegister extends HttpServlet {
 				String mobileNo=((InwardRegisterPojo)pojo).getMobileNo();
 				String subject=((InwardRegisterPojo)pojo).getSubject();
 				String description=((InwardRegisterPojo)pojo).getDescription();
-				String documentName=((InwardRegisterPojo)pojo).getDocmentName();
+				int documentName=((InwardRegisterPojo)pojo).getDocumentId();
 				out.print(id1+","+reqdate+","+senderName+","+address+","+mobileNo+","+subject+","+description+","+documentName);
 			}
 		}
@@ -136,32 +139,34 @@ public class InwardRegister extends HttpServlet {
 		
 		if(request.getParameter("InwardDetailsBtn")!=null)
 		{
+			InwardRegisterPojo pojo3=new InwardRegisterPojo();
+			
 			String updateId=request.getParameter("updateId");
 			int inwardId=Integer.parseInt(updateId);
-			System.out.println("update Id:"+inwardId);
+			
 			String reqdate=request.getParameter("update");
 			String updateSenderName=request.getParameter("upsenderName");
 			String updateAddress=request.getParameter("upaddress");
-			String updateMobileNum=request.getParameter("updateMobileNum");
-			
+			String updateMobileNum=request.getParameter("updateMobileNum");			
 			String updateSubject=request.getParameter("upsubject");
 			String updateDescription=request.getParameter("updateDescription");
 			
 			String updateDocumentId=request.getParameter("updateDocumentName");
 			int id=Integer.parseInt(updateDocumentId);
-			InwardRegisterPojo pojo=impl.setDocumentName(id);
-			String documentName=pojo.getDocmentName();
+			/*InwardRegisterPojo pojo=impl.setDocumentName(id);
+			String documentName=pojo.getDocmentName();		
+			*/
+			System.out.println(reqdate+","+updateSenderName+","+updateAddress+","+updateMobileNum+","+updateSubject+","+updateDescription+","+id);
 			
-			InwardRegisterPojo pojo3=new InwardRegisterPojo();
 			pojo3.setDate(reqdate);
 			pojo3.setSenderName(updateSenderName);
 			pojo3.setAddress(updateAddress);
 			pojo3.setMobileNo(updateMobileNum);
 			pojo3.setSubject(updateSubject);
 			pojo3.setDescription(updateDescription);
-			pojo3.setDocmentName(documentName);
+			pojo3.setDocumentId(id);
 			
-			impl.updateInwardRegister(pojo3,inwardId);
+			impl.updateInwardRegister(pojo3, inwardId);
 			response.sendRedirect("View/register/inwardRegister.jsp");
 		}
 		
