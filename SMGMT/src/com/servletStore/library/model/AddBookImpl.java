@@ -372,7 +372,7 @@ public class AddBookImpl implements AddBookDAO{
 
 	}
 	
-	public List<IssueBookPOJO> getIssueBookList(String query) {
+/*	public List<IssueBookPOJO> getIssueBookList(String query) {
 		List<IssueBookPOJO> list=new ArrayList<IssueBookPOJO>();
 		 SysDate sd=new SysDate();
 		
@@ -405,7 +405,7 @@ public class AddBookImpl implements AddBookDAO{
 		//System.out.println("5*******************"+list);
 		return list;
 
-	}
+	}*/
 		@Override
 	public List getDatewiseIssueList(String date1, String date2)
 			throws SQLException {
@@ -774,7 +774,27 @@ public class AddBookImpl implements AddBookDAO{
 		return list;
 	}
 	
-	
+	@Override
+	public List getFineSubmission(int id) throws SQLException {
+		System.out.println("1");
+		List list=new ArrayList();
+		String query="SELECT student_details.first_name,student_details.middle_name,student_details.last_name,std_master.name,classroom_master.division,fine_master_details.remaining_fine_amt FROM fine_master_details,student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE fine_master_details.id=(SELECT MAX(fine_master_details.id) FROM fine_master_details WHERE fine_master_details.stud_id=?) AND student_details.id=fine_master_details.stud_id AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
+		pstmt=connection.prepareStatement(query);
+		System.out.println("Qury"+query);
+		pstmt.setInt(1, id);
+		ResultSet rs=pstmt.executeQuery();
+		System.out.println("2");
+		while(rs.next())
+		{
+			list.add(rs.getString(1));
+			list.add(rs.getString(2));
+			list.add(rs.getString(3));
+			list.add(rs.getString(4));
+			list.add(rs.getString(5));
+			list.add(rs.getInt(6));
+		}
+			return list;
+	}
 	
 }
 

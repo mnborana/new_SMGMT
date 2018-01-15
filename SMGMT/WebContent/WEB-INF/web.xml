@@ -204,4 +204,16 @@
     <servlet-name>Signup</servlet-name>
     <url-pattern>/Signup</url-pattern>
   </servlet-mapping>
+
 </web-app>
+
+    <servlet>
+    <servlet-name>feeType</servlet-name>
+    <servlet-class>com.servletStore.feeType.controller.feeType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>feeType</servlet-name>
+    <url-pattern>/feeType</url-pattern>
+  </servlet-mapping>
+</web-app>
+>>>>>>> refs/remotes/origin/HEAD

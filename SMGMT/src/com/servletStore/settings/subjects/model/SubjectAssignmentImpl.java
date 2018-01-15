@@ -37,7 +37,7 @@ public class SubjectAssignmentImpl implements SubjectAssignmentDAO{
 			
 			while(rs.next()){
 				subjectList.put(rs.getInt(1), rs.getString(2));
-			}
+			}	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -73,7 +73,7 @@
   top: 48%;
   background-position: center;
 z-index: 999999">
-        <img src="" style=" width: 40px;" alt="loading...">
+        <img src="/SMGMT/config/img/loader.gif.pagespeed.ce.pu_lpoGKrw.gif" style=" width: 40px;" alt="loading...">
     </div>
 </div>
 <div id="wrap">
@@ -134,16 +134,16 @@ z-index: 999999">
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                        Create New Subject
+                                        Assign Subjects
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="/SMGMT/StdSectionAssignment" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/SubjectAssignment" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                        <div class="form-group row">
                                            <div class="col-lg-4  text-lg-right">
                                                <label for="required2" class="col-form-label">Select Subject <span style="color: red;">*</span> </label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <select class="form-control chzn-select" name="schoolId" id="schoolId" title="Select School"  required="required">
+                                               <select class="form-control chzn-select" name="subjectId" id="subjectId" title="Select Subject"  required="required">
 			                                        <option>Select Subject</option>
 			                                        <%
 				                                    	SubjectAssignmentDAO sdao = new SubjectAssignmentImpl();
@@ -176,6 +176,7 @@ z-index: 999999">
 	                                   
 	                                    	Set keys1 = stdList.keySet();
 											Iterator itr1 = keys1.iterator();
+											int counter=1;
 											
 											while(itr1.hasNext()){
 	                                    		int key = Integer.parseInt(itr1.next().toString());
@@ -185,25 +186,27 @@ z-index: 999999">
 			                                    	<div class='col-lg-4'> 
 										           		<div class='checkbox'>
 										                	<label class='text-mint'>
-										                    	<input type='checkbox' value='<%=key %>' name='stds' id='' >
+										                    	<input type='checkbox' value='<%=key %>' name='stds<%=counter %>' id='' >
 										                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span> <%=stdList.get(key) %>
 										                	</label>
 											    		</div>
 											    	</div>
 												</td>
+												
 												<td class="stdTableTD2">
 		                                            <div class='col-lg-4'> 
 										           		<div class='checkbox'>
 										                	<label class='text-mint'>
-										                    	<input type='checkbox' value='<%=key %>' name='optinal' id='' >
+										                    	<input type='checkbox' value='<%=key %>' name='optinal<%=counter %>' id='' >
 										                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span> Optinal
 										                	</label>
 											    		</div>
 											    	</div>
 	                                            </td>
+	                                            
 	                                            <td class="stdTableTD3">
 		                                            <div class="col-lg-4">
-		                                             	<input type="text" class="form-control" placeholder="Enter Subject Code" name="subject_code" title="Enter Subject Code here" onkeyup="this.value=this.value.toUpperCase()" style=" width: 200%;"  onblur="this.value=$.trim(this.value)">
+		                                             	<input type="text" class="form-control" placeholder="Enter Subject Code" name="subject_code<%=counter %>" title="Enter Subject Code here" onkeyup="this.value=this.value.toUpperCase()" style=" width: 200%;"  onblur="this.value=$.trim(this.value)">
 		                                            </div>
 	                                            </td>
 	                                            
@@ -211,15 +214,17 @@ z-index: 999999">
                                            
 											
 	                                     <%
+	                                     	counter++;
 	                                    	}
 	                                     %>  
 				                            </table>         
                                       </div>
                                       
                                       <br>
+                                      <input type="hidden" name="counter" value=<%=--counter %>> 
                                        <div class="form-actions form-group row">
                                            <div class="col-lg-4 push-lg-4">
-                                               <input type="submit" value="Generate Class" class="btn btn-primary">
+                                               <input type="submit" value="Generate Class" name="subjectAssignSubmit" class="btn btn-primary">
                                            </div>
                                        </div>
                                    </form>
