@@ -383,7 +383,7 @@
                                              	<td><%=((InwardRegisterPojo)inwardPojo).getDescription() %></td>
                                              	<td><%=((InwardRegisterPojo)inwardPojo).getDocmentName()%></td>
                                              	<td>
-                                        			<a class="edit" data-toggle="modal" data-placement="top" title="Update" href="#modal-4" onclick="updateInward(<%=((InwardRegisterPojo)inwardPojo).getId()%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
+                                        			<a class="edit"  title="update" data-toggle="modal" data-placement="top" title="Update" href="#modal-4" onclick="updateInward(<%=((InwardRegisterPojo)inwardPojo).getId()%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
                                         			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/InwardRegister?deleteId=<%=((InwardRegisterPojo)inwardPojo).getId()%>"><i class="fa fa-trash text-danger"></i></a>
                                         		</td>
                                              	
@@ -566,7 +566,7 @@
                                          	</div>
                                          	  
                                            		<div class="col-lg-6">                                           				
-                                             		  <input class="form-control" name="updateMobileNum" placeholder="" id="updateMobileNumberId" onkeyup="this.value=this.value.toUpperCase()" required />                                                
+                                             		  <input class="form-control" name="updateMobileNum" placeholder="" id="updateMobileNumberId" maxlength="10" pattern="[0-9]+{10}" onkeyup="this.value=this.value.toUpperCase()" required />                                                
                                          	  </div>
                                          		  
                                       	  </div>                        	  
@@ -590,8 +590,7 @@
                                                 	InwardRegisterPojo pojo6=(InwardRegisterPojo)itr7.next();
                                                 	String selectSubject=((InwardRegisterPojo)pojo6).getSubject();
                                                 
-                                                %>
-                                                
+                                                %>                                                
 													<option><%=selectSubject %></option>
 												<%} %>
 												</datalist>
@@ -603,7 +602,7 @@
                                                <label for="required2" class="col-form-label">Description*</label>
                                            </div>
                                            <div class="col-lg-6">
-                                               <input class="form-control" name="updateDescription" id="updateDescription" onkeyup="this.value=this.value.toUpperCase()" required />
+                                               <input class="form-control" name="updateDescription" id="updateDescription" pattern="[A-Za-z]{}" onkeyup="this.value=this.value.toUpperCase()" required />
                                                 
                                            </div>
                                      	  </div>
@@ -620,7 +619,7 @@
                                            Iterator<InwardRegisterPojo> itr11=l2.iterator();
                                            %>
                                            		
-                                              <select class="form-control" name="updateDocumentName" id="updateDocumentId" required>
+                                              <select  class="form-control" name="updateDocumentName" id="updateDocumentId" required>
                                               <%
                                               while(itr11.hasNext())
                                               {
@@ -628,7 +627,7 @@
                                             	  int id1=((InwardRegisterPojo)pojo11).getId();                                            	 
                                               	  String doc1=((InwardRegisterPojo)pojo11).getDocmentName();
                                               	  
-                                              	// System.out.println("id is :"+id1+"doc1:"+doc1);
+                                              	//System.out.println("id is :"+id1+"doc1:"+doc1);
                                               
                                               %>
                                                     <option value="<%=id1%>"><%=doc1 %></option>
@@ -753,7 +752,7 @@ function getSenderDetails(id){
 
 
 function updateInward(id) {
-	
+	//alert(id);
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -768,9 +767,9 @@ function updateInward(id) {
 			document.getElementById("updateMobileNumberId").value = demoStr[4];
 			document.getElementById("updateSubject").value = demoStr[5];
 			document.getElementById("updateDescription").value = demoStr[6];
-			//document.getElementById("updateDocumentId").value = demoStr[7];	
-			
-			var dd = document.getElementById('updateDocumentId');
+			document.getElementById("updateDocumentId").value = demoStr[7];	
+			//document.getElementById("updateDocumentId").selectedIndex = demoStr[7];
+			/*  var dd = document.getElementById('updateDocumentId');
 			
 			for (var i = 0; i < dd.options.length; i++) {
 			    if (dd.options[i].text === demoStr[7]) {
@@ -779,11 +778,11 @@ function updateInward(id) {
 			        getSetSelect('s2id_updateDocumentId', demoStr[7]);
 			        break;
 			    }
-			}
+			}  */
 			
 		}
 		};
-	xhttp.open("POST","/SMGMT/InwardRegister?inwardId=1", true);
+	xhttp.open("POST","/SMGMT/InwardRegister?inwardId="+id, true);
 	xhttp.send();
 	
 } 
@@ -812,7 +811,7 @@ function setDetails() {
 	
 } 
 	
-	function getSetSelect(id,value)
+	 function getSetSelect(id,value)
 	{
 		var x=document.getElementById(id).children;
 		var xx=x[0].children;
@@ -824,13 +823,19 @@ function setDetails() {
 	    var x = document.getElementById("snackbar").value;
 	    x.className = "show";
 	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	    
+	    
 	}
 	
 	function setFocusToTextBox() {	
 	
 		document.getElementById("senderNameId").focus();
 		myFunction();
+		
+		
 	}
+	
+	
 	
 	</script>
 </body>
