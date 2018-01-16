@@ -14,7 +14,7 @@ import com.servletStore.feeType.model.feeTypeImpl;
 import com.servletStore.feeType.model.feeTypePOJO;
 
 
-public class feeType extends HttpServlet {
+public class FeeType extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
