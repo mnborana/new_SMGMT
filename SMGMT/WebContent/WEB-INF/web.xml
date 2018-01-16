@@ -5,14 +5,6 @@
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-    <servlet-name>SubjectAssignment</servlet-name>
-    <servlet-class>com.servletStore.settings.subjects.controller.SubjectAssignment</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SubjectAssignment</servlet-name>
-    <url-pattern>/SubjectAssignment</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>AddClassRoom</servlet-name>
     <servlet-class>com.servletStore.settings.classRoom.controller.AddClassRoom</servlet-class>
   </servlet>
@@ -212,4 +204,16 @@
     <servlet-name>Signup</servlet-name>
     <url-pattern>/Signup</url-pattern>
   </servlet-mapping>
+
 </web-app>
+
+    <servlet>
+    <servlet-name>feeType</servlet-name>
+    <servlet-class>com.servletStore.feeType.controller.feeType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>feeType</servlet-name>
+    <url-pattern>/feeType</url-pattern>
+  </servlet-mapping>
+</web-app>
+>>>>>>> refs/remotes/origin/HEAD

@@ -79,7 +79,7 @@
                             <div class="col-sm-5 col-lg-6">
                                 <h4 class="nav_top_align">
                                     <i class="fa fa-pencil"></i>
-                                    	Issue Book Details
+                                    	Fine Details
                                 </h4>
                             </div>
                             <div class="col-sm-7 col-lg-6">
@@ -93,7 +93,7 @@
                                     <li class="breadcrumb-item">
                                         <a href="#">Library</a>
                                     </li>
-                                    <li class="active breadcrumb-item">Issue Books</li>
+                                    <li class="active breadcrumb-item">Fine Submission</li>
                                 </ol>
                                </div>
                             </div>
@@ -108,100 +108,72 @@
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                  		  Book Issue
+                                  		  Fine Information
                                     </div>
                                    <div class="row">
 				                          <div class="col-12">
 				                                       <div class="col-lg-8 m-t-20">
 				                                          <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator">
-		                                     				 <div class="form-group row" id="stud" style="display: block">
+		                                     				 <div class="form-group row">
 		                                          	      		<div class="col-lg-8">
 		                                          	      			<input type="hidden" name="studId" id="stud_Id">
-		                                                			<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" oninput="getStudId(this.value)" class="form-control" style="margin-left: 9px;" id="searchStud"  name="searchStud" placeholder="Search Student by Id/Name" required>
+		                                                			<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" oninput="getStudId(this.value)" onblur="getStudInfo('studInfo',event)" class="form-control" style="margin-left: 9px;" id="searchStud"  name="searchStud" placeholder="Search Student by GRN/Name" required>
 			                                                		<datalist id="browseStud">
 			                                                		</datalist>
+			                                                		<span id="studentListErrorMsg11" style="color: red;"></span>
+			                                                		<small class="help-block" data-bv-validator="notEmpty" id="studentListErrorMsg" style=""></small>
 		                                                 		</div> 
-		                                              		</div>
-		                                              </form>
+		                                                 	</div>
+		                                                  <div id="studInfo" style="display: none;">
+		                                                 	<div class="form-group row">
+
+																		<div class="col-lg-4 ">
+																		<label for="required2" class="col-form-label">Fisrt Name
+																				</label> <input type="text" id="first_Name" name="firstName"
+																				class="form-control" readonly="readonly">
+																		</div>
+																		<div class="col-lg-4 ">
+																			<label for="required2" class="col-form-label">Middle
+																				Name</label> <input type="text" id="middle_Name" name="middleName"
+																				class="form-control" readonly="readonly">
+																		</div>
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Last
+																				Name</label> <input type="text" id="last_Name"
+																				name="lastName" class="form-control" readonly="readonly">
+																		</div>
+																		</div>
+																		<div class="form-group row">
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Standard
+																				</label> <input type="text" id="std_Id"
+																				name="std" class="form-control" readonly="readonly">
+																		</div>
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Division
+																				</label> <input type="text" id="div_Id"
+																				name="div" class="form-control" readonly="readonly">
+																		</div>
+																		<div class="col-lg-4">
+																			<label for="required2" class="col-form-label">Total Fine
+																				</label> <input type="text" id="total_Fine"
+																				name="totalFine" class="form-control" onblur="countFineNill(this.value)" readonly="readonly">
+																		</div>
+																	</div>
+																</div> 		
+														<div class="form-group row">
+		                                                 	     <div class="form-actions">
+																	<input type="submit" id="returnSubmit" value="Submit Fine"
+																		name="submitfine" class="btn btn-success" style="margin-left: 24px;" >
+																		</div>
+		                                                 	</div>
+														
+		                                                  </form>
 				                              </div>
 				                            </div>
 				                          </div>
-				                           <!-- Book Table -->  
- <div class="outer">
-       <div class="inner bg-container">
-               <div class="card">
-                            <div class="card-header bg-white">
-                               Issued Books List
-                            </div>
-                  <div class="card-block m-t-35" id="user_body">
-                                <div class="table-toolbar">
-                                    
-                                    <div class="btn-group float-right users_grid_tools">
-                                        <div class="tools"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div>
-                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
-                                            <thead>
-                                            <tr role="row">
-                                            	<th class="sorting_asc wid-10" tabindex="0" rowspan="1" colspan="1">Sr.No</th>
-                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Student Name</th>
-                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Book Name</th>
-                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Due Date</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Return Date</th>
-                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Fine</th>
-                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Action</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                       		 	<%-- <%
-                                       		 		AddBookDAO dao=new AddBookImpl();
-                                       		 	//	System.out.print("***"+dao.getIssueBookDetails());
-                                       		 		request.setAttribute("display_student", dao.getIssueBookDetails());
-                                       		 		int bookCount=0;
-                                       		 	%>
-													<c:forEach items="${display_student}" var="d">
-													  <tr role="row" class="even">
-													   
-														<td><%=(++bookCount) %></td>
-														<c:if test="${d.studName!=null }">
-															<td><c:out value="Student"></c:out></td>
-															<td><c:out value="${d.studName}"></c:out></td>
-														</c:if>
-														<c:if test="${d.staffName!=null }">
-															<td><c:out value="Teacher"></c:out></td>
-															<td><c:out value="${d.staffName}"></c:out></td>
-														</c:if>
-														<td><c:out value="${d.bookName}"></c:out></td>
-														<td><c:out value="${d.dueDate}"></c:out></td>
-														<td><c:out value="${d.returnDate}"></c:out></td>
-														<td><c:out value="${d.fine}"></c:out></td>
-													
-														 <td>
-                                            			<a class="edit" data-placement="top" title="Pay" href="#payFine" data-toggle="modal" onclick="loadDoc(${d.getBookNo()})"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-                                            			
-                                            			</td>  
-                                            		</tr>
-												  </c:forEach> --%>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- END EXAMPLE TABLE PORTLET-->
-                            </div>
-                       	 </div>
-                       </div><!-- /.inner -->
-                    </div><!-- /outer -->   
-				                        
-				                     	 
-				                     	 <!-- Second Tab --> 
-				                     	   
-				                               <!-- Third Tab -->
-				                               
-				                        
-				                      
-				                   </div>
+				                            <!-- Book Table -->  
+										  </div>
 				                 </div>
                             </div> <!-- /.col-lg-12 -->
                         </div> <!-- /.row -->
@@ -209,24 +181,56 @@
                 </div> <!-- /.outer -->
             
             
-                <!-- Modal -->
-                <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
-                    <form>
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span class="float-right" aria-hidden="true">&times;</span>
-                                </button>
-                                <div class="input-group search_bar_small">
-                                    <input type="text" class="form-control" placeholder="Search..." name="search">
-                                    <span class="input-group-btn">
-							        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-							      </span>
-                                </div>
+               <!-- Modal -->
+                 <div class="modal fade show" id="payFine" role="dialog" aria-labelledby="modalLabelnews">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary">
+                                <h4 class="modal-title text-white" id="modalLabelnews"><strong>Do you want to give discount?</strong></h4>
                             </div>
+                            <div class="modal-body">
+                            	<div class="form-group row">
+																		<div class="col-lg-4 ">
+																		<label for="required2" class="col-form-label" style="margin-left: 21%;">Fine Amount
+																				</label> <input type="text" id="fineId" name="firstName"
+																				class="form-control" style="margin-left: 21%;" readonly="readonly">
+																		</div>
+																		<div class="col-lg-4 ">
+																			<label for="required2" class="col-form-label" style="margin-left: 44%;">Paid Amount
+																				</label> <input type="text" id="paidId" name="middleName" value="0" oninput="countTotalFine(this.value)"
+																				class="form-control" style="margin-left: 44%;">
+																				<small class="help-block" data-bv-validator="notEmpty" id="error" style=""></small>
+																		</div></div>
+																		<div class="form-group row">
+																		<div class="col-lg-4 ">
+																		<label for="required2" class="col-form-label" style="margin-left: 21%;">Discount
+																				</label> <input type="text" id="discountId" name="firstName" value="0"
+																				class="form-control" style="margin-left: 21%;" readonly="readonly">
+																		</div>
+																		<div class="col-lg-4 ">
+																		<label for="required2" class="col-form-label" style="margin-left: 44%;">Fine
+																				</label> <input type="text" id="remainId" name="firstName"
+																				class="form-control" style="margin-left: 44%;" readonly="readonly">
+																		</div>
+																		</div>
+                            		<!-- <ul>
+	                            		<li id="tFine"><strong>Total Fine =</strong></li>
+	                            		<li id="pFine"><strong>Paid Amount =</strong></li>
+	                            		<li id="pFine"><strong>Discount =</strong></li>
+	                            		<li id="rBal"><strong>Remaining Balance =</strong></li>
+	                            	</ul> -->
+                            	
+                            	   
+                            </div>
+                            
+                            <div class="modal-footer">
+                            	<button class="btn btn-success" data-dismiss="modal" onclick="giveDiscount()">Yes</button>
+                            	<button class="btn btn-warning" data-dismiss="modal">No</button>
+                            </div>
+                           
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </div>  <!-- /Modal  -->
            
             
             
@@ -258,298 +262,6 @@
 
 </body>
 <script type="text/javascript">
-
-
-
-function calculatePaidAmt(val)
-{
-	//alert(val);
-	var oldRemainAmt=parseInt(document.getElementById("oldRemainFine").value);
-	var remainAmt=parseInt(document.getElementById("fineAmount").value);
-	//var remainFine=document.getElementById("remainAmount").value;
-	//alert(remainAmt);
-	var paidAmount=parseInt(document.getElementById("paidAmountId").value);
-	var discount=parseInt(document.getElementById("discount").value);
-	//alert(paidAmount);
-	if(discount==0)
-	{
-		if(oldRemainAmt<paidAmount)
-		{
-			alert('not count');	
-			document.getElementById('remainAmount').value=oldRemainAmt;
-			document.getElementById("error").innerHTML="Number should less than Fine";
-		}
-		else
-		{
-			var totalFine=remainAmt-paidAmount;
-			alert(totalFine);
-			// var totalAmt=remainAmt-paidAmt;
-			document.getElementById('remainAmount').value=totalFine;
-			document.getElementById("discount").readOnly = true;
-			document.getElementById("information").innerHTML="* If you want to give discount then...";	
-			document.getElementById("information").style.color='#27ae60';
-		}
-	}	
-		else
-		{
-			
-			var totalAmt=parseInt(document.getElementById('totalAmount').value);
-			if(totalAmt<paidAmount)
-			{
-				alert('not count');
-				document.getElementById('remainAmount').value=0;
-			}
-			else
-			{
-				var totalFine=totalAmt-paidAmount;
-				alert(totalFine);
-				// var totalAmt=remainAmt-paidAmt;
-				document.getElementById('remainAmount').value=totalFine; 
-				document.getElementById("error").innerHTML="";	
-			}
-			
-		}
-	
-	
-	/* else
-	{
-		alert('count');
-		var totalFine=oldRemainAmt-paidAmount;
-		alert(totalFine);
-		// var totalAmt=remainAmt-paidAmt;
-		document.getElementById('remainAmount').value=totalFine; 
-		document.getElementById("error").innerHTML="";
-	}  */
-	
-	 
-	 
-	 //discount
-		/* var disTotalAmount=document.getElementById("totalAmount").value;
-		//alert(disTotalAmount);
-		var paidAmt=document.getElementById('paidAmountId').value;
-		//alert(paidAmt);
-		var total=disTotalAmount-paidAmt;
-		//alert(total);
-		document.getElementById("remainAmount").value=total;  */
-		
-		
-		
-		
-		
-	
-	/* var remainAmt=document.getElementById('remainAmount').value;
-	var totalAmt=remainAmt-val;
-	if (totalAmt > 0) {
-		document.getElementById('remainAmount').value=totalAmt;
-	}
-	else
-	{
-		alert('negative value');	
-		var paidAmt=document.getElementById('paidAmountId').value;
-		
-			document.getElementById('remainAmount').value=oldRemainAmt;
-		
-		//document.getElementById('remainAmount').value=remainAmt;
-	} */
-	
-}
-
-function checkedPay(checkId)
-{
-	if($(checkId).is(":checked"))
-		{
-		document.getElementById("returnSubmit").disabled=false;
-		document.getElementById("remainAmount").value=famount;
-		}
-	else{
-		document.getElementById("returnSubmit").disabled=true;
-	}
-	
-}
-	
-function countPay(val)
-{
-	
-	alert(val);
-	var oldFineAmount=parseInt(document.getElementById("oldRemainFine").value);
-	var dis=parseInt(document.getElementById("discount").value);
-	
-	if(dis<oldFineAmount)
-	{
-		alert('count');
-		var total=oldFineAmount-dis;
-		document.getElementById("totalAmount").value=total;
-		
-	}
-	else
-	{
-		alert('not count');	
-		document.getElementById("totalAmount").value=total;
-	}
-	
-}
-
-function getDueDateCount()
-{
-	
-	var issueDate=document.getElementById('issueDate_id').value;
-	
-		var date = new Date(issueDate);
-	    var newdate = new Date(date);
-	    var count=0;
-
-	    newdate.setDate(newdate.getDate() + 3);
-	    
-	    var dd = newdate.getDate();
-	    var mm = newdate.getMonth() + 1;
-	    var y = newdate.getFullYear();
-
-
-	 while(count<7) {
-	    if(newDate.gateDay()!=0 && newDate.gateDay()!=6 )
-	    	{
-	    	var newDate = dd + '-' + mm + '-' + y;
-		    document.getElementById('dueDate_id').value = newDate;
-	    	count++;
-	    	}
-	   }
-	
-}
-
-function getStudentId(val)
-{
-	var opts = document.getElementById('returnBook').childNodes;
-	for (var i = 0; i < opts.length; i++) {
-		 if (opts[i].value === val) 
-		 {
-			 //alert(val);
-			var xhttp = new XMLHttpRequest();
-			  xhttp.onreadystatechange = function() {
-			    if (this.readyState == 4 && this.status == 200) {
-			    	
-			      var demo = this.responseText;
-			     var stud=demo.split(",");
-			     //alert(stud);
-			     document.getElementById("student_Id").value=stud;
-			      }
-			  };
-			  xhttp.open("POST", "/SMGMT/Library?getstudentId="+val, true);
-			  xhttp.send(); 
-	    	  break;
-		}
-	}
-}
-function getStudId(val)
-{
-	var opts = document.getElementById('browseStud').childNodes;
-	for (var i = 0; i < opts.length; i++) {
-		 if (opts[i].value === val) 
-		 {
-			 var xhttp = new XMLHttpRequest();
-			  xhttp.onreadystatechange = function() {
-			    if (this.readyState == 4 && this.status == 200) {
-			     var demo = this.responseText;
-			     var stud=demo.split(",");
-			     var studId=demo.split("#");
-			     document.getElementById("stud_Id").value=studId;
-			    //alert(studId);
-			     }
-			  };
-			  xhttp.open("POST", "/SMGMT/Library?getstudId="+val, true);
-			  xhttp.send(); 
-	    	  break;
-		 }
-	}
-}
-
-function myFunction()
-{
-		
-	var issueDate=document.getElementById('issueDate_id').value;
-	
-	var date = new Date(issueDate);
-    var newdate = new Date(date);
-
-    newdate.setDate(newdate.getDate() + 7);
-    
-    var dd = newdate.getDate();
-    var mm = newdate.getMonth() + 1;
-    var y = newdate.getFullYear();
-	
-    var someFormattedDate = y + '-' + mm + '-' + dd;
-    document.getElementById('dueDate_id').value = someFormattedDate;
-    
-	<%
-	if(session.getAttribute("flag")!=null){ %>
-	$(window).load(function () {
-        iziToast.show({
-            title: 'Success',
-            message: '<%=session.getAttribute("flag").toString()%>',
-            color:'#cc7fe5',       //'#00cc99'
-            position: 'topCenter'
-        });
-        return false;
-    });
-	<%} session.removeAttribute("flag");%>
-}
-
-function getReturnBooks(val)
-{
-	var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	     var demoData = this.responseText;
-	     var str=demoData.split(",");
-	    // alert(str);
-	     for(var i=0; i<str.length; i++)
-	    	 {
-	    	 var text=text+"<option value=\""+str[i]+"\"> </option>";
-	    	 
-	    	 }
-			document.getElementById("returnBook").innerHTML = text;		 
-	     
-	    }
-	  };
-	  xhttp.open("POST", "/SMGMT/Library?returnBooks="+val, true);
-	  xhttp.send();
-}
-
-/*<<<<<<<<<<<<<<<<<< Ajax for Serach book Info which is not issued >>>>>>>>>>>>>>>>>>>>>>>>>*/
-function getbookdetails(id){
-	//alert(id);
-	var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	     var demoData = this.responseText;
-	     var str=demoData.split(",");
-	    // alert(str);
-	     for(var i=0; i<str.length; i++)
-	    	 {
-	    	 var text=text+"<option value=\""+str[i]+"\"> </option>";
-	    	 
-	    	 }
-			document.getElementById("browseBook").innerHTML = text;		 
-	    }
-	  };
-	  xhttp.open("POST", "/SMGMT/Library?detailId="+id, true);
-	  xhttp.send();
-}
-
-/*<<<<<<<<<<<Display Student/ Teacher Block >>>>>>>>>>>>>>>>  */
-function searchDetails(radioValue)
-	{
-			if(radioValue=="Student")
- 			{
-	 			document.getElementById("stud").style.display="block";
-	 			document.getElementById("teacher").style.display="none";
- 			
-	        }
-	 		else if(radioValue=="Teacher"){
-	 			document.getElementById("teacher").style.display="block";
-	 			document.getElementById("stud").style.display="none";
-	 		}
-	}
-
 /*<<<<<<<<<<<<<<<<<< Ajax for Serach Student Info >>>>>>>>>>>>>>>>>>>>>>>>>*/
 function getstuddetails(id){
 //	alert(id);
@@ -575,246 +287,120 @@ function getstuddetails(id){
 	  xhttp.send();
 }
 
-function getteacherDetails(id){
-//	alert(id);
-	var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	     var demo = this.responseText;
-	     var stud=demo.split(",");
-	     for(var i=0; i<stud.length; i++)
-	    	 {
-	    	 var text=text+"<option value=\""+stud[i]+"\"> </option>";
-	    	 }
-	     //alert(text);
-			document.getElementById("browseStud").innerHTML = text;		 
-	      
-	     
-	    }
-	  };
-	  xhttp.open("POST", "/SMGMT/Library?studDetails="+id, true);
-	  xhttp.send();
-	
-}
-
-function getExpData(val)
+/* <<<<<<<<<<<<<<<<<<<Search Student info from here- (grn, name, std, div, shift) >>>>>>>>>>>>>>>>>>>>>>>>>*/
+function getStudId(val)
 {
-	//alert(val); 
-	
-	var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	    	var demoStr = this.responseText.split(",");
-	    	
-	    	if(demoStr==""){
-				document.getElementById("displayDate").innerHTML="<tr><td colspan=''>No Records Found!</td></tr>"}
-			else
-				{
-				var count=1;
-				var wholeData="";
-					for(var i=0;i<demoStr.length-2;i=i+4){
-						wholeData+="<tr>"+
-						"<td style='text-align: center'>"+count+"</td>"+
-						"<td style='text-align: center'>Student</td>"+
-						"<td style='text-align: center'>"+demoStr[i]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+1]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+2]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+3]+"</td>"+
-						/* "<td style='text-align: center'>"+demoStr[i+4]+"</td>"+ */
-						/* "<td style='text-align: center'>"+demoStr[i+5]+"</td>"+ */
-						"<tr>"
-						
-						count++;
-					}
-					//alert(wholeData);
-					document.getElementById("displayDate").innerHTML=wholeData;
-				}
-	    }
-	  };
-	  xhttp.open("POST", "/SMGMT/Library?getTableData="+val, true);
-	  xhttp.send();
+	var opts = document.getElementById('browseStud').childNodes;
+	for (var i = 0; i < opts.length; i++) {
+		 if (opts[i].value === val) 
+		 {
+			 var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			     var demo = this.responseText;
+			     var stud=demo.split(",");
+			     var studId=demo.split("#");
+			     document.getElementById("stud_Id").value=studId;
+			    //alert(studId);
+			     }
+			  };
+			  xhttp.open("POST", "/SMGMT/Library?getstudId="+val, true);
+			  xhttp.send(); 
+	    	  break;
+		 }
+	}
 }
-function getBookInfo(bookInfo,e) {
-	//alert(e+"  "+bookInfo);
-	//if (e.keyCode == 13 || e.keyCode == 9) {
-	var bInfo = document.getElementById("bookInfo").style.display = "block";
-	//alert(bookInfo);
-	var searchIdVal = document.getElementById("searchId").value;
-	//alert(id);
-	var bookD = searchIdVal.split("-");
-	///alert(bookD);
-	var tDate = document.getElementById("currentDate").value;
 
-	//alert(tDate);
+function getStudInfo(studInfo,e)
+{
+	var sInfo = document.getElementById("studInfo").style.display = "block";
+ 	var searchIdVal = document.getElementById("searchStud").value;
+	//alert(id);
+	var studsrchId = searchIdVal.split("-");
+	//alert(studsrchId);
+	var studId=document.getElementById("stud_Id").value;
+	//alert(studId);
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var demo = this.responseText;
-			// alert(demo);
+			//alert(demo);
 			var stud = demo.split(",");
-			document.getElementById("bNo").value = stud[0];
-			document.getElementById("bName").value = stud[1];
-			document.getElementById("authrName").value = stud[2];
-			document.getElementById("issueDate1").value = stud[3];
-			document.getElementById("dueDate1").value = stud[4];
-
+			if(stud[0]=="null")
+			{
+				document.getElementById("studentListErrorMsg").innerHTML="No records found for this student";
+				document.getElementById("studentListErrorMsg").style.color="#27ae60";
+			}
+			else
+			{
+				alert('Student Info'+stud);
+			 	document.getElementById("first_Name").value = stud[0];
+				document.getElementById("middle_Name").value = stud[1];
+				document.getElementById("last_Name").value = stud[2];
+				document.getElementById("std_Id").value = stud[3];
+				document.getElementById("div_Id").value = stud[4];
+				document.getElementById("total_Fine").value = stud[5];
+				document.getElementById("studentListErrorMsg").innerHTML="";
+			}
+			
 		}
 	};
 	//	  alert(bookD[0]);
-	xhttp.open("POST", "/SMGMT/Library?bookdetail=" + bookD[0].trim()+ "&currentDate=" + tDate +"&bookName="+bookD[1].trim()+"&authorName="+bookD[2].trim(), true);
-	xhttp.send();
-	//}
-
-}
-
-function onBook(radioValue)
-	{
-	//alert(radioValue);
-
-	var tDate = document.getElementById("currentDate").value;
-	var dDate = document.getElementById("dueDate1").value;
-	var studId= document.getElementById("student_Id").value;
-	//alert(studId);
-	
-	
-	document.getElementById("oldDueDate").innerHTML=" Due Date";
-	//document.getElementById("dueDate1").disabled=true;
-	getFineCount(tDate, dDate, radioValue,studId);
-			
-	}
-
-function getFineCount(tDate, dDate, radioValue,studId) {
-	
-	
-	if(radioValue=="RETURN")
-		{
-			document.getElementById("returnBk").style.display="block";
-			document.getElementById("renew").style.display="none";
-			
-			var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-			var firstDate = new Date(tDate);
-			var secondDate = new Date(dDate);
-
-			var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
-			
-			document.getElementById("days").value=diffDays;
-			
-		}
-	
-
-	 var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var str = this.responseText.split(",");
-			//var demo=str[0];
-			
-			//document.getElementById("days").value = demo;
-			
-			//var tDate = document.getElementById("currentDate").value;
-			//var dDate = document.getElementById("dueDate1").value;
-			var issueDate=document.getElementById("issueDate1").value; 
-			
-			
-			
-			//set remainfine in this id previousFine
-			//var remainFine=document.getElementById("remainAmount").value;
-			//alert(remainFine+"RamianAmount");
-			
-			
-			
-			if(radioValue=="RETURN")
- 			{
-	 			document.getElementById("returnBk").style.display="block";
-	 			document.getElementById("renew").style.display="none";
-	 			
-	 			
-	 			
-	 			if(tDate<dDate)
-	 			{
-	 				//alert(tDate+" "+dDate+" if");
-	 				 document.getElementById("days").value=0;
-	 				document.getElementById("remainAmount").value=str[1]; 
-	 				document.getElementById("oldRemainFine").value=str[1]; 
-	 				document.getElementById("previousFine").value=str[1]; 
-					document.getElementById("fineAmount").value =0;
-					
-		 			
-	 			}
-	 			else
-	 			{
-	 				
-	 				//alert("else");
-		 			 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-					var firstDate = new Date(tDate);
-					var secondDate = new Date(dDate);
-	
-					var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
-					
-					document.getElementById("days").value=diffDays;
-					
-					var totalFine = diffDays * str[0];
-					
-					document.getElementById("fineAmount").value = totalFine;
-					
-		 			document.getElementById("remainAmount").value=totalFine;
-		 			
-		 			document.getElementById("previousFine").value=str[1]; 
-		 			if(diffDays==0)
-		 				{
-		 				document.getElementById("fineAmount").value = 0;
-		 				}
-		 			
-		 			if(!str[1]==0)
-		 			{
-		 				var previousFine=parseInt(str[1]);
-		 				var fineAmount=parseInt(str[0]);
-		 				var totalRemainAmt=previousFine+fineAmount;
-		 				document.getElementById("remainAmount").value=totalRemainAmt;
-		 				document.getElementById("oldRemainFine").value=totalRemainAmt;
-		 			}
-	 			}
-	 			var studId= document.getElementById("student_Id").value;
-	 			
-	 			
-	 			
-	 			
-	 			document.getElementById("returnSubmit").disabled=true;
-	 			 if(totalFine==0 )
-	 				{
-	 				 	alert('enable');
-	 					document.getElementById("returnSubmit").disabled=false;
-	 				}
-	 			 else if(tDate!=issueDate)
-					{
-	 					alert('enable');
-						document.getElementById("returnSubmit").disabled=false;
-					} 
-	 			 else if(!totalFine==0)
-	 				 {
-		 				alert('disable');
-		 				document.getElementById("returnSubmit").disabled=true;
-		 			}
-	 			}
-	 		else if(radioValue=="RENEW"){
-	 			document.getElementById("renew").style.display="block";
-	 			document.getElementById("returnBk").style.display="none";
-	 			document.getElementById("dueDateRn").value="";
-	 			//document.getElementById("dueDateRn").focus();
-	 		}
-
-		}
-	};
-	//get student id in javascript variable and pass it in servlet
-	xhttp.open("POST", "/SMGMT/Library?countDetail=1"
-			+ "&currentDate=" + tDate + "&dueDate=" + dDate+ "&studId=" +studId, true);
+	xhttp.open("POST", "/SMGMT/Library?studFineDetail="+studId, true);
 	xhttp.send(); 
+	//}
+}
 
+function countFineNill(val)
+{
+	//alert('hello');	
+	$('#payFine').modal('show');
+}
+
+$('#payFine').on('show.bs.modal', function(e) {
+
+    //putting values in bootstrap modal
+    var fineAmount=parseInt(document.getElementById("total_Fine").value);
+   /*  var paidAmount=parseInt(document.getElementById("paidAmountId").value);
+    var remainAmt = fineAmount - paidAmount;
+    */ 
+	document.getElementById("fineId").value=fineAmount;
+	/* document.getElementById("pFine").innerHTML='<strong>Paid Fine = </strong>'+paidAmount;
+	document.getElementById("rBal").innerHTML='<strong>Remaining Fee = <strong>'+remainAmt;
+    */
+	
+	 
+});
+
+function countTotalFine(val)
+{
+	
+	 var fineAmount=parseInt(document.getElementById("total_Fine").value);
+	 document.getElementById("fineId").value=fineAmount;
+	 var payAmount=parseInt(document.getElementById("paidId").value);
+	 if(payAmount>fineAmount)
+		 {
+			 document.getElementById("discountId").value=0;
+			 document.getElementById("error").innerHTML="* Enter valid amount";
+			 document.getElementById("error").style.color="#27ae60";
+		 }
+	 else{
+			var discount=fineAmount-payAmount;
+			document.getElementById("discountId").value=discount;
+			document.getElementById("error").innerHTML="";
+			//document.getElementById("errorMsg").style.color="#27ae60";
+			document.getElementById("remainId").value=0;
+		 }
+}
+
+
+function giveDiscount()
+{
+	var remainFineAmount=parseInt(document.getElementById("remainId").value);
+	document.getElementById("total_Fine").value=remainFineAmount;
+   
 	
 }
-	
-
-	
-
 </script>
 
 
