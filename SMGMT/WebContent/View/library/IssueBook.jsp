@@ -957,8 +957,8 @@ function myFunction()
         return false;
     });
 	<%} session.removeAttribute("flag");%>
-}
 
+}
 /* <<<<<<<<<<<<<<<<<<< Ajax for Serach book Info which is issued >>>>>>>>>>>>>>>>>>>>>>>>>*/
 function getReturnBooks(val)
 {

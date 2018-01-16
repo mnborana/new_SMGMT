@@ -5,8 +5,8 @@ public class SubjectAssignmentPOJO {
 	private int id;
 	private int fkClassMasterId;
 	private int subjectId;
-	private String subjectCode;
-	private String optinalStatus;
+	private String subjectCode, stdName, subjectName;
+	private int optinalStatus;
 	
 	
 	public int getId() {
@@ -41,14 +41,30 @@ public class SubjectAssignmentPOJO {
 		this.subjectCode = subjectCode;
 	}
 	
-	public String getOptinalStatus() {
+	public int getOptinalStatus() {
 		return optinalStatus;
 	}
 	
-	public void setOptinalStatus(String optinalStatus) {
+	public void setOptinalStatus(int optinalStatus) {
 		this.optinalStatus = optinalStatus;
 	}
-	
+
+	public String getStdName() {
+		return stdName;
+	}
+
+	public void setStdName(String stdName) {
+		this.stdName = stdName;
+	}
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+
 	
 	
 }

@@ -146,7 +146,7 @@ public class OutwardRegister extends HttpServlet {
 		 int id1=Integer.parseInt(updateDocumentId);
 		
 		 OutwardRegisterDAO outwardDao=new OutwardRegisterImpl();
-			OutwardRegisterPojo pojo1=outwardDao.selectDocumentName(id1);
+		 OutwardRegisterPojo pojo1=outwardDao.selectDocumentName(id1);
 		 String updateDocument=pojo1.getOutwardDoc();
 		
 		 OutwardRegisterPojo pojo9= new OutwardRegisterPojo();

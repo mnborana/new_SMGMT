@@ -33,11 +33,7 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 			int i=pstmt.executeUpdate();
 			
 			System.out.println("inserted Outward Register Details");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		} catch (SQLException e) {e.printStackTrace();}
 	}
 
 	@Override
@@ -250,8 +246,7 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 			pstmt.setInt(1, id);
 			ResultSet rs=pstmt.executeQuery();
 			while(rs.next())
-			{
-				
+			{				
 				pojod.setOutwardDoc(rs.getString(1));
 				list.add(pojod);
 			}
@@ -278,9 +273,7 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 		}
 		return pojo;
 	}
-
 	
-
 	@Override
 	public List<OutwardRegisterPojo> selectSubjctName() {
 		String subjectQuery="SELECT outward_register_master.subject FROM outward_register_master";
@@ -309,22 +302,17 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 		try {
 			String checkName="SELECT outward_register_master.id,outward_register_master.receiver_name,outward_register_master.mobileNo FROM outward_register_master WHERE outward_register_master.receiver_name LIKE '%"+input+"%' UNION SELECT outward_register_master.id,outward_register_master.mobileNo,outward_register_master.receiver_name FROM outward_register_master WHERE outward_register_master.mobileNo LIKE '"+input+"%'";
 			pstmt=connection.prepareStatement(checkName);
-			rs=pstmt.executeQuery();
-			
+			rs=pstmt.executeQuery();			
 			while(rs.next())
 			{
 				list.add(rs.getString(1));
 				list.add(rs.getString(2));
-				list.add(rs.getString(3));
-							
-			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+				list.add(rs.getString(3));							
+			}			
+		} catch (Exception e) {	}
 		return list;
 	}
-
+	
 	@Override
 	public List searchName(String input) {
 		List list=new ArrayList<>();
@@ -337,12 +325,7 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 					list.add(rs.getString(1));
 					list.add(rs.getString(2));
 				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			} catch (Exception e) {}
 			return list;
 	}
-
-	
-
 }

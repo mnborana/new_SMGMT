@@ -107,7 +107,7 @@
                                             
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Add Section" class="btn btn-primary">
+                                                    <input type="submit" value="Add Standard" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </form>
