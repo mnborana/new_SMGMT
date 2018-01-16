@@ -1,4 +1,4 @@
-package com.servletStore.feeType.model;
+package com.servletStore.fees.feeType.model;
 
 public class feeTypePOJO {
 private String feesType;

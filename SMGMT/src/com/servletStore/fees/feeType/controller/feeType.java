@@ -1,4 +1,4 @@
-package com.servletStore.feeType.controller;
+package com.servletStore.fees.feeType.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.servletStore.feeType.model.feeTypeDAO;
-import com.servletStore.feeType.model.feeTypeImpl;
-import com.servletStore.feeType.model.feeTypePOJO;
+import com.servletStore.fees.feeType.model.feeTypeDAO;
+import com.servletStore.fees.feeType.model.feeTypeImpl;
+import com.servletStore.fees.feeType.model.feeTypePOJO;
 
 
 public class feeType extends HttpServlet {
