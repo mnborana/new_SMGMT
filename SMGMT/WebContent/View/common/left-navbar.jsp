@@ -182,7 +182,7 @@
                              <li>
                                 <a href="/SMGMT/View/settings/subjects/subjectAssignment.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Subject Assignment
+                                    &nbsp; Assign Common Subject
                                 </a>
                             </li>
                             
