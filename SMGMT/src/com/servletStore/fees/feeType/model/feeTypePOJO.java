@@ -2,7 +2,19 @@ package com.servletStore.fees.feeType.model;
 
 public class feeTypePOJO {
 private String feesType;
-private int fees,firstTerm,secondTerm;
+private int id,fees,firstTerm,secondTerm,caste;
+public int getCaste() {
+	return caste;
+}
+public void setCaste(int caste) {
+	this.caste = caste;
+}
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
 public String getFeesType() {
 	return feesType;
 }
