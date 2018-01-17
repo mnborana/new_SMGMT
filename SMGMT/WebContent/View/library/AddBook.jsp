@@ -24,7 +24,7 @@
     <!-- end of global styles-->
    
 </head>
-<body>
+<body onload="myFunction()">
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -142,52 +142,52 @@
 													
 														<div class="form-group col-lg-4 input_field_sections">
 															<label for="firstName" class="col-form-label">Book
-																Name *</label> <input type="text" id="bookName"
+																Name *</label> <input type="text" id="bookName1"
 																name="bookName" class="form-control"
-																placeholder="Book Name" required>
+																placeholder="Book Name" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" required>
 														</div>
 													</div>
 													<div class="row">
 														<div class="form-group col-lg-4 input_field_sections">
 															<label for="lastname" class="col-form-label">Author
-																Name *</label> <input type="text" id="authorName" name="authorName"
-																class="form-control" placeholder="Author Name" required />
+																Name *</label> <input type="text" id="authorName1" name="authorName"
+																class="form-control" placeholder="Author Name" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" required />
 														</div>
 														<div class="form-group col-lg-4 input_field_sections">
 															<label for="age" class="col-form-label">Publisher Name</label> <input
-																type="text" id="pubName" name="pubName" class="form-control"
-																placeholder="Publisher Name" />
+																type="text" id="pubName1" name="pubName" class="form-control"
+																placeholder="Publisher Name" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" />
 														</div>
 														<div class="form-group col-lg-4 input_field_sections">
 															<label for="birthplace" class="col-form-label">Edition
-																</label> <input type="text" id="edition"
+																</label> <input type="text" id="edition1"
 																name="edition" class="form-control"
-																placeholder="Edition" />
+																placeholder="Edition"  onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" />
 														</div>
 													</div>
 													<div class="row">
 														
 														<div class="form-group col-lg-4 input_field_sections">
 															<label for="height" class="col-form-label">Price*</label>
-															<input type="text" id="price" name="price"
-																class="form-control" placeholder="Price" required />
+															<input type="text" id="price1" name="price"
+																class="form-control" placeholder="Price" pattern="[0-9]" required />
 														</div>
 													
 													
 														<div class="form-group col-lg-4 input_field_sections">
 															<label for="weight" class="col-form-label">Coupboard No*</label>
-															<input type="text" id="cupbno" name="cupbno"
-																class="form-control" placeholder="Coupboard No" required />
+															<input type="text" id="cupbno1" name="cupbno"
+																class="form-control" placeholder="Coupboard No" pattern="[0-9A-Za-z]" required />
 														</div>
 														<div class="form-group col-lg-4 input_field_sections">
 															<label for="adharno" class="col-form-label">Quantity*
-																</label> <input type="text" id="quan" name="quan"
-																class="form-control" placeholder="Quantity" required />
+																</label> <input type="text" id="quan1" name="quan"
+																class="form-control" placeholder="Quantity" pattern="[0-9]" required />
 														</div>
 													</div>
 														<div class="row">
 														 <div class="form-group col-lg-4 input_field_sections">
-															<label for="lastname" class="col-form-label">Book
+															<label for="lastname" class="col-form-label">Select
 																Language</label> <select class="form-control chzn-select"
 																name="language">
 																<option disabled selected>Choose a Language</option>
@@ -324,31 +324,31 @@
                                                
                                                 <div class="col-lg-4 ">
                                                     <label for="required2" class="col-form-label">Book Name *</label>
-                                               	    <input type="text" name="bookName" id="bookName" class="form-control" required>
+                                               	    <input type="text" name="bookName" id="bookName" class="form-control" onkeyup="this.value = this.value.toUpperCase();" required>
                                                 </div>
                                             	 <div class="col-lg-4">
                                                     <label for="required2" class="col-form-label">Author Name *</label>
-                                                	 <input type="text" name="authorName" id="authorName" class="form-control" required>
+                                                	 <input type="text" name="authorName" id="authorName" class="form-control" onkeyup="this.value = this.value.toUpperCase();" required>
                                                 </div>
                                            		 <div class="col-lg-4 ">
                                                     <label for="required2" class="col-form-label">Publisher Name *</label>
-                                               	    <input type="text" name="pubName" id="pubName" class="form-control" required>
+                                               	    <input type="text" name="pubName" id="pubName" class="form-control" onkeyup="this.value = this.value.toUpperCase();" required>
                                                 </div>
                                                 <div class="col-lg-4">
                                                      <label for="required2" class="col-form-label">Edition *</label>
-                                                	 <input type="text" name="edition" id="edition" class="form-control" required>
+                                                	 <input type="text" name="edition" id="edition" class="form-control" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z0-9]" required>
                                                 </div>
                                                 <div class="col-lg-4 ">
                                                     <label for="required2" class="col-form-label">Price *</label>
-                                               	    <input type="text" name="price" id="price" class="form-control" required>
+                                               	    <input type="text" name="price" id="price" class="form-control">
                                                 </div>
                                             	 <div class="col-lg-4">
                                                     <label for="required2" class="col-form-label">Cupboard No *</label>
-                                                	 <input type="text" name="cupbno" id="cupbNo" class="form-control">
+                                                	 <input type="text" name="cupbno" id="cupbNo" class="form-control" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z0-9]">
                                                 </div>
                                                 <div class="col-lg-4">
                                                      <label for="required2" class="col-form-label">Quantity *</label>
-                                                	 <input type="text" name="quan" id="qty" class="form-control" required>
+                                                	 <input type="text" name="quan" id="qty" class="form-control" pattern="[0-9]" required>
                                                 </div>
                                                 <div class="col-lg-4 input_field_sections">
 	                                            	<h5>Select Language *</h5>
@@ -417,19 +417,30 @@
 </body>
 
 <script type="text/javascript">
-     
+function myFunction()    
+{
+	 /*<<<<<<<<<<<<<<<<< For snackbar >>>>>>>>>>>>>>>>>>>>>>> */
+	<%
+	if(session.getAttribute("flag")!=null){ %>
+	$(window).load(function () {
+        iziToast.show({
+            title: 'Success',
+            message: '<%=session.getAttribute("flag").toString()%>',
+            color:'#cc7fe5',       //'#00cc99'
+            position: 'topCenter'
+        });
+        return false;
+    });
+	<%} session.removeAttribute("flag");%>
+	
+}
+
 function loadDoc(id) {
-	//alert(id);
-	  var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
+		 var xhttp = new XMLHttpRequest();
+		 xhttp.onreadystatechange = function() {
+	     if (this.readyState == 4 && this.status == 200) {
 	     var demoData = this.responseText;
-	  //   alert(demoData);
-	     /* //alert(demoData);
-	     if(demoData!=null){
-	    	 document.getElementById("demo").style.display="block"; */
 	     var str=demoData.split(",");
-	    	
 	     document.getElementById("bid").value=str[0];
 	   	 document.getElementById("date").value=str[1];
 	   	 document.getElementById("bookName").value=str[2];
@@ -442,11 +453,9 @@ function loadDoc(id) {
 	   //  document.getElementById("lang").value=str[9]; 
 	     var dd=document.getElementById("lang");
 	 
-		
 		for (var i = 0; i < dd.options.length; i++) {
 		    if (dd.options[i].text ==str[9].trim()) {
 		        dd.selectedIndex = i;
-		        //alert(demoStr[4]);
 		        getSetSelect('s2id_lang',str[9]);
 		        break;
 		    }
