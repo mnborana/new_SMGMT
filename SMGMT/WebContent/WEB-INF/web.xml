@@ -206,7 +206,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>FeeType</servlet-name>
-    <servlet-class>com.servletStore.feeType.controller.FeeType</servlet-class>
+    <servlet-class>com.servletStore.fees.feeType.controller.FeeType</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>FeeType</servlet-name>
