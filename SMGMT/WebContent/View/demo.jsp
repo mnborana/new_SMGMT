@@ -270,7 +270,6 @@
        <!--wrapper-->
        
         
-        
 </div>
 <!-- /#wrap -->
 
@@ -305,5 +304,4 @@
     <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
 
 </body>
-
 </html>
