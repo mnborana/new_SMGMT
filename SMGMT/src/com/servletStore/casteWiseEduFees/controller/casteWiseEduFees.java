@@ -36,7 +36,6 @@ public class casteWiseEduFees extends HttpServlet {
 		String type=request.getParameter("selectType");
 		String standard=request.getParameter("selectStandard");		
 		String[] category=request.getParameterValues("selectCategory");	
-		System.out.println("category:"+category);
 		String fees=request.getParameter("educationFees");
 		
 		String categry="";
@@ -53,7 +52,8 @@ public class casteWiseEduFees extends HttpServlet {
 			//System.out.println("categoryId:"+category[j]);
 			list.add(pojo1);			
 		}
-		dao.insertCategory(list);
+		int j=dao.insertCategory(list);
+		session.setAttribute("flag", "Inserted Record Has Been Submited");
 		
 		response.sendRedirect("View/fees/castWiseEducationalFees.jsp");
 		}

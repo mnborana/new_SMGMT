@@ -39,57 +39,12 @@
     <!-- end of global styles-->
     
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
+    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_izitoast,_css,_iziToast.min.css.pagespeed.cc.hUh8XIbhbe.css"/>
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
     
-    
-    
-    <style>
-#snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-    font-size: 17px;
-}
+ </head>
 
-#snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;} 
-    to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
-    to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
-}
-</style>
-  
-</head>
-
-<body>
+<body onload="loadFunction()">
 	<div class="preloader" style=" position: fixed;
 	  width: 100%;
 	  height: 100%;
@@ -118,6 +73,11 @@
 	        
 	      <div id="snackbar"><%=request.getAttribute("status") %></div>
 	        
+	        <%
+	        HttpSession session1=request.getSession();
+	        session1.setAttribute("schoolId", "1");
+	        String  schoolId=session.getAttribute("schoolId").toString();
+	        %>
         <div class="wrapper">
         	 <!-- /.left navbar -->
                 <jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
@@ -200,7 +160,7 @@
                                                <label for="required2" class="col-form-label">Select Standard <span style="color:red;">*</span></label>
                                            </div>
                                            <%
-                                           List<casteWiseEduFeesPojo> stdList=dao.getStandard();
+                                           List<casteWiseEduFeesPojo> stdList=dao.getStandard(schoolId);
                                            Iterator<casteWiseEduFeesPojo> itr1=stdList.iterator();
                                            %>
                                            
@@ -237,7 +197,6 @@
                                                 		casteWiseEduFeesPojo pojo=(casteWiseEduFeesPojo)itr2.next();
                                                 		int id2=((casteWiseEduFeesPojo)pojo).getId();
                                                 		String getCategory=((casteWiseEduFeesPojo)pojo).getCategory();
-                                                		System.out.println("id2:"+id2+"\ncategory:"+getCategory);
                                                 	%>
                                                 	<option value="<%=id2%>"><%=getCategory%></option>
                                                 	<% } %>
@@ -250,7 +209,7 @@
 	                                               <label for="required2" class="col-form-label">Fees<span style="color:red;">*</span></label>
 	                                         	  </div>                                         	 
 	                                         		  <div class="col-lg-3">                                           				
-	                                             		  <input class="form-control" name="educationFees"  pattern="[0-9]" id="required2" required />                                                
+	                                             		  <input type="text" class="form-control" name="educationFees" onblur="this.value=$.trim(this.value)" pattern="[0-9]" id="required2" required />                                                
 	                                         		  </div>                                         		
 	                                     	  </div>                                        	
                                        
@@ -309,7 +268,6 @@
                                             	 String selCategory="";
                                              	casteWiseEduFeesPojo pojo=(casteWiseEduFeesPojo)itr3.next();
                                              	int id3=((casteWiseEduFeesPojo)pojo).getId();
-                                             	System.out.println("id3 is:"+id3);
                                              	String selectcategory=dao.getCategory(id3);
                                              	if (selectcategory != null && selectcategory.length() > 0 && selectcategory.charAt(selectcategory.length() - 1) == ',') {
                                             		selCategory=selectcategory.substring(0, selectcategory.length()-1);
@@ -422,7 +380,21 @@
 
 <script type="text/javascript">
 
+function loadFunction(){
 	
+	<%
+		if(session.getAttribute("flag")!=null){ %>
+		$(window).load(function () {
+	        iziToast.show({
+	            title: 'Success',
+	            message: '<%=session.getAttribute("flag").toString()%>',
+	            color:'#00cc99',
+	            position: 'topCenter'
+	        });
+	        return false;
+	    });
+	<%} session.removeAttribute("flag");%>
+}
 	
 	</script>
 </body>
