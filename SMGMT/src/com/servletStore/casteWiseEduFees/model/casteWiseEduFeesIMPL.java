@@ -38,7 +38,7 @@ public class casteWiseEduFeesIMPL implements casteWiseEduFeesDAO {
 	public List<casteWiseEduFeesPojo> getFeesType() {
 		List<casteWiseEduFeesPojo> list=new ArrayList<>();
 		
-		String selectTypes="SELECT fee_type.id,fee_type.fees_type FROM fee_type";
+		String selectTypes="SELECT fee_type.id,fee_type.fees_type FROM fee_type WHERE fee_type.caste=1";
 		try {
 			pstmt = connection2.prepareStatement(selectTypes);
 			ResultSet rs=pstmt.executeQuery();
@@ -56,10 +56,10 @@ public class casteWiseEduFeesIMPL implements casteWiseEduFeesDAO {
 	}
 
 	@Override
-	public List<casteWiseEduFeesPojo> getStandard() {
+	public List<casteWiseEduFeesPojo> getStandard(String schoolId) {
 		List<casteWiseEduFeesPojo> list=new ArrayList<>();
 		
-		String getstandardList="SELECT std_master.id,std_master.name FROM std_master ORDER BY id ASC";
+		String getstandardList="SELECT classroom_master.id,std_master.name FROM std_master,classroom_master,fk_class_master,fk_school_section_details WHERE fk_school_section_details.school_id="+schoolId+" AND fk_class_master.fk_school_sec_id=fk_school_section_details.id AND std_master.id=fk_class_master.std_id AND classroom_master.fk_class_master_id=fk_class_master.id";
 		try {
 			pstmt = connection2.prepareStatement(getstandardList);
 			ResultSet rs=pstmt.executeQuery();
@@ -119,7 +119,7 @@ public class casteWiseEduFeesIMPL implements casteWiseEduFeesDAO {
 	}
 
 	@Override
-	public void insertCategory(List list) {
+	public int insertCategory(List list) {
 		//System.out.println("list is:"+list);
 		int casteId=0;
 		String selectQuery="SELECT MAX(id) as id FROM caste_wise_educational_fees";
@@ -139,7 +139,6 @@ public class casteWiseEduFeesIMPL implements casteWiseEduFeesDAO {
 		while(itr.hasNext())
 		{
 			casteWiseEduFeesPojo pojo=(casteWiseEduFeesPojo)itr.next();
-			System.out.println("category ID:"+pojo.getCategoryId());
 			String insertCategory="INSERT INTO fk_caste_category_educational_details(fk_caste_category_educational_details.caste_category_edu_fees_id,fk_caste_category_educational_details.caste_category_id) VALUES(?,?)";
 			try {
 				
@@ -152,14 +151,13 @@ public class casteWiseEduFeesIMPL implements casteWiseEduFeesDAO {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			System.out.println("category id inserted successfully");
 		}
+		return casteId;
 		
 	}
 
 	@Override
 	public String getCategory(int id) {
-		System.out.println("id is:"+id);
 		String categoryList="";
 		String category="SELECT caste_category.category_name FROM caste_category WHERE caste_category.id IN(SELECT fk_caste_category_educational_details.caste_category_id FROM fk_caste_category_educational_details WHERE fk_caste_category_educational_details.caste_category_edu_fees_id=?)";
 		try {
@@ -174,7 +172,6 @@ public class casteWiseEduFeesIMPL implements casteWiseEduFeesDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		System.out.println("categoryList is:"+categoryList);
 		return categoryList;
 	}
 
