@@ -109,9 +109,6 @@ public class AddBookImpl implements AddBookDAO{
 			addb.setCupboardNo(rs.getString("cupboard_no"));
 			addb.setQuantity(rs.getInt("quantity"));
 			addb.setLanguage(rs.getString("language"));
-
-
-			
 			list.add(addb);
 		}
 
@@ -119,11 +116,8 @@ public class AddBookImpl implements AddBookDAO{
 	}
 	public int updateBook(AddBookPOJO ad) { 
 		    int status=0;  
-		   
 		    String query="update book_info_master set date=?, book_name=?,author_name=?,publisher_name=?,edition=?,price=?,cupboard_no=?,quantity=?,language=? where book_no=?";
-		   
-		   
-			try {
+		  	try {
 				System.out.println("hi");
 				pstmt = connection.prepareStatement(query);
 				
