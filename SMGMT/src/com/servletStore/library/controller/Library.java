@@ -127,9 +127,7 @@ public class Library extends HttpServlet {
 		
 		else if(request.getParameter("bookNo")!=null){
 			System.out.println("In Delete");
-			
 			int bookNo=Integer.parseInt(request.getParameter("bookNo"));
-	
 			dao.deleteCategory(bookNo);
 			System.out.println("Deleted");
 			response.sendRedirect("View/library/AddBook.jsp");

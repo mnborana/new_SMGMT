@@ -204,4 +204,12 @@
     <servlet-name>Signup</servlet-name>
     <url-pattern>/Signup</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>FeeType</servlet-name>
+    <servlet-class>com.servletStore.fees.feeType.controller.FeeType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FeeType</servlet-name>
+    <url-pattern>/FeeType</url-pattern>
+  </servlet-mapping>
 </web-app>
