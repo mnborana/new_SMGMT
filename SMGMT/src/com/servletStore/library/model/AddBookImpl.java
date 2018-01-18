@@ -140,8 +140,6 @@ public class AddBookImpl implements AddBookDAO{
 				
 				e.printStackTrace();
 			}
-		        System.out.println("In try");
-		       
 		    return status;  
 		
 	}
