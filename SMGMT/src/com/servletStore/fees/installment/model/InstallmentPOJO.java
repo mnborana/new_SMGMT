@@ -1,4 +1,4 @@
-package com.servletStore.installment.model;
+package com.servletStore.fees.installment.model;
 
 public class InstallmentPOJO {
 	private int id,installment;

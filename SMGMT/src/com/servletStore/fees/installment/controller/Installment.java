@@ -1,4 +1,4 @@
-package com.servletStore.installment.controller;
+package com.servletStore.fees.installment.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.servletStore.installment.model.InstallmentDAO;
-import com.servletStore.installment.model.InstallmentImpl;
-import com.servletStore.installment.model.InstallmentPOJO;
+import com.servletStore.fees.installment.model.InstallmentDAO;
+import com.servletStore.fees.installment.model.InstallmentImpl;
+import com.servletStore.fees.installment.model.InstallmentPOJO;
 
 
 public class Installment extends HttpServlet {
@@ -54,7 +54,7 @@ public class Installment extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			response.sendRedirect("View/fees/Installment.jsp");
+			response.sendRedirect("View/fees/installment.jsp");
 			
 		}
 		 if(request.getParameter("updateInstallment1")!=null)
@@ -77,7 +77,7 @@ public class Installment extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			response.sendRedirect("View/fees/Installment.jsp");
+			response.sendRedirect("View/fees/installment.jsp");
 			
 		}
 

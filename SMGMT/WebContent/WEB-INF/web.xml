@@ -214,7 +214,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>Installment</servlet-name>
-    <servlet-class>com.servletStore.installment.controller.Installment</servlet-class>
+    <servlet-class>com.servletStore.fees.installment.controller.Installment</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Installment</servlet-name>

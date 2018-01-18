@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="com.servletStore.library.model.AddBookImpl"%>
 <%@page import="com.servletStore.library.model.AddBookDAO"%>
 <%@page import="com.servletStore.library.model.BookCatPOJO"%>
@@ -24,6 +27,37 @@
     <!-- end of global styles-->
    
 </head>
+
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		//for read/write permission  Read = 1  Write = 2
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		//for showing datatable according to read/write permission
+		
+		//choose appropriate method as per your leftNavbar form option name
+		//e.g : if you are working on Attendance option in left navbar then code will be...
+		
+		/* SetupPOJO grant = new SetupPOJO();
+		int access=grant.getAttendance(); */
+		
+		//if it returns read(1) then hide form and action column in dataTable
+		//for write(2) show your orignal full form
+				
+	}
+%>
+
 <body onload="myFunction()">
 <div class="preloader" style=" position: fixed;
   width: 100%;
@@ -100,7 +134,7 @@
 											<div class="row">
 
 												<div class="card-block seclect_form">
-												<form action="/SMGMT/Library" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+												<form action="/SMGMT/Library" method="post" class="form-horizontal login_validator" id="form_block_validator">
 													<div class="row">
 													<%
                                              		SysDate date=new SysDate();
@@ -215,22 +249,31 @@
 				
             
             <!-- Modal for category -->
-            <div class="modal fade pullDown" id="category" role="dialog" aria-labelledby="modalLabelnews">
-                    <div class="modal-dialog modal-lg" role="document">
+            <div class="modal fade show" id="category" role="dialog" aria-labelledby="modalLabelnews">
+                    <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header bg-warning">
+                            <div class="modal-header bg-primary">
                                 <h4 class="modal-title text-white" id="modalLabelnews">Category</h4>
                             </div>
                             <div class="modal-body">
-                            	<form action="/SMGMT/Library" id="catid" method="POST">
+                            	<form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator" method="POST">
                             		 		<div class="form-group row">
-                            		 			<div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Category Name *</label>
-                                               	    <input type="text" id="catName" name="catName" class="form-control" required>
+                            		 			<div class="col-lg-8 input_field_sections">
+                                                    <label for="catName" class="col-form-label">Category Name *</label>
+                                               	    <input type="text" id="catName" name="catName" class="form-control" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" required>
+                                               	    
+                                               	    
+                                               	    <!-- <div class="form-group col-lg-4 input_field_sections">
+															<label for="firstName" class="col-form-label">Book
+																Name *</label> <input type="text" id="bookName1"
+																name="bookName" class="form-control"
+																placeholder="Book Name" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" required>
+														</div> -->
                                                 </div>
                                             </div>
                                              <div class="modal-footer">
-                               					 <input type="submit" name="savecat" value="Save">
+                               					 <button class="btn btn-success" type="submit" name="savecat" id="updateId">Save</button> 
+					                           	<button class="btn btn-warning" data-dismiss="modal">Cancel</button>
                             				</div>
                            	    </form>   
                             </div>
@@ -304,10 +347,10 @@
                     </div><!-- /outer -->   
                
                 <!-- Modal for Update -->
-                  <div class="modal fade pullDown" id="update" role="dialog" aria-labelledby="modalLabelnews">
+                  <div class="modal fade show" id="update" role="dialog" aria-labelledby="modalLabelnews">
                   	 <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
-                            <div class="modal-header bg-warning">
+                            <div class="modal-header bg-primary">
                                 <h4 class="modal-title text-white" id="modalLabelnews">Update</h4>
                             </div>
                             <div class="modal-body">   
@@ -331,26 +374,37 @@
                                                 	 <input type="text" name="authorName" id="authorName" class="form-control" onkeyup="this.value = this.value.toUpperCase();" required>
                                                 </div>
                                            		 <div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Publisher Name *</label>
+                                                    <label for="required2" class="col-form-label" style="margin-top: 11%;">Publisher Name *</label>
                                                	    <input type="text" name="pubName" id="pubName" class="form-control" onkeyup="this.value = this.value.toUpperCase();" required>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                     <label for="required2" class="col-form-label">Edition *</label>
+                                                     <label for="required2" class="col-form-label" style="margin-top: 11%;">Edition *</label>
                                                 	 <input type="text" name="edition" id="edition" class="form-control" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z0-9]" required>
-                                                </div>
+                                                </div> 
                                                 <div class="col-lg-4 ">
-                                                    <label for="required2" class="col-form-label">Price *</label>
+                                                    <label for="required2" class="col-form-label" style="margin-top: 11%;">Price *</label>
                                                	    <input type="text" name="price" id="price" class="form-control">
                                                 </div>
                                             	 <div class="col-lg-4">
-                                                    <label for="required2" class="col-form-label">Cupboard No *</label>
+                                                    <label for="required2" class="col-form-label" style="margin-top: 13%;">Cupboard No *</label>
                                                 	 <input type="text" name="cupbno" id="cupbNo" class="form-control" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z0-9]">
                                                 </div>
                                                 <div class="col-lg-4">
-                                                     <label for="required2" class="col-form-label">Quantity *</label>
+                                                     <label for="required2" class="col-form-label" style="margin-top: 13%;">Quantity *</label>
                                                 	 <input type="text" name="quan" id="qty" class="form-control" pattern="[0-9]" required>
                                                 </div>
-                                                <div class="col-lg-4 input_field_sections">
+                                                <div class="form-group col-lg-4 input_field_sections">
+															<label for="lastname" class="col-form-label">Select
+																Language *</label> <select class="form-control"
+																name="language" id="lang" style="margin-top: -2%;">
+																<option value="English">English</option>
+																<option value="Marathi">Marathi</option>
+																<option value="Hindi">Hindi</option>
+																<option value="English">Urdu</option>
+															</select>
+												</div>
+												</div>
+                                                <!-- <div class="col-lg-4 input_field_sections">
 	                                            	<h5>Select Language *</h5>
 	                                            	<div class="form-group">
 		                                            	<select class="form-control"  name="language" id="lang">
@@ -360,16 +414,16 @@
 		                                                    <option value="Urdu">Urdu</option>
 														 </select>
                                            			</div> 
-                                        		</div>
+                                        		</div> -->
 			                         		 <div class="modal-footer">
 					                            <button class="btn btn-primary waves-effect" type="submit" name="updatebook" id="sub">Update Book</button> 
-					                           	<button data-dismiss="modal" type="button">Close</button>  
+					                           	<button class="btn btn-warning" data-dismiss="modal">Close</button>  
 					              	         </div>
-			                       	  </div>
+			                       	  
                        				</form>
                             	</div>
                           </div>
-                    </div>
+                    </div>  
                 </div>
              </div>
             
