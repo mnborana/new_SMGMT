@@ -1,4 +1,4 @@
-package com.servletStore.installment.model;
+package com.servletStore.fees.installment.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

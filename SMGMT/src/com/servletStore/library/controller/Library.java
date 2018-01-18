@@ -58,7 +58,7 @@ public class Library extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("View/library/AddBook.jsp").forward(request, response);
+			request.getRequestDispatcher("View/library/addBook.jsp").forward(request, response);
 		}
 		
 		else if(request.getParameter("addbook")!=null)
@@ -112,7 +112,7 @@ public class Library extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			response.sendRedirect("View/library/AddBook.jsp");
+			response.sendRedirect("View/library/addBook.jsp");
 		}
 		
 		else if(request.getParameter("bookNo")!=null){
@@ -120,7 +120,7 @@ public class Library extends HttpServlet {
 			int bookNo=Integer.parseInt(request.getParameter("bookNo"));
 			dao.deleteCategory(bookNo);
 			System.out.println("Deleted");
-			response.sendRedirect("View/library/AddBook.jsp");
+			response.sendRedirect("View/library/addBook.jsp");
 		}
 		
 		else if(request.getParameter("updateId")!=null)
@@ -187,7 +187,7 @@ public class Library extends HttpServlet {
 	           
 	        System.out.println("Successfully updated");
 		  
-			  response.sendRedirect("View/library/AddBook.jsp");
+			  response.sendRedirect("View/library/addBook.jsp");
 		}
 	
 
@@ -349,7 +349,7 @@ public class Library extends HttpServlet {
 							System.out.println("Issued Books");
 							HttpSession session = request.getSession();
 							session.setAttribute("flag", "Issue Book Successfully");
-							response.sendRedirect("View/library/IssueBook.jsp");
+							response.sendRedirect("View/library/issueBook.jsp");
 						}
 					} catch (SQLException e) {
 						e.printStackTrace();
@@ -500,7 +500,7 @@ public class Library extends HttpServlet {
 						e.printStackTrace();
 					}
 					//request.getRequestDispatcher("View/library/SetFine.jsp").forward(request, response);
-					response.sendRedirect("View/library/SetFine.jsp");
+					response.sendRedirect("View/library/setFine.jsp");
 				}
 				else if(request.getParameter("fine")!=null&&request.getParameter("fine").equals("Update"))
 				{
@@ -512,7 +512,7 @@ public class Library extends HttpServlet {
 					pojo.setFine(fine);
 					pojo.setId(id);
 					dao.updateFineDetails(pojo);
-					response.sendRedirect("View/library/SetFine.jsp");
+					response.sendRedirect("View/library/setFine.jsp");
 				}	
 		
 				else if(request.getParameter("returnBook")!=null)
@@ -569,7 +569,7 @@ public class Library extends HttpServlet {
 								if(status>0)
 								{
 									System.out.println("Return book");
-									response.sendRedirect("View/library/IssueBook.jsp");
+									response.sendRedirect("View/library/issueBook.jsp");
 								}
 							}
 							} catch (SQLException e) {
@@ -588,7 +588,7 @@ public class Library extends HttpServlet {
 						try {
 							int status=dao.updateRenewBook(pojo,date.toString());
 							System.out.println("Execute updated");
-							response.sendRedirect("View/library/IssueBook.jsp");
+							response.sendRedirect("View/library/issueBook.jsp");
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}	

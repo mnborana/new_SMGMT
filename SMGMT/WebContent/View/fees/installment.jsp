@@ -1,6 +1,11 @@
-<%@page import="com.servletStore.installment.model.InstallmentPOJO"%>
-<%@page import="com.servletStore.installment.model.InstallmentImpl"%>
-<%@page import="com.servletStore.installment.model.InstallmentDAO"%>
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
+<%@page import="com.servletStore.fees.installment.model.InstallmentPOJO"%>
+<%@page import="com.servletStore.fees.installment.model.InstallmentImpl"%>
+<%@page import="com.servletStore.fees.installment.model.InstallmentDAO"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
@@ -21,6 +26,36 @@ pageEncoding="ISO-8859-1"%>
     <!-- end of global styles-->
    
 </head>
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		//for read/write permission  Read = 1  Write = 2
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		//for showing datatable according to read/write permission
+		
+		//choose appropriate method as per your leftNavbar form option name
+		//e.g : if you are working on Attendance option in left navbar then code will be...
+		
+		/* SetupPOJO grant = new SetupPOJO();
+		int access=grant.getAttendance(); */
+		
+		//if it returns read(1) then hide form and action column in dataTable
+		//for write(2) show your orignal full form
+				
+	}
+%>
+
 <body >
 <div class="preloader" style=" position: fixed;
   width: 100%;
@@ -104,90 +139,61 @@ pageEncoding="ISO-8859-1"%>
                                                 </div>
                                                 <div class="col-lg-4">
   	                                              <input type="hidden" id="id_id"  name="id_name" />
-                                                    <input type="text" id="mode_id"  name="mode_name"  onkeyup="this.value=this.value.toUpperCase()"  pattern="[A-Za-z]" class="form-control" />
+                                                    <input type="text" id="mode_id"  name="mode_name"  onkeyup="this.value=this.value.toUpperCase()" onblur="this.value=$.trim(this.value)" pattern="[A-Za-z]" class="form-control" />
                                                 </div>
                                                
-                                            </div>
+                                            </div><br>
                                             <div class="row">
 														<div class="col-lg-4  text-lg-right">
 															<label for="lastname" class="col-form-label">Installment
 																*</label>
-															<div class="radio">
-																<label> <input type="radio" id="installment_1" name="installment"
-																	value="1" checked="checked"> <span
-																	class="cr"><i class="cr-icon fa fa-circle" ></i></span>
-																	1
-																</label> 
-															</div>
+																</div>
+																<div class="col-md-5" >
+																	<div class="radio">
 															
-														</div>
-														</div>
-														<div class="row">
-														<div class="col-lg-4  text-lg-right">
-															<div class="radio">
-																<label> <input type="radio" id="installment_2" name="installment"
-																	value="2" > <span
-																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
-																	2
-																</label> 
-															</div>
-														</div>
-														</div>
-														<div class="row">
-														<div class="col-lg-4  text-lg-right">
-														 <div class="radio">
-																<label> <input type="radio" id="installment_3" name="installment"
-																	value="3" > <span
-																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
-																	3
-																</label> 
-															</div>
-														</div>
-														</div>
-														<div class="row">
-														<div class="col-lg-4  text-lg-right">
-															<div class="radio">
-																<label> <input type="radio" id="installment_4" name="installment"
-																	value="4" > <span
-																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
-																	4
-																</label> 
-															</div>
-														</div>
-														</div>
-														<div class="row">
-														<div class="col-lg-4  text-lg-right">
-															<div class="radio">
-																<label> <input type="radio" id="installment_6"  name="installment"
-																	value="6" > <span
-																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
-																	6
-																</label> 
-															</div>
-														</div>
-														</div>
-														<div class="row">
-														<div class="col-lg-4  text-lg-right">
-															<div class="radio">
-																<label> <input type="radio" id="installment_12" name="installment"
-																	value="12" > <span
-																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
-																	12
-																</label> 
-															</div>
-														</div>
-														</div> 
-                                            
-                                            
-                                            
-                                            <div class="form-group row">
+																		<label> <input type="radio" id="installment_1" name="installment"
+																			value="1" checked="checked"> <span
+																			class="cr"><i class="cr-icon fa fa-circle" ></i></span>
+																			1
+																		</label>
+																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		<label> <input type="radio" id="installment_2" name="installment"
+																			value="2" > <span
+																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
+																			2
+																		</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		<label> <input type="radio" id="installment_3" name="installment"
+																			value="3" > <span
+																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
+																			3
+																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		<label> <input type="radio" id="installment_4" name="installment"
+																			value="4" > <span
+																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
+																			4
+																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		<label> <input type="radio" id="installment_6"  name="installment"
+																			value="6" > <span
+																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
+																			6
+																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		<label> <input type="radio" id="installment_12" name="installment"
+																			value="12" > <span
+																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
+																			12
+																		</label> 
+																	</div>
+																</div>
+															</div><br>
+														
+											<div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label class="col-form-label">Date *</label>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <input type="text" class="form-control form_val_popup_dp3" name="date" id="date_id" placeholder="YYYY-MM-DD"/>
                                                 </div>
-                                            </div> 
+                                            </div> <br>
                                            
                                            <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
@@ -261,7 +267,7 @@ pageEncoding="ISO-8859-1"%>
        
        <!-- Model-->
        <div class="modal fade show" id="update" role="dialog" aria-labelledby="modalLabelnews">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header bg-primary">
                                 <h4 class="modal-title text-white" id="modalLabelnews"><strong>Update</strong></h4>
@@ -274,69 +280,42 @@ pageEncoding="ISO-8859-1"%>
                                                 	</div>
                                                 	<div class="col-lg-4">
 	  	                                             	 	<input type="hidden" id="model_id"  name="mod_name" />
-	                                                    	<input type="text" id="m_id"  name="m_name" class="form-control" onkeyup="this.value=this.value.toUpperCase()"  pattern="[A-Za-z]" required />
+	                                                    	<input type="text" id="m_id"  name="m_name" onkeyup="this.value=this.value.toUpperCase()" onblur="this.value=$.trim(this.value)" pattern="[A-Za-z]" class="form-control" required />
                                                 	</div>
-                                               </div>
-                                            <div class="row">
+                                               </div><br>
+                                               
+                                                  <div class="row">
 														<div class="col-lg-4  text-lg-right">
 															<label for="lastname" class="col-form-label">Installment
 																*</label>
+																</div>
+																<div class="col-md-5" >
 															<div class="radio">
 																<label> <input type="radio" id="install_1" name="installmentMode"
 																	value="1" checked="checked"> <span
 																	class="cr"><i class="cr-icon fa fa-circle" ></i></span>
 																	1
-																</label> 
-															</div>
-														</div>
-														</div>
-														<div class="row">
-														<div class="col-lg-4  text-lg-right">
-															<div class="radio">
+																</label>&nbsp;
 																<label> <input type="radio" id="install_2" name="installmentMode"
 																	value="2" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	2
-																</label> 
-															</div>
-														</div>
-														</div>
-														<div class="row">
-														<div class="col-lg-4  text-lg-right">
-														 <div class="radio">
+																</label>&nbsp; 
 																<label> <input type="radio" id="install_3" name="installmentMode"
 																	value="3" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	3
-																</label> 
-															</div>
-														</div>
-														</div>
-														<div class="row">
-														<div class="col-lg-4  text-lg-right">
-															<div class="radio">
+																</label>&nbsp;
 																<label> <input type="radio" id="install_4" name="installmentMode"
 																	value="4" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	4
-																</label> 
-															</div>
-														</div>
-														</div>
-														<div class="row">
-														<div class="col-lg-4  text-lg-right">
-															<div class="radio">
+																</label>&nbsp;
 																<label> <input type="radio" id="install_6"  name="installmentMode"
 																	value="6" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	6
-																</label> 
-															</div>
-														</div>
-														</div>
-														<div class="row">
-														<div class="col-lg-4  text-lg-right">
-															<div class="radio">
+																</label>&nbsp;
 																<label> <input type="radio" id="install_12" name="installmentMode"
 																	value="12" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
@@ -344,14 +323,11 @@ pageEncoding="ISO-8859-1"%>
 																</label> 
 															</div>
 														</div>
-														</div> 
-                                            
-                                            
-                                            
+													</div><br>
                                             <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label class="col-form-label">Date *</label>
-                                                </div>
+                                                </div><br>
                                                 <div class="col-lg-4">
                                                     <input type="text" class="form-control form_val_popup_dp3" name="Modedate" id="modeDate_id" placeholder="YYYY-MM-DD"/>
                                                 </div>
