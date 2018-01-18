@@ -116,7 +116,7 @@ z-index: 999999">
                                                     <label for="required2" class="col-form-label">Fees Type *</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="feeTypeId" name="feeType" class="form-control" onblur="this.value=$.trim(this.value)" required >
+                                                    <input type="text" id="feeType" name="feeType" class="form-control" style="text-transform: uppercase" onblur="this.value=$.trim(this.value)" required >
                                                 </div>
                                            </div>
                                            <div class="form-group row">
@@ -124,7 +124,7 @@ z-index: 999999">
                                                     <label for="required2" class="col-form-label">Fees *</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="feeId" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" required>
+                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" required>
                                                 </div>
                                             </div>
                                              <div class="form-group row">
@@ -150,38 +150,12 @@ z-index: 999999">
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <label class="custom-control custom-checkbox">&nbsp;&nbsp;
-                                                        <input type="checkbox" name="caste" value="1" class="custom-control-input" checked>
+                                                        <input type="checkbox" name="caste" value="1" class="custom-control-input">
                                                         <span class="custom-control-indicator"></span>
                                                         <span class="custom-control-description"></span>
                                                     </label>
                                                 </div>
                                             </div>
-                                            
-                                            <!-- <div class="form-group row">
-                                                <div class="col-lg-3 push-lg-2"> 
-                                                    <label for="required2" class="col-form-label">Fees Type *</label>
-                                                    <input type="text" id="feeTypeId" name="feeType" class="form-control" required>
-                                                </div>
-	                                             <div class="col-lg-3 push-lg-2">
-	                                                    <label for="required2" class="col-form-label">Fees *</label>
-	                                                	 <input type="text" id="feeId" name="fee" class="form-control" required>
-	                                                </div>
-	                                                </div> -->
-	                                                <!-- <div class="form-group row">
-	                                                 <div class="col-lg-4 push-lg-2">
-	                                                    <label for="required2" class="col-form-label" name="term" >Term *</label>&nbsp;&nbsp;&nbsp;&nbsp;
-	                                                	 <label class="custom-control custom-checkbox">&nbsp;&nbsp;
-                                                        <input type="checkbox" name="term1" value="1" class="custom-control-input" checked>
-                                                        <span class="custom-control-indicator"></span>
-                                                        <span class="custom-control-description">I Term</span>
-                                                    </label>
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" name="term2" value="1" class="custom-control-input">
-                                                        <span class="custom-control-indicator"></span>
-                                                        <span class="custom-control-description">II Term</span>
-                                                    </label>
-	                                                </div>
-	                                            </div> -->
                                              <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
                                                     <input type="submit" value="OK" name="submitFee" class="btn btn-primary">
@@ -217,7 +191,6 @@ z-index: 999999">
                                             <tr role="row">
                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No.</th>
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Fee Type</th>
-                                               <!--  <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Fees</th> -->
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Term(I)</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Term(II)</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Caste</th>
@@ -252,9 +225,15 @@ z-index: 999999">
 														<td><c:out value="-"></c:out></td>
 														</c:if>
 														
+														<c:if test="${d.caste!=0 }">
+														<td><c:out value="${d.caste}"></c:out></td>
+														</c:if>
+														<c:if test="${d.caste==0 }">
+														<td><c:out value="-"></c:out></td>
+														</c:if>
 														<td>
-                                            			<a class="edit" data-placement="top" title="Edit" href="#update" data-toggle="modal"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-                                            			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/FeeType?id=1"><i class="fa fa-trash text-danger"></i></a>
+                                            			<a class="edit" data-placement="top" title="Edit" href="#update" data-toggle="modal" onclick="loadDoc(${d.getId()})"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
+                                            			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="#"><i class="fa fa-trash text-danger"></i></a>
                                             			</td>
                                             		</tr>
 												  </c:forEach>
@@ -267,24 +246,79 @@ z-index: 999999">
                        	 </div>
                        </div><!-- /.inner -->
                     </div><!-- /outer -->
-         		</div>
+                 
+                 <!--  Model for update -->   
+                 <div class="modal fade show" id="update" role="dialog" aria-labelledby="modalLabelnews">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary">
+                                <h4 class="modal-title text-white" id="modalLabelnews"><strong>Update</strong></h4>
+                            </div>
+                            <div class="modal-body">
+                            	 <form action="/SMGMT/FeeType" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                              <div class="form-group row">
+                                                <div class="col-lg-4  text-lg-right">
+                                                    <label for="required2" class="col-form-label">Fees Type *</label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                 <input type="hidden" id="idId" name="id" class="form-control" onblur="this.value=$.trim(this.value)" >
+                                                    <input type="text" id="feeTypeId" name="feeTypeUp" class="form-control" onblur="this.value=$.trim(this.value)" required >
+                                                </div>
+                                           </div>
+                                           <div class="form-group row">
+                                                <div class="col-lg-4 text-lg-right">
+                                                    <label for="required2" class="col-form-label">Fees *</label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <input type="text" id="feeId" name="feeUp" class="form-control" onblur="this.value=$.trim(this.value)" required>
+                                                </div>
+                                            </div>
+                                             <div class="form-group row">
+                                                <div class="col-lg-4 text-lg-right">
+                                                    <label for="required2" class="col-form-label">Term *</label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label class="custom-control custom-checkbox">&nbsp;&nbsp;
+                                                        <input type="checkbox" name="term1Up" value="1" id="term1Id" class="custom-control-input">
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description">I Term</span>
+                                                    </label>
+                                                    <label class="custom-control custom-checkbox">
+                                                        <input type="checkbox" name="term2Up" value="1" id="term2Id" class="custom-control-input">
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description">II Term</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                              <div class="form-group row">
+                                                <div class="col-lg-4 text-lg-right">
+                                                    <label for="required2" class="col-form-label">Caste *</label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label class="custom-control custom-checkbox">&nbsp;&nbsp;
+                                                        <input type="checkbox" name="casteUp" value="1" id="casteId" class="custom-control-input">
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+			                         		 <div class="modal-footer">
+					                            <button class="btn btn-success" type="submit" name="updateFee" id="updateId">Update</button> 
+					                           	<button class="btn btn-warning" data-dismiss="modal">Close</button>  
+					              	         </div>
+                       				</form>
+                            </div>
+                        </div>
+                    </div>
+                </div>  <!-- /Modal  -->
+           </div>
         <!-- /#content -->
     </div>
     <!--wrapper-->
-    
     <!-- /#content -->
-  
-
 </div>
 <!-- /#wrap -->
 <!-- global scripts-->
-
-<script type="text/javascript">
-
-
-
-</script>
-
 
 <script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
@@ -313,10 +347,52 @@ z-index: 999999">
 <script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
 
-
-
 </body>
+<script type="text/javascript">
+function loadDoc(id)
+{
+	var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	     var demoData = this.responseText;
+	     var str=demoData.split(",");
+	     alert(str);
+	     document.getElementById("idId").value=str[0];
+	     document.getElementById("feeTypeId").value=str[1];
+	   	 document.getElementById("feeId").value=str[2];
+	   	 var termFrst=str[3];
+	   	 var termSecnd=str[4];
+	   	 if(termFrst==1){
+	   		 alert(termFrst);
+		   		document.getElementById("term1Id").checked=true; 
+		 }
+	   	 else{
+	   		document.getElementById("term1Id").checked=false; 
+	   	 }
+	   	 if(termSecnd==1){
+	   		alert(termSecnd);
+			   	document.getElementById("term2Id").checked=true;  
+		 }
+	   	 else{
+		   		document.getElementById("term2Id").checked=false; 
+		   	 }
+	   	 var caste=str[5];
+	   	 if(caste==1)
+	   		 {
+	   		 document.getElementById("casteId").checked=true;
+	   		 }
+	   	 else
+	   		 {
+	   		document.getElementById("casteId").checked=false;
+	   		 }
+	    }
+	  };
+	  xhttp.open("POST","/SMGMT/FeeType?updateId="+id, true);
+	  xhttp.send();
 
+}
+
+</script>
 
 
 </html>

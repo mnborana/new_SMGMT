@@ -8,6 +8,12 @@ public interface feeTypeDAO {
   
  public List<feeTypePOJO> getFeeType() throws SQLException; 
  
+ public int updateFeesType(feeTypePOJO pojo) throws SQLException;
+ 
+ public List selectFeesById(int id) throws SQLException;
+ 
  public void deleteFeeType(int id) throws SQLException;
+ 
+ 
  
 }
