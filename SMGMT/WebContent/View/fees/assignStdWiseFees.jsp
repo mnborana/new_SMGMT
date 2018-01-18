@@ -1,3 +1,8 @@
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
+<%@page import="com.servletStore.fees.assignStdWiseFees.model.AssignStdWiseFeesImpl"%>
+<%@page import="com.servletStore.fees.assignStdWiseFees.model.AssignStdWiseFeesDao"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.servletStore.settings.subjects.model.SubjectAssignmentPOJO"%>
@@ -5,6 +10,7 @@
 <%@page import="com.servletStore.settings.subjects.model.SubjectAssignmentDAO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -39,6 +45,38 @@
     
     </style>
 </head>
+
+
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		//for read/write permission  Read = 1  Write = 2
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		//for showing datatable according to read/write permission
+		
+		//choose appropriate method as per your leftNavbar form option name
+		//e.g : if you are working on Attendance option in left navbar then code will be...
+		
+		/* SetupPOJO grant = new SetupPOJO();
+		int access=grant.getAttendance(); */
+		
+		//if it returns read(1) then hide form and action column in dataTable
+		//for write(2) show your orignal full form
+				
+	}
+%>
+
 
 <body>
 <div class="preloader" style=" position: fixed;
@@ -120,7 +158,7 @@ z-index: 999999">
                                         Fees Assignment
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="/SMGMT/SubjectAssignment" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/AssignStdWiseFees" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                        <div class="form-group row">
                                            <div class="col-lg-4  text-lg-right">
                                                <label for="required2" class="col-form-label">Select Standard <span style="color: red;">*</span> </label>
@@ -129,16 +167,16 @@ z-index: 999999">
                                                <select class="form-control chzn-select" name="subjectId" id="subjectId" title="Select Subject"  required>
 			                                        <option>Select Standard</option>
 			                                        <%
-				                                    	SubjectAssignmentDAO sdao = new SubjectAssignmentImpl();
-				                                    	HashMap<Integer, String> subList = sdao.getSubjectList(session1.getAttribute("schoolId").toString());
+				                                    	AssignStdWiseFeesDao dao = new AssignStdWiseFeesImpl();
+				                                    	HashMap<Integer, String> stdList = dao.getStandards(session1.getAttribute("schoolId").toString());
 				                                   
-				                                    	Set keys = subList.keySet();
+				                                    	Set keys = stdList.keySet();
 														Iterator itr = keys.iterator();
 														
 														while(itr.hasNext()){
 				                                    		int key = Integer.parseInt(itr.next().toString());
 				                                    %>
-				                                    	<option value="<%=key %>"><%=subList.get(key)%></option>
+				                                    	<option value="<%=key %>"><%=stdList.get(key)%></option>
 														
 				                                     <%
 				                                    	}
@@ -151,9 +189,89 @@ z-index: 999999">
                                       
                                       <br>
                                       
+                                      
+                                      <div class="outer">
+							                <div class="inner bg-container">
+							                    <div class="card">
+							                        <div class="card-header bg-white">
+							                            Standard Wise Fees Structure
+							                        </div>
+							                        <div class="card-block m-t-35" id="user_body">
+							                            <div class="table-toolbar">
+							                                
+							                                <div class="btn-group float-right users_grid_tools">
+							                                    <div class="tools"></div>
+							                                </div>
+							                            </div>
+							                            
+							                            <div>
+							                                <div>
+							                                    <table class="table  table-striped table-bordered table-hover  no-footer"  role="grid">
+							                                        <thead>
+							                                        <tr role="row">
+							                                            <th></th>
+							                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Fees Type</th>
+							                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term One Fees</th>
+							                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term Two Fees</th>
+							                                            <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Priority</th>
+							                                            <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Action</th>
+							                                        </tr>
+							                                        </thead>
+							                                        
+							                                        <%
+							                                        	request.setAttribute("FeesTypeList", dao.getFeestypeList());
+							                                        	int i=0;
+							                                        %>
+							                                        
+							                                        <tbody>	
+							                                        
+							                                        <c:forEach items="${FeesTypeList}" var="l">
+							                                        	<%++i; %>
+							                                        	<tr role="row" class="even">
+							                                        		<td> 
+																           		<div class='checkbox'>
+																                	<label class='text-mint'>	
+																                    	<input type='checkbox' value='<%=i %>' name='feeTypeCheck' id='' >
+																                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span>
+																                	</label>
+																	    		</div>
+							                                        		</td>
+							                                        		<td> <c:out value="${l.feesType}"> </c:out> <input type="hidden" name="feeType<%=i %>" value="${l.feesType}">  </td>
+							                                        		<td> <c:out value="${l.termOneFees}"></c:out> <input type="hidden" name="termOneFees<%=i %>" value="${l.termOneFees}"> </td>
+							                                        		<td> <c:out value="${l.termTwoFees}"></c:out> <input type="hidden" name="termTwoFees<%=i %>" value="${l.termTwoFees}"> </td>
+							                                        		
+							                                        		<td>
+							                                        			<div class='checkbox'>
+																                	<label class='text-mint'>
+																                    	<input type='checkbox' value='1' name='feeTypePriority_<%=i %>' id='' >
+																                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span>
+																                	</label>
+																	    		</div>	
+							                                        		</td>
+								
+							                                        		<td>
+							                                        			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard()"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
+							                                        		</td>
+							                                        		
+							                                        	</tr>
+							                                        </c:forEach>
+							                                        </tbody>
+							                                    </table>
+							                                </div>
+							                            </div>
+							                            <!-- END EXAMPLE TABLE PORTLET-->
+							                        </div>
+							                    </div>
+							                </div>
+							                <!-- /.inner -->
+							            </div>
+							            
+							            <br>
+                                      
+                                      
                                        <div class="form-actions form-group row">
                                            <div class="col-lg-4 push-lg-4">
-                                               <input type="submit" value="Assign Subject" name="subjectAssignSubmit" class="btn btn-primary">
+                                               <input type="submit" value="Assign Fees" name="subjectAssignSubmit" class="btn btn-primary">
                                            </div>
                                        </div>
                                    </form>
@@ -165,91 +283,7 @@ z-index: 999999">
                 </div> <!-- /.outer -->
                 
                
-            <div class="outer">
-                <div class="inner bg-container">
-                    <div class="card">
-                        <div class="card-header bg-white">
-                            Assigned Subjects List
-                        </div>
-                        <div class="card-block m-t-35" id="user_body">
-                            <div class="table-toolbar">
-                                
-                                <div class="btn-group float-right users_grid_tools">
-                                    <div class="tools"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
-                                        <thead>
-                                        <tr role="row">
-                                            <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No.</th>
-                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Standard Name</th>
-                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Subject Name</th>
-                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Subject Code</th>
-                                            <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Optional</th>
-                                            <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        
-                                        <%
-                                         SubjectAssignmentDAO subADao = new SubjectAssignmentImpl();
-                                     	List<SubjectAssignmentPOJO> l = sdao.AssignedSubjectList(session1.getAttribute("schoolId").toString());
-                                    
- 										int count=1;
-                                     	Iterator itr2 = l.iterator();
-                                     	while(itr2.hasNext()){
-                                     		SubjectAssignmentPOJO subAPojo = (SubjectAssignmentPOJO)itr2.next();
-                                     		int id = subAPojo.getId();
-                                  %>
-                                        	<tr role="row" class="even">
-                                        		<td><%=count %></td>
-                                        		<td><%=subAPojo.getStdName() %></td>
-                                        		<td><%=subAPojo.getSubjectName() %></td>
-                                        		<td>
-                                        			<% 
-                                        				if(subAPojo.getSubjectCode()==null)
-                                        				{ 
-                                        					out.print("-");	
-                                        				}else{
-                                        					out.print(subAPojo.getSubjectCode());
-                                        				} 
-                                        			%>
-                                        		</td>
-                                        		
-												<td>
-                                        			<% 
-                                        				if(subAPojo.getOptinalStatus()==0)
-                                        				{ 
-                                        					out.print("NO");	
-                                        				}
-                                        				else
-                                        				{
-                                        					out.print("YES");
-                                        				} 
-                                        			%>
-                                        		</td>
-	
-                                        		<td>
-                                        			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard(<%=id%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-                                        			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="#"><i class="fa fa-trash text-danger"></i></a>
-                                        		</td>
-                                        	</tr>
-                                        <%
-                                   	count++;
-                                  	}
-                                  %> 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- END EXAMPLE TABLE PORTLET-->
-                        </div>
-                    </div>
-                </div>
-                <!-- /.inner -->
-            </div>
+            
                 
                 <!-- /.outer -->
             </div>

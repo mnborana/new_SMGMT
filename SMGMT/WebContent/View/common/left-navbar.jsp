@@ -340,20 +340,32 @@
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-inr"></i>
-                            <span class="link-title menu_hide">&nbsp; Fee</span>
+                            <span class="link-title menu_hide">&nbsp; Fees</span>
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/fees/Installment.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Fee Collection - Yearly
+                                    &nbsp; Generate Modes
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/fees/feeType.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    <span class="link-title">&nbsp; Fee Collection - Monthly </span>
+                                    <span class="link-title">&nbsp; Generate Fees Types</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/SMGMT/View/fees/castWiseEducationalFees.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Assign Cast Wise Fees</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/SMGMT/View/fees/assignStdWiseFees.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Assign Standard Wise Fees</span>
                                 </a>
                             </li>
                         </ul>

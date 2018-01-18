@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="com.servletStore.settings.school.model.SchoolPOJO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.servletStore.settings.standard.model.StandardPOJO"%>
@@ -37,6 +40,38 @@
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
     <!-- end of page level styles -->
 </head>
+
+
+
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		//for read/write permission  Read = 1  Write = 2
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		//for showing datatable according to read/write permission
+		
+		//choose appropriate method as per your leftNavbar form option name
+		//e.g : if you are working on Attendance option in left navbar then code will be...
+		
+		/* SetupPOJO grant = new SetupPOJO();
+		int access=grant.getAttendance(); */
+		
+		//if it returns read(1) then hide form and action column in dataTable
+		//for write(2) show your orignal full form
+				
+	}
+%>
 
 <body>
 <div class="preloader" style=" position: fixed;
