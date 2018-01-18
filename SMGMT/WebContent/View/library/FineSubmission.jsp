@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="com.servletStore.library.model.IssueBookPOJO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -37,7 +40,37 @@
     
    
 </head>
-<body onload="myFunction()">
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		//for read/write permission  Read = 1  Write = 2
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		//for showing datatable according to read/write permission
+		
+		//choose appropriate method as per your leftNavbar form option name
+		//e.g : if you are working on Attendance option in left navbar then code will be...
+		
+		/* SetupPOJO grant = new SetupPOJO();
+		int access=grant.getAttendance(); */
+		
+		//if it returns read(1) then hide form and action column in dataTable
+		//for write(2) show your orignal full form
+				
+	}
+%>
+
+<body>
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -117,6 +150,9 @@
 		                                     				 <div class="form-group row">
 		                                          	      		<div class="col-lg-8">
 		                                          	      			<input type="hidden" name="studId" id="stud_Id">
+		                                          	      			
+		                                          	      			 <input type="hidden" name="issueId" id="issueId"> 
+		                                          	      			
 		                                                			<input type="text" list="browseStud" autocomplete="off" onkeyup="getstuddetails(this.value)" oninput="getStudId(this.value)" onblur="getStudInfo('studInfo',event)" class="form-control" style="margin-left: 9px;" id="searchStud"  name="searchStud" placeholder="Search Student by GRN/Name" required>
 			                                                		<datalist id="browseStud">
 			                                                		</datalist>
@@ -159,21 +195,40 @@
 																				</label> <input type="text" id="total_Fine"
 																				name="totalFine" class="form-control" onblur="countFineNill(this.value)" readonly="readonly">
 																		</div>
-																	</div>
+																		</div>
+																		<div class="form-group row">
+																		<div class="col-lg-4 ">
+																			<label for="required2" class="col-form-label" >Paid Amount
+																				</label> <input type="text" id="paidId" name="paidamount"  value="0" oninput="countTotalFine(this.value)"
+																				class="form-control">
+																				<small class="help-block" data-bv-validator="notEmpty" id="error" style=""></small>
+																		</div>
+																		<div class="col-lg-4 ">
+																		<label for="required2" class="col-form-label" >Discount
+																				</label> <input type="text" id="discountId" name="discountamount" value="0"
+																				class="form-control"  readonly="readonly">
+																		</div>
+																		<div class="col-lg-4 ">
+																		<label for="required2" class="col-form-label" >Remaining Fine
+																				</label> <input type="text" id="remainId" name="remainAmt"
+																				class="form-control"  readonly="readonly">
+																		</div>
+																		</div>
+																	
 																</div> 		
 														<div class="form-group row">
 		                                                 	     <div class="form-actions">
 																	<input type="submit" id="returnSubmit" value="Submit Fine"
-																		name="submitfine" class="btn btn-success" style="margin-left: 24px;" >
-																		</div>
+																		name="submitfine" class="btn btn-success" style="margin-left: 24px;" disabled="disabled">
+																</div>
 		                                                 	</div>
 														
-		                                                  </form>
+		                                              </form>
 				                              </div>
 				                            </div>
 				                          </div>
 				                            <!-- Book Table -->  
-										  </div>
+									</div>
 				                 </div>
                             </div> <!-- /.col-lg-12 -->
                         </div> <!-- /.row -->
@@ -181,56 +236,7 @@
                 </div> <!-- /.outer -->
             
             
-               <!-- Modal -->
-                 <div class="modal fade show" id="payFine" role="dialog" aria-labelledby="modalLabelnews">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header bg-primary">
-                                <h4 class="modal-title text-white" id="modalLabelnews"><strong>Do you want to give discount?</strong></h4>
-                            </div>
-                            <div class="modal-body">
-                            	<div class="form-group row">
-																		<div class="col-lg-4 ">
-																		<label for="required2" class="col-form-label" style="margin-left: 21%;">Fine Amount
-																				</label> <input type="text" id="fineId" name="firstName"
-																				class="form-control" style="margin-left: 21%;" readonly="readonly">
-																		</div>
-																		<div class="col-lg-4 ">
-																			<label for="required2" class="col-form-label" style="margin-left: 44%;">Paid Amount
-																				</label> <input type="text" id="paidId" name="middleName" value="0" oninput="countTotalFine(this.value)"
-																				class="form-control" style="margin-left: 44%;">
-																				<small class="help-block" data-bv-validator="notEmpty" id="error" style=""></small>
-																		</div></div>
-																		<div class="form-group row">
-																		<div class="col-lg-4 ">
-																		<label for="required2" class="col-form-label" style="margin-left: 21%;">Discount
-																				</label> <input type="text" id="discountId" name="firstName" value="0"
-																				class="form-control" style="margin-left: 21%;" readonly="readonly">
-																		</div>
-																		<div class="col-lg-4 ">
-																		<label for="required2" class="col-form-label" style="margin-left: 44%;">Fine
-																				</label> <input type="text" id="remainId" name="firstName"
-																				class="form-control" style="margin-left: 44%;" readonly="readonly">
-																		</div>
-																		</div>
-                            		<!-- <ul>
-	                            		<li id="tFine"><strong>Total Fine =</strong></li>
-	                            		<li id="pFine"><strong>Paid Amount =</strong></li>
-	                            		<li id="pFine"><strong>Discount =</strong></li>
-	                            		<li id="rBal"><strong>Remaining Balance =</strong></li>
-	                            	</ul> -->
-                            	
-                            	   
-                            </div>
-                            
-                            <div class="modal-footer">
-                            	<button class="btn btn-success" data-dismiss="modal" onclick="giveDiscount()">Yes</button>
-                            	<button class="btn btn-warning" data-dismiss="modal">No</button>
-                            </div>
-                           
-                        </div>
-                    </div>
-                </div>  <!-- /Modal  -->
+               
            
             
             
@@ -262,6 +268,32 @@
 
 </body>
 <script type="text/javascript">
+
+function getStudId(val)
+{
+	var opts = document.getElementById('browseStud').childNodes;
+	for (var i = 0; i < opts.length; i++) {
+		 if (opts[i].value === val) 
+		 {
+			 var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			     var demo = this.responseText;
+			     var stud=demo.split(",");
+			     var studId=demo.split("#");
+			     document.getElementById("stud_Id").value=studId[0];
+			     //alert(studId);
+			     }
+			  };
+			  xhttp.open("POST", "/SMGMT/Library?getstudId="+val, true);
+			  xhttp.send(); 
+	    	  break;
+		 }
+	}
+}
+
+
+
 /*<<<<<<<<<<<<<<<<<< Ajax for Serach Student Info >>>>>>>>>>>>>>>>>>>>>>>>>*/
 function getstuddetails(id){
 //	alert(id);
@@ -287,29 +319,8 @@ function getstuddetails(id){
 	  xhttp.send();
 }
 
-/* <<<<<<<<<<<<<<<<<<<Search Student info from here- (grn, name, std, div, shift) >>>>>>>>>>>>>>>>>>>>>>>>>*/
-function getStudId(val)
-{
-	var opts = document.getElementById('browseStud').childNodes;
-	for (var i = 0; i < opts.length; i++) {
-		 if (opts[i].value === val) 
-		 {
-			 var xhttp = new XMLHttpRequest();
-			  xhttp.onreadystatechange = function() {
-			    if (this.readyState == 4 && this.status == 200) {
-			     var demo = this.responseText;
-			     var stud=demo.split(",");
-			     var studId=demo.split("#");
-			     document.getElementById("stud_Id").value=studId;
-			    //alert(studId);
-			     }
-			  };
-			  xhttp.open("POST", "/SMGMT/Library?getstudId="+val, true);
-			  xhttp.send(); 
-	    	  break;
-		 }
-	}
-}
+
+
 
 function getStudInfo(studInfo,e)
 {
@@ -319,6 +330,9 @@ function getStudInfo(studInfo,e)
 	var studsrchId = searchIdVal.split("-");
 	//alert(studsrchId);
 	var studId=document.getElementById("stud_Id").value;
+	 var issueId=document.getElementById("issueId").value;
+	// alert(issueId);
+	
 	//alert(studId);
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -333,13 +347,15 @@ function getStudInfo(studInfo,e)
 			}
 			else
 			{
-				alert('Student Info'+stud);
-			 	document.getElementById("first_Name").value = stud[0];
-				document.getElementById("middle_Name").value = stud[1];
-				document.getElementById("last_Name").value = stud[2];
-				document.getElementById("std_Id").value = stud[3];
-				document.getElementById("div_Id").value = stud[4];
-				document.getElementById("total_Fine").value = stud[5];
+				//alert('Student Info'+stud);
+				document.getElementById("issueId").value = stud[0];
+				//alert(stud[0]);
+			 	document.getElementById("first_Name").value = stud[1];
+				document.getElementById("middle_Name").value = stud[2];
+				document.getElementById("last_Name").value = stud[3];
+				document.getElementById("std_Id").value = stud[4];
+				document.getElementById("div_Id").value = stud[5];
+				document.getElementById("total_Fine").value = stud[6];
 				document.getElementById("studentListErrorMsg").innerHTML="";
 			}
 			
@@ -351,38 +367,30 @@ function getStudInfo(studInfo,e)
 	//}
 }
 
+
+
 function countFineNill(val)
 {
 	//alert('hello');	
-	$('#payFine').modal('show');
+	 var fineAmount=parseInt(document.getElementById("total_Fine").value);
+	 document.getElementById("fineId").value=fineAmount;
+	/* $('#payFine').modal('show'); */
 }
-
-$('#payFine').on('show.bs.modal', function(e) {
-
-    //putting values in bootstrap modal
-    var fineAmount=parseInt(document.getElementById("total_Fine").value);
-   /*  var paidAmount=parseInt(document.getElementById("paidAmountId").value);
-    var remainAmt = fineAmount - paidAmount;
-    */ 
-	document.getElementById("fineId").value=fineAmount;
-	/* document.getElementById("pFine").innerHTML='<strong>Paid Fine = </strong>'+paidAmount;
-	document.getElementById("rBal").innerHTML='<strong>Remaining Fee = <strong>'+remainAmt;
-    */
-	
-	 
-});
 
 function countTotalFine(val)
 {
-	
+	//alert('fdd');
 	 var fineAmount=parseInt(document.getElementById("total_Fine").value);
-	 document.getElementById("fineId").value=fineAmount;
+	 //document.getElementById("fineId").value=fineAmount;
 	 var payAmount=parseInt(document.getElementById("paidId").value);
+	  
+	 
 	 if(payAmount>fineAmount)
 		 {
 			 document.getElementById("discountId").value=0;
 			 document.getElementById("error").innerHTML="* Enter valid amount";
 			 document.getElementById("error").style.color="#27ae60";
+			 document.getElementById("returnSubmit").disabled=true;
 		 }
 	 else{
 			var discount=fineAmount-payAmount;
@@ -390,17 +398,24 @@ function countTotalFine(val)
 			document.getElementById("error").innerHTML="";
 			//document.getElementById("errorMsg").style.color="#27ae60";
 			document.getElementById("remainId").value=0;
+			 document.getElementById("returnSubmit").disabled=false;
 		 }
+	 if(payAmount<1)
+		{
+			//alert('incorrect number');
+			 
+			document.getElementById("error").innerHTML="incorrect number";
+			
+				document.getElementById("discountId").value=0;
+			    //document.getElementById("paidId").value=0;
+			    document.getElementById("returnSubmit").disabled=true;
+			    
+			   
+			
+			} 
 }
 
 
-function giveDiscount()
-{
-	var remainFineAmount=parseInt(document.getElementById("remainId").value);
-	document.getElementById("total_Fine").value=remainFineAmount;
-   
-	
-}
 </script>
 
 

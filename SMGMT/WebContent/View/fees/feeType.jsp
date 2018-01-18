@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="com.servletStore.fees.feeType.model.feeTypeImpl"%>
 <%@page import="com.servletStore.fees.feeType.model.feeTypeDAO"%>
 <%@page import="com.servletStore.settings.standard.model.StandardPOJO"%>
@@ -39,6 +42,35 @@
     
     <!-- end of page level styles -->
 </head>
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		//for read/write permission  Read = 1  Write = 2
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		//for showing datatable according to read/write permission
+		
+		//choose appropriate method as per your leftNavbar form option name
+		//e.g : if you are working on Attendance option in left navbar then code will be...
+		
+		/* SetupPOJO grant = new SetupPOJO();
+		int access=grant.getAttendance(); */
+		
+		//if it returns read(1) then hide form and action column in dataTable
+		//for write(2) show your orignal full form
+				
+	}
+%>
 
 <body>
 <div class="preloader" style=" position: fixed;
@@ -116,7 +148,8 @@ z-index: 999999">
                                                     <label for="required2" class="col-form-label">Fees Type *</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="feeType" name="feeType" class="form-control" style="text-transform: uppercase" onblur="this.value=$.trim(this.value)" required >
+                                                   <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()" pattern="[A-Za-z]"	/>
+                                                   <!--  <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value = this.value.toUpperCase()" pattern="[A-Za-z]"  pattern="required" > -->
                                                 </div>
                                            </div>
                                            <div class="form-group row">
@@ -124,7 +157,7 @@ z-index: 999999">
                                                     <label for="required2" class="col-form-label">Fees *</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" required>
+                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" pattern="[0-9]">
                                                 </div>
                                             </div>
                                              <div class="form-group row">
@@ -262,7 +295,7 @@ z-index: 999999">
                                                 </div>
                                                 <div class="col-lg-4">
                                                  <input type="hidden" id="idId" name="id" class="form-control" onblur="this.value=$.trim(this.value)" >
-                                                    <input type="text" id="feeTypeId" name="feeTypeUp" class="form-control" onblur="this.value=$.trim(this.value)" required >
+                                                    <input type="text" id="feeTypeId" name="feeTypeUp" class="form-control" onblur="this.value=$.trim(this.value)" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" required >
                                                 </div>
                                            </div>
                                            <div class="form-group row">

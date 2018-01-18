@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="com.servletStore.library.model.IssueBookPOJO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -27,8 +30,39 @@
    --> 
    <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
     <!-- end of global styles-->
+    
    
 </head>
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		//for read/write permission  Read = 1  Write = 2
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		//for showing datatable according to read/write permission
+		
+		//choose appropriate method as per your leftNavbar form option name
+		//e.g : if you are working on Attendance option in left navbar then code will be...
+		
+		/* SetupPOJO grant = new SetupPOJO();
+		int access=grant.getAttendance(); */
+		
+		//if it returns read(1) then hide form and action column in dataTable
+		//for write(2) show your orignal full form
+				
+	}
+%>
+
 <body onload="myFunction()">
 <div class="preloader" style=" position: fixed;
   width: 100%;
@@ -122,10 +156,14 @@
 				                              %>
 				                                  <div class="col-12">
 				                                       <div class="col-lg-8 m-t-20">
+				                                       
 				                                          <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator">
+		                                     			
 		                                     			<div class="form-group row">
+		                                     			
 		                                     				<div class="col-lg-8">
-		                       	   <!-- Search Book from here     ------- -->
+		                                     				<label for="required2" class="col-form-label">Search Book *</label>
+		                       	  				 <!-- Search Book from here     ------- -->
 		                                               	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchtext"  name="searchBook" placeholder="Search Books by BookId/BookName/AuthorName" required>
 			                                                <datalist id="browseBook">
 			                                                </datalist>
@@ -168,7 +206,7 @@
 		                                               <div class="form-group row">
 		                                                <div class="col-lg-8">
 		                                                    <label class="col-form-label">Book Due Date *</label>
-		                                                    <input type="text" id="dueDate_id" class="form-control form_val_popup_dp3" name="dueDate" placeholder="YYYY-MM-DD" required/>
+		                                                    <input type="text" id="dueDate_id"  class="form-control form_val_popup_dp3" name="dueDate" autocomplete="off" placeholder="YYYY-MM-DD" required/>
 		                                                </div>
 		                                                </div>
 		                                                 <div class="form-actions form-group row">
@@ -369,6 +407,7 @@
 																id="form_block_validator">
 																<div class="form-group row">
 																	<div class="col-lg-8">
+																	<label for="required2" class="col-form-label">Search Book *</label>
 																		<!-- Search Book from here     ------- -->
 																		<input type="text" list="returnBook"
 																			autocomplete="off"
@@ -386,9 +425,9 @@
 																	<div class="form-group row">
 
 																		<div class="col-lg-4 ">
-																		<input type="text" name="studentId" id="student_Id">
+																		<input type="hidden" name="studentId" id="student_Id">
 																		
-																		<input type="text" id="oldRemainFine">
+																		<input type="hidden" id="oldRemainFine">
 																			<label for="required2" class="col-form-label">Book
 																				No</label> <input type="text" id="bNo" name="bookNum"
 																				class="form-control" readonly="readonly">
@@ -496,7 +535,7 @@
 																		   <div class="col-lg-4">
 																				<label for="required2" class="col-form-label">Paid Amount
 																				 </label> <input type="text"
-																					id="paidAmountId" name="finePaid" value="0" onblur="calculatePaidAmt(this.value)"
+																					id="paidAmountId" name="finePaid" value="0"  onblur="calculatePaidAmt(this.value)" pattern="[0-9]"
 																					class="form-control">
 																					<small class="help-block" data-bv-validator="notEmpty" id="error" style=""></small>
 																		  </div>
@@ -610,12 +649,21 @@
 </body>
 <script type="text/javascript">
 
+//$( "#dueDate_id" ).datepicker({ minDate: 0});
+
+$(document).ready(function () {
+        $("#dueDate_id").datepicker({
+            minDate: 0
+        });
+    });
+
 function giveDiscount()
 {
 	//alert('hello');
 	
 	var fineAmount=parseInt(document.getElementById("fineAmount").value);
     var paidAmount=parseInt(document.getElementById("paidAmountId").value);
+    alert(paidAmount);
     var remainAmt = fineAmount - paidAmount;
     
     document.getElementById("discount").value=remainAmt;
@@ -644,7 +692,7 @@ $('#giveDiscount').on('show.bs.modal', function(e) {
 function resetCal()
 {
 	//reset calculation for discount
-	var oldRemainFine=document.getElementById("oldRemainFine").value;
+	var oldRemainFine=parseInt(document.getElementById("oldRemainFine").value);
 	document.getElementById("remainAmount").value=oldRemainFine;
 	document.getElementById("paidAmountId").value=0;
 	document.getElementById("totalAmount").value=0;
@@ -683,18 +731,24 @@ function calculatePaidAmt(val)
 	var paidAmount=parseInt(document.getElementById("paidAmountId").value);
 	var discount=parseInt(document.getElementById("discount").value);
 	//alert(paidAmount);
+	
 	if(discount==0)
 	{
+		
 		if(oldRemainAmt<paidAmount)
 		{
 			alert('not count');	
 			document.getElementById('remainAmount').value=oldRemainAmt;
 			document.getElementById("error").innerHTML="Number should less than Fine";
+			
+			
 		}
+		
 		else
 		{
 			var totalFine=remainAmt-paidAmount;
-			alert(totalFine);
+			
+			//alert(totalFine);
 			// var totalAmt=remainAmt-paidAmt;
 			document.getElementById('remainAmount').value=totalFine;
 			document.getElementById("discount").value = 0;
@@ -708,14 +762,28 @@ function calculatePaidAmt(val)
 			{
 				document.getElementById("returnSubmit").disabled=false;	
 			}
-			
+			if(paidAmount<=1)
+			{
+				alert('incorrect number');
+				 $('#giveDiscount').modal('hide');
+				document.getElementById("error").innerHTML="incorrect number";
+				
+					document.getElementById('remainAmount').value=0;
+				    document.getElementById("paidAmountId").value=0;
+				    document.getElementById("discount").value = 0;
+				    
+				   
+				
+				} 
 			
 			$('#giveDiscount').modal('show');
 			
 		}
+	
 		
 		
-	}
+		
+	} 
 	else
 	{
 		
@@ -739,43 +807,6 @@ function calculatePaidAmt(val)
 		}
 		
 	} 
-	
-	
-	 
-	 
-	 //discount
-		/* var disTotalAmount=document.getElementById("totalAmount").value;
-		//alert(disTotalAmount);
-		var paidAmt=document.getElementById('paidAmountId').value;
-		//alert(paidAmt);
-		var total=disTotalAmount-paidAmt;
-		//alert(total);
-		document.getElementById("remainAmount").value=total;  */
-		
-		
-		
-		
-		
-	
-	/* var remainAmt=document.getElementById('remainAmount').value;
-	var totalAmt=remainAmt-val;
-	if (totalAmt > 0) {
-		document.getElementById('remainAmount').value=totalAmt;
-	}
-	else
-	{
-		alert('negative value');	
-		var paidAmt=document.getElementById('paidAmountId').value;
-		
-			document.getElementById('remainAmount').value=oldRemainAmt;
-		
-		//document.getElementById('remainAmount').value=remainAmt;
-	} */
-	
-	
-
-	
-	
 	
 }
 
@@ -808,29 +839,7 @@ function countPay()
 		document.getElementById("discountError").innerHTML="";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	/* //var oldFineAmount=document.getElementById("oldRemainFine").value;
-	var fineAmount=document.getElementById("fineAmount").value;
-	
-	//var famount=document.getElementById("fineAmount").value;
-	if(val<fineAmount)
-	{
-		alert('not count');			
-	}
-	else
-	{
-		alert('count');
-		var paid=fineAmount-val;
-		document.getElementById("totalAmount").value=paid;
-		var oldFineAmount=document.getElementById("oldRemainFine").value=paid;
-			
-	} */
+
 	
 
 }
@@ -915,19 +924,7 @@ function getStudId(val)
 
 function myFunction()
 {
-	//var is_weekend =  function(date1){
-	    /* var dt = new Date(date1);
-	     
-	    if(dt.getDay() == 6 || dt.getDay() == 0)
-	       {
-	        return "weekend";
-	        } 
-	}
-
-	console.log(is_weekend('Nov 15, 2014'));
-	console.log(is_weekend('Nov 16, 2014'));
-	console.log(is_weekend('Nov 17, 2014'));
-	 */
+	
 	
 	 /*<<<<<<<<<<< For count days between issue date and due date >>>>>>>>>>>>>>> */
 	
@@ -957,8 +954,8 @@ function myFunction()
         return false;
     });
 	<%} session.removeAttribute("flag");%>
-
 }
+
 /* <<<<<<<<<<<<<<<<<<< Ajax for Serach book Info which is issued >>>>>>>>>>>>>>>>>>>>>>>>>*/
 function getReturnBooks(val)
 {
@@ -1158,22 +1155,6 @@ function onBook(radioValue)
 function getFineCount(tDate, dDate, radioValue,studId) {
 	
 	
-	/* if(radioValue=="RETURN")
-		{
-			document.getElementById("returnBk").style.display="block";
-			document.getElementById("renew").style.display="none";
-			
-			var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-			var firstDate = new Date(tDate);
-			var secondDate = new Date(dDate);
-
-			var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
-			
-			document.getElementById("days").value=diffDays;
-			
-		}
- */	
-
 	 var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {

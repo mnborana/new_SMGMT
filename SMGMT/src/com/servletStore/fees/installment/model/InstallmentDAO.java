@@ -1,4 +1,4 @@
-package com.servletStore.installment.model;
+package com.servletStore.fees.installment.model;
 
 import java.sql.SQLException;
 import java.util.List;
