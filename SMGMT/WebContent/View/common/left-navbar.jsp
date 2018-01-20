@@ -100,6 +100,21 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="dropdown_menu">
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span class="link-title menu_hide">&nbsp; Sign Up New User</span>
+                            <span class="fa arrow menu_hide"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/SMGMT/View/signup/adduser.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add New User
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     
                     <%}else if(roll==6){ %>
                     
@@ -737,12 +752,6 @@
                                 <a href="/SMGMT/View/signup/adduser.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Add New User
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Change User Details
                                 </a>
                             </li>
                         </ul>

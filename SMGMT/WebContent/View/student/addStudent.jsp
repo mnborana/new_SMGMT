@@ -59,6 +59,11 @@
 		</div>
 		<!-- /#top -->
 		<div class="wrapper">
+		<%if(session.getAttribute("userName")==null)
+		{
+			response.sendRedirect("/SMGMT");
+			System.out.println("in if loop");
+		} %>
 			<!-- /.left navbar -->
 			<jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
 			<!-- /.left navbar -->
