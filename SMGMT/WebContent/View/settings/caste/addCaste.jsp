@@ -205,7 +205,6 @@
 															<td><c:out value="${u.getCasteCategoryName()}"></c:out></td>
 															<td><c:out value="${u.getReligionName()}"></c:out></td>
 															<td><c:out value="${u.getCasteName()}"></c:out></td>
-
 		                                                    <td >
 		                                                    	<a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="#">
 		                                            				<i class="fa fa-pencil text-warning"></i>

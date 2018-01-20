@@ -436,7 +436,7 @@ public class AddBookImpl implements AddBookDAO{
 		public List searchBookInfo(String bookDetail, String bookName, String authorName) {
 			List list=new ArrayList();
 			ResultSet rs=null;
-			AddBookPOJO pojo=new AddBookPOJO();
+			//AddBookPOJO pojo=new AddBookPOJO();
 			try {
 		
 				// by author name
@@ -485,9 +485,9 @@ public class AddBookImpl implements AddBookDAO{
 				while(rs.next())
 				{
 					totalDays=rs.getInt(1);
-					fine=totalDays*5;
+					/*fine=totalDays*5;
 					System.out.println("true "+totalDays);
-					System.out.println("fine"+fine);
+					System.out.println("fine"+fine);*/
 				}
 			}catch(SQLException e)
 			{
@@ -557,8 +557,31 @@ public class AddBookImpl implements AddBookDAO{
 		while(rs.next())
 		{
 			fineAmount=rs.getInt("fine_amount");
+			System.out.println(" Fine"+fineAmount);
 		}
 		return fineAmount;
+	}
+	
+	@Override
+	public int getPreviousFine(String studentId) throws SQLException {
+		int previousfine=0;
+		//pass studId in setString
+		String query="SELECT fine_master_details.remaining_fine_amt FROM fine_master_details WHERE fine_master_details.stud_id=? ORDER BY fine_master_details.id DESC LIMIT 1";
+		System.out.println(query);
+		pstmt=connection.prepareStatement(query);
+		pstmt.setString(1,studentId);
+		 ResultSet rs=pstmt.executeQuery();
+		 System.out.println("stud Id********"+studentId);
+		
+		 while(rs.next())
+		 {
+			 System.out.println("IN WHILE");
+			 previousfine=rs.getInt(1);
+			 System.out.println("Remain Fine in impl"+previousfine);
+		 }
+		
+		
+		return previousfine;
 	}
 	
 	@Override
@@ -568,17 +591,17 @@ public class AddBookImpl implements AddBookDAO{
 		ResultSet rs=null;
 		try {
 			// by book name
-			String query2="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_info_master.book_name LIKE '"+returnBookDetails+"%'";
+			String query2="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_info_master.book_name LIKE '"+returnBookDetails+"%' GROUP BY book_details_master.book_id";
 			PreparedStatement ps2=(PreparedStatement) connection.prepareStatement(query2);
 			rs=ps2.executeQuery();
 				if(!rs.isBeforeFirst()){
 					// by author name
-					String query1="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_info_master.author_name LIKE '"+returnBookDetails+"%'";
+					String query1="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_info_master.book_no=book_details_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_info_master.author_name LIKE '"+returnBookDetails+"%' GROUP BY book_details_master.book_id";
 					PreparedStatement ps1=(PreparedStatement) connection.prepareStatement(query1);
 					rs=ps1.executeQuery();
 				if(!rs.isBeforeFirst()){
 					// by book Id
-					String query="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_details_master.book_no=book_info_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_details_master.book_id LIKE '"+returnBookDetails+"%'";
+					String query="SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.author_name FROM book_info_master,book_details_master,issue_book WHERE book_details_master.book_no=book_info_master.book_no AND issue_book.bookdetails_id=book_details_master.book_id AND book_details_master.issue_status=1 AND book_details_master.book_id LIKE '"+returnBookDetails+"%'  GROUP BY book_details_master.book_id";
 					PreparedStatement ps;
 					ps = (PreparedStatement) connection.prepareStatement(query);
 					rs=ps.executeQuery();
@@ -727,6 +750,7 @@ public class AddBookImpl implements AddBookDAO{
 		System.out.println("Execute");
 		return status;
 	}
+	
 	
 	
 }

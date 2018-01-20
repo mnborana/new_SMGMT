@@ -450,23 +450,34 @@ public class Library extends HttpServlet {
 		else if(request.getParameter("countDetail")!=null)
 				{
 					System.out.println("AJax WORKING------------");
+					//get that student id here
+					
+					
 					
 					//out.println("AJax WORKING");
-					String todayDate = request.getParameter("currentDate");
-					String dueDate=request.getParameter("dueDate");
+					//String todayDate = request.getParameter("currentDate");
+					//String dueDate=request.getParameter("dueDate");
 					String fine=request.getParameter("fineAmount");
+					//String  previousFine=request.getParameter("previousFine");
+					
+					String studentId[]=request.getParameter("studId").split(",");
+					//FineMasterPOJO pojo =new FineMasterPOJO();
+					//pojo.setRemainingFine(Integer.parseInt(previousFine));
 					try {
 						
-						int totalDays=dao.daysCount(todayDate, dueDate);
+						
 						int fineAmount=dao.getFine();
-						System.out.println("days diff-------- "+totalDays);
-						if(totalDays>0)
-						{
-						out.print(totalDays+","+fineAmount);
-						}else
-						{
-							out.print("0,0");
-						}
+						
+						
+						//System.out.println("days diff-------- "+totalDays);
+						
+						int preAmount=dao.getPreviousFine(studentId[1]);
+						System.out.println("Previous Amount in servlet *****"+preAmount);
+						//out.print(remainAmount);
+						
+						
+						out.print(fineAmount+","+preAmount);//pass remain fine in out 
+						
 					
 					 
 					 } catch (SQLException e) {
@@ -483,7 +494,7 @@ public class Library extends HttpServlet {
                 	//out.print("AP");
 				}
 		
-				else if(request.getParameter("fine").equals("OK")&&request.getParameter("fine")!=null)
+				else if(request.getParameter("fine")!=null&&request.getParameter("fine").equals("OK"))
 				{
 					System.out.println("Btn Name : "+request.getParameter("fine"));
 					SetFinePOJO pojo=new SetFinePOJO();
@@ -499,13 +510,12 @@ public class Library extends HttpServlet {
 						if(st>0)
 							System.out.println("Fine set");
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					//request.getRequestDispatcher("View/library/SetFine.jsp").forward(request, response);
 					response.sendRedirect("View/library/SetFine.jsp");
 				}
-				else if(request.getParameter("fine").equals("Update"))
+				else if(request.getParameter("fine")!=null&&request.getParameter("fine").equals("Update"))
 				{
 					SetFinePOJO pojo=new SetFinePOJO();
 					String date=request.getParameter("date");
