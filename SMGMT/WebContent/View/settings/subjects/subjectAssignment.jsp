@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.servletStore.settings.subjects.model.SubjectAssignmentPOJO"%>
@@ -14,12 +17,12 @@
     <title>Form Elements | Admire</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
-    <!-- global styles-->
+    <!-- <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
+    global styles
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/components.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/custom.css"/>
-    <!-- end of page level styles -->
-    <!--Plugin styles-->
+    end of page level styles
+    Plugin styles
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/inputlimiter/css/jquery.inputlimiter.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/chosen/css/chosen.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"/>
@@ -32,10 +35,15 @@
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/multiselect/css/multi-select.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_bootstrap-switch,_css,_bootstrap-switch.min.css+vendors,_switchery,_css,_switchery.min.css+vendors,_radio_css,_css,_radiobox.min.css+vendo"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_themify,_css,_themify-icons.css+vendors,_ionicons,_css,_ionicons.min.css+css,_pages,_icon.css.pagespeed.cc.V3vSn3K0aE.css"/>
-    <!--End of plugin styles-->
-    <!--Page level styles-->
+    End of plugin styles
+    Page level styles
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
-    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
+    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/> -->
+    
+      <!-- common css -->
+		<jsp:include page="/View/common/commonCss.jsp"></jsp:include>
+      <!-- common css -->
+    
     <!-- end of page level styles -->
     
     <style type="text/css">
@@ -57,6 +65,37 @@
     </style>
 </head>
 
+
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		//for read/write permission  Read = 1  Write = 2
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		//for showing datatable according to read/write permission
+		
+		//choose appropriate method as per your leftNavbar form option name
+		//e.g : if you are working on Attendance option in left navbar then code will be...
+		
+		/* SetupPOJO grant = new SetupPOJO();
+		int access=grant.getAttendance(); */
+		
+		//if it returns read(1) then hide form and action column in dataTable
+		//for write(2) show your orignal full form
+				
+	}
+%>
+
 <body>
 <div class="preloader" style=" position: fixed;
   width: 100%;
@@ -73,7 +112,7 @@
   top: 48%;
   background-position: center;
 z-index: 999999">
-        <img src="" style=" width: 40px;" alt="loading...">
+        <img src="/SMGMT/config/img/loader.gif.pagespeed.ce.pu_lpoGKrw.gif" style=" width: 40px;" alt="loading...">
     </div>
 </div>
 <div id="wrap">
@@ -134,16 +173,16 @@ z-index: 999999">
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                        Create New Subject
+                                        Assign Subjects
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="/SMGMT/StdSectionAssignment" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/SubjectAssignment" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                        <div class="form-group row">
                                            <div class="col-lg-4  text-lg-right">
                                                <label for="required2" class="col-form-label">Select Subject <span style="color: red;">*</span> </label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <select class="form-control chzn-select" name="schoolId" id="schoolId" title="Select School"  required="required">
+                                               <select class="form-control chzn-select" name="subjectId" id="subjectId" title="Select Subject"  required>
 			                                        <option>Select Subject</option>
 			                                        <%
 				                                    	SubjectAssignmentDAO sdao = new SubjectAssignmentImpl();
@@ -173,9 +212,10 @@ z-index: 999999">
                                       	
                                       	<%
 	                                    	HashMap<Integer, String> stdList = sdao.getClassList(session1.getAttribute("schoolId").toString());
-	                                   
+	                                   	
 	                                    	Set keys1 = stdList.keySet();
 											Iterator itr1 = keys1.iterator();
+											int counter=1;
 											
 											while(itr1.hasNext()){
 	                                    		int key = Integer.parseInt(itr1.next().toString());
@@ -185,25 +225,27 @@ z-index: 999999">
 			                                    	<div class='col-lg-4'> 
 										           		<div class='checkbox'>
 										                	<label class='text-mint'>
-										                    	<input type='checkbox' value='<%=key %>' name='stds' id='' >
+										                    	<input type='checkbox' value='<%=key %>' name='stds<%=counter %>' id='' >
 										                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span> <%=stdList.get(key) %>
 										                	</label>
 											    		</div>
 											    	</div>
 												</td>
+												
 												<td class="stdTableTD2">
 		                                            <div class='col-lg-4'> 
 										           		<div class='checkbox'>
 										                	<label class='text-mint'>
-										                    	<input type='checkbox' value='<%=key %>' name='optinal' id='' >
+										                    	<input type='checkbox' value='1' name='optinal<%=counter %>' id='' >
 										                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span> Optinal
 										                	</label>
 											    		</div>
 											    	</div>
 	                                            </td>
+	                                            
 	                                            <td class="stdTableTD3">
 		                                            <div class="col-lg-4">
-		                                             	<input type="text" class="form-control" placeholder="Enter Subject Code" name="subject_code" title="Enter Subject Code here" onkeyup="this.value=this.value.toUpperCase()" style=" width: 200%;"  onblur="this.value=$.trim(this.value)">
+		                                             	<input type="text" class="form-control" placeholder="Enter Subject Code" name="subject_code<%=counter %>" title="Enter Subject Code here" onkeyup="this.value=this.value.toUpperCase()" style=" width: 200%;"  onblur="this.value=$.trim(this.value)">
 		                                            </div>
 	                                            </td>
 	                                            
@@ -211,15 +253,17 @@ z-index: 999999">
                                            
 											
 	                                     <%
+	                                     	counter++;
 	                                    	}
 	                                     %>  
 				                            </table>         
                                       </div>
                                       
                                       <br>
+                                      <input type="hidden" name="counter" value=<%=--counter %>> 
                                        <div class="form-actions form-group row">
                                            <div class="col-lg-4 push-lg-4">
-                                               <input type="submit" value="Generate Class" class="btn btn-primary">
+                                               <input type="submit" value="Assign Subject" name="subjectAssignSubmit" class="btn btn-primary">
                                            </div>
                                        </div>
                                    </form>
@@ -250,29 +294,53 @@ z-index: 999999">
                                         <thead>
                                         <tr role="row">
                                             <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No.</th>
-                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">School Name</th>
-                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Section Name</th>
                                             <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Standard Name</th>
-                                            <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>
+                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Subject Name</th>
+                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Subject Code</th>
+                                            <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Optional</th>
+                                            <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         
-                                        <%-- <%
-                                         StandardDAO sdao = new StandardImpl();
-                                     	List<StandardPOJO> l = sdao.getClassDetails();
+                                        <%
+                                         SubjectAssignmentDAO subADao = new SubjectAssignmentImpl();
+                                     	List<SubjectAssignmentPOJO> l = sdao.AssignedSubjectList(session1.getAttribute("schoolId").toString());
                                     
  										int count=1;
-                                     	Iterator itr = l.iterator();
-                                     	while(itr.hasNext()){
-                                     		StandardPOJO stdPojo = (StandardPOJO)itr.next();
-                                     		int id = stdPojo.getFkClassId();
+                                     	Iterator itr2 = l.iterator();
+                                     	while(itr2.hasNext()){
+                                     		SubjectAssignmentPOJO subAPojo = (SubjectAssignmentPOJO)itr2.next();
+                                     		int id = subAPojo.getId();
                                   %>
                                         	<tr role="row" class="even">
                                         		<td><%=count %></td>
-                                        		<td><%=stdPojo.getSchoolName() %></td>
-                                        		<td><%=stdPojo.getSectionName() %></td>
-                                        		<td><%=stdPojo.getStdName() %></td>
+                                        		<td><%=subAPojo.getStdName() %></td>
+                                        		<td><%=subAPojo.getSubjectName() %></td>
+                                        		<td>
+                                        			<% 
+                                        				if(subAPojo.getSubjectCode()==null)
+                                        				{ 
+                                        					out.print("-");	
+                                        				}else{
+                                        					out.print(subAPojo.getSubjectCode());
+                                        				} 
+                                        			%>
+                                        		</td>
+                                        		
+												<td>
+                                        			<% 
+                                        				if(subAPojo.getOptinalStatus()==0)
+                                        				{ 
+                                        					out.print("NO");	
+                                        				}
+                                        				else
+                                        				{
+                                        					out.print("YES");
+                                        				} 
+                                        			%>
+                                        		</td>
+	
                                         		<td>
                                         			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard(<%=id%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
                                         			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="#"><i class="fa fa-trash text-danger"></i></a>
@@ -281,7 +349,7 @@ z-index: 999999">
                                         <%
                                    	count++;
                                   	}
-                                  %>  --%>
+                                  %> 
                                         </tbody>
                                     </table>
                                 </div>
@@ -382,12 +450,12 @@ function getStandards() {
 
 </script>
 
-
+<!-- 
 <script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
 
-<!-- end of global scripts-->
-<!-- plugin level scripts -->
+end of global scripts
+plugin level scripts
 	<script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script>
     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script>
@@ -397,8 +465,8 @@ function getStandards() {
     <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
     <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script>
-	<!-- <script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
-	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script> -->
+	<script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
+	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script>
 	
 	<script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
@@ -418,7 +486,7 @@ function getStandards() {
 	<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.extensions.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/vendors/multiselect/js/jquery.multi-select.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.min.js"></script>
-	<!--end of plugin scripts-->
+	end of plugin scripts
 	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
 	<script src="/SMGMT/config/vendors/bootstrap-switch,_js,_bootstrap-switch.min.js+switchery,_js,_switchery.min.js.pagespeed.jc.Z7BLPQIxUe.js""></script>
@@ -427,7 +495,11 @@ function getStandards() {
 
 	<script type="text/javascript" src="/SMGMT/config/js/pages/radio_checkbox.js.pagespeed.jm.nna8wpyJlw.js"></script>
 
+ -->
 
+<!-- common css -->
+	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
+<!-- common css -->
 
 </body>
 

@@ -8,5 +8,7 @@ public interface SubjectAssignmentDAO {
 	
 	public HashMap<Integer, String> getSubjectList(String schoolId);
 	public HashMap<Integer, String> getClassList(String schoolId);
+	public int AssignCommonSubjects(SubjectAssignmentPOJO AssignSubPojo);
+	public List AssignedSubjectList(String schoolId);
 	
 }

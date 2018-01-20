@@ -109,9 +109,6 @@ public class AddBookImpl implements AddBookDAO{
 			addb.setCupboardNo(rs.getString("cupboard_no"));
 			addb.setQuantity(rs.getInt("quantity"));
 			addb.setLanguage(rs.getString("language"));
-
-
-			
 			list.add(addb);
 		}
 
@@ -119,11 +116,8 @@ public class AddBookImpl implements AddBookDAO{
 	}
 	public int updateBook(AddBookPOJO ad) { 
 		    int status=0;  
-		   
 		    String query="update book_info_master set date=?, book_name=?,author_name=?,publisher_name=?,edition=?,price=?,cupboard_no=?,quantity=?,language=? where book_no=?";
-		   
-		   
-			try {
+		  	try {
 				System.out.println("hi");
 				pstmt = connection.prepareStatement(query);
 				
@@ -146,8 +140,6 @@ public class AddBookImpl implements AddBookDAO{
 				
 				e.printStackTrace();
 			}
-		        System.out.println("In try");
-		       
 		    return status;  
 		
 	}
@@ -313,14 +305,11 @@ public class AddBookImpl implements AddBookDAO{
 	public List<IssueBookPOJO> getIssueBookDetails() {
 		List<IssueBookPOJO> list=new ArrayList<IssueBookPOJO>();
 		 SysDate sd=new SysDate();
-		 String query="SELECT `id`, `bookdetails_id`, `stud_id`, `staff_id`, `issue_date`, `due_date` FROM `issue_book` WHERE issue_book.issue_date='"+sd.todayDate()+"' ORDER BY issue_book.id DESC";
+		 String query="SELECT `id`, `bookdetails_id`, `stud_id`, `staff_id`, `issue_date`, `due_date` FROM `issue_book`, book_details_master WHERE issue_book.issue_date='"+sd.todayDate()+"' AND  book_details_master.book_id=issue_book.bookdetails_id AND book_details_master.issue_status=1 ORDER BY issue_book.id DESC ";
 		 PreparedStatement ps, ps1, ps2, ps3;
-		
-		try {
+		 try {
 			ps =connection.prepareStatement(query);
 			ResultSet rs=ps.executeQuery(query);
-			
-			
 			while(rs.next())
 			{
 				
@@ -375,7 +364,7 @@ public class AddBookImpl implements AddBookDAO{
 
 	}
 	
-	public List<IssueBookPOJO> getIssueBookList(String query) {
+/*	public List<IssueBookPOJO> getIssueBookList(String query) {
 		List<IssueBookPOJO> list=new ArrayList<IssueBookPOJO>();
 		 SysDate sd=new SysDate();
 		
@@ -408,7 +397,7 @@ public class AddBookImpl implements AddBookDAO{
 		//System.out.println("5*******************"+list);
 		return list;
 
-	}
+	}*/
 		@Override
 	public List getDatewiseIssueList(String date1, String date2)
 			throws SQLException {
@@ -436,7 +425,7 @@ public class AddBookImpl implements AddBookDAO{
 		public List searchBookInfo(String bookDetail, String bookName, String authorName) {
 			List list=new ArrayList();
 			ResultSet rs=null;
-			//AddBookPOJO pojo=new AddBookPOJO();
+			AddBookPOJO pojo=new AddBookPOJO();
 			try {
 		
 				// by author name
@@ -485,9 +474,9 @@ public class AddBookImpl implements AddBookDAO{
 				while(rs.next())
 				{
 					totalDays=rs.getInt(1);
-					/*fine=totalDays*5;
+					fine=totalDays*5;
 					System.out.println("true "+totalDays);
-					System.out.println("fine"+fine);*/
+					System.out.println("fine"+fine);
 				}
 			}catch(SQLException e)
 			{
@@ -557,7 +546,6 @@ public class AddBookImpl implements AddBookDAO{
 		while(rs.next())
 		{
 			fineAmount=rs.getInt("fine_amount");
-			System.out.println(" Fine"+fineAmount);
 		}
 		return fineAmount;
 	}
@@ -714,7 +702,8 @@ public class AddBookImpl implements AddBookDAO{
 		int id=0;
 		int studId=0;
 		List list=new ArrayList();
-		String str="SELECT issue_book.id,issue_book.stud_id FROM issue_book WHERE issue_book.bookdetails_id=?";
+		String str="SELECT issue_book.id,issue_book.stud_id FROM issue_book WHERE issue_book.bookdetails_id=? ORDER BY issue_book.id DESC LIMIT 1";
+		
 		 pstmt=connection.prepareStatement(str);
 		 pstmt.setInt(1, bookId);
 		
@@ -751,7 +740,53 @@ public class AddBookImpl implements AddBookDAO{
 		return status;
 	}
 	
+	@Override
+	public List getStudent(int id) throws SQLException {
+		List list=new ArrayList();
+		FineMasterPOJO pojo=new FineMasterPOJO();
+
+		String query="SELECT student_details.first_name,student_details.last_name,std_master.name,classroom_master.division FROM student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1 AND student_details.id=?";
+		System.out.println("Query "+query);
+		pstmt=connection.prepareStatement(query);
+		/*pstmt.setString(1, "first_name");
+		pstmt.setString(2, "last_name");
+		pstmt.setString(3, "std");
+		pstmt.setString(4, "div");*/
+		pstmt.setInt(1, id);
+		ResultSet rs=pstmt.executeQuery();
+		System.out.println("***execute");
+		while(rs.next())
+		{
+			list.add(rs.getString(1));
+			list.add(rs.getString(2));
+			list.add(rs.getString(3));
+			list.add(rs.getString(4));
+			//id=rs.getInt(1);
+		}
+		return list;
+	}
 	
+	@Override
+	public List getFineSubmission(int id) throws SQLException {
+		System.out.println("1");
+		List list=new ArrayList();
+		String query="SELECT student_details.first_name,student_details.middle_name,student_details.last_name,std_master.name,classroom_master.division,fine_master_details.remaining_fine_amt FROM fine_master_details,student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE fine_master_details.id=(SELECT MAX(fine_master_details.id) FROM fine_master_details WHERE fine_master_details.stud_id=?) AND student_details.id=fine_master_details.stud_id AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
+		pstmt=connection.prepareStatement(query);
+		System.out.println("Qury"+query);
+		pstmt.setInt(1, id);
+		ResultSet rs=pstmt.executeQuery();
+		System.out.println("2");
+		while(rs.next())
+		{
+			list.add(rs.getString(1));
+			list.add(rs.getString(2));
+			list.add(rs.getString(3));
+			list.add(rs.getString(4));
+			list.add(rs.getString(5));
+			list.add(rs.getInt(6));
+		}
+			return list;
+	}
 	
 }
 

@@ -25,6 +25,7 @@
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
 	
 	
+	
 	<link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/inputlimiter/css/jquery.inputlimiter.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/chosen/css/chosen.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"/>
@@ -188,7 +189,7 @@
 																	<label for="stdIdAlo" class="col-form-label">Select	Standard & Division <span style="color:red;">*</span></label> 
 															  </div>
 															  	<div class="col-lg-4">
-																	<select class="form-control chzn-select" name="stdId" id="stdId" onchange="studentNameList()"	title="Select Standard">
+																	<select class="form-control chzn-select" name="stdId" id="stdId" onchange="studentNameList();test();"	title="Select Standard">
 																		<option disabled selected>Select Standard</option>
 																	</select>
 																</div> 
@@ -264,19 +265,60 @@
 			                                        <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
 			                                            <thead>
 			                                            <tr role="row">
-			                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No</th>
-			                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Name</th>
+			                                                <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No</th>			                                              
 			                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Student Name</th>
-			                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Standard</th>
-			                                                <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Division</th>
-			                                                 <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Mobile No</th>
+			                                                <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">ParentName</th>
+			                                                <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Relation</th>
+			                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">ClassRoom</th>
 			                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>
 			                                           </tr>
 			                                            </thead>
 														
-			                                            <tbody id="displayMembers">
+			                                         <%--   <%
+			                                           int count=1;
+			                                         PTAMemberDAO dao=new PTAMemberImpl();
+			                                         List list=dao.fetchParentDetails();
+			                                         Iterator itr=list.iterator();
 			                                           
-			                                            </tbody>
+			                                           %>
+			                                            <thead>
+			                                            	<tbody>
+			                                            	<%
+			                                            	while(itr.hasNext())
+			                                            	{
+			                                            		String id=itr.next().toString();
+			                                    				String student=itr.next().toString();
+			                                    				String parent=itr.next().toString();
+			                                    				String rele=itr.next().toString();
+			                                    				String classroom=itr.next().toString();	
+			                                            	
+			                                            		
+			                                            		
+			                                            	%>
+					                                            	<tr>					                                            	
+					                                            			<td><%=count%></td>
+					                                            			<td><%=student %></td>
+					                                            			<td><%=parent %></td>
+					                                            			<td><%=rele %></td>
+					                                            			<td><%=classroom %></td>
+					                                            			<td>
+							                                        			<a class="edit" data-toggle="modal" data-placement="top" title="Update" href="#modal-4" onclick="updateInward(<%=id%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
+							                                        			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/InwardRegister?deleteId=<%=id%>"><i class="fa fa-trash text-danger"></i></a>
+							                                        		</td>
+					                                            	</tr>
+			                                            		
+			                                            		</tbody>
+			                                            		<%
+			                                            		count++;
+			                                            	}
+			                                            	
+			                                            		%>
+			                                            </thead>
+			                                             --%>
+			                                             
+			                                             <tbody id="displayMembers">
+			                                             
+			                                             </tbody>
 			                                        </table>
 			                                    </div>
 			                                </div>
@@ -290,6 +332,74 @@
 				        </div>
 				     </div>
 				  </div>
+				  
+				  
+				  <!-- start modal -->
+
+	<div class="modal fade pullDown" id="modal-4" role="dialog" aria-labelledby="modalLabelnews">
+		<div class="modal-dialog modal-mm" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title text-white" id="modalLabelnews"
+						style="margin-right: 291px;">Update PTA Members</h4>
+				</div>
+				<div class="modal-body">
+					<form action="/SMGMT/PTAMember" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+					
+					
+					<div class="form-group row">
+							<div class="col-lg-4  text-lg-right">
+								<label for="required2" class="col-form-label">ClassRoom<span style="color:red;">*</span></label>
+							</div>
+							<div class="col-lg-7">
+								<input type="text" name="classroom" id="updateClassRoom" onkeyup="this.value=this.value.toUpperCase()" class="form-control" readonly required>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-lg-4  text-lg-right">
+								<label for="required2" class="col-form-label"> Student Name<span style="color:red;">*</span></label>
+							</div>
+							<div class="col-lg-7">
+								<input type="hidden" name="updateId" id="updateId">
+								<input type="text" name="studentName" id="updateStudentName" class="form-control" onkeyup="this.value=this.value.toUpperCase()" readonly required>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<div class="col-lg-4  text-lg-right">
+								<label for="required2" class="col-form-label">Relation<span style="color:red;">*</span></label>
+							</div>
+							<div class="col-lg-7">
+								<input type="text"  name="updateRelation" id="updateRelation" class="form-control" required>
+							</div>
+						</div>
+						
+
+						<div class="form-group row">
+							<div class="col-lg-4  text-lg-right">
+								<label for="required2" class="col-form-label">ParentName<span style="color:red;">*</span></label>
+							</div>
+							<div class="col-lg-7">
+								<input type="text" name="parentName" id="updateParentName" onkeyup="this.value=this.value.toUpperCase()" class="form-control" readonly required>
+							</div>
+						</div>
+						
+						
+						
+						
+						<div class="modal-footer">
+							<button class="btn  btn-success"type="submit">Submit</button>
+							<button class="btn  btn-warning" data-dismiss="modal">Close</button>
+						</div>
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- end modal -->
+	
 
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
@@ -350,15 +460,15 @@
     <script>eval(mod_pagespeed_aYQJk4iDci);</script>
     <script type="text/javascript" src="/SMGMT/config/js/pluginjs/jquery.dataTables.min.js"></script>
     <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js%2bdataTables.rowReorder.min.js%2bbuttons.colVis.min.js%2bbuttons.html5.min.js%2bbuttons.bootstrap.min.js%2bbuttons.print.min.js%2bdataTables.scr"></script><script>eval(mod_pagespeed_sB4kJD0xfI);</script>
-    <script>eval(mod_pagespeed_FESMSNjrvX);</script>
+    
+     <script>eval(mod_pagespeed_FESMSNjrvX);</script>
     <script>eval(mod_pagespeed_wVkzf2s7YZ);</script>
     <script>eval(mod_pagespeed_Ij0pRaH8BP);</script>
     <script>eval(mod_pagespeed_wfmKXYO4Nj);</script>
     <script>eval(mod_pagespeed_EYzby3B1$L);</script>
     <script>eval(mod_pagespeed_ZN6rVE$v$y);</script>
     
-    <script type="text/javascript" src="/SMGMT/config/js/pages/datatable.js"></script>
-      
+   
    
 
 <script>
@@ -367,68 +477,49 @@ function myFunction()
 {
 	
 	standardList();
+	fetchPtaMembers();
 }
 
-function getMembers()
+function fetchPtaMembers()
 {
-
-	var xhttp =new XMLHttpRequest();
 	
-	try{
-		xhttp.onreadystatechange = function(){
-			if(this.readyState == 4 && this.status == 200){
-				var getData=this.responseText.split("~");
-				
-				//alert(getData);
-				var row="";
-				var i=0;
-				var j=1;
-				for(;getData[i];){
-					row += "<tr><td>"+j+"</td><td>";
-					j++;
-					var id=getData[i];
-					i++;
-					row += getData[i]+"</td><td>";
-					i++;
-					row += getData[i]+"</td><td>";
-					i++;
-					row += getData[i]+"</td><td>";
-					i++;
-					row += getData[i]+"</td><td>";
-					i++;
-					row += getData[i]+"</td><td>";
-					i++;
-					row += "</td></tr>";
-
-				}					
-				document.getElementById("stdId").innerHTML+=row;
-				$("#stdId").trigger('chosen:updated');
-			}
-		}
 		
-		xhttp.open("POST", "/SMGMT/PTAMember?standardList="+std, true);
-		xhttp.send();
-	}catch(e){
-		alert("Unable to Connect Server!");
-	}
-	
+		var xhttp =new XMLHttpRequest();
+		try{
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var demoStr=this.responseText.split(",");
+				
+					document.getElementById("displayMembers").innerHTML=demoStr;
+										
+							
+					}	
+				};
+			
+			xhttp.open("POST", "/SMGMT/PTAMember?fetchPta=1", true);
+			xhttp.send();
+		}catch(e){
+			alert("Unable to Connect Server!");
+		} 	
 	
 }
+
 
 function submitAssignDetails(relation)
 {
-	
-	if(relation==1)
-		{
-			relation="father";
-			 document.getElementById("studentFather").disabled = true;
-			 document.getElementById("studentMother").disabled = true;
-		}
-	else
+	//alert("relation1 "+relation);
+	if(relation==2)
 		{
 			relation="mother";
 			 document.getElementById("studentMother").disabled = true;
 			 document.getElementById("studentFather").disabled = true;
+			
+		}
+	else
+		{
+			relation="father";
+			 document.getElementById("studentFather").disabled = true;
+			 document.getElementById("studentMother").disabled = true;
 		}
 	
 	
@@ -437,26 +528,29 @@ function submitAssignDetails(relation)
 	var mobileNo=td[3].innerHTML;
 	var standard=document.getElementById("stdId").value;
 	*/
+	var standard=document.getElementById("stdId").value;
 	var e = document.getElementById("studentId").value;		
-	
+	alert("student:	"+e);
 	var xhttp =new XMLHttpRequest();
 	xhttp.onreadystatechange = function(){
 		if(this.readyState == 4 && this.status == 200){
 		var getData=this.responseText.split(",");
+		//getMembers(getData);
+			
+		fetchPtaMembers();
 		
 		}
 	}
-
-	
-	alert(relation);
-	 	xhttp.open("POST", "/SMGMT/PTAMember?studentId="+e+"&relation="+relation, true);
+	 	xhttp.open("POST", "/SMGMT/PTAMember?studentId="+e+"&standard="+standard+"&relation="+relation, true);
 		xhttp.send();  
 }
+
+
 
 function selectParentDetails(){
 	
 	var studId=document.getElementById("studentId").value;
-	
+	//alert(studId);
 	//document.getElementById("studentId").innerHTML="";
 	var xhttp =new XMLHttpRequest();
 		try{
@@ -486,7 +580,7 @@ function selectParentDetails(){
 							
 							row+="<td>"+demoStr[i]+"</td>";
 							i++;							
-							row+="<td>mother</td>";								
+							row+="<td>Mother</td>";								
 							row+="<td>"+demoStr[i]+"</td>";
 							i++;							
 							row+="<td>"+demoStr[i]+"</td></tr>";
@@ -494,9 +588,10 @@ function selectParentDetails(){
 						}		
 					
 						document.getElementById("showtable").innerHTML=row;		
+						
 					}	
 				};
-			//alert(studId);
+			//alert("student:"+studId);
 			xhttp.open("POST", "/SMGMT/PTAMember?parentName="+studId, true);
 			xhttp.send();
 		}catch(e){
@@ -504,7 +599,8 @@ function selectParentDetails(){
 		} 	
 }
 
-function studentNameList(){
+function studentNameList()
+{
 	
 	var studentId=document.getElementById("stdId").value;
 			
@@ -516,7 +612,7 @@ function studentNameList(){
 				if(this.readyState == 4 && this.status == 200){
 					var getData=this.responseText.split(",");
 					
-					//alert(getData);
+			//		alert(studentId);
 					var row="<option disabled selected>Select Student </option>";
 					var i=0;
 					for(;getData[i];){
@@ -531,7 +627,7 @@ function studentNameList(){
 
 					}					
 					document.getElementById("studentId").innerHTML=row;
-					$("#studentId").trigger('chosen:updated');
+					$("#studentId").trigger('chosen:updated');					
 					 document.getElementById("studentFather").disabled = false;
 					 document.getElementById("studentMother").disabled = false;
 				}
@@ -542,10 +638,11 @@ function studentNameList(){
 		}catch(e){
 			alert("Unable to Connect Server!");
 		} 
-	}
+}
 
 
-function standardList(){	
+function standardList()
+{	
 	var std=<%=schoolId%>;
 	
 		if(std==""){
@@ -568,14 +665,16 @@ function standardList(){
 						i++;
 						row += getData[i] ;
 						i++;
-						row += ""+ getData[i] +" - ";
+						row += " ("+ getData[i] +") - ";
 						i++;
 						row += getData[i]+ " </option>";
 						i++;
 
 					}					
 					document.getElementById("stdId").innerHTML+=row;
-					$("#stdId").trigger('chosen:updated');
+					$("#stdId").trigger('chosen:updated');	
+					
+					
 				}
 			}
 			
@@ -584,10 +683,35 @@ function standardList(){
 		}catch(e){
 			alert("Unable to Connect Server!");
 		}
-	}
+}
+
+
+
+function updatePTAMembers(id) {
+	
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			
+			var demoStr = this.responseText.split(",");
+			alert(demoStr);
+			document.getElementById("updateId").value = demoStr[0];
+			document.getElementById("updateStudentName").value = demoStr[1];
+			document.getElementById("updateParentName").value = demoStr[2];
+			document.getElementById("updateRelation").value = demoStr[3];
+			document.getElementById("updateClassRoom").value = demoStr[4];
+		
+		}
+		};
+	xhttp.open("POST","/SMGMT/PTAMember?updateStudentId="+id,true);
+	xhttp.send();
+	
+} 
 
 </script>
 
 </body>
+
 
 </html>

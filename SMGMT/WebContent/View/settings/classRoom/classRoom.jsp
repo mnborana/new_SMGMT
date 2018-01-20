@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="com.servletStore.settings.classRoom.model.AddClassRoomPOJO"%>
 <%@page import="com.servletStore.settings.classRoom.model.AddClassRoomImpl"%>
 <%@page import="com.servletStore.settings.classRoom.model.AddClassRoomDAO"%>
@@ -15,16 +18,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta charset="UTF-8">
+    <!-- <meta charset="UTF-8">
     <title>Form Elements | Admire</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
-    <!-- global styles-->
+    global styles
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/components.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/custom.css"/>
-    <!-- end of page level styles -->
-    <!--Plugin styles-->
+    end of page level styles
+    Plugin styles
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/inputlimiter/css/jquery.inputlimiter.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/chosen/css/chosen.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"/>
@@ -37,12 +40,47 @@
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/multiselect/css/multi-select.css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_bootstrap-switch,_css,_bootstrap-switch.min.css+vendors,_switchery,_css,_switchery.min.css+vendors,_radio_css,_css,_radiobox.min.css+vendo"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_themify,_css,_themify-icons.css+vendors,_ionicons,_css,_ionicons.min.css+css,_pages,_icon.css.pagespeed.cc.V3vSn3K0aE.css"/>
-    <!--End of plugin styles-->
-    <!--Page level styles-->
+    End of plugin styles
+    Page level styles
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
-    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
+    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/> -->
+    
+    <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
+    
     <!-- end of page level styles -->
 </head>
+
+
+
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		//for read/write permission  Read = 1  Write = 2
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		//for showing datatable according to read/write permission
+		
+		//choose appropriate method as per your leftNavbar form option name
+		//e.g : if you are working on Attendance option in left navbar then code will be...
+		
+		/* SetupPOJO grant = new SetupPOJO();
+		int access=grant.getAttendance(); */
+		
+		//if it returns read(1) then hide form and action column in dataTable
+		//for write(2) show your orignal full form
+				
+	}
+%>
 
 <body>
 <div class="preloader" style=" position: fixed;
@@ -79,7 +117,7 @@ z-index: 999999">
     
     <%
 		HttpSession session1 = request.getSession();
-		session1.setAttribute("schoolId", "1");
+		session1.setAttribute("schoolId", "2");
 	%>
              
              
@@ -322,15 +360,15 @@ function setSelected() {
 }
 
 </script>
-
+<!-- 
 <script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
-	<!-- <script type="text/javascript" src="/SMGMT/config/js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script> -->
+	<script type="text/javascript" src="/SMGMT/config/js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
+	<script type="text/javascript" src="/SMGMT/config/js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script>
 	
 
-<!-- end of global scripts-->
-<!-- plugin level scripts -->
+end of global scripts
+plugin level scripts
 	<script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script>
     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script>
@@ -358,7 +396,7 @@ function setSelected() {
 	<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.extensions.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/vendors/multiselect/js/jquery.multi-select.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.min.js"></script>
-	<!--end of plugin scripts-->
+	end of plugin scripts
 	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
 	<script src="/SMGMT/config/vendors/bootstrap-switch,_js,_bootstrap-switch.min.js+switchery,_js,_switchery.min.js.pagespeed.jc.Z7BLPQIxUe.js""></script>
@@ -367,7 +405,10 @@ function setSelected() {
 
 	<script type="text/javascript" src="/SMGMT/config/js/pages/radio_checkbox.js.pagespeed.jm.nna8wpyJlw.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/pages/icons.js"></script>
-
+ -->
+ 
+ <jsp:include page="/View/common/commonJs.jsp"></jsp:include>
+ 
 </body>
 
 </html>
