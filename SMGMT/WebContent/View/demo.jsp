@@ -7,10 +7,7 @@
     <title>Form Validations | Admire</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
-    <!-- global styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
+	 <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
 
     <!-- end of global styles-->
    
@@ -273,35 +270,6 @@
 </div>
 <!-- /#wrap -->
 
-	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
-
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script>
-	<script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
-	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script>
-
-    <script type="text/javascript" src="/SMGMT/config/vendors/select2/js/select2.js.pagespeed.jm.Eugd1Y0BmV.js"></script>
-    <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
-    <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
-    
-    <script>eval(mod_pagespeed_g_o5ieHdNa);</script>
-    <script>eval(mod_pagespeed_UzcyJ5ysoL);</script>
-    <script>eval(mod_pagespeed_sB4kJD0xfI);</script>
-    <script>eval(mod_pagespeed_aYQJk4iDci);</script>
-    <script>eval(mod_pagespeed_wVkzf2s7YZ);</script>
-    <script>eval(mod_pagespeed_Ij0pRaH8BP);</script>
-    <script>eval(mod_pagespeed_wfmKXYO4Nj);</script>
-    <script>eval(mod_pagespeed_EYzby3B1$L);</script>
-
-    <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
-
+	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.servletStore.settings.school.model;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface SchoolDAO {
@@ -16,6 +17,10 @@ public interface SchoolDAO {
 	public int insertSchoolSection(int schoolId,int sectionId);
 	
 	public List getSectionDetails();
+	
+	public List getSchoolForActivation() throws SQLException;
+	
+	public int activateSchool(int schoolId) throws SQLException;
 	
 	
 	
