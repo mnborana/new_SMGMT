@@ -300,8 +300,7 @@
 		$(window).load(function () {
 	        iziToast.show({
 	            title: 'Status',
-	            message: '<%=session.getAttribute("flag").toString()%>
-		',
+	            message: '<%=session.getAttribute("flag").toString()%> ',
 					color : '#00cc99',
 					position : 'topCenter'
 				});

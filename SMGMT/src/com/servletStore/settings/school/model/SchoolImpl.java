@@ -33,7 +33,7 @@ public class SchoolImpl implements SchoolDAO{
 				+ "school_master.index_no,school_master.licence_no,school_master.udise,school_master.licence_no,"
 				+ "school_master.udise,school_master.school_code,school_master.email_id,school_master.phone_no,school_master.board,"
 				+ "school_master.punit_code,school_master.center,school_master.date,school_master.jubilee_year,"
-				+ "school_master.establish_year,school_master.medium FROM school_master";
+				+ "school_master.establish_year,school_master.medium FROM school_master WHERE school_master.status=1";
 		try {
 			pstmt=conn.prepareStatement(selectSchoolDetails);
 			ResultSet rs = pstmt.executeQuery();
@@ -241,12 +241,10 @@ public class SchoolImpl implements SchoolDAO{
 				{
 						
 					section+=rs.getString(1)+",";
-					System.out.println(section);
 					
 					
 					
 				}
-				System.out.println("section:"+section);
 				
 				
 					} catch (SQLException e) {
@@ -304,6 +302,43 @@ public class SchoolImpl implements SchoolDAO{
 			}
 			
 			
+			return status;
+		}
+
+		@Override
+		public List getSchoolForActivation() throws SQLException
+		{
+			DBConnection dbConnect = new DBConnection();
+			Connection conn = dbConnect.getConnection();
+			List list=new ArrayList();
+			
+			String query="SELECT school_master.id,school_master.name FROM school_master WHERE school_master.status=0";
+			pstmt=conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				list.add(rs.getInt("id"));
+				list.add(rs.getString("name"));
+			
+			}
+			conn.close();
+			return list;
+		}
+
+		@Override
+		public int activateSchool(int schoolId) throws SQLException
+		{
+			DBConnection dbConnect = new DBConnection();
+			Connection conn = dbConnect.getConnection();
+			int status=0;
+			
+			String query="UPDATE `school_master` SET `status`=1 WHERE school_master.id=?";
+			pstmt=conn.prepareStatement(query);		
+			pstmt.setInt(1, schoolId);
+			status=pstmt.executeUpdate();	
+			
+			conn.close();
 			return status;
 		}
 

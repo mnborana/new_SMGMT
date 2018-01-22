@@ -384,6 +384,12 @@
                                     <span class="link-title">&nbsp; Assign Standard Wise Fees</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="/SMGMT/View/fees/studFeeAssign.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Assign Student Fee</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <%}if(pojo.getAttendance()!=0) {%>
