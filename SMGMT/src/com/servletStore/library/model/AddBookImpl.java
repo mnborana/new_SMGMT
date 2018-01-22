@@ -770,7 +770,7 @@ public class AddBookImpl implements AddBookDAO{
 	public List getFineSubmission(int id) throws SQLException {
 		System.out.println("1");
 		List list=new ArrayList();
-		String query="SELECT student_details.first_name,student_details.middle_name,student_details.last_name,std_master.name,classroom_master.division,fine_master_details.remaining_fine_amt FROM fine_master_details,student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE fine_master_details.id=(SELECT MAX(fine_master_details.id) FROM fine_master_details WHERE fine_master_details.stud_id=?) AND student_details.id=fine_master_details.stud_id AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
+		String query="SELECT fine_master_details.issue_id,student_details.first_name,student_details.middle_name,student_details.last_name,std_master.name,classroom_master.division,fine_master_details.remaining_fine_amt FROM fine_master_details,student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE fine_master_details.id=(SELECT MAX(fine_master_details.id) FROM fine_master_details WHERE fine_master_details.stud_id=?) AND student_details.id=fine_master_details.stud_id AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
 		pstmt=connection.prepareStatement(query);
 		System.out.println("Qury"+query);
 		pstmt.setInt(1, id);
@@ -778,15 +778,34 @@ public class AddBookImpl implements AddBookDAO{
 		System.out.println("2");
 		while(rs.next())
 		{
-			list.add(rs.getString(1));
+			list.add(rs.getInt(1));
 			list.add(rs.getString(2));
 			list.add(rs.getString(3));
 			list.add(rs.getString(4));
 			list.add(rs.getString(5));
-			list.add(rs.getInt(6));
+			list.add(rs.getString(6));
+			list.add(rs.getInt(7));
 		}
 			return list;
 	}
 	
+	
+	@Override
+	public int insertFineSubmissionDetails(FineMasterPOJO pojo) throws SQLException {
+		String query="INSERT INTO fine_master_details(stud_id,issue_id,fine_amt,discount,fine_paid_amt,remaining_fine_amt) VALUES(?,?,?,?,?,?)";
+		
+		pstmt=connection.prepareStatement(query);
+		
+		pstmt.setInt(1, pojo.getStudId());
+		pstmt.setInt(2,pojo.getIssueId());
+		pstmt.setInt(3,pojo.getFineAmount());
+		pstmt.setInt(4,pojo.getDiscount());
+		pstmt.setInt(5,pojo.getFinePaidAmount());
+		pstmt.setInt(6,pojo.getRemainingFine());
+		System.out.println("Fine Submission*****"+""+pojo.getFineAmount()+""+pojo.getDiscount()+""+pojo.getFinePaidAmount()+""+pojo.getRemainingFine());
+		int status=pstmt.executeUpdate();
+		
+		return status;
+	}
 }
 
