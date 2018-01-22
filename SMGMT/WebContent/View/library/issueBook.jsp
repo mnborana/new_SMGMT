@@ -1338,7 +1338,4 @@ function checkedPay(checkId)
 	
 
 </script>
-
-
-
 </html>

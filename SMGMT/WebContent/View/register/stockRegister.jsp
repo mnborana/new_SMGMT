@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="com.servletStore.register.model.StockRegisterPojo"%>
 <%@page import="com.servletStore.register.model.StockRegisterImpl"%>
 <%@page import="com.servletStore.register.model.StockRegisterDAO"%>
@@ -43,6 +46,26 @@
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
     
 </head>
+
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} 
+	else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+					
+	}
+%>
 <body onload="setFocusToTextBox()"">
 <div class="preloader" style=" position: fixed;
   width: 100%;
@@ -132,7 +155,6 @@
 												StockRegisterDAO stockDao=new StockRegisterImpl();
 												StockRegisterPojo pojo=stockDao.getStockNo();
 												int id=pojo.getId();
-											//	System.out.println("id:"+id);
 												int stockId=id+l;
 												%>
                                                 <div class="col-lg-2">
@@ -173,7 +195,6 @@
                                             	   StockRegisterPojo pojo3=(StockRegisterPojo)itr.next();
                                             	   
                                             	   String itemName=((StockRegisterPojo)pojo3).getItemName();
-                                               		//System.out.println("senderName:"+itemName);
                                                %>
                                                
 													<option ><%=itemName %></option>
@@ -322,8 +343,6 @@
                                              	 String totalAmt=((StockRegisterPojo)pojo2).getTotalAmt();
                                              	 String percentage=((StockRegisterPojo)pojo2).getPercentage();
                                               	 String description=((StockRegisterPojo)pojo2).getDescription();
-                                     			  System.out.println("id is:"+id1);
-                                     			  System.out.println("descrition:"+description);
                                               	 
                                               	 %>
                                             
@@ -586,14 +605,12 @@
 
 function searchName(id1) {
 	
-	alert(id1);
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			
 			var demoStr = this.responseText.split(",");
-			alert(demoStr);
 			document.getElementById("Updateid").value = demoStr[0];
 			document.getElementById("updateDateId").value = demoStr[1];
 			document.getElementById("updatedItemId").value = demoStr[2];

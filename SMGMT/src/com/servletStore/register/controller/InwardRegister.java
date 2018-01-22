@@ -40,7 +40,7 @@ public class InwardRegister extends HttpServlet {
 			  userDetails.put("address", address);
 			  userDetails.put("mobileNo", mobileNo);
 			  
-			  session.setAttribute("user", userDetails);
+			  //session.setAttribute("user", userDetails);
 						
 			InwardRegisterPojo pojo=new InwardRegisterPojo();
 			pojo.setSenderName(senderName);
@@ -86,7 +86,7 @@ public class InwardRegister extends HttpServlet {
 			int i=impl.inwardRegister(pojo2);
 			if(i>0)
 			{
-				session.setAttribute("status","Inserted response has recorded ");
+				//session.setAttribute("status","Inserted response has recorded ");
 			}			
 			response.sendRedirect("View/register/inwardRegister.jsp");
 		}
