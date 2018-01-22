@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.servletStore.register.model.InwardRegisterPojo"%>
 <%@page import="com.servletStore.register.model.InwardRegisterImpl"%>
@@ -84,6 +87,26 @@
 </style>
   
 </head>
+
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} 
+	else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+					
+	}
+%>
 
 <body onload="setFocusToTextBox()">
 	<div class="preloader" style=" position: fixed;
@@ -242,7 +265,7 @@
                                          		  </div>
                                          		
                                      	  </div> 
-                                     	  <%session.invalidate(); %>                            	  
+                                     	                        	  
                                      	  
                                      	  <div class="form-group row">
 	                                           <div class="col-lg-3 text-lg-right">

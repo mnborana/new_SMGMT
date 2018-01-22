@@ -1,4 +1,7 @@
 
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="com.servletStore.register.model.OutwardRegisterImpl"%>
 <%@page import="com.servletStore.register.model.OutwardRegisterPojo"%>
 <%@page import="com.servletStore.register.model.OutwardRegisterDAO"%>
@@ -40,7 +43,27 @@
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
     
 </head>
-<body >
+
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} 
+	else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+					
+	}
+%>
+<body>
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -198,7 +221,7 @@
                                          	  </div>	  
                                          		 
                                      	  </div>                               	                       	  
-                                     	  <%session.invalidate(); %>
+                                     	  
                                      	  
                                      	  <div class="form-group row">
                                            <div class="col-lg-3 text-lg-right">
@@ -254,6 +277,7 @@
                                            Iterator<OutwardRegisterPojo> itr10=l1.iterator();
                                            %>
                                               <select class="form-control chzn-select" tabindex="2" name="selRegister" id="required2" required>
+                                           	  <option disabled selected>Select File</option>
                                               <%
                                               while(itr10.hasNext())
                                               {

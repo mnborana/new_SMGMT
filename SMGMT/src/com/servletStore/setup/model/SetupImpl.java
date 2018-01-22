@@ -46,6 +46,7 @@ public class SetupImpl implements SetupDAO {
 		pstmt.setString(1,setup.getSchoolName());
 		pstmt.setString(2, status);
 		sucessStatus=pstmt.executeUpdate();
+		
 		connection.close();
 				
 		return sucessStatus;

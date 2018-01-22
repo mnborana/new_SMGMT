@@ -39,7 +39,7 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 	@Override
 	public OutwardRegisterPojo outwardNo() {
 		OutwardRegisterPojo pojo=new OutwardRegisterPojo();
-		String outwardNoQuery="SELECT MAX(outward_no) FROM outward_register_master";
+		String outwardNoQuery="SELECT MAX(id) FROM outward_register_master";
 		try {
 			pstmt=connection.prepareStatement(outwardNoQuery);
 			ResultSet rs=pstmt.executeQuery();
