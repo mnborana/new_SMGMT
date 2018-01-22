@@ -58,19 +58,12 @@ public class Library extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("View/library/AddBook.jsp").forward(request, response);
+			request.getRequestDispatcher("View/library/addBook.jsp").forward(request, response);
 		}
 		
 		else if(request.getParameter("addbook")!=null)
 		{
-			System.out.println("In function");
-			//int bookNo=Integer.parseInt(request.getParameter("bookno"));
-			
-			//int catId = adb.getCat_id();
 			int catId=Integer.parseInt(request.getParameter("category"));
-			
-			System.out.println("**************************"+catId);
-			//out.print(catId);
 			String date=request.getParameter("addbookdate");
 			String bookName=request.getParameter("bookName");
 			String pubName=request.getParameter("pubName");
@@ -88,8 +81,6 @@ public class Library extends HttpServlet {
 			out.println("aname"+authorName);
 			out.print("E"+edition);
 		 	System.out.print("Language "+lang+" date"+date);
-		//	System.out.println("Quantity"+qty);
-		//	AddBookPojo adb=new AddBookPojo();
 			
 			//adb.setBookNo(bookNo);
 		   adb.setCat_id(catId);
@@ -109,20 +100,19 @@ public class Library extends HttpServlet {
 				if(st==1)
 				{
 					int id=impl.getMaxBookInfoMaster();
-				//	System.out.println("----------"+id);
 					for(int i=0;i<adb.getQuantity();i++)
 					{
 						int status=impl.insertBookDetails(id);
 						System.out.println("Books added in BookDetail");
 					}
-					
+					HttpSession session = request.getSession();
+					session.setAttribute("flag", "Books Added Successfully");
 					System.out.println("Books added");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			//request.getRequestDispatcher("View/library/AddBook.jsp").forward(request, response);
-			response.sendRedirect("View/library/AddBook.jsp");
+			response.sendRedirect("View/library/addBook.jsp");
 		}
 		
 		else if(request.getParameter("bookNo")!=null){
@@ -130,16 +120,14 @@ public class Library extends HttpServlet {
 			int bookNo=Integer.parseInt(request.getParameter("bookNo"));
 			dao.deleteCategory(bookNo);
 			System.out.println("Deleted");
-			response.sendRedirect("View/library/AddBook.jsp");
+			response.sendRedirect("View/library/addBook.jsp");
 		}
 		
 		else if(request.getParameter("updateId")!=null)
 				{
 				String id=request.getParameter("updateId");
-				System.out.println("id is:"+id);
 				int bookId=Integer.parseInt(id);
 				List list=dao.selectBookInfo(adb,bookId);
-				System.out.println("list :"+list);
 				Iterator itr=list.iterator();
 				while(itr.hasNext())
 				{
@@ -149,11 +137,11 @@ public class Library extends HttpServlet {
 					String bookName=((AddBookPOJO)pojo).getBookName();
 					String pubname=((AddBookPOJO)pojo).getPublisherName();
 					String authorname=((AddBookPOJO)pojo).getAuthorName();
-				   String edition=((AddBookPOJO)pojo).getEdition();
-				   String lang=((AddBookPOJO)pojo).getLanguage();
-				   int qty=((AddBookPOJO)pojo).getQuantity();
-				   int price=((AddBookPOJO)pojo).getPrice();
-				   String cupbno=((AddBookPOJO)pojo).getCupboardNo();
+				    String edition=((AddBookPOJO)pojo).getEdition();
+				    String lang=((AddBookPOJO)pojo).getLanguage();
+				    int qty=((AddBookPOJO)pojo).getQuantity();
+				    int price=((AddBookPOJO)pojo).getPrice();
+				    String cupbno=((AddBookPOJO)pojo).getCupboardNo();
 				   
 					
 				System.out.println("language:"+lang);
@@ -165,7 +153,7 @@ public class Library extends HttpServlet {
 		
 		else if(request.getParameter("updatebook")!=null)
 		{
-			   int status=0;
+		    int status=0;
 			System.out.println("in update");
 			int id=Integer.parseInt(request.getParameter("bno"));
 			System.out.println("updated id:"+id);
@@ -199,7 +187,7 @@ public class Library extends HttpServlet {
 	           
 	        System.out.println("Successfully updated");
 		  
-			  response.sendRedirect("View/library/AddBook.jsp");
+			  response.sendRedirect("View/library/addBook.jsp");
 		}
 	
 
@@ -361,7 +349,7 @@ public class Library extends HttpServlet {
 							System.out.println("Issued Books");
 							HttpSession session = request.getSession();
 							session.setAttribute("flag", "Issue Book Successfully");
-							response.sendRedirect("View/library/IssueBook.jsp");
+							response.sendRedirect("View/library/issueBook.jsp");
 						}
 					} catch (SQLException e) {
 						e.printStackTrace();
@@ -512,7 +500,7 @@ public class Library extends HttpServlet {
 						e.printStackTrace();
 					}
 					//request.getRequestDispatcher("View/library/SetFine.jsp").forward(request, response);
-					response.sendRedirect("View/library/SetFine.jsp");
+					response.sendRedirect("View/library/setFine.jsp");
 				}
 				else if(request.getParameter("fine")!=null&&request.getParameter("fine").equals("Update"))
 				{
@@ -524,7 +512,7 @@ public class Library extends HttpServlet {
 					pojo.setFine(fine);
 					pojo.setId(id);
 					dao.updateFineDetails(pojo);
-					response.sendRedirect("View/library/SetFine.jsp");
+					response.sendRedirect("View/library/setFine.jsp");
 				}	
 		
 				else if(request.getParameter("returnBook")!=null)
@@ -581,7 +569,7 @@ public class Library extends HttpServlet {
 								if(status>0)
 								{
 									System.out.println("Return book");
-									response.sendRedirect("View/library/IssueBook.jsp");
+									response.sendRedirect("View/library/issueBook.jsp");
 								}
 							}
 							} catch (SQLException e) {
@@ -600,7 +588,7 @@ public class Library extends HttpServlet {
 						try {
 							int status=dao.updateRenewBook(pojo,date.toString());
 							System.out.println("Execute updated");
-							response.sendRedirect("View/library/IssueBook.jsp");
+							response.sendRedirect("View/library/issueBook.jsp");
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}	

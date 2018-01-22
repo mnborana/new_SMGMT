@@ -100,6 +100,21 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="dropdown_menu">
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span class="link-title menu_hide">&nbsp; Sign Up New User</span>
+                            <span class="fa arrow menu_hide"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/SMGMT/View/signup/adduser.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add New User
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     
                     <%}else if(roll==6){ %>
                     
@@ -111,26 +126,26 @@
 	                        </a>
 	                        <ul>
 	                            <li>
-	                                <a href="/SMGMT/View/library/AddBook.jsp">
+	                                <a href="/SMGMT/View/library/addBook.jsp">
 	                                    <i class="fa fa-angle-right"></i>
 	                                    &nbsp; Add Books
 	                                </a>
 	                            </li>
 	                             <li>
-	                                <a href="/SMGMT/View/library/IssueBook.jsp">
+	                                <a href="/SMGMT/View/library/issueBook.jsp">
 	                                    <i class="fa fa-angle-right"></i>
 	                                    &nbsp; Issue Book/Return Book
 	                                </a>
 	                            </li>
 	                             <li>
-	                                <a href="/SMGMT/View/library/SetFine.jsp">
+	                                <a href="/SMGMT/View/library/setFine.jsp">
 	                                    <i class="fa fa-angle-right"></i>
 	                                    &nbsp; Set Library Fine
 	                                </a>
 	                            </li>
 	                            
 	                            <li>
-	                                <a href="/SMGMT/View/library/FineSubmission.jsp">
+	                                <a href="/SMGMT/View/library/fineSubmission.jsp">
 	                                    <i class="fa fa-angle-right"></i>
 	                                    &nbsp; Fine Submission
 	                                </a>
@@ -340,20 +355,39 @@
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-inr"></i>
-                            <span class="link-title menu_hide">&nbsp; Fee</span>
+                            <span class="link-title menu_hide">&nbsp; Fees</span>
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
+                       
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/fees/Installment.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Fee Collection - Yearly
+                                    &nbsp; Generate Modes
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/fees/feeType.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    <span class="link-title">&nbsp; Fee Collection - Monthly </span>
+                                    <span class="link-title">&nbsp; Generate Fees Types</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href=" /SMGMT/View/fees/castWiseEducationalFees.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Assign Cast Wise Fees</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/SMGMT/View/fees/assignStdWiseFees.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Assign Standard Wise Fees</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/SMGMT/View/fees/studFeeAssign.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Assign Student Fee</span>
                                 </a>
                             </li>
                         </ul>
@@ -725,12 +759,6 @@
                                 <a href="/SMGMT/View/signup/adduser.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Add New User
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Change User Details
                                 </a>
                             </li>
                         </ul>

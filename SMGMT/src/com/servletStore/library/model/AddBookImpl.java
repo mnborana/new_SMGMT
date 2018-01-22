@@ -140,8 +140,6 @@ public class AddBookImpl implements AddBookDAO{
 				
 				e.printStackTrace();
 			}
-		        System.out.println("In try");
-		       
 		    return status;  
 		
 	}
@@ -307,7 +305,7 @@ public class AddBookImpl implements AddBookDAO{
 	public List<IssueBookPOJO> getIssueBookDetails() {
 		List<IssueBookPOJO> list=new ArrayList<IssueBookPOJO>();
 		 SysDate sd=new SysDate();
-		 String query="SELECT `id`, `bookdetails_id`, `stud_id`, `staff_id`, `issue_date`, `due_date` FROM `issue_book` WHERE issue_book.issue_date='"+sd.todayDate()+"' ORDER BY issue_book.id DESC";
+		 String query="SELECT `id`, `bookdetails_id`, `stud_id`, `staff_id`, `issue_date`, `due_date` FROM `issue_book`, book_details_master WHERE issue_book.issue_date='"+sd.todayDate()+"' AND  book_details_master.book_id=issue_book.bookdetails_id AND book_details_master.issue_status=1 ORDER BY issue_book.id DESC ";
 		 PreparedStatement ps, ps1, ps2, ps3;
 		 try {
 			ps =connection.prepareStatement(query);

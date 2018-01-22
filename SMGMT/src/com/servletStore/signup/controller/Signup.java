@@ -31,6 +31,7 @@ public class Signup extends HttpServlet
 			String rollId = request.getParameter("userRoll");
 			String userName = request.getParameter("userName");
 			String password = request.getParameter("password");
+			String schoolIdForAdmin = request.getParameter("schoolName");
 			UserLoginDAO check = new UserLoginImpl();
 			SignUpDAO dao = new SignupImpl();
 
@@ -45,17 +46,58 @@ public class Signup extends HttpServlet
 				} 
 				else
 				{
-					int status = dao.insertUserMaster(schoolId, rollId, userName, password);
+					if(rollId.equals("6"))
+					{
+						//for librarian
+						int status = dao.insertLibrarian(rollId, userName, password);
 
-					if (status > 0)
-					{
-						session.setAttribute("flag", "User Added Successfully");
-						response.sendRedirect("/SMGMT/View/signup/adduser.jsp");
-					} else
-					{
-						session.setAttribute("flag", "Error");
-						response.sendRedirect("/SMGMT/View/signup/adduser.jsp");
+						if (status > 0)
+						{
+							session.setAttribute("flag", "User Added Successfully");
+							response.sendRedirect("/SMGMT/View/signup/adduser.jsp");
+						} else
+						{
+							session.setAttribute("flag", "Error");
+							response.sendRedirect("/SMGMT/View/signup/adduser.jsp");
+						}
 					}
+					else
+					{
+						if(schoolId.equals("0"))
+						{
+							//adding user from admin login
+							//other users
+							int status = dao.insertUserMaster(schoolIdForAdmin, rollId, userName, password);
+
+							if (status > 0)
+							{
+								session.setAttribute("flag", "User Added Successfully");
+								response.sendRedirect("/SMGMT/View/signup/adduser.jsp");
+							} else
+							{
+								session.setAttribute("flag", "Error");
+								response.sendRedirect("/SMGMT/View/signup/adduser.jsp");
+							}
+						}
+						else
+						{
+							//adding user from principal login
+							//other users
+							int status = dao.insertUserMaster(schoolId, rollId, userName, password);
+
+							if (status > 0)
+							{
+								session.setAttribute("flag", "User Added Successfully");
+								response.sendRedirect("/SMGMT/View/signup/adduser.jsp");
+							} else
+							{
+								session.setAttribute("flag", "Error");
+								response.sendRedirect("/SMGMT/View/signup/adduser.jsp");
+							}
+						}
+
+					}
+
 				}
 
 			} catch (SQLException e)
