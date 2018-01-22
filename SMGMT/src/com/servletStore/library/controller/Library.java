@@ -596,14 +596,13 @@ public class Library extends HttpServlet {
 			}
 				else if(request.getParameter("studFineDetail")!=null)
 				{
-					System.out.println("Studentttttttttttt");
 					String studInfo=request.getParameter("studFineDetail");
-					String sInfo[]=studInfo.split(",");
-					System.out.println("studId "+ sInfo[0]);
+					System.out.println("sdssddss"+studInfo);
 					
 					try {
-						List list=dao.getFineSubmission(Integer.parseInt(sInfo[0]));
+						List list=dao.getFineSubmission(Integer.parseInt(studInfo));
 						Iterator itr=list.iterator();
+						Object issueId = null ;
 						Object firstName = null ;
 						Object middleName= null;
 						Object lastName= null;
@@ -612,6 +611,7 @@ public class Library extends HttpServlet {
 						Object fine= null;
 												
 						while(itr.hasNext()){
+							issueId=itr.next();
 							firstName=itr.next();
 							middleName=itr.next();
 							lastName=itr.next();
@@ -622,8 +622,8 @@ public class Library extends HttpServlet {
 
 						
 							
-						System.out.println("Information of student "+firstName+ "," +middleName+ "," +lastName+  "," +std+ "," +div+ ","+fine);
-						out.print(firstName+ "," +middleName+ "," +lastName+  "," +std+ "," +div+ ","+fine+ ",");
+						System.out.println("Information of student "+issueId+","+firstName+ "," +middleName+ "," +lastName+  "," +std+ "," +div+ ","+fine);
+						out.print(issueId+ "," +firstName+ "," +middleName+ "," +lastName+  "," +std+ "," +div+ ","+fine+ ",");
 					
 					} catch (NumberFormatException e) {
 						// TODO Auto-generated catch block
@@ -634,11 +634,44 @@ public class Library extends HttpServlet {
 					}
 				}
 		
-		
-		if(request.getParameter("submitfine")!=null)
-		{
+			if(request.getParameter("submitfine")!=null)
+			{
+				System.out.println("Submit fine*****");
+				int fineAmount=Integer.parseInt(request.getParameter("totalFine"));
+				System.out.println("returnnnnnnnnnn"+fineAmount);
+				int discount=Integer.parseInt(request.getParameter("discountamount"));
+				int paidAmount=Integer.parseInt(request.getParameter("paidamount"));
+				int  remainAmount=Integer.parseInt(request.getParameter("remainAmt"));
+				
 			
-		}
+				FineMasterPOJO pojo= new FineMasterPOJO();
+				String studId[]=request.getParameter("studId").split(",");
+				
+				pojo.setStudId(Integer.parseInt(studId[0]));
+				
+				System.out.println(request.getParameter("studId"));
+				
+				
+				pojo.setIssueId(Integer.parseInt(request.getParameter("issueId")));
+				System.out.println("Issue Id"+request.getParameter("issueId"));
+				pojo.setFineAmount(fineAmount);
+				pojo.setDiscount(discount);
+				pojo.setFinePaidAmount(paidAmount);
+				pojo.setRemainingFine(remainAmount);
+				
+				try {
+					int status=dao.insertFineSubmissionDetails(pojo);
+					
+					if(status>0)
+					{
+						System.out.println("fine submit");
+						response.sendRedirect("View/library/fineSubmission.jsp");
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
 		
 		
 		

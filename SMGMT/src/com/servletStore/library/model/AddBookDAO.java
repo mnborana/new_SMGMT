@@ -67,4 +67,6 @@ public int getPreviousFine(String studentId) throws SQLException;
 
 public List getFineSubmission(int id) throws SQLException;
 
+public int insertFineSubmissionDetails(FineMasterPOJO pojo) throws SQLException;
+
 }
