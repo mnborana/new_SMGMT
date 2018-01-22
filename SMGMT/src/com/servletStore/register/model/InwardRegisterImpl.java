@@ -60,7 +60,7 @@ public class InwardRegisterImpl implements InwardRegisterDAO{
 	@Override
 	public InwardRegisterPojo setInwordNo() {
 		InwardRegisterPojo pojo=new InwardRegisterPojo();
-		String maxid="SELECT MAX(inward_no) FROM inward_register_master";
+		String maxid="SELECT MAX(id) FROM inward_register_master";
 		try {
 			pstmt=connection.prepareStatement(maxid);
 			ResultSet rs=pstmt.executeQuery();

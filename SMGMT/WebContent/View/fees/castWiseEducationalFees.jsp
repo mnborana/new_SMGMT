@@ -1,4 +1,7 @@
 
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="com.servletStore.casteWiseEduFees.model.casteWiseEduFeesPojo"%>
 <%@page import="com.servletStore.casteWiseEduFees.model.casteWiseEduFeesIMPL"%>
 <%@page import="com.servletStore.casteWiseEduFees.model.casteWiseEduFeesDAO"%>
@@ -43,7 +46,35 @@
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
     
  </head>
-
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		//for read/write permission  Read = 1  Write = 2
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+		//for showing datatable according to read/write permission
+		
+		//choose appropriate method as per your leftNavbar form option name
+		//e.g : if you are working on Attendance option in left navbar then code will be...
+		
+		/* SetupPOJO grant = new SetupPOJO();
+		int access=grant.getAttendance(); */
+		
+		//if it returns read(1) then hide FORM and ACTION COLUMN(UPDATE/DELETE) in dataTable
+		//for write(2) show your orignal full form
+				
+	}
+%>
 <body onload="loadFunction()">
 	<div class="preloader" style=" position: fixed;
 	  width: 100%;
@@ -72,13 +103,8 @@
 	        <!-- /#top -->
 	        
 	      <div id="snackbar"><%=request.getAttribute("status") %></div>
-	        
-	        <%
-	        HttpSession session1=request.getSession();
-	        session1.setAttribute("schoolId", "1");
-	        String  schoolId=session.getAttribute("schoolId").toString();
-	        %>
-        <div class="wrapper">
+	  
+     <div class="wrapper">
         	 <!-- /.left navbar -->
                 <jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
              <!-- /.left navbar -->
@@ -215,7 +241,7 @@
                                        
 	                                            <div class="modal-footer">
 	                                                <div class="col-lg-4 push-lg-4">
-	                                                     <button type="submit" name="submitBTN" class="btn btn-primary" style="margin-left: -980px;">Submit</button>
+	                                                     <button type="submit" name="submitBTN" class="btn btn-primary" style="margin-left: -824px;">Submit</button>
 	                                                    <button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
 	                                                </div>
 	                                            </div>  
@@ -258,6 +284,7 @@
                                            <%
                                            int count=1;
                                            List<casteWiseEduFeesPojo> fetchList=dao.fetchDetails();
+                                           System.out.println("list is:"+fetchList);
                                            Iterator<casteWiseEduFeesPojo> itr3=fetchList.iterator();
                                            %>
                                            
@@ -268,10 +295,7 @@
                                             	 String selCategory="";
                                              	casteWiseEduFeesPojo pojo=(casteWiseEduFeesPojo)itr3.next();
                                              	int id3=((casteWiseEduFeesPojo)pojo).getId();
-                                             	String selectcategory=dao.getCategory(id3);
-                                             	if (selectcategory != null && selectcategory.length() > 0 && selectcategory.charAt(selectcategory.length() - 1) == ',') {
-                                            		selCategory=selectcategory.substring(0, selectcategory.length()-1);
-                                                }
+                                             	System.out.println("caste-wise education:"+id3);
                                              	
                                              %>
                                             
@@ -279,7 +303,7 @@
                                              	<td id="<%=id3%>"><%=count %></td>
                                              	<td><%=((casteWiseEduFeesPojo)pojo).getFeesType() %></td>
                                              	<td><%=((casteWiseEduFeesPojo)pojo).getStandard() %></td>
-                                             	<td><%=selCategory%></td>                                             	
+                                             	<td><%=((casteWiseEduFeesPojo)pojo).getCategory()%></td>                                             	
                                              	<td><%=((casteWiseEduFeesPojo)pojo).getFees() %></td>                                             	
                                              	<td>
                                         			<a class="edit"  title="update" data-toggle="tooltip" data-placement="top" title="Update" href="#modal-4" onclick="updateInward(<%=id3%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
@@ -375,8 +399,8 @@
     <script>eval(mod_pagespeed_ZN6rVE$v$y);</script>
     
     <script type="text/javascript" src="/SMGMT/config/js/pages/datatable.js"></script>
-      
-    
+    <script type="text/javascript" src="/SMGMT/config/js/pages/izi_toastr.js"></script>
+    <script type="text/javascript" src="/SMGMT/config/vendors/izitoast/js/iziToast.min.js"></script>
 
 <script type="text/javascript">
 
