@@ -148,7 +148,7 @@ z-index: 999999">
                                                     <label for="required2" class="col-form-label">Fees Type *</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                   <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()" pattern="[A-Za-z]"	/>
+                                                   <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()"	/>
                                                    <!--  <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value = this.value.toUpperCase()" pattern="[A-Za-z]"  pattern="required" > -->
                                                 </div>
                                            </div>
@@ -157,7 +157,7 @@ z-index: 999999">
                                                     <label for="required2" class="col-form-label">Fees *</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" pattern="[0-9]">
+                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" pattern="[0-9]+">
                                                 </div>
                                             </div>
                                              <div class="form-group row">
