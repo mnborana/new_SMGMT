@@ -22,6 +22,10 @@ public interface SchoolDAO {
 	
 	public int activateSchool(int schoolId) throws SQLException;
 	
+	public int getTotalSchools() throws SQLException;
+	
+	public int updateTotalSchools(int available,int updated) throws SQLException;
+	
 	
 	
 	
