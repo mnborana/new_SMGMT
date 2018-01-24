@@ -15,5 +15,4 @@ public interface feeTypeDAO {
  public void deleteFeeType(int id) throws SQLException;
  
  
- 
 }

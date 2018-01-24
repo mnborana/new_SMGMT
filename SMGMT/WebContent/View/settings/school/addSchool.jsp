@@ -25,6 +25,10 @@
 		display: block !important;
 		margin-right: -30px;
 	}
+	#activate{
+		margin-top: 10px;
+	}
+	 #username,#password{display: none;}
 </style>
     
 </head>
@@ -204,7 +208,62 @@
                             	<div class="tab-pane" id="addNew">
                                 	<div class="row">
                                 		<div class="col-12">
-                                			<h2>work in progress</h2>
+                                			<div class="card-block m-t-35">
+                                    			<form action="/SMGMT/School" method="post" class="form-horizontal" id="">
+                                    				<div class="form-group row">
+                                    					<div class="col-lg-4  text-lg-right">
+                                                    		<label for="newSchoolName" class="col-form-label">School Name *</label>
+                                                		</div>
+                                                		<div class="col-lg-4">
+                                                			<input type="text" id="newSchoolName" name="newSchoolName" class="form-control" required>
+                                                		</div>
+                                                	</div>
+                                                	<div class="form-group row">
+                                    					<div class="col-lg-4  text-lg-right">
+                                                    		<label for="" class="col-form-label">Allow Permission </label>
+                                                		</div>
+                                                		<div class="col-lg-4">
+                                                			<div class="checkbox" id="activate">
+																<label class="text-success"> 
+																	<input type="checkbox" value="1" name="activeSchool" onclick="active(this,username,password)">
+																	<span class="cr">
+																		<i class="cr-icon fa fa-check"></i>
+																	</span> Activate School
+																</label>
+															</div>
+                                                		</div>
+                                                	</div>
+                                                	<div id="username">
+                                                		<div class="form-group row">
+	                                    					<div class="col-lg-4  text-lg-right">
+	                                                    		<label for="newPrincipalUsername" class="col-form-label">Principal User Name</label>
+	                                                		</div>
+	                                                		<div class="col-lg-4">
+	                                                			<input type="text" id="newPrincipalUsername" onkeyup="checkUserName(this.value,document.getElementById('helpfornew'))" value="" name="newPrincipalUsername" class="form-control">
+	                                                			<small style="" class="help-block" id="helpfornew"></small>
+	                                                		</div>
+                                                		</div>
+                                                	</div>
+                                                	
+                                                	<div id="password">
+                                                		<div class="form-group row">
+	                                    					<div class="col-lg-4  text-lg-right">
+	                                                    		<label for="newPrincipalPassword" class="col-form-label">Principal Password</label>
+	                                                		</div>
+	                                                		<div class="col-lg-4">
+	                                                			<input type="password" id="newPrincipalPassword" name="newPrincipalPassword" value="" class="form-control">
+	                                                		</div>
+                                                		</div>
+                                                	</div>
+                                                	
+                                                	<div class="form-actions form-group row">
+		                                                <div class="col-lg-4 push-lg-4">
+		                                                    <input type="submit" id="addschool" value="Add School" name="addSchool" class="btn btn-primary">
+		                                                </div>
+                                            		</div>
+                                    			</form>
+                                    		</div>
+                                			<!-- <h2>work in progress</h2> -->
                                         </div>
                                     </div>
                                 </div>
@@ -539,6 +598,21 @@
 
 	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>    
     <script type="text/javascript">
+    function active(id,userId,passId) {
+    	if ($(id).is(":checked")) {
+			userId.style.display = "block";
+			passId.style.display = "block";
+			document.getElementById("newPrincipalUsername").required = true;
+			document.getElementById("newPrincipalPassword").required = true;
+		} else {
+			userId.style.display = "none";
+			passId.style.display = "none";
+			document.getElementById("newPrincipalUsername").required = false;
+			document.getElementById("newPrincipalPassword").required = false;
+			document.getElementById("addschool").disabled = false;
+		}
+	}
+    
     function myFunction()
 	{
 		<%if (session.getAttribute("flag") != null) {%>
@@ -561,6 +635,7 @@
 			x.style.color = '#ff6666';
 			x.innerHTML = "Username is too short";
 			document.getElementById("add").disabled = true;
+			document.getElementById("addschool").disabled = true;
 		} else {
 
 			var xhttp = new XMLHttpRequest();
@@ -571,11 +646,13 @@
 					if (demoData == "1") {
 						x.style.color = '#ff6666';
 						x.innerHTML = "UserName is taken by someone";
+						document.getElementById("addschool").disabled = true;
 						document.getElementById("add").disabled = true;
 					} else {
 						x.style.color = '#66cc66';
 						x.innerHTML = "Username is available";
 						document.getElementById("add").disabled = false;
+						document.getElementById("addschool").disabled = false;
 					}
 				}
 			};

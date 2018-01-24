@@ -39,23 +39,23 @@ public class casteWiseEduFees extends HttpServlet {
 		String fees=request.getParameter("educationFees");
 		
 		String categry="";
-		pojo.setFeesType(type);
-		pojo.setStandard(standard);
-		pojo.setFees(fees);
 		
-		int i=dao.insertEducationalFees(pojo);
 		
+		int i=0;
 		for(int j=0;j<category.length;j++)
-		{			
-			casteWiseEduFeesPojo pojo1=new casteWiseEduFeesPojo();
-			pojo1.setCategoryId(Integer.parseInt(category[j]));
-			//System.out.println("categoryId:"+category[j]);
-			list.add(pojo1);			
+		{
+			pojo.setFeesType(type);
+			pojo.setStandard(standard);
+			pojo.setFees(fees);
+			pojo.setCategoryId(Integer.parseInt(category[j]));
+			list.add(pojo);		
+			i=dao.insertEducationalFees(list);
 		}
-		int j=dao.insertCategory(list);
-		session.setAttribute("flag", "Inserted Record Has Been Submited");
-		
-		response.sendRedirect("View/fees/castWiseEducationalFees.jsp");
+		if(i>0)
+		{
+			session.setAttribute("flag", "Inserted Record Has Been Submited");
+		}
+			response.sendRedirect("View/fees/castWiseEducationalFees.jsp");
 		}
 	}
 

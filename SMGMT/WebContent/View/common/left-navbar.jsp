@@ -359,6 +359,7 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
+                       
                             <li>
                                 <a href="/SMGMT/View/fees/Installment.jsp">
                                     <i class="fa fa-angle-right"></i>
@@ -372,7 +373,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/SMGMT/View/fees/castWiseEducationalFees.jsp">
+                                <a href=" /SMGMT/View/fees/castWiseEducationalFees.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     <span class="link-title">&nbsp; Assign Cast Wise Fees</span>
                                 </a>
@@ -389,6 +390,12 @@
                                     <span class="link-title">&nbsp; Assign Student Fee</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="/SMGMT/View/fees/feesCollection.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Fees Collection</span>
+                                </a>
+                            </li>                            
                         </ul>
                     </li>
                     <%}if(pojo.getAttendance()!=0) {%>

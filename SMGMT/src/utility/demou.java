@@ -23,6 +23,7 @@ public class demou {
 				map.put(A[i], map.get(A[i]) + 1);
 			}
 
+			
 			System.out.println(n);
 			System.out.println(map);
 			
@@ -44,7 +45,7 @@ public class demou {
 		public static void main (String[] args)
 		{
 			// Assumtion - valid input (majority element is present)
-			int arr[] = { 1,1,2,2,2,3,3,3,3,3,3 };
+			int arr[] = { 1,1,2,2,2,2,3,3,3,3,3,3,3 };
 
 			int ret = majorityElement(arr);
 			if (ret != -1)

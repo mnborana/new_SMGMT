@@ -162,7 +162,7 @@
 		                                     			<div class="form-group row">
 		                                     			
 		                                     				<div class="col-lg-8">
-		                                     				<label for="required2" class="col-form-label">Search Book *</label>
+		                                     				<label for="required2" class="col-form-label">Search Book </label><span style="color: red;">*</span>
 		                       	  				 <!-- Search Book from here     ------- -->
 		                                               	<input type="text" list="browseBook" autocomplete="off" onkeyup="getbookdetails(this.value)" class="form-control" id="searchtext"  name="searchBook" placeholder="Search Books by BookId/BookName/AuthorName" required>
 			                                                <datalist id="browseBook">
@@ -172,7 +172,7 @@
 		                                                 
 		                                                	<div class="form-group row">	
 		                                                	<div class="col-lg-8 ">
-		                                                   	  <label for="required2" class="col-form-label">User Type *</label>
+		                                                   	  <label for="required2" class="col-form-label">User Type </label><span style="color: red;">*</span>
 										                       <div class="controls">
 												                 <input type="radio" value="Student" style="margin-left: 1%;" name="userType" id="userType" onclick="searchDetails(this.value)" checked="checked"> Student
 												                 <input type="radio" value="Teacher" style="margin-left: 1%;" name="userType" id="userType" onclick="searchDetails(this.value)" > Teacher
@@ -199,13 +199,13 @@
 		                                              </div>
 		                                          	<div class="form-group row">
 		                                          	   <div class="col-lg-8">
-		                                                    <label class="col-form-label">Book Issue Date *</label>
+		                                                    <label class="col-form-label">Book Issue Date </label><span style="color: red;">*</span>
 		                                                    <input type="text" id="issueDate_id" class="form-control" name="issueDate" value="<%=date.todayDate() %>" readonly="readonly" placeholder="YYYY-MM-DD" required/>
 		                                                </div>
 		                                              </div>
 		                                               <div class="form-group row">
 		                                                <div class="col-lg-8">
-		                                                    <label class="col-form-label">Book Due Date *</label>
+		                                                    <label class="col-form-label">Book Due Date </label><span style="color: red;">*</span>
 		                                                    <input type="text" id="dueDate_id"  class="form-control form_val_popup_dp3" name="dueDate" autocomplete="off" placeholder="YYYY-MM-DD" required/>
 		                                                </div>
 		                                                </div>
@@ -407,7 +407,7 @@
 																id="form_block_validator">
 																<div class="form-group row">
 																	<div class="col-lg-8">
-																	<label for="required2" class="col-form-label">Search Book *</label>
+																	<label for="required2" class="col-form-label">Search Book </label><span style="color: red;">*</span>
 																		<!-- Search Book from here     ------- -->
 																		<input type="text" list="returnBook"
 																			autocomplete="off"
@@ -454,12 +454,12 @@
 
 																		<div class="col-lg-4">
 																			<label for="required2" class="col-form-label" id="oldDueDate">Due
-																				Date *</label> <input type="text" id="dueDate1"
+																				Date </label><span style="color: red;">*</span> <input type="text" id="dueDate1"
 																				name="dueDate" class="form-control" readonly="readonly">
 																		</div>
 																		<div class="col-lg-4">
 																			<label for="required2" class="col-form-label" id="oldDueDate">Student
-																				Details*</label> <input type="text" id="studdId"
+																				Details</label><span style="color: red;">*</span> <input type="text" id="studdId"
 																				name="dueDate" class="form-control" readonly="readonly">
 																		</div>
 																		
@@ -471,7 +471,7 @@
 																<div class="form-group row">
 																	<div class="col-lg-4 ">
 																		<label for="required2" class="col-form-label">Renew/Return
-																			*</label>
+																			</label><span style="color: red;">*</span>
 																		<div class="controls">
 																			<input type="radio" value="RETURN"
 																				style="margin-left: 1%;" name="returnRadio" id="selectRt" onclick="onBook(this.value)"> Return 
@@ -494,7 +494,7 @@
 																	
 																	
 																		<div class="col-lg-4">
-																			<label class="col-form-label">Return Date *</label>
+																			<label class="col-form-label">Return Date </label><span style="color: red;">*</span>
 																			 <input type="text" class="form-control" value="<%=date.todayDate()%>" id="currentDate"
 																				name="currentDate" placeholder="YYYY-MM-DD" readonly="readonly"/>
 																		</div>
@@ -565,10 +565,10 @@
 																<div class="form-group row" id="renew"
 																	style="display: none">
 																	<div class="col-lg-4">
-																		<label class="col-form-label">New Due Date *</label> <input
+																		<label class="col-form-label">New Due Date </label><span style="color: red;">*</span> <input
 																			type="text" class="form-control form_val_popup_dp3"
 																			id="dueDateRn" name="newdueDate"
-																			placeholder="YYYY-MM-DD" />
+																			placeholder="YYYY-MM-DD" required/>
 																	</div>
 																</div>
 																
@@ -1273,8 +1273,20 @@ function getFineCount(tDate, dDate, radioValue,studId) {
 	 		else if(radioValue=="RENEW"){
 	 			document.getElementById("renew").style.display="block";
 	 			document.getElementById("returnBk").style.display="none";
-	 			document.getElementById("dueDateRn").value="";
+	 			//document.getElementById("dueDateRn").value="";
+	 			var dueDateRenew=document.getElementById("dueDateRn").value;
 	 			//document.getElementById("dueDateRn").focus();
+	 			if(dueDateRenew=="")
+ 				{
+ 				//alert('disable');
+ 				document.getElementById("returnSubmit").disabled=true; 
+ 				}
+	 			 if(dueDateRenew!=null)
+	 				{
+	 				//alert('enable');
+	 				document.getElementById("returnSubmit").disabled=false;
+	 				}
+ 				
 	 		}
 
 		}
@@ -1326,7 +1338,4 @@ function checkedPay(checkId)
 	
 
 </script>
-
-
-
 </html>
