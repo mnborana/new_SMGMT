@@ -9,11 +9,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Form Elements | Admire</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
 <style type="text/css">
 #academicYearId {
@@ -59,11 +54,6 @@
 		</div>
 		<!-- /#top -->
 		<div class="wrapper">
-		<%if(session.getAttribute("userName")==null)
-		{
-			response.sendRedirect("/SMGMT");
-			System.out.println("in if loop");
-		} %>
 			<!-- /.left navbar -->
 			<jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
 			<!-- /.left navbar -->

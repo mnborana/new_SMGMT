@@ -235,5 +235,5 @@
   <servlet-mapping>
     <servlet-name>FeesCollection</servlet-name>
     <url-pattern>/FeesCollection</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping> 
 </web-app>
