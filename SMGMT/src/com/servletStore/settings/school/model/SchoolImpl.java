@@ -343,5 +343,43 @@ public class SchoolImpl implements SchoolDAO{
 		}
 
 
+		@Override
+		public int getTotalSchools() throws SQLException
+		{
+			DBConnection dbConnect = new DBConnection();
+			Connection conn = dbConnect.getConnection();
+			
+			int totalSchools=0;
+			String query="SELECT trustee_info.no_of_schools FROM `trustee_info`";
+			pstmt=conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				totalSchools=rs.getInt(1);
+			}
+			
+			conn.close();
+			return totalSchools;
+		}
+
+
+		@Override
+		public int updateTotalSchools(int available, int updated) throws SQLException
+		{
+			DBConnection dbConnect = new DBConnection();
+			Connection conn = dbConnect.getConnection();
+			int status=0;
+			
+			String query="UPDATE `trustee_info` SET `no_of_schools`=? WHERE `no_of_schools`=?";
+			pstmt=conn.prepareStatement(query);		
+			pstmt.setInt(1, updated);
+			pstmt.setInt(2, available);
+			status=pstmt.executeUpdate();	
+			
+			conn.close();
+			return status;
+		}
+
+
 		
 }

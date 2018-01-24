@@ -396,6 +396,12 @@
                                     <span class="link-title">&nbsp; Assign Student Fee</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="/SMGMT/View/fees/feesCollection.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Fees Collection</span>
+                                </a>
+                            </li>                            
                         </ul>
                     </li>
                     <%}if(pojo.getAttendance()!=0) {%>

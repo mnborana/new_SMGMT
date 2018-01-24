@@ -1,8 +1,9 @@
+<%@page import="com.servletStore.fees.feeType.model.FeeTypeDAO"%>
 <%@page import="com.servletStore.setup.model.SetupPOJO"%>
 <%@page import="com.servletStore.setup.model.SetupImpl"%>
 <%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@page import="com.servletStore.fees.feeType.model.FeeTypeImpl"%>
-<%@page import="com.servletStore.fees.feeType.model.FeeTypeDAO"%>
+
 <%@page import="com.servletStore.settings.standard.model.StandardPOJO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.servletStore.settings.school.model.SchoolPOJO"%>
@@ -148,7 +149,10 @@ z-index: 999999">
                                                     <label for="required2" class="col-form-label">Fees Type</label><span style="color: red;">*</span>
                                                 </div>
                                                 <div class="col-lg-4">
+
                                                    <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()" required/>
+
+                                                   
                                                 </div>
                                            </div>
                                            <div class="form-group row">
@@ -156,7 +160,9 @@ z-index: 999999">
                                                     <label for="required2" class="col-form-label">Fees</label><span style="color: red;">*</span>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" pattern="[0-9]*" required/>
+
+                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" pattern="[0-9]+">
+
                                                 </div>
                                             </div>
                                              <div class="form-group row">
