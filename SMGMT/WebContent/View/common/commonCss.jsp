@@ -1,3 +1,6 @@
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>School Management System</title>
+
 	<link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
     <!-- global styles-->
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/components.css"/>
@@ -20,6 +23,7 @@
     
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
    	
+   	<link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_inputlimiter,_css,_jquery.inputlimiter.css+vendors,_bootstrap-colorpicker,_css,_bootstrap-colorpicker.min.css+vendors,_jquery-tagsinput,_c"/>
    	
     <!--End of plugin styles-->
     <!--Page level styles-->

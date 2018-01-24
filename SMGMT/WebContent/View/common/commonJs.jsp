@@ -22,7 +22,6 @@
 
 <script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/jquery.inputmask.bundle.js"></script>
 
-<script type="text/javascript" src="/SMGMT/config/vendors/daterangepicker/js/daterangepicker.js"></script>
 
  <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script>
@@ -33,6 +32,7 @@
  <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
     <script type="text/javascript" src="/SMGMT/config/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
     <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/daterangepicker/js/daterangepicker.js"></script>
 
 <script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-switch/js/bootstrap-switch.min.js"></script>
@@ -62,6 +62,11 @@
     <script>eval(mod_pagespeed_wfmKXYO4Nj);</script>
     <script>eval(mod_pagespeed_EYzby3B1$L);</script>
 <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
+
+<script type="text/javascript" src="/SMGMT/config/js/pages/simple_datatables.js"></script>
+
+<script type="text/javascript" src="/SMGMT/config/js/pluginjs/dataTables.tableTools.js"></script>
+<script type="text/javascript" src="/SMGMT/config/vendors/datatables/js/dataTables.colReorder.min.js"></script>
 
 
 <!--end of plugin scripts-->
