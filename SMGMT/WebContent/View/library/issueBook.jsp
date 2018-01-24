@@ -659,8 +659,6 @@ $(document).ready(function () {
 
 function giveDiscount()
 {
-	//alert('hello');
-	
 	var fineAmount=parseInt(document.getElementById("fineAmount").value);
     var paidAmount=parseInt(document.getElementById("paidAmountId").value);
     alert(paidAmount);
@@ -737,7 +735,7 @@ function calculatePaidAmt(val)
 		
 		if(oldRemainAmt<paidAmount)
 		{
-			alert('not count');	
+			//alert('not count');	
 			document.getElementById('remainAmount').value=oldRemainAmt;
 			document.getElementById("error").innerHTML="Number should less than Fine";
 			
@@ -790,7 +788,7 @@ function calculatePaidAmt(val)
 		var totalAmt=parseInt(document.getElementById('totalAmount').value);
 		if(totalAmt<paidAmount)
 		{
-			alert('not count');
+			//alert('not count');
 			document.getElementById('remainAmount').value=0;
 		}
 		else
@@ -822,7 +820,7 @@ function countPay()
 	//alert(oldFineAmount.length);
 	//Intdiscount
 	//parseInt(discount); 
-	alert("of "+oldFineAmount+" dis "+discount);
+	//alert("of "+oldFineAmount+" dis "+discount);
 	if(discount > oldFineAmount)
 	{
 		alert('not count');	

@@ -1,8 +1,8 @@
 <%@page import="com.servletStore.setup.model.SetupPOJO"%>
 <%@page import="com.servletStore.setup.model.SetupImpl"%>
 <%@page import="com.servletStore.setup.model.SetupDAO"%>
-<%@page import="com.servletStore.fees.feeType.model.feeTypeImpl"%>
-<%@page import="com.servletStore.fees.feeType.model.feeTypeDAO"%>
+<%@page import="com.servletStore.fees.feeType.model.FeeTypeImpl"%>
+<%@page import="com.servletStore.fees.feeType.model.FeeTypeDAO"%>
 <%@page import="com.servletStore.settings.standard.model.StandardPOJO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.servletStore.settings.school.model.SchoolPOJO"%>
@@ -68,7 +68,7 @@
 		
 		//if it returns read(1) then hide form and action column in dataTable
 		//for write(2) show your orignal full form
-				
+		
 	}
 %>
 
@@ -109,7 +109,7 @@ z-index: 999999">
                        <div class="col-sm-5 col-lg-6 skin_txt">
                            <h4 class="nav_top_align">
                                <i class="fa fa-pencil"></i>
-                               Form Elements
+                               Fees Type
                            </h4>
                        </div>
                        <div class="col-sm-7 col-lg-6">
@@ -121,9 +121,9 @@ z-index: 999999">
                                    </a>
                                </li>	
                                <li class="breadcrumb-item">
-                                   <a href="#">Forms</a>
+                                   <a href="#">Fees</a>
                                </li>
-                               <li class="active breadcrumb-item">Form Elements</li>
+                               <li class="active breadcrumb-item">Fees Type</li>
                            </ol>
                        </div>
                    </div>
@@ -139,30 +139,29 @@ z-index: 999999">
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                        Basic Validation
+                                        	Fees Type
                                     </div>
                                     <div class="card-block m-t-35">
                                         <form action="/SMGMT/FeeType" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                             <div class="form-group row">
-                                                <div class="col-lg-4  text-lg-right">
-                                                    <label for="required2" class="col-form-label">Fees Type *</label>
+                                                <div class="col-lg-4 text-lg-right">
+                                                    <label for="required2" class="col-form-label">Fees Type</label><span style="color: red;">*</span>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                   <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()" pattern="[A-Za-z]"	/>
-                                                   <!--  <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value = this.value.toUpperCase()" pattern="[A-Za-z]"  pattern="required" > -->
+                                                   <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()" required/>
                                                 </div>
                                            </div>
                                            <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
-                                                    <label for="required2" class="col-form-label">Fees *</label>
+                                                    <label for="required2" class="col-form-label">Fees</label><span style="color: red;">*</span>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" pattern="[0-9]">
+                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" pattern="[0-9]*" required/>
                                                 </div>
                                             </div>
                                              <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
-                                                    <label for="required2" class="col-form-label">Term *</label>
+                                                    <label for="required2" class="col-form-label">Term</label><span style="color: red;">*</span>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <label class="custom-control custom-checkbox">&nbsp;&nbsp;
@@ -179,7 +178,7 @@ z-index: 999999">
                                             </div>
                                               <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
-                                                    <label for="required2" class="col-form-label">Caste *</label>
+                                                    <label for="required2" class="col-form-label">Caste</label>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <label class="custom-control custom-checkbox">&nbsp;&nbsp;
@@ -232,10 +231,10 @@ z-index: 999999">
                                             </thead>
                                             <tbody>
                                        		 	<%
-	                                       		 	feeTypeDAO dao=new feeTypeImpl();
-	                                       		 	request.setAttribute("display_fees", dao.getFeeType());
-	                                       		 	int feeCount=0; 
-                                       		 	%>
+                                       		 		FeeTypeDAO dao=new FeeTypeImpl();
+                                       		 	    request.setAttribute("display_fees", dao.getFeeType());
+                                       		 	    int feeCount=0;
+                                       		 	%> 
 													<c:forEach items="${display_fees}" var="d">
 													  <tr role="row" class="even">
 														<td><%=(++feeCount) %></td>
@@ -291,16 +290,16 @@ z-index: 999999">
                             	 <form action="/SMGMT/FeeType" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                               <div class="form-group row">
                                                 <div class="col-lg-4  text-lg-right">
-                                                    <label for="required2" class="col-form-label">Fees Type *</label>
+                                                    <label for="required2" class="col-form-label">Fees Type </label>
                                                 </div>
                                                 <div class="col-lg-4">
                                                  <input type="hidden" id="idId" name="id" class="form-control" onblur="this.value=$.trim(this.value)" >
-                                                    <input type="text" id="feeTypeId" name="feeTypeUp" class="form-control" onblur="this.value=$.trim(this.value)" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" required >
+                                                    <input type="text" id="feeTypeId" name="feeTypeUp" class="form-control" onblur="this.value=$.trim(this.value)" onkeyup="this.value = this.value.toUpperCase();" required >
                                                 </div>
                                            </div>
                                            <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
-                                                    <label for="required2" class="col-form-label">Fees *</label>
+                                                    <label for="required2" class="col-form-label">Fees </label>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <input type="text" id="feeId" name="feeUp" class="form-control" onblur="this.value=$.trim(this.value)" required>
@@ -308,7 +307,7 @@ z-index: 999999">
                                             </div>
                                              <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
-                                                    <label for="required2" class="col-form-label">Term *</label>
+                                                    <label for="required2" class="col-form-label">Term </label>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <label class="custom-control custom-checkbox">&nbsp;&nbsp;
@@ -325,7 +324,7 @@ z-index: 999999">
                                             </div>
                                               <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
-                                                    <label for="required2" class="col-form-label">Caste *</label>
+                                                    <label for="required2" class="col-form-label">Caste </label>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <label class="custom-control custom-checkbox">&nbsp;&nbsp;
