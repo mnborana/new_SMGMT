@@ -293,7 +293,7 @@ z-index: 999999">
                                 <h4 class="modal-title text-white" id="modalLabelnews"><strong>Update</strong></h4>
                             </div>
                             <div class="modal-body">
-                            	 <form action="/SMGMT/FeeType" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                            	 <form action="/SMGMT/FeeType" method="post" class="form-horizontal  login_validator" id="form_block_validator1">
                                               <div class="form-group row">
                                                 <div class="col-lg-4  text-lg-right">
                                                     <label for="required2" class="col-form-label">Fees Type </label>

@@ -91,54 +91,16 @@
 	<pageHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="181" y="7" width="100" height="30" uuid="795b77b7-cfc3-48ee-a2e8-7392749acfd4"/>
-				<text><![CDATA[Available books]]></text>
+				<reportElement x="80" y="16" width="251" height="21" uuid="87f93fa1-dd7d-4248-b769-c932e7148b61"/>
+				<text><![CDATA[Available Books]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="40" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="100" height="30" uuid="0ebe6a7e-d511-43ca-8f94-fa16c0522d4a">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2dad4fb9-1a25-46da-8a5f-20ee6b8689bd"/>
-				</reportElement>
-				<text><![CDATA[book_id]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="160" y="0" width="100" height="30" uuid="411bdd1a-c32b-4a5b-a8ac-5fe42fa861de">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dea13e27-69a5-4230-a4c4-38c4604b7e10"/>
-				</reportElement>
-				<text><![CDATA[book_no]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="322" y="0" width="100" height="30" uuid="fada8d59-5767-4e8a-b36e-f821ea7d0f44">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="632607b0-3fa5-46bc-a18c-c10181c72f3f"/>
-				</reportElement>
-				<text><![CDATA[issue_status]]></text>
-			</staticText>
-		</band>
+		<band height="40" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="241" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="100" height="30" uuid="443424a6-f6bf-48ff-979a-cb38d6365958">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2dad4fb9-1a25-46da-8a5f-20ee6b8689bd"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{book_id}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="160" y="11" width="100" height="30" uuid="09d07ed0-55ce-4b9a-96de-2b3bef57c7d3">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dea13e27-69a5-4230-a4c4-38c4604b7e10"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{book_no}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="322" y="19" width="100" height="30" uuid="e8ad72d8-160b-4802-8cab-b293cd0474ee">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="632607b0-3fa5-46bc-a18c-c10181c72f3f"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{issue_status}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="241" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>
