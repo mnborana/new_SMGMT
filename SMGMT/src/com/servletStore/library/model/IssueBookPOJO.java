@@ -2,7 +2,31 @@ package com.servletStore.library.model;
 
 public class IssueBookPOJO {
 private int bookId,studId,staffId;
-private String issueDate,dueDate,returnDate, bookName, studName, staffName,userType;
+private String issueDate,dueDate,returnDate, bookName, studName, staffName,userType,authorName,edition,std,divi;
+public String getAuthorName() {
+	return authorName;
+}
+public void setAuthorName(String authorName) {
+	this.authorName = authorName;
+}
+public String getEdition() {
+	return edition;
+}
+public void setEdition(String edition) {
+	this.edition = edition;
+}
+public String getStd() {
+	return std;
+}
+public void setStd(String std) {
+	this.std = std;
+}
+public String getDivi() {
+	return divi;
+}
+public void setDivi(String divi) {
+	this.divi = divi;
+}
 public int getBookId() {
 	return bookId;
 }

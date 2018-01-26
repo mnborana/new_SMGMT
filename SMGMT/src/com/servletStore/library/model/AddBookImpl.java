@@ -330,11 +330,12 @@ public class AddBookImpl implements AddBookDAO{
 				
 				if(String.valueOf(rs.getInt("stud_id"))!=null)
 				{
-					String query2="SELECT student_details.first_name FROM student_details WHERE student_details.id="+rs.getInt("stud_id");
+					//String query2="SELECT concat( student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) AS FullName FROM student_details WHERE student_details.id="+rs.getInt("stud_id");
+					String query2="SELECT  concat( student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) AS FullName ,std_master.name,classroom_master.division FROM student_official_details, student_details,std_master,classroom_master,fk_class_master,class_allocation ,fk_school_section_details WHERE student_details.id='"+rs.getInt("stud_id")+"' AND  std_master.id=fk_class_master.std_id AND fk_class_master.id=classroom_master.fk_class_master_id AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND  classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
 					ps2 =connection.prepareStatement(query2);
 					ResultSet rs3=ps2.executeQuery(query2);
 					while(rs3.next()){
-						pojo.setStudName(rs3.getString("first_name"));
+						pojo.setStudName(rs3.getString("FullName"));
 					}
 					
 				}else{

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="availableBooks" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="94952cfa-be92-404e-b292-f222a142f882">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SMGMT Data Source"/>
+	<parameter name="id" class="java.lang.Integer"/>
+	<parameter name="bookNo" class="java.lang.Integer"/>
+	<parameter name="bookName" class="java.lang.String"/>
+	<parameter name="authorName" class="java.lang.String"/>
+	<parameter name="edition" class="java.lang.String"/>
+	<parameter name="language" class="java.lang.String"/>
+	<parameter name="category" class="java.lang.String"/>
+	<parameter name="available" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT book_info_master.book_no,book_category.cat_type,book_info_master.book_name,book_info_master.author_name,book_info_master.edition,book_info_master.language FROM book_info_master,book_category,book_details_master WHERE book_info_master.cat_id=book_category.cat_id AND book_info_master.book_no=book_details_master.book_no AND book_details_master.book_no=$P{bookNo}]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="10" width="160" height="30" uuid="2cb79bce-00ed-426a-9860-4c25919fe61f"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Available Books]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="10" width="40" height="30" uuid="c7eb07f6-ea27-42b2-b0c5-5d9a01e8fb10"/>
+				<text><![CDATA[Sr.No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="10" width="70" height="30" uuid="9e31c396-4398-4ed3-b2fa-65fb308e5331"/>
+				<text><![CDATA[Category]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="10" width="80" height="30" uuid="885f5dd8-48da-400e-8ac5-77a0b5aaad08"/>
+				<text><![CDATA[Book Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="10" width="90" height="30" uuid="eaba7a4a-0302-41a1-a039-7beeeb81765c"/>
+				<text><![CDATA[Author Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="10" width="52" height="30" uuid="d9aebadb-f7c8-4a97-aa35-41766c43936d"/>
+				<text><![CDATA[Book No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="10" width="80" height="30" uuid="37967e5e-b048-419d-aed4-4af9f7734025"/>
+				<text><![CDATA[Edition]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="475" y="10" width="75" height="30" uuid="8bd65821-7bb9-421e-be6b-60da3e01bdab"/>
+				<text><![CDATA[Language]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="131" splitType="Stretch">
+			<textField evaluationTime="Band">
+				<reportElement x="-20" y="0" width="50" height="30" uuid="17e5e214-39bf-4957-b0bd-785c9e307c5a"/>
+				<textFieldExpression><![CDATA[$P{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="0" width="100" height="30" uuid="4b03b96a-95ea-48a6-a628-457f1687549c"/>
+				<textFieldExpression><![CDATA[$P{bookName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="0" width="100" height="30" uuid="f10f15ed-75c8-4530-a3eb-21f26ef65396"/>
+				<textFieldExpression><![CDATA[$P{authorName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="80" height="30" uuid="3ab4c0d2-cc36-4efc-bd63-07a9adab6672"/>
+				<textFieldExpression><![CDATA[$P{edition}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="0" width="80" height="30" uuid="3de908f2-3b36-4bcd-af38-6d12b9088bcd"/>
+				<textFieldExpression><![CDATA[$P{category}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="0" width="85" height="30" uuid="7f34cf21-6513-46e8-bdf3-b903b8bbaaf2"/>
+				<textFieldExpression><![CDATA[$P{language}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="30" uuid="ee57fb5e-8603-462b-bcdc-9f2cafdaf78c"/>
+				<textFieldExpression><![CDATA[$P{bookNo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
