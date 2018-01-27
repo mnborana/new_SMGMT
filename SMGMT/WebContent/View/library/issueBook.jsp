@@ -36,30 +36,30 @@
 <%
 	String schoolId = "0";
 	String academicYear = "0";
-	int roll=0;
-	
+	int roll = 0;
+
 	if (session.getAttribute("userName") == null) {
 		response.sendRedirect("/SMGMT");
 	} else {
-		roll=(Integer)session.getAttribute("rollId");
+		roll = (Integer) session.getAttribute("rollId");
 		schoolId = session.getAttribute("schoolId").toString();
 		academicYear = session.getAttribute("year").toString();
-		
+
 		//for read/write permission  Read = 1  Write = 2
 		SetupDAO dao = new SetupImpl();
-		List list=dao.getAccessControlDetails(roll);
-		Iterator<SetupPOJO> itr= list.iterator();
+		List list = dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr = list.iterator();
 		//for showing datatable according to read/write permission
-		
+
 		//choose appropriate method as per your leftNavbar form option name
 		//e.g : if you are working on Attendance option in left navbar then code will be...
-		
+
 		/* SetupPOJO grant = new SetupPOJO();
 		int access=grant.getAttendance(); */
-		
+
 		//if it returns read(1) then hide form and action column in dataTable
 		//for write(2) show your orignal full form
-				
+
 	}
 %>
 
@@ -132,166 +132,136 @@
 													Return</a></li>
 										</ul>
 										<div class="tab-content">
-											<!-- First Tab-------------- -->
+											<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ First Tab@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-------------- -->
 											<div class="tab-pane active" id="bookList">
 												<div class="row">
-													<% SysDate date=new SysDate();
-				                              %>
+													<%
+														SysDate date = new SysDate();
+													%>
 													<div class="col-12">
-														<div class="col-lg-8 m-t-20">
+														<form action="/SMGMT/Library"
+															class="form-horizontal  login_validator"
+															id="form_block_validator">
 
-															<form action="/SMGMT/Library"
-																class="form-horizontal  login_validator"
-																id="form_block_validator">
-
-																<div class="form-group row">
-
-																	<div class="col-lg-8">
-																		<label for="required2" class="col-form-label">Search
-																			Book </label><span style="color: red;">*</span>
-																		<!-- Search Book from here     ------- -->
-																		<input type="text" list="browseBook"
-																			autocomplete="off"
-																			onkeyup="getbookdetails(this.value)"
-																			class="form-control" id="searchtext"
-																			name="searchBook"
-																			placeholder="Search Books by BookId/BookName/AuthorName"
-																			required>
-																		<datalist id="browseBook"> </datalist>
-																	</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label for="required2" class="col-form-label">Search
+																		Book </label><span style="color: red;">*</span>
+																	<!-- Search Book from here     ------- -->
+																	<input type="text" list="browseBook" autocomplete="off"
+																		onkeyup="getbookdetails(this.value)"
+																		class="form-control" id="searchtext" name="searchBook"
+																		placeholder="Search Books by BookId/BookName/AuthorName"
+																		required>
+																	<datalist id="browseBook"> </datalist>
 																</div>
-
-																<div class="form-group row">
-																	<div class="col-lg-8 ">
-																		<label for="required2" class="col-form-label">User
-																			Type </label><span style="color: red;">*</span>
-																		<div class="controls">
-																			<input type="radio" value="Student"
-																				style="margin-left: 1%;" name="userType"
-																				id="userType" onclick="searchDetails(this.value)"
-																				checked="checked"> Student <input
-																				type="radio" value="Teacher"
-																				style="margin-left: 1%;" name="userType"
-																				id="userType" onclick="searchDetails(this.value)">
-																			Teacher
-																		</div>
-																	</div>
-																</div>
-																<!-- Search stud from here     ----- -->
-																<div class="form-group row" id="stud"
-																	style="display: block">
-																	<div class="col-lg-8">
-																		<input type="hidden" name="studId" id="stud_Id">
-																		<input type="text" list="browseStud"
-																			autocomplete="off"
-																			onkeyup="getstuddetails(this.value)"
-																			oninput="getStudId(this.value)" class="form-control"
-																			id="searchStud" name="searchStud"
-																			placeholder="Search Student by Id/Name" required>
-																		<datalist id="browseStud"> </datalist>
-																	</div>
-																</div>
-
-
-																<div class="form-group row" id="teacher"
-																	style="display: none;">
-																	<div class="col-lg-8">
-																		<input type="text" list="browseStud"
-																			autocomplete="off"
-																			onkeyup="getstuddetails(this.value)"
-																			class="form-control" id="searchTeacher"
-																			name="searchTeacher"
-																			placeholder="Search Teacher by Id/Name" required>
-																		<datalist id="browseStud"> </datalist>
-																	</div>
-																</div>
-																<div class="form-group row">
-																	<div class="col-lg-8">
-																		<label class="col-form-label">Book Issue Date
-																		</label><span style="color: red;">*</span> <input type="text"
-																			id="issueDate_id" class="form-control"
-																			name="issueDate" value="<%=date.todayDate() %>"
-																			readonly="readonly" placeholder="YYYY-MM-DD" required />
-																	</div>
-																</div>
-																 <div class="form-group row">
-																<!--	<div class="col-lg-8">
-																		<label class="col-form-label">Book Due Date </label><span
-																			style="color: red;">*</span> <input type="text"
-																			id="dueDate_id"
-																			class="form-control form_val_popup_dp3"
-																			name="dueDate" autocomplete="off"
-																			placeholder="YYYY-MM-DD" required />
-																	</div>-->
-																	 <div class="form-group col-lg-8 ">
-													       <label class="col-form-label">Book Due Date </label><span style="color: red;">*</span>
-															<div class="input-group input-append date" id="dp1"
-																data-date-format="dd-mm-yyyy">
-																<input type="text" class="form-control form_val_popup"
-																	name="dueDate" id="dueDate_id" 
-																	placeholder="dd-mm-yyyy" style="margin-left: -4%;" required><span
-																	class="input-group-addon add-on"> <i
-																	class="fa fa-calendar"></i>
-																</span>
 															</div>
-													  </div>
-																</div> 
-																
-																<div class="form-actions form-group row">
+															<div class="form-group row">
+																<div class="col-lg-5 ">
+																	<label for="required2" class="col-form-label">User
+																		Type </label><span style="color: red;">*</span>
+																	<div class="controls">
+																		<input type="radio" value="Student"
+																			style="margin-left: 1%;" name="userType"
+																			id="userType" onclick="searchDetails(this.value)"
+																			checked="checked"> Student <input
+																			type="radio" value="Teacher" style="margin-left: 1%;"
+																			name="userType" id="userType"
+																			onclick="searchDetails(this.value)"> Teacher
+																	</div>
+																</div>
+															</div>
+															<!-- Search stud from here     ----- -->
+															<div class="form-group row" id="stud"
+																style="display: block">
+																<div class="col-lg-5">
+																	<input type="hidden" name="studId" id="stud_Id">
+																	<input type="text" list="browseStud" autocomplete="off"
+																		onkeyup="getstuddetails(this.value)"
+																		oninput="getStudId(this.value)" class="form-control"
+																		id="searchStud" name="searchStud"
+																		placeholder="Search Student by Id/Name" required>
+																	<datalist id="browseStud"> </datalist>
+																</div>
+															</div>
+															<div class="form-group row" id="teacher"
+																style="display: none;">
+																<div class="col-lg-5">
+																	<input type="text" list="browseStud" autocomplete="off"
+																		onkeyup="getstuddetails(this.value)"
+																		class="form-control" id="searchTeacher"
+																		name="searchTeacher"
+																		placeholder="Search Teacher by Id/Name" required>
+																	<datalist id="browseStud"> </datalist>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label class="col-form-label">Book Issue Date </label><span
+																		style="color: red;">*</span> <input type="text"
+																		id="issueDate_id" class="form-control"
+																		name="issueDate" value="<%=date.todayDate()%>"
+																		readonly="readonly" placeholder="YYYY-MM-DD" required />
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5 ">
+																	<label class="col-form-label">Book Due Date </label> <span
+																		style="color: red;">*</span>
+																	<div class="input-group input-append date" id="dp1"
+																		data-date-format="dd-mm-yyyy">
+																		<input type="text" class="form-control form_val_popup"
+																			name="dueDate" id="dueDate_id"
+																			placeholder="dd-mm-yyyy" style="" required><span
+																			class="input-group-addon add-on"> <i
+																			class="fa fa-calendar"></i>
+																		</span>
+																	</div>
+																</div>
+															</div>
+
+															<div class="form-group row form-actions ">
+																<div class="col-lg-5 ">
 																	<input type="submit" id="btnSubmit" value="Save Book"
 																		name="issuebook" class="btn btn-primary">
 																</div>
-															</form>
-														</div>
+															</div>
+														</form>
 													</div>
 												</div>
-												<!-- Book Table -->
+												<!-- ==================================================Book Table=========================================================================== -->
 												<div class="outer">
-													<div class="inner bg-container">
-														<div class="card">
-															<div class="card-header bg-white">Issued Books List
-															</div>
-
-															<div class="card-block m-t-35" id="user_body">
-																<div class="table-toolbar">
-
-																	<div class="btn-group float-right users_grid_tools">
-																		<div class="tools"></div>
+													<div class="inner bg-light lter bg-container">
+														<div class="row">
+															<div class="col-12 data_tables">
+																<div class="card m-t-35">
+																	<div class="card-header bg-white">
+																		<i class="fa fa-table"></i>Today Issued Books List
 																	</div>
-																</div>
-																<div>
-																	<div>
-																		<table
-																			class="table  table-striped table-bordered table-hover dataTable no-footer"
-																			id="editable_table" role="grid">
+																	<div class="card-block m-t-35">
+																		<table id="example2"
+																			class="table table-striped table-bordered table-hover">
 																			<thead>
-																				<tr role="row">
-																					<th class="sorting_asc wid-10" tabindex="0"
-																						rowspan="1" colspan="1">Sr.No</th>
-																					<th class="sorting wid-10" tabindex="0" rowspan="1"
-																						colspan="1">User Type</th>
-																					<th class="sorting wid-10" tabindex="0" rowspan="1"
-																						colspan="1">User Name</th>
-																					<!-- <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Book NO</th> -->
-																					<th class="sorting wid-25" tabindex="0" rowspan="1"
-																						colspan="1">Book Name</th>
-																					<th class="sorting wid-10" tabindex="0" rowspan="1"
-																						colspan="1">Issue Date</th>
-																					<th class="sorting wid-20" tabindex="0" rowspan="1"
-																						colspan="1">Due Date</th>
+																				<tr>
+																					<th class="sorting_asc wid-10">Sr.No</th>
+																					<th class="sorting wid-10">User Type</th>
+																					<th class="sorting wid-10">User Name</th>
+																					<th class="sorting wid-25">Book Name</th>
+																					<th class="sorting wid-10">Issue Date</th>
+																					<th class="sorting wid-20">Due Date</th>
 																				</tr>
 																			</thead>
 																			<tbody>
 																				<%
-                                       		 		AddBookDAO dao=new AddBookImpl();
-                                       		 	//	System.out.print("***"+dao.getIssueBookDetails());
-                                       		 		request.setAttribute("display_book", dao.getIssueBookDetails());
-                                       		 		int bookCount=0;
-                                       		 	%>
+																					AddBookDAO dao = new AddBookImpl();
+																					System.out.print("***" + dao.getIssueBookDetails());
+																					request.setAttribute("display_book", dao.getIssueBookDetails());
+																					int bookCount = 0;
+																				%>
 																				<c:forEach items="${display_book}" var="d">
 																					<tr role="row" class="even">
 
-																						<td><%=(++bookCount) %></td>
+																						<td><%=(++bookCount)%></td>
 																						<c:if test="${d.studName!=null }">
 																							<td><c:out value="Student"></c:out></td>
 																							<td><c:out value="${d.studName}"></c:out></td>
@@ -303,256 +273,186 @@
 																						<td><c:out value="${d.bookName}"></c:out></td>
 																						<td><c:out value="${d.issueDate}"></c:out></td>
 																						<td><c:out value="${d.dueDate}"></c:out></td>
-
-																						<%-- 	 <td>
-                                            			<a class="edit" data-placement="top" title="Edit" href="#update" data-toggle="modal" onclick="loadDoc(${d.getBookNo()})"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-                                            			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/Library?bookNo=${d.getBookNo()}"><i class="fa fa-trash text-danger"></i></a>
-                                            			</td>  --%>
 																					</tr>
 																				</c:forEach>
+
 																			</tbody>
 																		</table>
+
 																	</div>
 																</div>
-																<!-- END EXAMPLE TABLE PORTLET-->
+
+
 															</div>
 														</div>
 													</div>
-													<!-- /.inner -->
 												</div>
-												<!-- /outer -->
+
+												<!-- ================================================== End Book Table=========================================================================== -->
 											</div>
 
-											<!-- Second Tab -->
+											<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Second Tab @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 											<div class="tab-pane" id="issuedList">
 												<div class="row">
-													<div class="col-12">
-														<div class="col-lg-8 m-t-20">
 
-															<!-- Book Table -->
-															<div class="outer">
-																<div class="inner bg-container">
-																	<div class="card">
-																		<div class="card-header bg-white">
-																			<i class="fa fa-file-text-o"></i> Issue Book List
+
+													<!-- 			==========================================================================================	 -->
+													<div class="outer col-12">
+														<div class="inner bg-container">
+															<div class="card">
+																<div class="card-header bg-white">Issue Book List</div>
+																<div class="card-block m-t-35" id="user_body">
+																	<div class="table-toolbar">
+																		<form>
+																			<div class="input-group col-4"
+																				style="float: left; margin-top: -2%;">
+																				<span class="input-group-addon"> <i
+																					class="fa fa-calendar"></i>
+																				</span> 
+																				<input type="text" class="form-control" onchange="getExpData(this.value)" id="reportrange" placeholder="dd/mm/yyyy-dd/mm/yyyy">
+																			</div>
+																		</form>
+																		<div class="btn-group"></div>
+																		<div class="btn-group float-right users_grid_tools">
+																			<div class="tools"></div>
 																		</div>
-																		<div class="card-block m-t-35" id="user_body">
-																			<div class="table-toolbar">
-
-																				<div class="btn-group float-right users_grid_tools">
-																					<div class="tools"></div>
-																				</div>
-																			</div>
-
-
-																			<div class="row">
-																				<!-- .col-lg-12 -->
-																				<div class="col-xl-12">
-																					<div class="card m-t-35">
-																						<div class="card-header bg-white"></div>
-																						<div class="card-block" id="dateRangePickerBlock">
-																							<div class="row">
-
-																								<div class="col-lg-6 input_field_sections">
-
-																									<form>
-																										<div class="input-group">
-																											<span class="input-group-addon"> <i
-																												class="fa fa-calendar"></i>
-																											</span> <input type="text" class="form-control"
-																												id="reportrange"
-																												onchange="getExpData(this.value)"
-																												placeholder="dd/mm/yyyy-dd/mm/yyyy">
-																										</div>
-																									</form>
-																								</div>
-																							</div>
-
-																						</div>
-																						<!-- /.block -->
-																					</div>
-																					<!-- /.box -->
-																				</div>
-																				<!-- /.col-lg-12 -->
-																			</div>
-																			<!-- /.row -->
-
-
+																	</div>
+																	<div>
+																		<div>
 																			<table
 																				class="table  table-striped table-bordered table-hover dataTable no-footer"
 																				id="editable_table" role="grid">
 																				<thead>
 																					<tr role="row">
-																						<th class="sorting_asc wid-10" tabindex="0"
-																							rowspan="1" colspan="1">Sr.No</th>
-																						<th class="sorting wid-10" tabindex="0"
-																							rowspan="1" colspan="1">Book Name</th>
-																						<th class="sorting wid-10" tabindex="0"
-																							rowspan="1" colspan="1">Author Name</th>
-																						<th class="sorting wid-25" tabindex="0"
-																							rowspan="1" colspan="1">Edition</th>
-																						<th class="sorting wid-10" tabindex="0"
-																							rowspan="1" colspan="1">User Type</th>
-																						<th class="sorting wid-20" tabindex="0"
-																							rowspan="1" colspan="1">User Name</th>
-																						<th class="sorting wid-20" tabindex="0"
-																							rowspan="1" colspan="1">Standard</th>
-																						<th class="sorting wid-20" tabindex="0"
-																							rowspan="1" colspan="1">Division</th>
-																						<th class="sorting wid-20" tabindex="0"
-																							rowspan="1" colspan="1">Issue Date</th>
+																						<th class="sorting_asc wid-10">Sr.No</th>
+																						<th class="sorting wid-10">Book Name</th>
+																						<th class="sorting wid-10">Author Name</th>
+																						<th class="sorting wid-25">Edition</th>
+																						<th class="sorting wid-10">User Type</th>
+																						<th class="sorting wid-20">User Name</th>
+																						<th class="sorting wid-20">Standard</th>
+																						<th class="sorting wid-20">Division</th>
+																						<th class="sorting wid-20">Issue Date</th>
+																						<th class="sorting wid-20">Due Date</th>
 																					</tr>
 																				</thead>
 																				<tbody id="displayDate">
-																					<%
-                                       		 		AddBookDAO dao1=new AddBookImpl();
-                                       		 	//	System.out.print("***"+dao.getIssueBookDetails());
-                                       		 		request.setAttribute("display_book", dao1.getIssueBookDetails());
-                                       		 		int bookCount1=0;
-                                       		 	%>
-																					<c:forEach items="${display_book}" var="d">
-																						<tr role="row" class="even">
-
-																							<td><%=(++bookCount1) %></td>
-																							<td><c:out value="${d.bookName}"></c:out></td>
-																							<td><c:out value="${d.authorName}"></c:out></td>
-																							<td><c:out value="${d.edition}"></c:out></td>
-																							<c:if test="${d.studName!=null }">
-																								<td><c:out value="Student"></c:out></td>
-																								<td><c:out value="${d.studName}"></c:out></td>
-																							</c:if>
-																							<c:if test="${d.staffName!=null }">
-																								<td><c:out value="Teacher"></c:out></td>
-																								<td><c:out value="${d.staffName}"></c:out></td>
-																							</c:if>
-																							<td><c:out value="${d.std}"></c:out></td>
-																							<td><c:out value="${d.divi}"></c:out></td>
-																							<td><c:out value="${d.issueDate}"></c:out></td>
-
-																							<%-- 	 <td>
-                                            			<a class="edit" data-placement="top" title="Edit" href="#update" data-toggle="modal" onclick="loadDoc(${d.getBookNo()})"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-                                            			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/Library?bookNo=${d.getBookNo()}"><i class="fa fa-trash text-danger"></i></a>
-                                            			</td>  --%>
-																						</tr>
-																					</c:forEach>
+																					
 																				</tbody>
 																			</table>
-
-																			<!-- END EXAMPLE TABLE PORTLET-->
 																		</div>
 																	</div>
 																</div>
-																<!-- /.inner -->
 															</div>
-															<!-- /outer -->
 														</div>
 													</div>
+													<!-- ====================================================================================== -->
 												</div>
 											</div>
-											<!-- Third Tab -->
-											<div class="tab-pane" id="bookReturn">
-												<div class="row">
-													<%
-														//SysDate date1=new SysDate();
-													%>
-													<div class="col-12">
-														<div class="col-lg-12 m-t-20">
-															<form action="/SMGMT/Library"
-																class="form-horizontal  login_validator"
-																id="form_block_validator">
-																<div class="form-group row">
-																	<div class="col-lg-8">
-																		<label for="required2" class="col-form-label">Search
-																			Book </label><span style="color: red;">*</span>
-																		<!-- Search Book from here     ------- -->
-																		<input type="text" list="returnBook"
-																			autocomplete="off"
-																			onkeyup="getReturnBooks(this.value)"
-																			onblur="getBookInfo('bookInfo',event)"
-																			oninput="getStudentId(this.value)"
-																			class="form-control" id="searchId"
-																			name="searchBookDetails"
-																			placeholder="Search Books by BookNo/BookName/AuthorName"
-																			required>
-																		<datalist id="returnBook"> </datalist>
-																		<!-- getBookInfo('bookInfo',event) -->
-																	</div>
-																	<!-- <a href="#" onclick="getBookInfo('bookInfo')"
+										
+										<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Third Tab @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+										<div class="tab-pane" id="bookReturn">
+											<div class="row">
+												<%
+													//SysDate date1=new SysDate();
+												%>
+												<div class="col-12">
+													<div class="col-lg-12 m-t-20">
+														<form action="/SMGMT/Library"
+															class="form-horizontal  login_validator"
+															id="form_block_validator">
+															<div class="form-group row">
+																<div class="col-lg-8">
+																	<label for="required2" class="col-form-label">Search
+																		Book </label><span style="color: red;">*</span>
+																	<!-- Search Book from here     ------- -->
+																	<input type="text" list="returnBook" autocomplete="off"
+																		onkeyup="getReturnBooks(this.value)"
+																		onblur="getBookInfo('bookInfo',event)"
+																		oninput="getStudentId(this.value)"
+																		class="form-control" id="searchId"
+																		name="searchBookDetails"
+																		placeholder="Search Books by BookNo/BookName/AuthorName"
+																		required>
+																	<datalist id="returnBook"> </datalist>
+																	<!-- getBookInfo('bookInfo',event) -->
+																</div>
+																<!-- <a href="#" onclick="getBookInfo('bookInfo')"
 																		class="btn btn-primary" value="Search" id="btn">Search</a> -->
-																</div>
-																<div id="bookInfo">
-																	<div class="form-group row">
+															</div>
+															<div id="bookInfo">
+																<div class="form-group row">
 
-																		<div class="col-lg-4 ">
-																			<input type="hidden" name="studentId" id="student_Id">
+																	<div class="col-lg-4 ">
+																		<input type="hidden" name="studentId" id="student_Id">
 
-																			<input type="hidden" id="oldRemainFine"> <label
-																				for="required2" class="col-form-label">Book
-																				No</label> <input type="text" id="bNo" name="bookNum"
-																				class="form-control" readonly="readonly">
-																		</div>
-
-																		<div class="col-lg-4 ">
-																			<label for="required2" class="col-form-label">Book
-																				Name</label> <input type="text" id="bName" name="bookName"
-																				class="form-control" readonly="readonly">
-																		</div>
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Author
-																				Name</label> <input type="text" id="authrName"
-																				name="authorName" class="form-control"
-																				readonly="readonly">
-																		</div>
+																		<input type="hidden" id="oldRemainFine"> <label
+																			for="required2" class="col-form-label">Book
+																			No</label> <input type="text" id="bNo" name="bookNum"
+																			class="form-control" readonly="readonly">
 																	</div>
 
-																	<div class="form-group row">
-																		<div class="col-lg-4 ">
-																			<label for="required2" class="col-form-label">Issue
-																				Date</label> <input type="text" id="issueDate1"
-																				name="issueDate" class="form-control"
-																				readonly="readonly">
-																		</div>
-
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label"
-																				id="oldDueDate">Due Date </label><span
-																				style="color: red;">*</span> <input type="text"
-																				id="dueDate1" name="dueDate" class="form-control"
-																				readonly="readonly">
-																		</div>
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label"
-																				id="oldDueDate">Student Details</label><span
-																				style="color: red;">*</span> <input type="text"
-																				id="studdId" name="dueDate" class="form-control"
-																				readonly="readonly">
-																		</div>
-
+																	<div class="col-lg-4 ">
+																		<label for="required2" class="col-form-label">Book
+																			Name</label> <input type="text" id="bName" name="bookName"
+																			class="form-control" readonly="readonly">
+																	</div>
+																	<div class="col-lg-4">
+																		<label for="required2" class="col-form-label">Author
+																			Name</label> <input type="text" id="authrName"
+																			name="authorName" class="form-control"
+																			readonly="readonly">
 																	</div>
 																</div>
-
-
 
 																<div class="form-group row">
 																	<div class="col-lg-4 ">
-																		<label for="required2" class="col-form-label">Renew/Return
-																		</label><span style="color: red;">*</span>
-																		<div class="controls">
-																			<input type="radio" value="RETURN"
-																				style="margin-left: 1%;" name="returnRadio"
-																				id="selectRt" onclick="onBook(this.value)">
-																			Return <input type="radio" value="RENEW"
-																				style="margin-left: 1%;" name="returnRadio"
-																				id="selectRn" onclick="onBook(this.value)">
-																			Renewal
-																		</div>
+																		<label for="required2" class="col-form-label">Issue
+																			Date</label> <input type="text" id="issueDate1"
+																			name="issueDate" class="form-control"
+																			readonly="readonly">
+																	</div>
+
+																	<div class="col-lg-4">
+																		<label for="required2" class="col-form-label"
+																			id="oldDueDate">Due Date </label><span
+																			style="color: red;">*</span> <input type="text"
+																			id="dueDate1" name="dueDate" class="form-control"
+																			readonly="readonly">
+																	</div>
+																	<div class="col-lg-4">
+																		<label for="required2" class="col-form-label"
+																			id="oldDueDate">Student Details</label><span
+																			style="color: red;">*</span> <input type="text"
+																			id="studdId" name="dueDate" class="form-control"
+																			readonly="readonly">
+																	</div>
+
+																</div>
+															</div>
+
+
+
+															<div class="form-group row">
+																<div class="col-lg-4 ">
+																	<label for="required2" class="col-form-label">Renew/Return
+																	</label><span style="color: red;">*</span>
+																	<div class="controls">
+																		<input type="radio" value="RETURN"
+																			style="margin-left: 1%;" name="returnRadio"
+																			id="selectRt" onclick="onBook(this.value)">
+																		Return <input type="radio" value="RENEW"
+																			style="margin-left: 1%;" name="returnRadio"
+																			id="selectRn" onclick="onBook(this.value)">
+																		Renewal
 																	</div>
 																</div>
+															</div>
 
-																<!-- Search stud from here     ----- -->
-																<div id="returnBk">
-																	<div class="form-group row">
-																		<%
+															<!-- Search stud from here     ----- -->
+															<div id="returnBk">
+																<div class="form-group row">
+																	<%
 																		SysDate d = new SysDate();
 																	%>
 
@@ -560,163 +460,163 @@
 
 
 
-																		<div class="col-lg-4">
-																			<label class="col-form-label">Return Date </label><span
-																				style="color: red;">*</span> <input type="text"
-																				class="form-control" value="<%=date.todayDate()%>"
-																				id="currentDate" name="currentDate"
-																				placeholder="YYYY-MM-DD" readonly="readonly" />
-																		</div>
-																		<!-- <div class="col-lg-4">
+																	<div class="col-lg-4">
+																		<label class="col-form-label">Return Date </label><span
+																			style="color: red;">*</span> <input type="text"
+																			class="form-control" value="<%=date.todayDate()%>"
+																			id="currentDate" name="currentDate"
+																			placeholder="YYYY-MM-DD" readonly="readonly" />
+																	</div>
+																	<!-- <div class="col-lg-4">
 																				<a href="#" onclick="getFineCount('countInfo')"
 																				class="btn btn-primary" value="Search" id="btn" style="margin-top: 34px">Count Fine</a>
 																			</div> -->
 
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Previous
-																				Fine </label> <input type="text" id="previousFine"
-																				name="previousFine" class="form-control"
-																				readonly="readonly">
-																		</div>
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Fine
-																				Days </label> <input type="text" id="days" name="dueDays"
-																				class="form-control" readonly="readonly">
-																		</div>
-
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Total
-																				Fine </label> <input type="text" id="fineAmount"
-																				name="fineAmount" class="form-control"
-																				readonly="readonly">
-																		</div>
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Discount
-																			</label> <input type="text" id="discount" name="discount"
-																				readonly="readonly" value="0" class="form-control"
-																				onchange="countPay()"> <small
-																				class="help-block" data-bv-validator="notEmpty"
-																				id="discountError" style=""></small>
-																		</div>
-
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Total
-																				Amount </label> <input type="text" id="totalAmount"
-																				name="totalAmount" value="0" class="form-control"
-																				readonly="readonly">
-																		</div>
-
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Paid
-																				Amount </label> <input type="text" id="paidAmountId"
-																				name="finePaid" value="0"
-																				onblur="calculatePaidAmt(this.value)"
-																				pattern="[0-9]" class="form-control"> <small
-																				class="help-block" data-bv-validator="notEmpty"
-																				id="error" style=""></small>
-																		</div>
-																		<div class="col-lg-4">
-																			<label for="required2" class="col-form-label">Remaining
-																				Fine </label> <input type="text" id="remainAmount"
-																				name="remainAmt" class="form-control"
-																				readonly="readonly">
-																		</div>
-
-																		<div class="col-lg-12">
-																			<label for="" id="information" class="col-form-label"></label>
-																		</div>
-
-
-
-
-
-																		<div class="col-lg-12">
-																			<label class="custom-control custom-checkbox">
-																				<input type="checkbox" class="custom-control-input"
-																				onclick="checkedPay(this)"> <span
-																				class="custom-control-indicator"></span> <span
-																				class="custom-control-description">Checked(Return
-																					book with fine pending)</span>
-																			</label>
-																		</div>
-																	</div>
-																</div>
-																<div class="form-group row" id="renew"
-																	style="display: none">
 																	<div class="col-lg-4">
-																		<label class="col-form-label">New Due Date </label><span
-																			style="color: red;">*</span> <input type="text"
-																			class="form-control form_val_popup_dp3"
-																			id="dueDateRn" name="newdueDate"
-																			placeholder="YYYY-MM-DD" required />
+																		<label for="required2" class="col-form-label">Previous
+																			Fine </label> <input type="text" id="previousFine"
+																			name="previousFine" class="form-control"
+																			readonly="readonly">
+																	</div>
+																	<div class="col-lg-4">
+																		<label for="required2" class="col-form-label">Fine
+																			Days </label> <input type="text" id="days" name="dueDays"
+																			class="form-control" readonly="readonly">
+																	</div>
+
+																	<div class="col-lg-4">
+																		<label for="required2" class="col-form-label">Total
+																			Fine </label> <input type="text" id="fineAmount"
+																			name="fineAmount" class="form-control"
+																			readonly="readonly">
+																	</div>
+																	<div class="col-lg-4">
+																		<label for="required2" class="col-form-label">Discount
+																		</label> <input type="text" id="discount" name="discount"
+																			readonly="readonly" value="0" class="form-control"
+																			onchange="countPay()"> <small
+																			class="help-block" data-bv-validator="notEmpty"
+																			id="discountError" style=""></small>
+																	</div>
+
+																	<div class="col-lg-4">
+																		<label for="required2" class="col-form-label">Total
+																			Amount </label> <input type="text" id="totalAmount"
+																			name="totalAmount" value="0" class="form-control"
+																			readonly="readonly">
+																	</div>
+
+																	<div class="col-lg-4">
+																		<label for="required2" class="col-form-label">Paid
+																			Amount </label> <input type="text" id="paidAmountId"
+																			name="finePaid" value="0"
+																			onblur="calculatePaidAmt(this.value)" pattern="[0-9]"
+																			class="form-control"> <small
+																			class="help-block" data-bv-validator="notEmpty"
+																			id="error" style=""></small>
+																	</div>
+																	<div class="col-lg-4">
+																		<label for="required2" class="col-form-label">Remaining
+																			Fine </label> <input type="text" id="remainAmount"
+																			name="remainAmt" class="form-control"
+																			readonly="readonly">
+																	</div>
+
+																	<div class="col-lg-12">
+																		<label for="" id="information" class="col-form-label"></label>
+																	</div>
+
+
+
+
+
+																	<div class="col-lg-12">
+																		<label class="custom-control custom-checkbox">
+																			<input type="checkbox" class="custom-control-input"
+																			onclick="checkedPay(this)"> <span
+																			class="custom-control-indicator"></span> <span
+																			class="custom-control-description">Checked(Return
+																				book with fine pending)</span>
+																		</label>
 																	</div>
 																</div>
-
-																<div class="form-actions">
-																	<input type="submit" id="returnSubmit" value="Submit"
-																		name="submitBook" class="btn btn-success"
-																		disabled="disabled"> &nbsp;<input
-																		type="submit" id="" value="Reset Form" name=""
-																		class="btn btn-warning" onclick="resetForm()">
-																	&nbsp;<input type="button" id="cal"
-																		value="Reset Calculation" name=""
-																		class="btn btn-primary" onclick="resetCal()"
-																		disabled="disabled">
+															</div>
+															<div class="form-group row" id="renew"
+																style="display: none">
+																<div class="col-lg-4">
+																	<label class="col-form-label">New Due Date </label><span
+																		style="color: red;">*</span> <input type="text"
+																		class="form-control form_val_popup_dp3" id="dueDateRn"
+																		name="newdueDate" placeholder="YYYY-MM-DD" required />
 																</div>
-															</form>
-														</div>
+															</div>
+
+															<div class="form-actions">
+																<input type="submit" id="returnSubmit" value="Submit"
+																	name="submitBook" class="btn btn-success"
+																	disabled="disabled"> &nbsp;<input type="submit"
+																	id="" value="Reset Form" name=""
+																	class="btn btn-warning" onclick="resetForm()">
+																&nbsp;<input type="button" id="cal"
+																	value="Reset Calculation" name=""
+																	class="btn btn-primary" onclick="resetCal()"
+																	disabled="disabled">
+															</div>
+														</form>
 													</div>
 												</div>
-
 											</div>
+
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- /.col-lg-12 -->
-					</div>
-					<!-- /.row -->
-				</div>
-				<!-- /.inner -->
-			</div>
-			<!-- /.outer -->
-
-
-			<!-- Modal -->
-			<div class="modal fade show" id="giveDiscount" role="dialog"
-				aria-labelledby="modalLabelnews">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header bg-primary">
-							<h4 class="modal-title text-white" id="modalLabelnews">
-								<strong>Do you want to give discount?</strong>
-							</h4>
-						</div>
-						<div class="modal-body">
-
-							<ul>
-								<li id="tFine"><strong>Total Fine =</strong></li>
-								<li id="pFine"><strong>Paid Amount =</strong></li>
-								<li id="rBal"><strong>Remaining Balance =</strong></li>
-							</ul>
-
-
-						</div>
-
-						<div class="modal-footer">
-							<button class="btn btn-success" data-dismiss="modal"
-								onclick="giveDiscount()">Yes</button>
-							<button class="btn btn-warning" data-dismiss="modal">No</button>
-						</div>
-
 					</div>
 				</div>
+				<!-- /.col-lg-12 -->
 			</div>
-			<!-- /Modal  -->
-
+			<!-- /.row -->
 		</div>
-		<!-- /#content -->
+		<!-- /.inner -->
+	</div>
+	<!-- /.outer -->
+
+
+	<!-- Modal -->
+	<div class="modal fade show" id="giveDiscount" role="dialog"
+		aria-labelledby="modalLabelnews">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h4 class="modal-title text-white" id="modalLabelnews">
+						<strong>Do you want to give discount?</strong>
+					</h4>
+				</div>
+				<div class="modal-body">
+
+					<ul>
+						<li id="tFine"><strong>Total Fine =</strong></li>
+						<li id="pFine"><strong>Paid Amount =</strong></li>
+						<li id="rBal"><strong>Remaining Balance =</strong></li>
+					</ul>
+
+
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-success" data-dismiss="modal"
+						onclick="giveDiscount()">Yes</button>
+					<button class="btn btn-warning" data-dismiss="modal">No</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- /Modal  -->
+
+	</div>
+	<!-- /#content -->
 	</div>
 
 	<!--wrapper-->
@@ -728,27 +628,27 @@
 	<!-- end plugin scripts -->
 	<!--Page level scripts-->
 
-	<script>eval(mod_pagespeed_g_o5ieHdNa);</script>
-	<script>eval(mod_pagespeed_UzcyJ5ysoL);</script>
-	<script>eval(mod_pagespeed_sB4kJD0xfI);</script>
-	<script>eval(mod_pagespeed_aYQJk4iDci);</script>
-	<script>eval(mod_pagespeed_wVkzf2s7YZ);</script>
-	<script>eval(mod_pagespeed_Ij0pRaH8BP);</script>
-	<script>eval(mod_pagespeed_wfmKXYO4Nj);</script>
-	<script>eval(mod_pagespeed_EYzby3B1$L);</script>
+	<!-- 	<script>eval(mod_pagespeed_g_o5ieHdNa);</script> -->
+	<!-- 	<script>eval(mod_pagespeed_UzcyJ5ysoL);</script> -->
+	<!-- 	<script>eval(mod_pagespeed_sB4kJD0xfI);</script> -->
+	<!-- 	<script>eval(mod_pagespeed_aYQJk4iDci);</script> -->
+	<!-- 	<script>eval(mod_pagespeed_wVkzf2s7YZ);</script> -->
+	<!-- 	<script>eval(mod_pagespeed_Ij0pRaH8BP);</script> -->
+	<!-- 	<script>eval(mod_pagespeed_wfmKXYO4Nj);</script> -->
+	<!-- 	<script>eval(mod_pagespeed_EYzby3B1$L);</script> -->
 
-	<script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
+	<!-- 	<script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script> -->
 
 </body>
 <script type="text/javascript">
 
 //$( "#dueDate_id" ).datepicker({ minDate: 0});
 
-$(document).ready(function () {
-        $("#dueDate_id").datepicker({
-            minDate: 0
-        });
-    });
+// $(document).ready(function () {
+//         $("#dueDate_id").datepicker({
+//             minDate: 0
+//         });
+//     });
 
 function giveDiscount()
 {
@@ -1176,34 +1076,53 @@ function getteacherDetails(id){
 /*<<<<<<<<<<<<<<< Ajax for Serach books as datewise from table >>>>>>>>>>>>>>>>>> */
 function getExpData(val)
 {
-	//alert(val); 
-	
 	var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
 	    	var demoStr = this.responseText.split(",");
 	    	
 	    	if(demoStr==""){
-				document.getElementById("displayDate").innerHTML="<tr><td colspan=''>No Records Found!</td></tr>"}
-			else
+				document.getElementById("displayDate").innerHTML="<tr><td colspan='10'>No Records Found!</td></tr>"
+			}else
 				{
+				var now = new Date();
+				var today= now.getDate();
+				var todayMonth=(now.getMonth());
+			    var todayYear=(now.getFullYear());
+			    
+			    var x=todayYear+"-"+(todayMonth+1)+"-"+today; //DATE
 				var count=1;
 				var wholeData="";
-					for(var i=0;i<demoStr.length-2;i=i+4){
-						wholeData+="<tr>"+
-						"<td style='text-align: center'>"+count+"</td>"+
-						"<td style='text-align: center'>Student</td>"+
+				var i=0;
+					for(;demoStr[i]; ){
+						if (demoStr[i+9]>x) {
+							alert('sdf');
+							wholeData+="<tr style='background:red;'";
+ 						}else {
+							wholeData+="<tr>";
+						}
+						
+						wholeData+="<td style='text-align: center'>"+count+"</td>"+
 						"<td style='text-align: center'>"+demoStr[i]+"</td>"+
 						"<td style='text-align: center'>"+demoStr[i+1]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+2]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+3]+"</td>"+
-						/* "<td style='text-align: center'>"+demoStr[i+4]+"</td>"+ */
-						/* "<td style='text-align: center'>"+demoStr[i+5]+"</td>"+ */
-						"<tr>"
+						"<td style='text-align: center'>"+demoStr[i+2]+"</td>";
+						if (demoStr[i+3] !='null') {
+							wholeData+="<td style='text-align: center'>Student</td>";
+						}
+						if (demoStr[i+4]!='null') {
+							wholeData+="<td style='text-align: center'>"+demoStr[i+4]+"</td>";
+						}
+						wholeData+="<td style='text-align: center'>"+demoStr[i+5]+"</td>"+ 
+						"<td style='text-align: center'>"+demoStr[i+6]+"</td>"+
+						"<td style='text-align: center'>"+demoStr[i+7]+"</td>"+
+						"<td style='text-align: center'>"+demoStr[i+8]+"</td>"+
+						"<td style='text-align: center'>"+demoStr[i+9]+"</td>"+
+						"<tr>";
 						
 						count++;
+						i=i+10;
 					}
-					//alert(wholeData);
+// 					//alert(wholeData);
 					document.getElementById("displayDate").innerHTML=wholeData;
 				}
 	    }
