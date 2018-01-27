@@ -299,46 +299,35 @@ public class Library extends HttpServlet {
 				//Add Issue Books//////
 		else if(request.getParameter("issuebook")!=null)
 				{
-					//System.out.println("1");
 					IssueBookPOJO pojo=new IssueBookPOJO();
 					String searchBook=request.getParameter("searchBook");
 					String searchStud=request.getParameter("searchStud");
 					String user=request.getParameter("userType");
-					String issueDate=request.getParameter("issueDate");
-					String dueDate=request.getParameter("dueDate");
+					String[] issueDate=request.getParameter("issueDate").split("-");
+					String issueDateStr=issueDate[2]+"-"+issueDate[1]+"-"+issueDate[0];
+					String[] dueDate=request.getParameter("dueDate").split("-");
+					String dueDateStr=dueDate[2]+"-"+dueDate[1]+"-"+dueDate[0];
 					String returnDate=request.getParameter("returnDate");
 					String studId=request.getParameter("studId");
-				//	System.out.println("####### "+studId);
-				//	System.out.println("dfghjklkjnhgth "+searchBook+" "+searchStud+" "+issueDate+" "+dueDate+" "+returnDate);
 					String str[] = searchBook.split("-");
-					System.out.println("bId "+str[0]);
-					System.out.println("bname "+str[1]);
 					String str1[]=searchStud.split("-");
+					
+					//setPojo
 					pojo.setBookId(Integer.parseInt(str[0].trim()));
 					
-					//int id=dao.getId(Integer.parseInt(studId));
 					if(user.equalsIgnoreCase("Student")){
 						pojo.setStudId(Integer.parseInt(studId));
-					//	pojo.setStudName(str1[0].trim());
 					}
 					else{
 						pojo.setStaffId(Integer.parseInt(str1[0].trim()));
-						//	pojo.setStaffName(str1[0].trim());
 					}
 					
-					/*pojo.setBookName(str[1].trim());
-					//pojo.setUserName(searchStud);
-					pojo.setUserName(str1[1].trim());
-					pojo.setUserType(user);*/
-					
 					pojo.setUserType(user);
-					pojo.setIssueDate(issueDate);
-					pojo.setDueDate(dueDate);
+					pojo.setIssueDate(issueDateStr);
+					pojo.setDueDate(dueDateStr);
 					pojo.setReturnDate(returnDate);
 					
-				//	pojo.setBookName(str[1].trim());
-				//	pojo.setStudName(str1[1].trim());
-					
+					//insert
 					AddBookImpl impl=new AddBookImpl();
 					try {
 						int st=impl.insertIssueBook(pojo);
@@ -358,29 +347,26 @@ public class Library extends HttpServlet {
 				
 		else if(request.getParameter("getTableData")!=null)
 				{
-					String date=request.getParameter("getTableData");
-					String s[]=date.split("-");
-					//out.println(s[0]+s[1]);
-					/*System.out.println(s[0]);
-					System.out.println(s[1]);*/
-					String s1[]=s[0].split("/");
-					String s2[]=s[1].split("/");
-					String date1=s1[2].trim()+"-"+s1[0]+"-"+s1[1];
-					String date2=s2[2]+"-"+s2[0].trim()+"-"+s2[1];
+					HttpSession session=request.getSession();
+					String year=(String) session.getAttribute("year");
+					
+					String[] date=request.getParameter("getTableData").split("-");
+					
+					String[] from=date[0].split("/");
+					String[] to=date[1].split("/");
+					
+					String fromStr=from[2].trim()+"-"+from[0]+"-"+from[1];
+					String toStr=to[2]+"-"+to[0].trim()+"-"+to[1];
+					
+					
 					try {
-						List list=dao.getDatewiseIssueList(date1, date2);
+						List list=dao.getDatewiseIssueList(fromStr, toStr);
 						Iterator itr = list.iterator();
 						while(itr.hasNext())
 						{
-							Object name=itr.next();
-							Object bookName=itr.next();
-							Object issueDate=itr.next();
-							Object dueDate=itr.next();
-							//System.out.println("--->>>>>>---"+name+","+bookName+","+issueDate+","+dueDate+",");
-							out.print(name+","+bookName+","+issueDate+","+dueDate+",");
+							out.print(itr.next()+",");
 						}
 						} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}	
 				}
