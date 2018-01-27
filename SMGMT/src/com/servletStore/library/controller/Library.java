@@ -73,18 +73,18 @@ public class Library extends HttpServlet {
 			int price=Integer.parseInt(request.getParameter("price"));
 			String cupbNo=request.getParameter("cupbno");
 			int qty=Integer.parseInt(request.getParameter("quan"));
-	
+			String date1[]=date.split("-");
+			System.out.println("Date "+date1[2]+"-"+date1[1]+"-"+date1[0]);
+			String date2=date1[2].trim()+"-"+date1[1]+"-"+date1[0];
 			out.println("category ID"+catId);
 			out.println("date"+date);
 			out.println("bookname"+bookName);
 			out.println("pname"+pubName);
 			out.println("aname"+authorName);
 			out.print("E"+edition);
-		 	System.out.print("Language "+lang+" date"+date);
-			
 			//adb.setBookNo(bookNo);
 		   adb.setCat_id(catId);
-			adb.setDate(date);
+			adb.setDate(date2);
 			adb.setBookName(bookName);
 			adb.setPublisherName(pubName);
 			adb.setAuthorName(authorName);
@@ -105,9 +105,9 @@ public class Library extends HttpServlet {
 						int status=impl.insertBookDetails(id);
 						System.out.println("Books added in BookDetail");
 					}
-					HttpSession session = request.getSession();
+					/*HttpSession session = request.getSession();
 					session.setAttribute("flag", "Books Added Successfully");
-					System.out.println("Books added");
+					System.out.println("Books added");*/
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -138,7 +138,7 @@
 													<div class="row">
 													<%
                                              		SysDate date=new SysDate();
-                                             	%> 
+                                             		%> 
 													 
 													<div class="form-group col-lg-4 input_field_sections">
 													

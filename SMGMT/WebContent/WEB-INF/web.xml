@@ -236,6 +236,16 @@
     <servlet-name>AssignStdWiseFees</servlet-name>
     <url-pattern>/AssignStdWiseFees</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>Report</servlet-name>
+    <servlet-class> com.servletStore.report.libraryReport.controller.Report</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Report</servlet-name>
+    <url-pattern>/Report</url-pattern>
+  </servlet-mapping>
+ 
+
   <servlet>
     <servlet-name>FeesCollection</servlet-name>
     <servlet-class>com.servletStore.fees.feescollection.controller.FeesCollection</servlet-class>
@@ -243,5 +253,6 @@
   <servlet-mapping>
     <servlet-name>FeesCollection</servlet-name>
     <url-pattern>/FeesCollection</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> 
+
 </web-app>
