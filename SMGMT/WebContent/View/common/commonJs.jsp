@@ -63,10 +63,10 @@
     <script>eval(mod_pagespeed_EYzby3B1$L);</script>
 <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
 
-<script type="text/javascript" src="/SMGMT/config/js/pages/simple_datatables.js"></script>
 
 <script type="text/javascript" src="/SMGMT/config/js/pluginjs/dataTables.tableTools.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/datatables/js/dataTables.colReorder.min.js"></script>
+<script type="text/javascript" src="/SMGMT/config/js/pages/simple_datatables.js"></script>
 
 
 <!--end of plugin scripts-->
