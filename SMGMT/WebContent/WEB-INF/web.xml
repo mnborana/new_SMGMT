@@ -5,6 +5,14 @@
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
+    <servlet-name>YearActivator</servlet-name>
+    <servlet-class>com.activator.YearActivator</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>YearActivator</servlet-name>
+    <url-pattern>/YearActivator</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>AddClassRoom</servlet-name>
     <servlet-class>com.servletStore.settings.classRoom.controller.AddClassRoom</servlet-class>
   </servlet>
@@ -235,5 +243,5 @@
   <servlet-mapping>
     <servlet-name>FeesCollection</servlet-name>
     <url-pattern>/FeesCollection</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>
 </web-app>
