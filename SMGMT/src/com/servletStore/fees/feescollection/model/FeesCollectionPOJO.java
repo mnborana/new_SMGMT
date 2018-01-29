@@ -19,7 +19,19 @@ public class FeesCollectionPOJO {
 	private String divName;
 	
 	private String shift;
-
+	
+	//***********  Fees Collection ******************
+	
+	private String stdId;
+	private String studId;
+	private String remainingFees;
+	private String paidFees;
+	private String currentDate;
+	private String checkboxCashbook;
+	private String paymentMode;
+	
+	
+	
 	public int getClassRoomMasterId() {
 		return classRoomMasterId;
 	}
@@ -50,6 +62,62 @@ public class FeesCollectionPOJO {
 
 	public void setShift(String shift) {
 		this.shift = shift;
+	}
+
+	public String getStdId() {
+		return stdId;
+	}
+
+	public void setStdId(String stdId) {
+		this.stdId = stdId;
+	}
+
+	public String getStudId() {
+		return studId;
+	}
+
+	public void setStudId(String studId) {
+		this.studId = studId;
+	}
+
+	public String getRemainingFees() {
+		return remainingFees;
+	}
+
+	public void setRemainingFees(String remainingFees) {
+		this.remainingFees = remainingFees;
+	}
+
+	public String getPaidFees() {
+		return paidFees;
+	}
+
+	public void setPaidFees(String paidFees) {
+		this.paidFees = paidFees;
+	}
+
+	public String getCurrentDate() {
+		return currentDate;
+	}
+
+	public void setCurrentDate(String currentDate) {
+		this.currentDate = currentDate;
+	}
+
+	public String getCheckboxCashbook() {
+		return checkboxCashbook;
+	}
+
+	public void setCheckboxCashbook(String checkboxCashbook) {
+		this.checkboxCashbook = checkboxCashbook;
+	}
+
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
 	}
 
 }

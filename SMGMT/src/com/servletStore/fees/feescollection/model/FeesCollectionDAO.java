@@ -17,4 +17,8 @@ public interface FeesCollectionDAO {
 	public List<FeesCollectionPOJO> getStadardDivisionDetails(String schoolId);
 
 	public List getStudentInfo(String standard_id);
+
+	public List getStudentFeesInfo(String student_id);
+
+	public void insertFees(FeesCollectionPOJO feesCollectionPOJO);
 }
