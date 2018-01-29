@@ -128,7 +128,7 @@ pageEncoding="ISO-8859-1"%>
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                        Fine Set
+                                       Installment
                                     </div>
                                     <div class="card-block m-t-35">
                                    
@@ -139,7 +139,7 @@ pageEncoding="ISO-8859-1"%>
                                                 </div>
                                                 <div class="col-lg-4">
   	                                              <input type="hidden" id="id_id"  name="id_name" />
-                                                    <input type="text" id="mode_id"  name="mode_name"  onkeyup="this.value=this.value.toUpperCase()" onblur="this.value=$.trim(this.value)" pattern="[A-Za-z]" class="form-control" />
+                                                    <input type="text" id="mode_id"  name="mode_name"  onkeyup="this.value=this.value.toUpperCase()" onblur="this.value=$.trim(this.value)" pattern="[A-Za-z]" class="form-control" required/>
                                                 </div>
                                                
                                             </div><br>
@@ -156,27 +156,27 @@ pageEncoding="ISO-8859-1"%>
 																			class="cr"><i class="cr-icon fa fa-circle" ></i></span>
 																			1
 																		</label>
-																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label> <input type="radio" id="installment_2" name="installment"
 																			value="2" > <span
 																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																			2
-																		</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label> <input type="radio" id="installment_3" name="installment"
 																			value="3" > <span
 																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																			3
-																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label> <input type="radio" id="installment_4" name="installment"
 																			value="4" > <span
 																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																			4
-																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label> <input type="radio" id="installment_6"  name="installment"
 																			value="6" > <span
 																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																			6
-																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label> <input type="radio" id="installment_12" name="installment"
 																			value="12" > <span
 																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
@@ -185,22 +185,40 @@ pageEncoding="ISO-8859-1"%>
 																	</div>
 																</div>
 															</div><br>
+															
+																<div class="form-group row">
+																		<div class="col-lg-4 text-lg-right">
+			                                                    			<label class="col-form-label">Date *</label>
+		                                                				</div>	
+		                                                				 <div class="col-md-4">
+																			<div class="input-group input-append date" id="dp3" data-date-format="dd-mm-yyyy">
+							                                                    <input class="form-control" type="text" name="date" id="date_id" placeholder="dd-mm-yyyy">
+							                                                    <span class="input-group-addon add-on">
+							                                                    	<i class="fa fa-calendar"></i>
+						                                                		</span>
+		                                                					</div>
+		                                                			   </div>	
+                                                		       </div> <br>
 														
-											<div class="form-group row">
-                                                <div class="col-lg-4 text-lg-right">
-                                                    <label class="col-form-label">Date *</label>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <input type="text" class="form-control form_val_popup_dp3" name="date" id="date_id" placeholder="YYYY-MM-DD"/>
-                                                </div>
-                                            </div> <br>
-                                           
+											<!-- <div class="form-group row">
+		                                                <div class="col-lg-4 text-lg-right">
+		                                                    <label class="col-form-label">Date *</label>
+		                                                </div>
+		                                                <div class="col-lg-4">
+		                                                    <input type="text" class="form-control form_val_popup_dp3" name="date" id="date_id" placeholder="YYYY-MM-DD" required/>
+		                                                </div>
+                                                </div> <br> -->
                                            <div class="form-actions form-group row">
+                                                <div class="col-lg-4 push-lg-4">
+                                                    <input type="submit" value="OK" id="btn_id" name="installmentName" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                           <!-- <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
                                                     <input type="submit" value="OK" id="btn_id" name="installmentName" class="btn btn-primary">
                                                     <input type="submit" value="Exit" class="btn btn-primary">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </form>
                                     </div>
                                 </div>

@@ -147,7 +147,6 @@
                     </div> <!-- /.inner -->
                 </div> <!-- /.outer -->
             
-            
             <div class="outer">
                     <div class="inner bg-container">
                         <div class="card">

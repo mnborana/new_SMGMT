@@ -17,7 +17,7 @@ import com.servletStore.casteWiseEduFees.model.casteWiseEduFeesIMPL;
 import com.servletStore.casteWiseEduFees.model.casteWiseEduFeesPojo;
 import com.servletStore.settings.school.model.SchoolPOJO;
 
-@WebServlet("/casteWiseEduFees")
+//@WebServlet("/casteWiseEduFees")
 public class casteWiseEduFees extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

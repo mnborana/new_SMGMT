@@ -152,19 +152,25 @@
 	                                    &nbsp; Fine Submission
 	                                </a>
 	                            </li>
-	                           
-	                            <li>
-	                                <a href="#">
-	                                    <i class="fa fa-angle-right"></i>
-	                                    &nbsp; Report
-	                                </a>
-	                            </li>
-	
 	                        </ul>
 	                    </li>
 	                    
-	                    
-                    
+	                    <li class="dropdown_menu">
+	                        <a href="javascript:;">
+	                            <i class="fa fa-book fa-fw"></i>
+	                            <span class="link-title menu_hide">&nbsp; Report</span>
+	                            <span class="fa arrow menu_hide"></span>
+	                        </a>
+	                        <ul>
+	                            <li>
+	                                <a href="/SMGMT/View/report/libraryReport.jsp">
+	                                    <i class="fa fa-angle-right"></i>
+	                                    &nbsp; Library Report
+	                                </a>
+	                            </li>
+	                        </ul>
+	                       </li>
+	                                           
                     <%}if(pojo.getSetting()!=0){ %>
                     
                     <li class="dropdown_menu">
@@ -392,6 +398,12 @@
                                     <span class="link-title">&nbsp; Assign Student Fee</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="/SMGMT/View/fees/feesCollection.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Fees Collection</span>
+                                </a>
+                            </li>                            
                         </ul>
                     </li>
                     <%}if(pojo.getAttendance()!=0) {%>

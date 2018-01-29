@@ -42,10 +42,19 @@ z-index: 999999">
 </div>
 <div class="container wow fadeInDown" data-wow-delay="0.5s" data-wow-duration="2s">
     <div class="row">
-        <div class="col-lg-8 push-lg-2 col-md-10 push-md-1 col-sm-10 push-sm-1 login_top_bottom">
+			<div class="col-lg-8 push-lg-2 col-md-10 push-md-1 col-sm-10 push-sm-1 login_top_bottom">
             <div class="row">
                 <div class="col-lg-8 push-lg-2 col-md-10 push-md-1 col-sm-12">
-                    <div class="login_logo login_border_radius1">
+
+<!-- ====================================Activation ==================================================== -->
+						<div class="alert alert-warning alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-hi	dden="true">×</button>
+								Activate Your New Year Subscription! 
+								<a href="#" data-toggle="modal" data-target="#modal-20"><strong>Click</strong></a>
+						</div>
+<!-- ==================================== End Activation ==================================================== -->
+						<div class="login_logo login_border_radius1">
                         <h3 class="text-center">
                             <img src="/SMGMT/config/img/logow2.png.pagespeed.ce.3qFWgMzjGO.png" alt="josh logo" class="admire_logo"><span class="text-white"> VERTICAL SOFT &nbsp;<br/>
                                 Log In</span>
@@ -117,6 +126,7 @@ z-index: 999999">
         </div>
     </div>
 </div>
+<jsp:include page="/View/common/activator.jsp"></jsp:include>
 <!-- global js -->
 <script type="text/javascript" src="/SMGMT/config/js/jquery.min.js.pagespeed.jm.29OAZzvhfX.js"></script>
 <script src="/SMGMT/config/js/tether.min.js+bootstrap.min.js.pagespeed.jc.rPlgYXit1U.js"></script><script>eval(mod_pagespeed_XQYzfDw_HR);</script>
@@ -130,5 +140,6 @@ z-index: 999999">
 <!-- <script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/chosen/js/chosen.jquery.js"></script> -->
 <jsp:include page="/View/common/commonJs.jsp"></jsp:include>
+
 </body>
 </html>

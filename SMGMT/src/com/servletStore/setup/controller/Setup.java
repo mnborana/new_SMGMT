@@ -76,7 +76,7 @@ public class Setup extends HttpServlet {
 			
 			try {
 				
-				//inserting trust information (no.od schools and name)
+				//inserting trust information (no.of schools and name)
 				int trusteeStatus = dao.insertTrusteeInfo(pojo);
 				
 				if(trusteeStatus>0)

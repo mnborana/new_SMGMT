@@ -40,6 +40,114 @@ public class School extends HttpServlet
 		SchoolDAO schoolDAO = new SchoolImpl();
 
 		List<SchoolPOJO> list = new ArrayList<>();
+		
+		if (request.getParameter("addSchool") != null)
+		{
+			String schoolName=request.getParameter("newSchoolName");
+			String activate=request.getParameter("activeSchool");
+			String pUname=request.getParameter("newPrincipalUsername");
+			String pPass=request.getParameter("newPrincipalPassword");
+			
+			SetupDAO setup = new SetupImpl();
+			SetupPOJO setupPojo = new SetupPOJO();
+			UserLoginDAO check = new UserLoginImpl();
+
+
+			try
+			{
+				//get no of schools
+				int availableSchools=schoolDAO.getTotalSchools();
+				
+				//adding new school and updating it to trustee info
+				int updated=availableSchools+1;
+				int status=schoolDAO.updateTotalSchools(availableSchools, updated);
+				if(status>0)
+				{
+					setupPojo.setSchoolName(schoolName);
+					
+					if(activate!=null)
+					{
+							Boolean result = check.checkUserExist(pUname);
+							if (result)
+							{
+								//adding school into school master and change its status to 0 because username already exist
+								int schoolStatus=setup.insertInstituteDetails(setupPojo, "0");
+								
+								session.setAttribute("flag", "School added successfully but Usename is already taken by someone");
+								response.sendRedirect("/SMGMT/View/settings/school/addSchool.jsp");
+							} else
+							{
+								//adding school into school master and change its status to 1
+								int schoolStatus=setup.insertInstituteDetails(setupPojo, "1");
+								if(schoolStatus>0)
+								{
+									//get maxId of school master for inserting it to the user master
+									int maxId=setup.getMaxSchoolId();
+									setupPojo.setPrincipalUserName(pUname);
+									setupPojo.setPrincipalPassword(pPass);
+									
+									//adding principal userName and Password to user master
+									int principalStatus=setup.insertPrincipalDetails(setupPojo, maxId);
+									if(principalStatus>0)
+									{
+										//System.out.println("info added in user master");
+										session.setAttribute("flag", "School Added and Activated");
+										response.sendRedirect("/SMGMT/View/settings/school/addSchool.jsp");
+									}
+									else
+									{
+										System.out.println("error in adding user master info");
+										session.setAttribute("flag", "Error");
+										response.sendRedirect("/SMGMT/View/settings/school/addSchool.jsp");
+									}
+								}
+								else
+								{
+									System.out.println("error in adding school");
+									session.setAttribute("flag", "Error");
+									response.sendRedirect("/SMGMT/View/settings/school/addSchool.jsp");
+								}
+								
+								
+							}
+						//out.println("status=1");
+					}
+					else
+					{
+						//adding school into school master
+						int schoolStatus=setup.insertInstituteDetails(setupPojo, "0");
+						if(schoolStatus>0){
+							//System.out.println("info added in school master");
+							session.setAttribute("flag", "School Added");
+							response.sendRedirect("/SMGMT/View/settings/school/addSchool.jsp");
+						}
+						else
+						{
+							System.out.println("error in adding new school");
+							session.setAttribute("flag", "School Added and Activated");
+							response.sendRedirect("/SMGMT/View/settings/school/addSchool.jsp");
+						}
+						
+						//out.println("status=0");
+					}
+				}
+				else
+				{
+					System.out.println("error in updating school");
+					session.setAttribute("flag", "Error");
+					response.sendRedirect("/SMGMT/View/settings/school/addSchool.jsp");
+				}
+				
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+
+			
+			
+			
+		}
+		
 
 		if (request.getParameter("activate") != null)
 		{

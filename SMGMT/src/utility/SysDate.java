@@ -7,7 +7,7 @@ import java.util.Date;
 public class SysDate {
 	public String todayDate()
 	{
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		String requiredDate = df.format(new Date()).toString();
 				
 		return requiredDate;

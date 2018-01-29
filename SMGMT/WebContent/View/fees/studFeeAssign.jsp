@@ -1,3 +1,7 @@
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.servletStore.fees.assignStdWiseFees.model.AssignStdWiseFeesImpl"%>
+<%@page import="com.servletStore.fees.assignStdWiseFees.model.AssignStdWiseFeesDao"%>
 <%@page import="com.servletStore.setup.model.SetupPOJO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -121,52 +125,67 @@
                                         <i class="fa fa-file-text-o"></i>
                                         Student Fee
                                     </div>
-                                    <div class="card-block m-t-35">
-                                        <form action="#" class="form-horizontal  login_validator" id="form_block_validator">
-                                            <div class="form-group row">
-                                                <div class="col-lg-4  text-lg-right">
-                                                    <label for="required2" class="col-form-label">Name *</label>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <input type="text" id="required2" name="Name2" class="form-control" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-4 text-lg-right">
-                                                    <label for="email2" class="col-form-label">E-mail *</label>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <input type="email" id="email2" name="Email2" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-4 text-lg-right">
-                                                    <label for="password2" class="col-form-label">Password *</label>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <input type="password" id="password2" name="Password2" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-4 text-lg-right">
-                                                    <label for="confirm_password2" class="col-form-label">Confirm Password *</label>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <input type="password" id="confirm_password2" name="Confirmpassword2" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-4 text-lg-right">
-                                                    <label class="col-form-label">Date *</label>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <input type="text" class="form-control form_val_popup_dp3" name="date_inline" placeholder="YYYY-MM-DD"/>
-                                                </div>
-                                            </div>
+                                    <div class="card-block seclect_form">
+                                        <form action="#" class="form-horizontal" id="form_block_validator">
+                                            
+                                            <div class="row">
+	                                            <div class="col-lg-2 input_field_sections">
+	                                            </div>
+	                                            <div class="col-lg-4 input_field_sections">
+	                                                <h5>Select Standard</h5>
+	                                                	<select class="form-control chzn-select" id="selectStd" name="standard" required>
+															<option value="">Select Standard</option>
+															<option value=""></option>
+														</select>
+	                                            </div>
+	                                            <div class="col-lg-4 input_field_sections">
+	                                                <h5>Student Name</h5>
+	                                                	<select class="form-control chzn-select" id="selectStud" name="student" required>
+															<option value="">Select Student</option>
+															<option value="">demo</option>
+														</select>
+	                                            </div>
+                                        	</div>
+                                            
+                                            <div class="outer">
+                                            	<div class="inner bg-container">
+							                		<div class="card">
+							                    		<div class="card-header bg-white">Student Fees Structure</div>
+							                    		<div class="card-block m-t-35" id="user_body">
+							                        		<div class="table-toolbar">
+								                                <div class="btn-group float-right users_grid_tools">
+								                                    <div class="tools"></div>
+								                                </div>
+							                            	</div>
+							                            	
+							                            	<table class="table  table-striped table-bordered table-hover  no-footer"  role="grid">
+							                                        <thead>
+								                                        <tr role="row">
+																			<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">No</th>
+								                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Fees Type</th>
+								                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term One Fees</th>
+								                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term Two Fees</th>
+								                                        </tr>
+							                                        </thead>
+							                                        <tbody>
+							                                        	<tr>
+							                                        		<td></td>
+							                                        		<td></td>
+							                                        		<td></td>
+							                                        		<td></td>
+							                                        	</tr>
+							                                        </tbody>
+							                                 </table> 
+							                        	</div>
+							                    	</div>
+							                	</div>
+	                                        </div>
+                                            
+                                            
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Validate" class="btn btn-primary">
+                                                    <input type="submit" value="Assign Fee" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </form>
