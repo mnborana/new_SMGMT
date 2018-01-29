@@ -8,6 +8,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.servletStore.setup.model.SetupImpl"%>
 <%@page import="com.servletStore.setup.model.SetupDAO"%>
+
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -127,7 +128,7 @@
                                         Student Fee Collection
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="#" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/FeesCollection" method="POST" class="form-horizontal  login_validator" id="form_block_validator">
                                             <div class="form-group row">
                                                 <div class="col-lg-2  text-lg-right">
                                                     <label for="required2" class="col-form-label">Select Standard*</label>
@@ -143,7 +144,7 @@
 			                                        	FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
 			                                        	request.setAttribute("list", feesCollectionDAO.getStadardDivisionDetails(schoolId));
 			                                        %>
-			                                        
+			                                        <option></option>
 			                                       	<c:forEach items="${list}" var="u">  
 														<option value="${u.getClassRoomMasterId()}">${u.getStdName()} ${u.getDivName()} - ${u.getShift()}</option>
 													</c:forEach>
@@ -182,7 +183,7 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="input-group input-append date" id="dp3" data-date-format="dd-mm-yyyy">
-                                                    	<input class="form-control" type="text" placeholder="dd-mm-yyyy" required="required" value="<%= currentDate %>">
+                                                    	<input class="form-control" type="text" name="currentDate" id="currentDate" placeholder="dd-mm-yyyy" required="required" value="<%= currentDate %>">
                                                 	    <span class="input-group-addon add-on">
                                                     	<i class="fa fa-calendar"></i>
                                                 	</span>
@@ -203,7 +204,7 @@
                                                 </div>
                                                 <div class="col-lg-1 text-lg-right">
                                                     <label class="custom-control custom-radio">
-                                                        <input type="radio" name="payment_mode" id="payment_mode" value="cash" class="custom-control-input" checked="checked">
+                                                        <input type="radio" name="payment_mode" id="payment_mode" value="Cash" class="custom-control-input" checked="checked">
                                                         <span class="custom-control-indicator custom_checkbox_primary"></span>
                                                         <span class="custom-control-description text-primary">Cash</span>
                                                     </label>                                                
@@ -226,7 +227,8 @@
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Submit" class="btn btn-primary">
+                                                    <button type="submit" name="feesCollection_btn" id="feesCollection_btn" value="feesCollection_btn" class="btn btn-primary">Submit</button>
+                                                    <!-- <input type="submit" value="Submit" name="feesCollection_btn" id="feesCollection_btn" class="btn btn-primary"> -->
                                                 </div>
                                             </div>
                                         </form>
@@ -264,6 +266,11 @@
                                                 <th >Description</th>
                                             </tr>
                                             </thead>
+                                            
+                                            <tbody id="feesTable">
+                                            	
+                                            </tbody>
+                                            
 										</table>
                                     </div>
                                 </div>
@@ -313,7 +320,7 @@ function selectStudent() {
 	
 	var standard_id = document.getElementById('standard_id').value;
 	
-	alert("Standard Id "+standard_id);
+	//alert("Standard Id "+standard_id);
 	
 	var xhttp =new XMLHttpRequest();
 	
@@ -329,7 +336,7 @@ function selectStudent() {
 					data+='<option value='+str[ i++]+'>'+ str[ i++] +' </option>';
 				}
 				
-				alert(data);
+				//alert(data);
 				
 				document.getElementById("student_id").innerHTML=data;
 				$("#student_id").trigger('chosen:updated');					
@@ -351,7 +358,42 @@ function selectStudent() {
 function selectedStudentInfo() {
 	
 	var student_id = document.getElementById('student_id').value;
-	//SELECT date, paid_fees, remaining_fees, pay_mode, particulers FROM fees_collection
+	alert("student_id "+student_id);
+	
+	var xhttp =new XMLHttpRequest();
+	
+	try{
+		xhttp.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var str=this.responseText.split(",");
+				
+				alert(str);
+				var count=0;
+				var data="";
+				document.getElementById("remaining_fees").value = str[0];
+				
+				for (var i = 1; i < str.length-1;) {
+					//alert(str[i++]);
+					 data+="<tr><td>"+(++count)+"</td>"+
+						"<td>"+str[i++]+"</td>"+
+						"<td>"+str[i++]+"</td>"+
+						"<td>"+str[i++]+"</td>"+
+						"<td>"+str[i++]+"</td>"+
+						"<td>"+str[i++]+"</td></tr>";
+				}
+				alert(data);
+				document.getElementById("feesTable").innerHTML = data;
+			}
+		}
+		xhttp.open("POST", "/SMGMT/FeesCollection?student_id="+student_id, true);
+		xhttp.send();
+	}catch(e){
+		alert("Unable to Connect Server!");
+	}
+	//SELECT date, paid_fees, remaining_fees, pay_mode, particulers FROM fees_collection WHERE stud_id=1
+	
+	
+	//SELECT remaining_fees FROM fees_collection WHERE id=(SELECT MAX(id) FROM fees_collection WHERE stud_id=1)
 }
 
 
