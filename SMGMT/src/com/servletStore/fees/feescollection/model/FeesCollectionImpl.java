@@ -38,6 +38,8 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 					"fk_class_master.fk_school_sec_id=fk_school_section_details.id AND\n" + 
 					"std_master.id=fk_class_master.std_id AND\n" + 
 					"classroom_master.fk_class_master_id=fk_class_master.id";
+			
+			
 			pstmt = connection.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -212,6 +214,67 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 		
 		connection.close();
 		return year;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.servletStore.fees.feescollection.model.FeesCollectionDAO#getStudentFeesInfo(java.lang.String)
+	 */
+	@Override
+	public List getStudentFeesInfo(String student_id) {
+
+		ResultSet rs = null;
+		String query = "SELECT remaining_fees FROM fees_collection WHERE id=(SELECT MAX(id) FROM fees_collection WHERE stud_id='"+student_id+"')";
+		String query1 = "SELECT date, paid_fees, remaining_fees, pay_mode, particulers FROM fees_collection WHERE stud_id="+student_id;
+		
+		List<Object> studFeesInfo=new ArrayList<>();
+		
+		try {
+			pstmt=connection.prepareStatement(query);
+			rs=pstmt.executeQuery();
+			while (rs.next()) {
+				studFeesInfo.add(rs.getString("remaining_fees"));
+			}
+			
+			pstmt=connection.prepareStatement(query1);
+			rs=pstmt.executeQuery();
+			while (rs.next()) {
+				
+				studFeesInfo.add(rs.getString("date"));
+				studFeesInfo.add(rs.getString("paid_fees"));
+				studFeesInfo.add(rs.getString("remaining_fees"));
+				studFeesInfo.add(rs.getString("pay_mode"));
+				studFeesInfo.add(rs.getString("particulers"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		return studFeesInfo;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.servletStore.fees.feescollection.model.FeesCollectionDAO#insertFees(com.servletStore.fees.feescollection.model.FeesCollectionPOJO)
+	 */
+	@Override
+	public void insertFees(FeesCollectionPOJO feesCollectionPOJO) {
+		
+		try {
+			pstmt=connection.prepareStatement("INSERT INTO `fees_collection`(`stud_id`, `fk_classroom_master_id`, `date`, `paid_fees`, `remaining_fees`, `pay_mode`) VALUES (?,?,?,?,?,?)");
+			
+			pstmt.setString(1, feesCollectionPOJO.getStudId());
+			pstmt.setString(2, feesCollectionPOJO.getStdId());
+			pstmt.setString(3, feesCollectionPOJO.getCurrentDate());
+			pstmt.setString(4, feesCollectionPOJO.getPaidFees());
+			pstmt.setString(5, feesCollectionPOJO.getRemainingFees());
+			pstmt.setString(6, feesCollectionPOJO.getPaymentMode());
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

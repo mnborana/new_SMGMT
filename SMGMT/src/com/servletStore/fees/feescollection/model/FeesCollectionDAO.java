@@ -30,4 +30,8 @@ public interface FeesCollectionDAO {
 	public String getDateForCheck(String studId,String particulars) throws SQLException;
 	
 	public String getLastAcademicYear() throws SQLException;
+
+	public List getStudentFeesInfo(String student_id);
+
+	public void insertFees(FeesCollectionPOJO feesCollectionPOJO);
 }
