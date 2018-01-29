@@ -1,56 +1,79 @@
 package utility;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.servletStore.fees.feescollection.model.FeesCollectionDAO;
+import com.servletStore.fees.feescollection.model.FeesCollectionImpl;
+
 import java.util.Iterator;
 
 public class demou {
 
-	// Function to return majority element present in given array
-		public static int majorityElement(int A[])
+	
+		public static void main (String[] args) throws SQLException, ParseException
 		{
-			// get array length
-			int n = A.length;
-
-			// create an empty Hash Map
-			Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-		 
-			// 1. store each element's frequency in a map
-			for (int i = 0; i < n; i++)
-			{
-				if (map.get(A[i]) == null)
-					map.put(A[i], 0);
+			FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
 				
-				map.put(A[i], map.get(A[i]) + 1);
-			}
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			
+			String year="2016-2017";
 
+			Date date = new Date();  
 			
-			System.out.println(n);
-			System.out.println(map);
+			String currentDate = sdf.format(date);
 			
-			// 2. return the element if its count is more than n/2
-			Iterator it = map.entrySet().iterator();
-			while (it.hasNext()) 
+			
+			String dateForCheck = feesCollectionDAO.getDateForCheck("7","FEE ASSIGNED");
+	
+			String[] newYear = year.split("-"); 
+			
+			String startDate = newYear[0]+"-07-01";
+			
+			String endDate = newYear[1]+"-04-30";
+			
+			//System.out.println(dateForCheck);
+			
+			if(dateForCheck=="")
 			{
-				Map.Entry pair = (Map.Entry)it.next();
-				if ((int)pair.getValue() > n/2)
-					return (int)pair.getKey();
-
-				it.remove(); // avoids ConcurrentModification Exception
+				//insert 
+				System.out.println("if");
 			}
-
-			// no majority element is present
-			return -1;
-		}
-
-		public static void main (String[] args)
-		{
-			// Assumtion - valid input (majority element is present)
-			int arr[] = { 1,1,2,2,2,2,3,3,3,3,3,3,3 };
-
-			int ret = majorityElement(arr);
-			if (ret != -1)
-				System.out.println("Majority element is " + ret);
 			else
-				System.out.println("Majority element does not exist");
+			{
+				Date start = sdf.parse(startDate);
+				Date end = sdf.parse(endDate);
+				Date availableDate = sdf.parse(dateForCheck);
+				
+				System.out.println("Start Date:"+startDate+"\nEnd Date:"+endDate+"\nA Date:"+dateForCheck+"\nCurrent Date:"+currentDate);
+				
+//				Date current = sdf.parse(currentDate);
+//				//System.out.println(current);
+//				if(current.after(end))
+//				{
+//					System.out.println("expired");
+//				}
+				
+				if(start.compareTo(availableDate)*availableDate.compareTo(end)>0)
+				{
+					System.out.println("not insert");
+				}
+				else
+				{
+					if(dateForCheck!="")
+					{
+						System.out.println("not insert because already assinged");
+					}
+					else
+					{
+						System.out.println("insert");
+					}
+				}
+				 
+				
+			}
 		}
 	}

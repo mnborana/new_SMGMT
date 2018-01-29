@@ -1,5 +1,5 @@
 /**
- * 	  Author : SARANG KAMBLE
+ * 	  Author : SARANG KAMBLE,OMKAR SHIVADEKAR
  * 	Document : FeesCollectionImpl.java
  *		Date : 22-Jan-2018
  * 		Time : 4:17:43 PM
@@ -80,6 +80,138 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 		}	
 		
 		return studInfo;
+	}
+
+	@Override
+	public String getStudentCast(String student_id) throws SQLException
+	{
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		String cast_category="";
+		
+		String query="SELECT caste_category.category_name FROM student_details,caste_category WHERE student_details.category_id=caste_category.id AND student_details.id=?";
+		pstmt = connection.prepareStatement(query);
+		pstmt.setString(1, student_id);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next()){
+			cast_category = rs.getString(1);
+		}
+		
+		
+		connection.close();
+		return cast_category;
+	}
+
+	@Override
+	public List getStandardWiseFee(String standard_id) throws SQLException
+	{
+		//standard_id=classroom_master_id
+		
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		List list = new ArrayList<>();
+		
+		String query="SELECT fee_type.fees_type,std_wise_fees_assignment.term_1_fees,std_wise_fees_assignment.term_2_fees FROM fee_type,std_wise_fees_assignment,classroom_master WHERE classroom_master.fk_class_master_id=std_wise_fees_assignment.fk_class_master_id AND fee_type.id=std_wise_fees_assignment.fees_type_id AND classroom_master.id=?";
+		pstmt = connection.prepareStatement(query);
+		pstmt.setString(1, standard_id);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next())
+		{
+			list.add(rs.getString(1));
+			list.add(rs.getInt(2));
+			list.add(rs.getInt(3));
+		}
+		
+		connection.close();
+		
+		return list;
+	}
+
+	@Override
+	public List getStudentCastwiseFee(String student_id) throws SQLException
+	{
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		List list = new ArrayList<>();
+		
+		String query="SELECT fee_type.fees_type,caste_wise_educational_fees.fees FROM fee_type,caste_wise_educational_fees,student_details WHERE fee_type.id=caste_wise_educational_fees.fees_type_id AND student_details.category_id=caste_wise_educational_fees.caste_category_id AND student_details.id=?";
+		pstmt = connection.prepareStatement(query);
+		pstmt.setString(1, student_id);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next())
+		{
+			list.add(rs.getString(1));
+			list.add(rs.getInt(2));
+		}
+		
+		connection.close();
+		
+		return list;
+		
+	}
+	@Override
+	public int assignStudentFee(AssignFeeDAO pojo) throws SQLException
+	{
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		int status=0;
+		
+		String query="INSERT INTO `fees_collection`(`stud_id`, `fk_classroom_master_id`, `date`, `remaining_fees`, `particulars`) VALUES (?,?,?,?,'FEE ASSIGNED')";
+		pstmt=connection.prepareStatement(query);
+		pstmt.setString(1, pojo.getStudentId());
+		pstmt.setString(2, pojo.getClassroomMasterId());
+		pstmt.setString(3, pojo.getDate());
+		pstmt.setString(4, pojo.getFee());
+			
+		status=pstmt.executeUpdate();
+		
+		connection.close();
+		return status;
+	}
+
+	@Override
+	public String getDateForCheck(String studId, String particulars) throws SQLException
+	{
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		String date="";
+
+		String query="SELECT date FROM `fees_collection` WHERE fees_collection.stud_id=? AND fees_collection.particulars=?";
+		pstmt = connection.prepareStatement(query);
+		pstmt.setString(1, studId);
+		pstmt.setString(2, particulars);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next())
+		{
+			date=rs.getString(1);
+		}
+		
+		connection.close();
+		return date;
+	}
+
+	@Override
+	public String getLastAcademicYear() throws SQLException
+	{
+		DBConnection dbconnect=new DBConnection();
+		Connection connection=dbconnect.getConnection();
+		String year="";
+
+		String query="SELECT year FROM `academy_year` ORDER by academy_year.id DESC LIMIT 1";
+		pstmt = connection.prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next())
+		{
+			year=rs.getString(1);
+		}
+		
+		connection.close();
+		return year;
 	}
 
 }

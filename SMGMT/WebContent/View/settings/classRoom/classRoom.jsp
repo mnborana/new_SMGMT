@@ -115,11 +115,7 @@ z-index: 999999">
                 <jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
              <!-- /.left navbar -->
     
-    <%
-		HttpSession session1 = request.getSession();
-		session1.setAttribute("schoolId", "2");
-	%>
-             
+       
              
         <div id="content" class="bg-container">
             <header class="head">
@@ -203,7 +199,7 @@ z-index: 999999">
                                            </div>
                                        </div>
                                        
-                                       <input type="hidden" value="<%=session1.getAttribute("schoolId") %>" name="schoolId">
+                                       <input type="hidden" value="<%=schoolId %>" name="schoolId">
                                        
                                        <div class="form-group row">
                                            <div class="col-lg-4 text-lg-right">
@@ -319,7 +315,7 @@ z-index: 999999">
 
 function getStandards() {
 
-	var schoolId = <%=session1.getAttribute("schoolId") %>;
+	var schoolId = <%=schoolId %>;
 	var sectionId = document.getElementById("sectionId").value;
 	var xhttp;
 	xhttp = new XMLHttpRequest();

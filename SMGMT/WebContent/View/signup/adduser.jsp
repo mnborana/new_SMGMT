@@ -66,7 +66,7 @@
 
 		<div class="wrapper">
 			<!-- /.left navbar -->
-	 <jsp:include page="/View/common/left-navbar.jsp"></jsp:include> 
+	 		<jsp:include page="/View/common/left-navbar.jsp"></jsp:include> 
 			<!-- /.left navbar -->
 
 
@@ -112,7 +112,7 @@
 											%>
 
 											<%
-												SignUpDAO dao = new SignupImpl();
+													SignUpDAO dao = new SignupImpl();
 													List schoolName = dao.getSchoolForAdmin();
 													Iterator itr = schoolName.iterator();
 											%>

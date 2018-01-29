@@ -47,7 +47,7 @@ z-index: 999999">
                 <div class="col-lg-8 push-lg-2 col-md-10 push-md-1 col-sm-12">
                     <div class="login_logo login_border_radius1">
                         <h3 class="text-center">
-                            <img src="/SMGMT/config/img/logow2.png.pagespeed.ce.3qFWgMzjGO.png" alt="josh logo" class="admire_logo"><span class="text-white"> VERTICAL SOFT &nbsp;<br/>
+                            <img src="/SMGMT/config/img/newLogo.png" alt="Vertical Soft" class="admire_logo"><span class="text-white"> VERTICAL SOFT &nbsp;<br/>
                                 Log In</span>
                         </h3>
                     </div>

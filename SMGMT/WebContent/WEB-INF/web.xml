@@ -235,5 +235,13 @@
   <servlet-mapping>
     <servlet-name>FeesCollection</servlet-name>
     <url-pattern>/FeesCollection</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AssignFee</servlet-name>
+    <servlet-class>com.servletStore.fees.feescollection.controller.AssignFee</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AssignFee</servlet-name>
+    <url-pattern>/AssignFee</url-pattern>
+  </servlet-mapping>
 </web-app>
