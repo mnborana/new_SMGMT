@@ -19,7 +19,18 @@ public class AssignStdWiseFees extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("hiiiiii");
+		String stds[] = request.getParameterValues("standardIds");
+		
+		String tableData[] = request.getParameter("tableData").split(",");
+		
+		for(int i=0; i<stds.length; i++){
+			System.out.println(stds[i]);
+			for(int j=0; j<tableData.length; j=j+5){
+				
+				System.out.println(tableData[j]);
+				
+			}
+		}
 		
 	}
 

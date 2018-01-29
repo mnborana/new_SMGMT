@@ -56,7 +56,7 @@
   top: 48%;
   background-position: center;
 z-index: 999999">
-        <img src="img/loader.gif.pagespeed.ce.pu_lpoGKrw.gif" style=" width: 50px;" alt="loading...">
+        <img src="/SMGMT/config/img/loader.gif.pagespeed.ce.pu_lpoGKrw.gif" style=" width: 50px;" alt="loading...">
     </div>
 </div>
 <div id="wrap">

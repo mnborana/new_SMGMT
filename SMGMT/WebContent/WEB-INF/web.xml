@@ -93,6 +93,14 @@
     <url-pattern>/Subjects</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>SubjectAssignment</servlet-name>
+    <servlet-class>com.servletStore.settings.subjects.controller.SubjectAssignment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubjectAssignment</servlet-name>
+    <url-pattern>/SubjectAssignment</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Vehicle</servlet-name>
     <servlet-class>com.servletStore.transportation.controller.Vehicle</servlet-class>
   </servlet>

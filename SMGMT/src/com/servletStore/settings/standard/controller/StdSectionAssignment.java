@@ -36,17 +36,15 @@ public class StdSectionAssignment extends HttpServlet {
 			
 			String stds[] = request.getParameterValues("stds");
 			String schoolId = request.getParameter("schoolId");
-			String sectionName = request.getParameter("sectionName").trim();
+			String sectionId = request.getParameter("sectionId").trim();
 			StandardDAO stdDao = new StandardImpl();
 			StandardPOJO stdPojo = new StandardPOJO();
 			int insertSuccess=0;
 			
-			SectionDAO secDao = new SectionImpl();
-			int sectionId = secDao.getSectionIdFromName(sectionName);
 			
 			for(String x:stds){
 				stdPojo.setStdId(Integer.parseInt(x));
-				insertSuccess = stdDao.addClass(stdPojo, schoolId, sectionId);
+				insertSuccess = stdDao.addClass(stdPojo, schoolId, Integer.parseInt(sectionId));
 			}
 			
 			if(insertSuccess>0){

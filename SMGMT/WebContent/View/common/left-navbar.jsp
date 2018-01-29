@@ -21,8 +21,10 @@
 		Iterator<SetupPOJO> itr= list.iterator();
 		SetupPOJO pojo = new SetupPOJO();
 		
+		int x=0;
 		while(itr.hasNext())
 		{
+			
 			pojo=itr.next();
 		}
 %>
@@ -361,7 +363,7 @@
                         <ul>
                        
                             <li>
-                                <a href="/SMGMT/View/fees/Installment.jsp">
+                                <a href="/SMGMT/View/fees/installment.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Generate Modes
                                 </a>
@@ -769,5 +771,5 @@
                 <!-- /#menu -->
             </div>
         </div>
-</section>
 <%}%>
+</section>
