@@ -92,7 +92,7 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 
 		ResultSet rs = null;
 		String query = "SELECT remaining_fees FROM fees_collection WHERE id=(SELECT MAX(id) FROM fees_collection WHERE stud_id='"+student_id+"')";
-		String query1 = "SELECT date, paid_fees, remaining_fees, pay_mode, particulers FROM fees_collection WHERE stud_id="+student_id;
+		String query1 = "SELECT date, paid_fees, remaining_fees, pay_mode, particulars FROM fees_collection WHERE stud_id="+student_id;
 		
 		List<Object> studFeesInfo=new ArrayList<>();
 		
@@ -111,7 +111,7 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 				studFeesInfo.add(rs.getString("paid_fees"));
 				studFeesInfo.add(rs.getString("remaining_fees"));
 				studFeesInfo.add(rs.getString("pay_mode"));
-				studFeesInfo.add(rs.getString("particulers"));
+				studFeesInfo.add(rs.getString("particulars"));
 			}
 			
 		} catch (SQLException e) {
