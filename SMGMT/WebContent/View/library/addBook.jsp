@@ -248,42 +248,10 @@
 					</div>
 				
             
-            <!-- Modal for category -->
-            <div class="modal fade show" id="category" role="dialog" aria-labelledby="modalLabelnews">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header bg-primary">
-                                <h4 class="modal-title text-white" id="modalLabelnews">Category</h4>
-                            </div>
-                            <div class="modal-body">
-                            	<form action="/SMGMT/Library" class="form-horizontal" id="form_block_validator" method="POST">
-                            		 		<div class="form-group row">
-                            		 			<div class="col-lg-8 ">
-                                                    <label for="catName" class="col-form-label">Category Name </label><span style="color: red;">*</span>
-                                               	    <input type="text" id="catName" name="catName" class="form-control" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" required>
-                                               	    
-                                               	    
-                                               	    <!-- <div class="form-group col-lg-4 input_field_sections">
-															<label for="firstName" class="col-form-label">Book
-																Name *</label> <input type="text" id="bookName1"
-																name="bookName" class="form-control"
-																placeholder="Book Name" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" required>
-														</div> -->
-                                                </div>
-                                            </div>
-                                             <div class="modal-footer">
-                               					 <button class="btn btn-success" type="submit" name="savecat" id="updateId">Save</button> 
-					                           	<button class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                            				</div>
-                           	    </form>   
-                            </div>
-                           
-                        </div>
-                    </div>
-                </div>  <!-- /Modal  -->
+           
           
           <!-- Book Table -->  
-            <div class="outer">
+             <div class="outer">
                     <div class="inner bg-container">
                         <div class="card">
                             <div class="card-header bg-white">
@@ -324,9 +292,9 @@
 														<td><%=(++bookCount) %></td>
 														<td><c:out value="${d.bookName}"></c:out></td>
 														<td><c:out value="${d.authorName}"></c:out></td>
-														<%-- <td><c:out value="${d.publisherName}"></c:out></td>
+														<td><c:out value="${d.publisherName}"></c:out></td>
 														<td><c:out value="${d.edition}"></c:out></td>
-														<td><c:out value="${d.price}"></c:out></td> --%>
+														<td><c:out value="${d.price}"></c:out></td>
 														<td><c:out value="${d.cupboardNo}"></c:out></td>
 														<td><c:out value="${d.quantity}"></c:out></td>
 														<td><c:out value="${d.language}"></c:out></td>
@@ -344,9 +312,62 @@
                             </div>
                        	 </div>
                        </div><!-- /.inner -->
-                    </div><!-- /outer -->   
+                    </div><!-- /outer -->    
                
-                <!-- Modal for Update -->
+               
+                
+                
+                
+                
+             </div><!-- /#content -->
+            
+            
+            </div>       <!--wrapper--> 
+       
+        </div>
+<!-- /#wrap -->        
+
+      
+
+
+
+ <!-- Modal for category -->
+            <div class="modal fade show" id="category" role="dialog" aria-labelledby="modalLabelnews">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary">
+                                <h4 class="modal-title text-white" id="modalLabelnews">Category</h4>
+                            </div>
+                            <div class="modal-body">
+                            	<form action="/SMGMT/Library" class="form-horizontal" id="form_block_validator" method="POST">
+                            		 		<div class="form-group row">
+                            		 			<div class="col-lg-8 ">
+                                                    <label for="catName" class="col-form-label">Category Name </label><span style="color: red;">*</span>
+                                               	    <input type="text" id="catName" name="catName" class="form-control" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" required>
+                                               	    
+                                               	    
+                                               	    <!-- <div class="form-group col-lg-4 input_field_sections">
+															<label for="firstName" class="col-form-label">Book
+																Name *</label> <input type="text" id="bookName1"
+																name="bookName" class="form-control"
+																placeholder="Book Name" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]" required>
+														</div> -->
+                                                </div>
+                                            </div>
+                                             <div class="modal-footer">
+                               					 <button class="btn btn-success" type="submit" name="savecat" id="updateId">Save</button> 
+					                           	<button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                            				</div>
+                           	    </form>   
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>  <!-- /Modal  -->
+
+
+
+ 			<!-- Modal for Update -->
                   <div class="modal fade show" id="update" role="dialog" aria-labelledby="modalLabelnews">
                   	 <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -425,18 +446,7 @@
                           </div>
                     </div>  
                 </div>
-             </div>
-            
-            
-            </div> <!-- /#content -->
-        </div>
-        
-       <!--wrapper-->
-       
-        
-        
-</div>
-<!-- /#wrap -->
+
 
 <!-- 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script> -->
 <!-- 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script> -->

@@ -104,7 +104,6 @@ z-index: 999999">
         	 <!-- /.left navbar -->
                 <jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
              <!-- /.left navbar -->
-          
              
         <div id="content" class="bg-container">
             <header class="head">

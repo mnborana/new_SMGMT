@@ -1,3 +1,8 @@
+<%@page import="com.servletStore.fees.feescollection.model.FeesCollectionImpl"%>
+<%@page import="com.servletStore.fees.feescollection.model.FeesCollectionDAO"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.servletStore.fees.assignStdWiseFees.model.AssignStdWiseFeesImpl"%>
@@ -9,6 +14,7 @@
 <%@page import="com.servletStore.setup.model.SetupDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -51,7 +57,7 @@
 	}
 %>
 
-<body>
+<body onload="myFunction()">
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -126,31 +132,45 @@
                                         Student Fee
                                     </div>
                                     <div class="card-block seclect_form">
-                                        <form action="#" class="form-horizontal" id="form_block_validator">
+                                        <form action="/SMGMT/AssignFee" method="post" class="form-horizontal" id="form_block_validator">
                                             
                                             <div class="row">
 	                                            <div class="col-lg-2 input_field_sections">
 	                                            </div>
+	                                            
+	                                            	<%
+			                                        
+			                        					DateFormat df = new SimpleDateFormat("DD-MM-YYYY");
+			                        					String currentDate = df.format(new Date()).toString();
+                                                    	//System.out.println(currentDate);
+			                                        	FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
+			                                        	request.setAttribute("list", feesCollectionDAO.getStadardDivisionDetails(schoolId));
+			                                        %>
 	                                            <div class="col-lg-4 input_field_sections">
 	                                                <h5>Select Standard</h5>
-	                                                	<select class="form-control chzn-select" id="selectStd" name="standard" required>
-															<option value="">Select Standard</option>
-															<option value=""></option>
+	                                                	<select class="form-control chzn-select" id="standard_id" name="standard_Id" onchange="selectStudent()" required>
+															<option value="" selected="selected">Select Standard</option>
+															<c:forEach items="${list}" var="u">  
+																<option value="${u.getClassRoomMasterId()}">${u.getStdName()} ${u.getDivName()} - ${u.getShift()}</option>
+															</c:forEach>
 														</select>
 	                                            </div>
 	                                            <div class="col-lg-4 input_field_sections">
 	                                                <h5>Student Name</h5>
-	                                                	<select class="form-control chzn-select" id="selectStud" name="student" required>
+	                                                	<select class="form-control chzn-select" id="student_id" name="student_Id" onchange="selectCast()" required>
 															<option value="">Select Student</option>
 															<option value="">demo</option>
 														</select>
 	                                            </div>
                                         	</div>
+                                        	
+                                        	<input type="text" id="totalFee" name="totalFee"/>
+                                        	<input type="text" id="year" name="year" value="<%=academicYear%>"/>
                                             
                                             <div class="outer">
                                             	<div class="inner bg-container">
 							                		<div class="card">
-							                    		<div class="card-header bg-white">Student Fees Structure</div>
+							                    		<div class="card-header bg-white" id="heading">Student Fees Structure</div>
 							                    		<div class="card-block m-t-35" id="user_body">
 							                        		<div class="table-toolbar">
 								                                <div class="btn-group float-right users_grid_tools">
@@ -158,7 +178,7 @@
 								                                </div>
 							                            	</div>
 							                            	
-							                            	<table class="table  table-striped table-bordered table-hover  no-footer"  role="grid">
+							                            	<table class="table  table-striped table-bordered table-hover  no-footer" id="tableId"  role="grid">
 							                                        <thead>
 								                                        <tr role="row">
 																			<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">No</th>
@@ -167,8 +187,8 @@
 								                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term Two Fees</th>
 								                                        </tr>
 							                                        </thead>
-							                                        <tbody>
-							                                        	<tr>
+							                                        <tbody id="feeStructure">
+							                                        	<tr id="trid">
 							                                        		<td></td>
 							                                        		<td></td>
 							                                        		<td></td>
@@ -185,7 +205,7 @@
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Assign Fee" class="btn btn-primary">
+                                                    <input type="submit" value="Assign Fee" name="assign" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </form>
@@ -265,5 +285,207 @@
 <!-- /#wrap -->
 
 	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
+	<script type="text/javascript">
+	function myFunction(){
+		<%if (session.getAttribute("flag") != null) {%>
+		$(window).load(function () {
+	        iziToast.show({
+	            title: 'Status',
+	            message: '<%=session.getAttribute("flag").toString()%> ',
+					color : '#00cc99',
+					position : 'topCenter'
+				});
+				return false;
+			});
+	<%}
+			session.removeAttribute("flag");%>
+
+	}
+	
+	function selectCast()
+	{
+		var student_id = document.getElementById('student_id').value;
+		
+		//alert("Student Id "+student_id);
+		
+		var xhttp =new XMLHttpRequest();
+		
+		var sum=0;
+		
+		try{
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var castFee=this.responseText.split(",");
+					
+					//alert(castFee.length);
+					//alert(castFee);
+					var lastSrNo = $('#tableId tr:last td:first').text();
+					var table = document.getElementById("tableId");
+					var count=parseInt(lastSrNo)+1
+					
+					
+					for(var i=0;i<castFee.length-1;i=i+2)
+					{
+						
+						var rowCount = table.rows.length;
+						
+						var row = table.insertRow(rowCount);//tr
+						
+						var cell1 = row.insertCell(0);//td
+						
+						//var cellData="omkar";
+						
+						cell1.innerHTML=count; //srNo
+						
+						var cell2 = row.insertCell(1);
+						
+						cell2.innerHTML=castFee[i]; //feeType
+						
+						var cell3 = row.insertCell(2);
+						
+						cell3.innerHTML=castFee[i+1]; //fee
+						
+						cell3.colSpan = 2;
+						
+						$(cell3).attr("align","center");
+						
+						count++;
+
+					}
+					
+					
+
+
+					var totalRows = document.getElementById("tableId").rows.length;
+					
+					for(var i=1;i<totalRows;i++)
+					{
+						var totalColumn = table.rows[i].cells.length;
+						
+						if(totalColumn==4)
+						{
+							sum+=parseInt(table.rows[i].cells[2].innerText);
+							
+							sum+=parseInt(table.rows[i].cells[3].innerText);
+								
+						}
+						else
+						{
+							sum+=parseInt(table.rows[i].cells[2].innerText);
+								
+						}
+												
+						//alert(sum);
+					}
+					
+					var rowCount = table.rows.length;
+					
+					var row = table.insertRow(rowCount);//tr
+					
+					var cell1 = row.insertCell(0);//td
+					
+					cell1.innerHTML="<b>Total Fee</b>";
+					
+					cell1.colSpan = 2
+					
+					$(cell1).attr("align","center");
+					
+					cell1.style.backgroundColor="#4fb7fe";
+					
+					var cell2 = row.insertCell(1);//td
+					
+					cell2.innerHTML="<b>"+sum+"<b>";
+					
+					cell2.colSpan = 2
+					
+					$(cell2).attr("align","center");
+					
+					cell2.style.backgroundColor="#4fb7fe";
+ 
+
+					document.getElementById('totalFee').value=sum;
+					
+					document.getElementById('heading').innerHTML="Student Fees Structure for "+castFee[castFee.length-1]+" Category";
+					
+										
+				}
+			}
+			xhttp.open("POST", "/SMGMT/AssignFee?student_id="+student_id, true);
+			xhttp.send();
+		}catch(e){
+			alert("Unable to Connect Server!");
+		}
+	
+		
+	}
+	function selectStudent() {
+		
+		var standard_id = document.getElementById('standard_id').value;
+		
+		//alert("Standard Id "+standard_id);
+		
+		var xhttp =new XMLHttpRequest();
+		
+		try{
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var str=this.responseText.split(",");
+					var fee=str[0].split("#");
+					//alert(fee+" lenght "+fee.length);
+					var tableData="";
+					var count=1;
+					//var i=0;
+					
+					 for(var i=0;i < fee.length-1;i=i+3)
+					{
+					 	tableData+="<tr>"
+						+"<td>"+count+"</td>"
+						+"<td>"+fee[i]+"</td>"
+						+"<td>"+fee[i+1]+"</td>"
+						+"<td>"+fee[i+2]+"</td>"
+						+"</tr>";
+						
+						count++;
+//						alert(tableData);
+						
+					}
+					 document.getElementById("feeStructure").innerHTML=tableData;
+					 
+					
+					// 
+					
+					
+					
+					
+					
+					
+					var data="<option disabled selected>Select Student </option>";
+					
+					for (var i = 0; i < str.length-1;) {
+						
+						data+='<option value='+str[ i++]+'>'+ str[ i++] +' </option>';
+					}
+					
+					//alert(data);
+					
+					document.getElementById("student_id").innerHTML=data;
+					$("#student_id").trigger('chosen:updated');					
+				}
+			}
+			xhttp.open("POST", "/SMGMT/AssignFee?standard_id="+standard_id, true);
+			xhttp.send();
+		}catch(e){
+			alert("Unable to Connect Server!");
+		}
+		//SELECT student_details.id, student_details.first_name, student_details.middle_name, student_details.last_name FROM 
+		//student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND class_allocation.classroom_master=8
+		
+		//SELECT student_details.id, concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) AS full_name FROM 
+		//student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND class_allocation.classroom_master=8 AND 
+		//concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) LIKE 'suraj m%'
+	}
+
+	
+	</script>
 </body>
 </html>
