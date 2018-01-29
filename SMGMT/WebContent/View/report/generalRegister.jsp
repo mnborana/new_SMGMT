@@ -1,9 +1,11 @@
-<%@page import="com.servletStore.register.model.OutwardRegisterPojo"%>
-<%@page import="com.servletStore.register.model.OutwardRegisterImpl"%>
-<%@page import="com.servletStore.register.model.OutwardRegisterDAO"%>
-<%@page import="com.servletStore.settings.document.model.AddDocumentPojo"%>
-<%@page import="com.servletStore.settings.document.model.AddDocumentImpl"%>
-<%@page import="com.servletStore.settings.document.model.AddDocumentDAO"%>
+
+<%@page import="com.servletStore.report.generalRegister.model.GeneralRegisterPOJO"%>
+<%@page import="com.servletStore.report.generalRegister.model.GeneralRegisterIMPL"%>
+<%@page import="com.servletStore.report.generalRegister.model.GeneralRegisterDAO"%>
+<%@page import="com.servletStore.setup.model.SetupPOJO"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
+<%@page import="com.servletStore.setup.model.SetupDAO"%>
+
 <%@page import="utility.SysDate"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -16,7 +18,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Form Validations | Admire</title>
+    <title>Vertical Software</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
@@ -41,7 +43,27 @@
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
    
 </head>
-<body onload="setFocusToTextBox()"">
+
+<%
+	String schoolId = "0";
+	String academicYear = "0";
+	int roll=0;
+	
+	if (session.getAttribute("userName") == null) {
+		response.sendRedirect("/SMGMT");
+	} 
+	else {
+		roll=(Integer)session.getAttribute("rollId");
+		schoolId = session.getAttribute("schoolId").toString();
+		academicYear = session.getAttribute("year").toString();
+		
+		SetupDAO dao = new SetupImpl();
+		List list=dao.getAccessControlDetails(roll);
+		Iterator<SetupPOJO> itr= list.iterator();
+					
+	}
+%>
+<body>
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -80,7 +102,7 @@
 					<div class="row no-gutters">
 						<div class="col-sm-5 col-lg-6">
 							<h4 class="nav_top_align">
-								<i class="fa fa-pencil"></i> Add Document
+								<i class="fa fa-pencil"></i> General Register Report
 							</h4>
 						</div>
 						<div class="col-sm-7 col-lg-6">
@@ -90,7 +112,7 @@
 										Dashboard
 								</a></li>
 								<li class="breadcrumb-item"><a href="#">Forms</a></li>
-								<li class="active breadcrumb-item">Add New Document</li>
+								<li class="active breadcrumb-item">General Register</li>
 							</ol>
 						</div>
 					</div>
@@ -105,104 +127,112 @@
 							<div class="col-xl-12">
 								<div class="card">
 									<div class="card-header bg-white">
-										<i class="fa fa-file-text-o"></i>Report
+										<i class="fa fa-file-text-o"></i> General Register
 									</div>
-									<form action="/SMGMT/" method="post" class="form-horizontal  login_validator"	id="form_block_validator">
-										<div class="card-block m-t-35">
-											<div class="form-group row">
+									<div class="card-block m-t-35">
+										<form action="/SMGMT/GeneralRegister" method="post"
+											class="form-horizontal  login_validator"
+											id="form_block_validator">
 
-												<div class="col-lg-1 text-lg-right"
-													style="margin-left: 199px;">
-													<label class="col-form-label"><strong>From :</strong></label>
-												</div>
-												<%
-													SysDate requireddate = new SysDate();
-												%>
-												<div class="col-lg-3">
-													<input type="text" class="form-control form_val_popup_dp3"
-														name="fromDate" id="fromDate"
-														value="<%=requireddate.todayDate()%>" />
-												</div>
-
-												<div class="col-lg-1 text-lg-right"
-													style="margin-left: -55px">
-													<label class="col-form-label"> <strong>To:</strong></label>
-												</div>
-
-												<div class="col-lg-3">
-													<input type="text" class="form-control form_val_popup_dp3"
-														name="toDate" id="toDate"
-														value="<%=requireddate.todayDate()%>" />
-												</div>
-											</div>
 
 
 											<div class="form-group row">
 												<div class="col-lg-3 text-lg-right">
-													<label for="required2" class="col-form-label"><strong>Report
-															Type:</strong></label>
+													<label for="required2" class="col-form-label">Select
+														Section<span style="color: red;">*</span>
+													</label>
 												</div>
-												<div class="col-lg-3">
+												<div class="col-lg-4">
+													<%
+		                                          GeneralRegisterDAO dao=new GeneralRegisterIMPL();
+		                                          List list=dao.selectSectionList(schoolId);
+		                                          Iterator itr=list.iterator();
+		                                          %>
+													<select class="form-control chzn-select" tabindex="2"
+														name="selectSection" id="required2" required>
+														<option disabled selected>select Section</option>
+														<%
+	                                             while(itr.hasNext())
+	                                             {
+	                                            	 GeneralRegisterPOJO pojo=(GeneralRegisterPOJO)itr.next();
+	                                            	 int id=((GeneralRegisterPOJO)pojo).getId();
+	                                            	 String secList=((GeneralRegisterPOJO)pojo).getSection_name();
+	                                             
+	                                             %>
 
-													<select class="form-control chzn-select" tabindex="2" name="reportType" id="reportType"  onchange="generateName(this.value)" required>
+														<option value="<%=id%>"><%=secList %></option>
 
-														<option value="InwardRegister">Inward Register</option>
-														<option value="OutwardRegister">Outward Register</option>
-														<option value="StockRegister">Stock Register</option>
+														<%
+	                                                  
+	                                                  }
+	                                                  %>
 													</select>
 												</div>
 											</div>
-											
-											<div class="row" style="margin-left: 300px;">
 
-												<div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-6 m-t-15">
-													<button  type="button" class="btn btn-primary" style="margin-left: -13px;" name="createBtn" onclick="getReportData()">Create</button>
+
+											<div class="form-group row" style="visibility: hidden;"
+												id="genralRegister">
+												<div class="col-lg-3  text-lg-right">
+													<label for="required2" class="col-form-label">GR.NO<span
+														style="color: red;">*</span></label>
 												</div>
-												<div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-6 m-t-15">
-													<button type="button" class="btn btn-success" style="margin-left: -220px;" onClick="doExport('#wholeDataList', {type: 'excel', numbers: {output: false}, onMsoNumberFormat: DoOnMsoNumberFormat, worksheetName: 'MSO-FORMATS', excelstyles: ['background-color', 'color']});">Excel</button>
+												<div class="col-lg-4">
+													<input type="text" id="required2" name="GRNO"
+														onkeyup="this.value = this.value.toUpperCase()"
+														class="form-control">
 												</div>
+											</div>
 
-												<div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-6 m-t-15" style="">
-													<button  type="button" class="btn btn-warning" style="margin-left: -435px;" onclick="printData()">Print</button>
+											<input type="hidden" name="checkId" id="firstRadio">
+
+											<div class="form-group row">
+												<div class="col-lg-5 text-lg-right">
+													<label class="custom-control custom-radio"> <input
+														name="radio_3" type="radio" class="custom-control-input"
+														value="1" onclick="studentWise(this.value);"
+														id="disabledField"> <span
+														class="custom-control-indicator"></span> <span
+														class="custom-control-description">Select All
+															Student</span>
+													</label>
 												</div>
+											</div>
 
-										  </div>
-										  
-										</div>                          
+											<div class="form-group row">
+												<div class="col-lg-5 text-lg-right"
+													style="margin-left: -33px;">
+													<label class="custom-control custom-radio"> <input
+														name="radio_3" type="radio" class="custom-control-input"
+														value="2" onclick="studentWise(this.value);"
+														id="selectStud"> <span
+														class="custom-control-indicator"></span> <span
+														class="custom-control-description">GR.NO Wise</span>
+													</label>
+												</div>
+											</div>
 
-									</form>
+											<div class="form-actions form-group row">
+												<div class="col-lg-4 push-lg-4">
+													<input type="hidden" name="schoolId" value="<%=schoolId%>">
+													<input type="hidden" name="academicYear"
+														value="<%=academicYear%>">
+													<button type="submit" name="submitBTN"
+														class="btn btn-success">Submit</button>
+													<button type="button" class="btn btn-danger"
+														style="margin-left: 10px;">Exit</button>
+												</div>
+											</div>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
-						
-						<div class="col-lg-12">
-                                <div class="card m-t-35">
-                                    <div class="card-header bg-white">
-                                        Report
-                                    </div>
-                                    <div class="card-block">
-                                        <div class="table-responsive m-t-35">
-                                            <table class="table table-bordered" id="wholeDataList">
-                                                
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-						
 					</div>
 				</div>
-				
 			</div>
-			<!-- /.row -->
 		</div>
-		<!-- /.inner -->
 	</div>
-	<!-- /.outer -->
-                                 
-
-
-
 
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
@@ -219,6 +249,10 @@
 	<script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
 	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script>
 
+    <script type="text/javascript" src="/SMGMT/config/vendors/select2/js/select2.js.pagespeed.jm.Eugd1Y0BmV.js"></script>
+    <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
+    <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
+    
     <script>eval(mod_pagespeed_g_o5ieHdNa);</script>
     <script>eval(mod_pagespeed_UzcyJ5ysoL);</script>
     <script>eval(mod_pagespeed_sB4kJD0xfI);</script>
@@ -256,6 +290,23 @@
 <script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
 
 
+
+<script type="text/javascript">
+function studentWise(x)
+{
+	alert(x);
+	document.getElementById("firstRadio").value=x;
+	
+	if (document.getElementById('selectStud').checked) {
+        document.getElementById('genralRegister').style.visibility = 'visible';
+    }
+    else document.getElementById('genralRegister').style.visibility = 'hidden';
+	
+}
+
+
+
+	</script>
 </body>
 
 </html>
