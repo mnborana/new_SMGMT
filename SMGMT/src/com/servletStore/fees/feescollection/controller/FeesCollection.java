@@ -58,8 +58,6 @@ public class FeesCollection extends HttpServlet {
 			while (iterator.hasNext()) {
 				out.print(iterator.next()+",");
 				//System.out.print(iterator.next()+",");
-				
-				
 			}
 			
 		}
