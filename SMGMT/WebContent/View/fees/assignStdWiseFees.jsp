@@ -14,7 +14,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Form Elements | Admire</title>
+    <title>Vertical Software</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -79,8 +79,8 @@
 		 }
 		 
 		 access = grant.getFee();
-		 System.out.println("roll "+roll + " schoolId "+schoolId +" access "+access);
-		
+		 //System.out.println("roll "+roll + " schoolId "+schoolId +" access "+access);
+		 
 		//if it returns read(1) then hide form and action column in dataTable
 		//for write(2) show your orignal full form
 				
@@ -347,23 +347,25 @@ z-index: 999999">
 		
 		$("#editFeeTD1").focus();
 		
-		$("#editFeeTD1, #editFeeTD2").keyup(function(evt)
+		$("#editFeeTD1, #editFeeTD2").keypress(function(evt)
 		{		
-			var charCode = window.event.keyCode;
-		    var element = document.activeElement.children;
-		    element[1].value = element[0].innerHTML;
-		    var value = element[0].innerHTML;
+			var charCode = evt.keyCode;
+		    var value = document.activeElement.innerHTML;
+		    
+		    if(charCode == 13){
+		    	return false;
+		    }
+		    
 		    if(charCode == 46){
-		    	if (value != null && value.trim().indexOf('.') == -1)
+		    	if (value != null && value.trim().indexOf('.') == -1){
 	                return true;
+		    	}
 		    }
 		    
 			if (charCode > 31 && (charCode < 48 || charCode > 57)) {
 		        return false;
 		    }
-		    else if(charCode == 13){
-		    	return false;
-		    }
+		    
 
 		});
 	}
@@ -373,6 +375,7 @@ z-index: 999999">
 		var checked=0;
 		var c = document.getElementsByName('feeTypeCheck');
 		var finalArray = [];
+		
 		for(var i=0;i<c.length;i++)
 		{	
 			if (c[i].checked){
