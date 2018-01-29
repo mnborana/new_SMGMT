@@ -5,6 +5,14 @@
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
+    <servlet-name>YearActivator</servlet-name>
+    <servlet-class>com.activator.YearActivator</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>YearActivator</servlet-name>
+    <url-pattern>/YearActivator</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>AddClassRoom</servlet-name>
     <servlet-class>com.servletStore.settings.classRoom.controller.AddClassRoom</servlet-class>
   </servlet>
@@ -91,6 +99,14 @@
   <servlet-mapping>
     <servlet-name>Subjects</servlet-name>
     <url-pattern>/Subjects</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SubjectAssignment</servlet-name>
+    <servlet-class>com.servletStore.settings.subjects.controller.SubjectAssignment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubjectAssignment</servlet-name>
+    <url-pattern>/SubjectAssignment</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Vehicle</servlet-name>
@@ -228,6 +244,14 @@
     <servlet-name>AssignStdWiseFees</servlet-name>
     <url-pattern>/AssignStdWiseFees</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>Report</servlet-name>
+    <servlet-class> com.servletStore.report.libraryReport.controller.Report</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Report</servlet-name>
+    <url-pattern>/Report</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>FeesCollection</servlet-name>
     <servlet-class>com.servletStore.fees.feescollection.controller.FeesCollection</servlet-class>
@@ -235,5 +259,13 @@
   <servlet-mapping>
     <servlet-name>FeesCollection</servlet-name>
     <url-pattern>/FeesCollection</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AssignFee</servlet-name>
+    <servlet-class>com.servletStore.fees.feescollection.controller.AssignFee</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AssignFee</servlet-name>
+    <url-pattern>/AssignFee</url-pattern>
+  </servlet-mapping>
 </web-app>

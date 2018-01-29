@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+
 encoding//WebContent/WEB-INF/jasperReport/GeneralRegister.jrxml=UTF-8
 encoding//WebContent/WEB-INF/jasperReport/GeneralRegisterGRWise.jrxml=UTF-8
 encoding//WebContent/WEB-INF/jasperReport/InwardRegisterReport.jrxml=UTF-8
@@ -6,3 +7,6 @@ encoding//WebContent/WEB-INF/jasperReport/OutwardRegisterReport.jrxml=UTF-8
 encoding//WebContent/WEB-INF/jasperReport/StockRegisterReport.jrxml=UTF-8
 encoding//WebContent/config/css,_components.css+css,_custom.css+vendors,_bootstrap-switch,_css,_bootstrap-switch.min.css+vendors,_switchery,_css,_switchery.min.css+vendors,_radio_css,_css,_radiobox.min.css+vendo=UTF-8
 encoding//WebContent/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css=UTF-8
+encoding//WebContent/reports/Library.jrxml=UTF-8
+encoding//WebContent/reports/availableBooks.jrxml=UTF-8
+

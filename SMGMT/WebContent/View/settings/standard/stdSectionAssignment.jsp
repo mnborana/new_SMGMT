@@ -16,37 +16,24 @@
     <title>Form Elements | Admire</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
-    <!-- global styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/components.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/custom.css"/>
-    <!-- end of page level styles -->
-    <!--Plugin styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/inputlimiter/css/jquery.inputlimiter.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/chosen/css/chosen.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jquery-tagsinput/css/jquery.tagsinput.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/daterangepicker/css/daterangepicker.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/datepicker/css/bootstrap-datepicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-switch/css/bootstrap-switch.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jasny-bootstrap/css/jasny-bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/multiselect/css/multi-select.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_bootstrap-switch,_css,_bootstrap-switch.min.css+vendors,_switchery,_css,_switchery.min.css+vendors,_radio_css,_css,_radiobox.min.css+vendo"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_themify,_css,_themify-icons.css+vendors,_ionicons,_css,_ionicons.min.css+css,_pages,_icon.css.pagespeed.cc.V3vSn3K0aE.css"/>
-    <!--End of plugin styles-->
-    <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
-    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
-    <!-- end of page level styles -->
+     <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
+
+<style type="text/css">
+
+	 #schoolId, #sectionName {
+		display: block !important;
+	    opacity: 0;
+	    margin-bottom: -10%;
+	}
+	
+</style>
 </head>
-
-
 
 <%
 	String schoolId = "0";
 	String academicYear = "0";
 	int roll=0;
+	int access = 0;
 	
 	if (session.getAttribute("userName") == null) {
 		response.sendRedirect("/SMGMT");
@@ -64,14 +51,13 @@
 		//choose appropriate method as per your leftNavbar form option name
 		//e.g : if you are working on Attendance option in left navbar then code will be...
 		
-		/* SetupPOJO grant = new SetupPOJO();
-		int access=grant.getAttendance(); */
 		
 		//if it returns read(1) then hide form and action column in dataTable
 		//for write(2) show your orignal full form
 				
 	}
 %>
+
 
 <body>
 <div class="preloader" style=" position: fixed;
@@ -89,7 +75,7 @@
   top: 48%;
   background-position: center;
 z-index: 999999">
-        <img src="" style=" width: 40px;" alt="loading...">
+        <img src="/SMGMT/config/img/loader.gif.pagespeed.ce.pu_lpoGKrw.gif" style=" width: 40px;" alt="loading...">
     </div>
 </div>
 <div id="wrap">
@@ -145,7 +131,7 @@ z-index: 999999">
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                        Create New Class
+                                        Generate New Class
                                     </div>
                                     <div class="card-block m-t-35">
                                         <form action="/SMGMT/StdSectionAssignment" method="post" class="form-horizontal  login_validator" id="form_block_validator">
@@ -154,8 +140,8 @@ z-index: 999999">
                                                <label for="required2" class="col-form-label">Select School <span style="color: red;">*</span> </label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <select class="form-control chzn-select" name="schoolId" onchange="getSections()" id="schoolId" title="Select School"  required="required">
-			                                        <option>Select School</option>
+                                               <select class="form-control chzn-select" name="schoolId" onchange="getSections()" id="schoolId" title="Select School"  required>
+			                                        <option value="">Select School</option>
 			                                        <%
 				                                    	StandardDAO sdao3 = new StandardImpl();
 				                                    	List<SchoolPOJO> l3 = sdao3.getSchoolDetails();
@@ -181,9 +167,9 @@ z-index: 999999">
                                                <label for="required2" class="col-form-label">Select Section <span style="color: red;">*</span></label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <input class="form-control" placeholder="Select Section" list="browsers" onkeyup="this.value=this.value.toUpperCase()" name="sectionName" id="sectionName"autocomplete="off" required />
-                                                <datalist id="browsers">
-												</datalist>
+                                               <select class="form-control chzn-select" name="sectionId"  id="sectionName" title="Select Section"  required>
+			                                        
+			                                    </select>
                                            </div>
                                        </div>
                                        
@@ -211,7 +197,7 @@ z-index: 999999">
                 <div class="inner bg-container">
                     <div class="card">
                         <div class="card-header bg-white">
-                            User Grid
+                            School with Section List
                         </div>
                         <div class="card-block m-t-35" id="user_body">
                             <div class="table-toolbar">
@@ -235,29 +221,29 @@ z-index: 999999">
                                         <tbody>
                                         
                                         <%
-                                         StandardDAO sdao = new StandardImpl();
-                                     	List<StandardPOJO> l = sdao.getClassDetails();
-                                    
- 										int count=1;
-                                     	Iterator itr = l.iterator();
-                                     	while(itr.hasNext()){
-                                     		StandardPOJO stdPojo = (StandardPOJO)itr.next();
-                                     		int id = stdPojo.getFkClassId();
-                                  %>
-                                        	<tr role="row" class="even">
-                                        		<td><%=count %></td>
-                                        		<td><%=stdPojo.getSchoolName() %></td>
-                                        		<td><%=stdPojo.getSectionName() %></td>
-                                        		<td><%=stdPojo.getStdName() %></td>
-                                        		<td>
-                                        			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard(<%=id%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-                                        			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="#"><i class="fa fa-trash text-danger"></i></a>
-                                        		</td>
-                                        	</tr>
-                                        <%
-                                   	count++;
-                                  	}
-                                  %> 
+	                                         StandardDAO sdao = new StandardImpl();
+	                                     	List<StandardPOJO> l = sdao.getClassDetails();
+	                                    
+	 										int count=1;
+	                                     	Iterator itr = l.iterator();
+	                                     	while(itr.hasNext()){
+	                                     		StandardPOJO stdPojo = (StandardPOJO)itr.next();
+	                                     		int id = stdPojo.getFkClassId();
+		                                  %>
+		                                        	<tr role="row" class="even">
+		                                        		<td><%=count %></td>
+		                                        		<td><%=stdPojo.getSchoolName() %></td>
+		                                        		<td><%=stdPojo.getSectionName() %></td>
+		                                        		<td><%=stdPojo.getStdName() %></td>
+		                                        		<td>
+		                                        			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard(<%=id%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
+		                                        			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="#"><i class="fa fa-trash text-danger"></i></a>
+		                                        		</td>
+		                                        	</tr>
+		                                        <%
+		                                   	count++;
+		                                  	}
+		                                  %> 
                                         </tbody>
                                     </table>
                                 </div>
@@ -299,12 +285,13 @@ function getSections() {
 
 			$("#sectionName").empty();
 			
-			var text="";
-			for (var i=0; i<demoStr.length; i++) {
-				
-				text += "<option id=" +demoStr[i]+" value=\""+demoStr[++i]+"\"> </option>";
+			var text="<option value=''> Select Section </option>";
+			for (var i=0; i<demoStr.length-1; i++) 
+			{
+				text += "<option value='"+demoStr[i]+"'> "+demoStr[++i]+"</option>";
 			}
-			document.getElementById("browsers").innerHTML = text;			
+			document.getElementById("sectionName").innerHTML = text;	
+			$("#sectionName").trigger('chosen:updated');
 		}
 	};
 	
@@ -358,52 +345,7 @@ function getStandards() {
 
 </script>
 
-
-<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
-<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
-
-<!-- end of global scripts-->
-<!-- plugin level scripts -->
-	<script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script>
-	<!-- <script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
-	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script> -->
-	
-	<script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/chosen/js/chosen.jquery.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/jquery-tagsinput/js/jquery.tagsinput.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/pluginjs/jquery.validVal.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/daterangepicker/js/daterangepicker.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/autosize/js/jquery.autosize.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/jquery.inputmask.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.date.extensions.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.extensions.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/multiselect/js/jquery.multi-select.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.min.js"></script>
-	<!--end of plugin scripts-->
-	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
-	<script src="/SMGMT/config/vendors/bootstrap-switch,_js,_bootstrap-switch.min.js+switchery,_js,_switchery.min.js.pagespeed.jc.Z7BLPQIxUe.js""></script>
-	<script>eval(mod_pagespeed_6q1EIQWfni);</script>
-	<script>eval(mod_pagespeed_d3eUViXN4C);</script>
-
-	<script type="text/javascript" src="/SMGMT/config/js/pages/radio_checkbox.js.pagespeed.jm.nna8wpyJlw.js"></script>
-
-
+ <jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 
 </body>
 
