@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.servletStore.register.model.ReportDAO;
 import com.servletStore.register.model.ReportImpl;
 
-@WebServlet("/Report")
+//@WebServlet("/Report")
 public class Report extends HttpServlet {
 	
 	ReportDAO dao=new ReportImpl();
