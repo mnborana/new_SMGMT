@@ -5,9 +5,6 @@
 <%@page import="com.servletStore.fees.assignStdWiseFees.model.AssignStdWiseFeesDao"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="com.servletStore.settings.subjects.model.SubjectAssignmentPOJO"%>
-<%@page import="com.servletStore.settings.subjects.model.SubjectAssignmentImpl"%>
-<%@page import="com.servletStore.settings.subjects.model.SubjectAssignmentDAO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -42,7 +39,13 @@
      .stdTableTD3{
     	width: 50%;
     }
-    
+    #standardId {
+		display: block !important;
+	    opacity: 0;
+	    margin-top: -25%;
+	}
+	
+	
     </style>
 </head>
 
@@ -51,6 +54,7 @@
 	String schoolId = "0";
 	String academicYear = "0";
 	int roll=0;
+	int access = 0;
 	
 	if (session.getAttribute("userName") == null) {
 		response.sendRedirect("/SMGMT");
@@ -68,8 +72,14 @@
 		//choose appropriate method as per your leftNavbar form option name
 		//e.g : if you are working on Attendance option in left navbar then code will be...
 		
-		/* SetupPOJO grant = new SetupPOJO();
-		int access=grant.getAttendance(); */
+		SetupPOJO grant = new SetupPOJO();
+		
+		 while(itr.hasNext()){
+			grant = itr.next();
+		 }
+		 
+		 access = grant.getFee();
+		 System.out.println("roll "+roll + " schoolId "+schoolId +" access "+access);
 		
 		//if it returns read(1) then hide form and action column in dataTable
 		//for write(2) show your orignal full form
@@ -109,12 +119,7 @@ z-index: 999999">
         <div class="wrapper">
         	 <!-- /.left navbar -->
                 <jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
-             <!-- /.left navbar -->
-             
-        <%
-			HttpSession session1 = request.getSession();
-			session1.setAttribute("schoolId", "1");
-		%>      
+             <!-- /.left navbar -->    
              
              
         <div id="content" class="bg-container">
@@ -124,7 +129,7 @@ z-index: 999999">
                        <div class="col-sm-5 col-lg-6 skin_txt">
                            <h4 class="nav_top_align">
                                <i class="fa fa-pencil"></i>
-                               Subject Assignment
+                               Standard Wise Fees Assignment
                            </h4>
                        </div>
                        <div class="col-sm-7 col-lg-6">
@@ -147,7 +152,9 @@ z-index: 999999">
             
             
             <!-- start your code from here  -->  
-              
+            
+            
+           <% if(access==2){ %>  
            <div class="outer">
                     <div class="inner bg-container">
                         <div class="row">
@@ -161,16 +168,16 @@ z-index: 999999">
                                         <form action="/SMGMT/AssignStdWiseFees" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                        <div class="form-group row">
                                            <div class="col-lg-4  text-lg-right">
-                                               <label for="required2" class="col-form-label">Select Standard <span style="color: red;">*</span> </label>
+                                               <label for="required2" class="col-form-label">Select Standards <span style="color: red;">*</span> </label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <select class="form-control chzn-select" name="subjectId" id="subjectId" title="Select Subject"  required>
-			                                        <option>Select Standard</option>
+                                               <select multiple class="form-control chzn-select" name="standardIds" id="standardId" title="Select Standard"  required>
+			                                        
 			                                        <%
-				                                    	AssignStdWiseFeesDao dao = new AssignStdWiseFeesImpl();
-				                                    	HashMap<Integer, String> stdList = dao.getStandards(session1.getAttribute("schoolId").toString());
+				                                    	AssignStdWiseFeesDao dao = new AssignStdWiseFeesImpl(); 
+				                                    	HashMap<Integer, String> stdList = dao.getStandards(schoolId);
 				                                   
-				                                    	Set keys = stdList.keySet();
+				                                    	Set keys = stdList.keySet(); 
 														Iterator itr = keys.iterator();
 														
 														while(itr.hasNext()){
@@ -227,30 +234,36 @@ z-index: 999999">
 							                                        
 							                                        <c:forEach items="${FeesTypeList}" var="l">
 							                                        	<%++i; %>
-							                                        	<tr role="row" class="even">
-							                                        		<td> 
+							                                        	<tr role="row" class="even" id="editFeeTR<%=i%>">
+							                                        		<td id="${l.id}"> 
 																           		<div class='checkbox'>
 																                	<label class='text-mint'>	
-																                    	<input type='checkbox' value='<%=i %>' name='feeTypeCheck' id='' >
+																                    	<input type='checkbox' value='<%=i %>' name='feeTypeCheck' id='feeTypeCheck' >
 																                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span>
 																                	</label>
 																	    		</div>
 							                                        		</td>
-							                                        		<td> <c:out value="${l.feesType}"> </c:out> <input type="hidden" name="feeType<%=i %>" value="${l.feesType}">  </td>
-							                                        		<td> <c:out value="${l.termOneFees}"></c:out> <input type="hidden" name="termOneFees<%=i %>" value="${l.termOneFees}"> </td>
-							                                        		<td> <c:out value="${l.termTwoFees}"></c:out> <input type="hidden" name="termTwoFees<%=i %>" value="${l.termTwoFees}"> </td>
+							                                        		<td><c:out value="${l.feesType}"> </c:out></td> 
+							                                        		<td><c:out value="${l.termOneFees}"></c:out></td>
+							                                        		<td><c:out value="${l.termTwoFees}"></c:out></td>
 							                                        		
 							                                        		<td>
 							                                        			<div class='checkbox'>
 																                	<label class='text-mint'>
-																                    	<input type='checkbox' value='1' name='feeTypePriority_<%=i %>' id='' >
+																                    	<input type='checkbox' value='1' name='feeTypePriority_<%=i %>' id='feeTypePriority_<%=i %>' >
 																                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span>
 																                	</label>
 																	    		</div>	
 							                                        		</td>
-								
+																			
 							                                        		<td>
-							                                        			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard()"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
+							                                        			<a class="edit" style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="Update" onclick="updateFees(<%=i %>, ${l.id})">
+							                                        				<i class="fa fa-pencil text-warning"></i>
+							                                        			</a>&nbsp; &nbsp;
+							                                        			
+							                                        			<a class="save" style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="Save" onclick="saveUpdateFees(<%=i %>, ${l.id})">
+							                                        				<i class="fa fa-floppy-o text-warning" style="color: #2b6ed4 !important"></i>
+							                                        			</a>
 							                                        		</td>
 							                                        		
 							                                        	</tr>
@@ -268,10 +281,12 @@ z-index: 999999">
 							            
 							            <br>
                                       
+                                      <input type="hidden" name="counter" value="<%=i%>" /> 
+                                      <input type="hidden" name="tableData" id="tableData" value="" /> 
                                       
                                        <div class="form-actions form-group row">
                                            <div class="col-lg-4 push-lg-4">
-                                               <input type="submit" value="Assign Fees" name="subjectAssignSubmit" class="btn btn-primary">
+                                               <input type="submit" onclick="submitForm()" value="Assign Fees" name="AssignFeesSubmit" class="btn btn-primary">
                                            </div>
                                        </div>
                                    </form>
@@ -282,6 +297,7 @@ z-index: 999999">
                     </div> <!-- /.inner -->
                 </div> <!-- /.outer -->
                 
+                <% } %>
                
             
                 
@@ -301,76 +317,79 @@ z-index: 999999">
 
 <script type="text/javascript">
 
-function getSections() {
+	function saveUpdateFees(updateRowId, updateId) {
 	
-	var sid = document.getElementById("schoolId").value;
-	var xhttp;
-	xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
+		var tr = document.getElementById("editFeeTR"+updateRowId).children;
 			
-			var demoStr = this.responseText.split(",");
-			
-			var select = document.getElementById('sectionName');
-
-			$("#sectionName").empty();
-			
-			var text="";
-			for (var i=0; i<demoStr.length; i++) {
-				
-				text += "<option id=" +demoStr[i]+" value=\""+demoStr[++i]+"\"> </option>";
-			}
-			document.getElementById("browsers").innerHTML = text;			
-		}
-	};
+		tr[2].removeAttribute('contenteditable');
+		tr[3].removeAttribute('contenteditable');		
+	} 
 	
-	xhttp.open("POST", "/SMGMT/AddStandard?schoolId="+sid, true);
-	xhttp.send();
-	
-	getStandards();
-}
-
-function setSelected() {
-	var selectedSection = document.getElementById("sectionName").value;
-	//alert(selectedSection);
-}
-
-
-function getStandards() {
-
-	var schoolId = document.getElementById("schoolId").value;
-	var xhttp;
-	xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var demoStr = this.responseText.split(",");
-			var count=1;
-			var s="";
-			
+	function updateFees(rowId, updateId){
 		
-			for(var j=0; j<demoStr.length-1; j++){
-				
-				s=s+"<div class='col-lg-2 input_field_sections'> "+
-           		"<div class='checkbox'>"+
-                "<label class='text-mint'>"+
-                    "<input type='checkbox' value='"+demoStr[j]+"' name='stds' id='basic_checkbox_"+(count)+"' >"+
-                    "<span class='cr'><i class='cr-icon fa fa-check'></i></span> "+demoStr[++j]+
-                "</label>"+
-    		"</div>"+
-    	"</div>";
-				count++;
-			}
+		if(document.getElementById("editFeeTD1")){
 			
-			document.getElementById("stdCheckboxes").innerHTML=s;
+			document.getElementById("editFeeTD1").removeAttribute('contenteditable');
+			document.getElementById("editFeeTD2").removeAttribute('contenteditable');
 			
-			
+			document.getElementById("editFeeTD1").setAttribute('id', '');
+			document.getElementById("editFeeTD2").setAttribute('id', '');
 		}
-	};
+		
+		
+		var tr = document.getElementById("editFeeTR"+rowId).children;
+			
+		tr[2].setAttribute('contenteditable', 'true');
+		tr[3].setAttribute('contenteditable', 'true');
+		
+		tr[2].setAttribute('id', 'editFeeTD1');
+		tr[3].setAttribute('id', 'editFeeTD2');
+		
+		$("#editFeeTD1").focus();
+		
+		$("#editFeeTD1, #editFeeTD2").keyup(function(evt)
+		{		
+			var charCode = window.event.keyCode;
+		    var element = document.activeElement.children;
+		    element[1].value = element[0].innerHTML;
+		    var value = element[0].innerHTML;
+		    if(charCode == 46){
+		    	if (value != null && value.trim().indexOf('.') == -1)
+	                return true;
+		    }
+		    
+			if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		        return false;
+		    }
+		    else if(charCode == 13){
+		    	return false;
+		    }
+
+		});
+	}
 	
-	xhttp.open("POST", "/SMGMT/StdSectionAssignment?schoolId="+schoolId, true);
-	xhttp.send();
-	
-}
+	function submitForm() 
+	{
+		var checked=0;
+		var c = document.getElementsByName('feeTypeCheck');
+		var finalArray = [];
+		for(var i=0;i<c.length;i++)
+		{	
+			if (c[i].checked){
+				checked++;
+				var tr = document.getElementById("editFeeTR"+c[i].value).children;
+				alert(tr[0].id);
+				finalArray.push(tr[0].id);
+				finalArray.push(tr[1].innerHTML);
+				finalArray.push(tr[2].innerHTML);
+				finalArray.push(tr[3].innerHTML);
+				finalArray.push( document.getElementById("feeTypePriority_"+c[i].value).checked );
+			}
+		}	
+		
+		document.getElementById("tableData").value = finalArray;
+		alert(document.getElementById("tableData").value );	
+	}
 
 </script>
 

@@ -52,7 +52,7 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 		
 		List<AssignStdWiseFeesPojo> FeesTypeList = new ArrayList<>();
 		
-		String getQuery = "SELECT `fees_type`, `fees`, `term_1`, `term_2` FROM `fee_type`  WHERE caste=0";
+		String getQuery = "SELECT `id`, `fees_type`, `fees`, `term_1`, `term_2` FROM `fee_type`  WHERE caste=0";
 		
 		try{
 			
@@ -63,10 +63,11 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 				
 				AssignStdWiseFeesPojo pojo = new AssignStdWiseFeesPojo();
 				
-				String feesType = rs.getString(1);
-				String fees = rs.getString(2);
-				String termOne = rs.getString(3);
-				String termTwo = rs.getString(4);
+				int id = rs.getInt(1);
+				String feesType = rs.getString(2);
+				String fees = rs.getString(3);
+				String termOne = rs.getString(4);
+				String termTwo = rs.getString(5);
 				
 				String termOneFees = "0";
 				String termTwoFees = "0";
@@ -80,6 +81,7 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 					termTwoFees = fees;
 				}
 				
+				pojo.setId(id);
 				pojo.setFeesType(feesType);
 				pojo.setTermOneFees(Integer.parseInt(termOneFees));
 				pojo.setTermTwoFees(Integer.parseInt(termTwoFees));	

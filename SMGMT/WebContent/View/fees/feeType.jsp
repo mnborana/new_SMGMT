@@ -150,17 +150,15 @@ z-index: 999999">
                                                 </div>
                                                 <div class="col-lg-4">
 
-                                                   <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()" required/>
 
-                                                   
-                                                </div>
+                                                   <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()" required/>
+									           </div>
                                            </div>
                                            <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label for="required2" class="col-form-label">Fees</label><span style="color: red;">*</span>
                                                 </div>
                                                 <div class="col-lg-4">
-
                                                     <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" pattern="[0-9]+">
 
                                                 </div>

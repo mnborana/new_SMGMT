@@ -63,6 +63,7 @@ public class AddStandard extends HttpServlet {
 				SectionPojo pojo = (SectionPojo)itr.next();
 				s+=pojo.getId()+","+pojo.getName()+",";
 			}
+			
 			out.print(s);
 
 		}

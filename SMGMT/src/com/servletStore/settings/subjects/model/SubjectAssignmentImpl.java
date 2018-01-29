@@ -92,7 +92,7 @@ public class SubjectAssignmentImpl implements SubjectAssignmentDAO{
 		
 		try{
 			String insertQuery = "INSERT INTO `subject_assignment`(`fk_class_master_id`, `subject_id`, `subject_code`, `optional_status`) VALUES ("+AssignSubPojo.getFkClassMasterId()+", "+AssignSubPojo.getSubjectId()+", '"+AssignSubPojo.getSubjectCode()+"', "+AssignSubPojo.getOptinalStatus()+")";
-			System.out.println(insertQuery);
+			//System.out.println(insertQuery);
 			ps = connection.prepareStatement(insertQuery);
 			insertStatus = ps.executeUpdate();
 		}
@@ -111,7 +111,9 @@ public class SubjectAssignmentImpl implements SubjectAssignmentDAO{
 		try{
 			
 			String showData = "SELECT subject_assignment.id, std_master.name, subject_master.subject_name, subject_assignment.subject_code, subject_assignment.optional_status FROM `subject_assignment`, subject_master, std_master, fk_class_master, fk_school_section_details WHERE subject_assignment.fk_class_master_id=fk_class_master.id AND fk_class_master.std_id=std_master.id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id="+schoolId+" AND subject_assignment.subject_id=subject_master.id   ORDER BY `std_master`.`name` ASC";
-			ResultSet rs = ps.executeQuery(showData);
+			//System.out.println(showData);
+			ps = connection.prepareStatement(showData);
+			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next())
 			{
