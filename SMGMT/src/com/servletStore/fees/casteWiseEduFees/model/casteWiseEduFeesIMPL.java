@@ -1,4 +1,4 @@
-package com.servletStore.casteWiseEduFees.model;
+package com.servletStore.fees.casteWiseEduFees.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

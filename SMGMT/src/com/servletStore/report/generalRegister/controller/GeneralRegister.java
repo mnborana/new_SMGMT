@@ -28,7 +28,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-@WebServlet("/GeneralRegister")
+
 public class GeneralRegister extends HttpServlet {
 	DBConnection conn=new DBConnection();
 	Connection connection=conn.getConnection();
@@ -61,7 +61,6 @@ public class GeneralRegister extends HttpServlet {
 		}
 			
 		String check=request.getParameter("checkId");
-		
 		if(check.equals("1"))
 		{
 			try {
