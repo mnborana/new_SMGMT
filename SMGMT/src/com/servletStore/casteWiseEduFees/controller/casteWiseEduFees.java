@@ -55,7 +55,8 @@ public class casteWiseEduFees extends HttpServlet {
 		{
 			session.setAttribute("flag", "Inserted Record Has Been Submited");
 		}
-			response.sendRedirect("View/fees/castWiseEducationalFees.jsp");
+			response.sendRedirect("/View/fees/castWiseEducationalFees.jsp");
+			
 		}
 	}
 
