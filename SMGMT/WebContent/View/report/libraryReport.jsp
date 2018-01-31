@@ -133,16 +133,27 @@
 		                                                   <label for="required2" class="col-form-label">Reports for <span style="color: red;">*</span></label>
 		                                                </div> 
 														 <div class="col-lg-4 ">
+														 <input type="hidden" name="schoolId" value="<%=schoolId %>">
+														 <input type="hidden" name="academicYr" value="<%=academicYear %>">
 															 <select class="form-control chzn-select"
-																name="reportOption" id="selectOption"  onchange="dateWiseBooks(this.value)">
+																name="reportOption" id="selectOption" onchange="showHideDiv()">
 																<option
 																 disabled selected>Select Option</option>
-																<option name="Avail" value="Avail">Available Books</option>
-																<option name="cat" value="Cat">Category wise Books</option>
+																<option value="Avail">Available Books</option>
+																<option  value="Cat">Category wise Books</option>
 																<option value="Recover">Recovery Book</option>
 															</select>
 														</div>
 													</div>
+													
+													<div class="form-group row" id="catDiv" style="display: none;">
+			                                              <div class="col-lg-4 text-lg-right">
+			                                                    <label for="required2" class="col-form-label">Category Name</label><span style="color: red;">*</span>
+			                                              </div>
+			                                              <div class="col-lg-4">
+			                                                    <input type="text" id="catId" name="cat" class="form-control" style="  margin-left: 111%;margin-top: -13%;" onblur="this.value=$.trim(this.value)">
+			                                               </div>
+                                            		</div>
 													 <div class="form-group row">
 														 <div class="col-lg-4  text-lg-right">
 		                                                   <label for="required2" class="col-form-label">Date </label>
@@ -152,7 +163,7 @@
 																style="float: left; margin-top: -2%;">
 																<span class="input-group-addon"> <i
 																	class="fa fa-calendar"></i>
-																</span> <input type="text" name="date" class="form-control" id="reportrange"
+																</span> <input type="text" name="date" class="form-control" id="reportrange" 
 																	placeholder="dd/mm/yyyy-dd/mm/yyyy">
 															</div>
 				                             			  </div>
@@ -203,20 +214,33 @@
 
 </body>
 <script type="text/javascript">
- <pre lang="Javascript"> $(function () {
-	alert("hello");
-    $('#selectOption').change(function () {
-        var vFirst = $('#selectOption option:selected').text();
-        vFirst.style.display.block;
-    });
-}); 
- /*
- function dateWiseBooks(val)
+function showHideDiv()
 {
-	alert("hello");
-	if(val=="Issue")
-	document.getElementById("dateWise").style.display.block;
-	
+	var catDiv=document.getElementById("catDiv");
+	var selectOption=document.getElementById("selectOption");
+	if(selectOption.value=="Cat")
+		{
+		catDiv.style.display="block";
+		}
+	else{
+		catDiv.style.display="none";
+		}
+}
+
+/* <pre lang="Javascript"> $(function () {
+alert("hello");
+$('#selectOption').change(function () {
+    var vFirst = $('#selectOption option:selected').text();
+    vFirst.style.display.block;
+});
+}); 
+/*
+function dateWiseBooks(val)
+{
+alert("hello");
+if(val=="Issue")
+document.getElementById("dateWise").style.display.block;
+
 }	*/
 </script>
 </html>

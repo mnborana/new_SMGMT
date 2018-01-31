@@ -61,7 +61,7 @@ public class Library extends HttpServlet {
 			request.getRequestDispatcher("View/library/addBook.jsp").forward(request, response);
 		}
 		
-		else if(request.getParameter("addbook")!=null)
+		 if(request.getParameter("addbook")!=null)
 		{
 			int catId=Integer.parseInt(request.getParameter("category"));
 			String date=request.getParameter("addbookdate");
@@ -74,7 +74,7 @@ public class Library extends HttpServlet {
 			String cupbNo=request.getParameter("cupbno");
 			int qty=Integer.parseInt(request.getParameter("quan"));
 			String date1[]=date.split("-");
-			System.out.println("Date "+date1[2]+"-"+date1[1]+"-"+date1[0]);
+			//System.out.println("Date "+date1[2]+"-"+date1[1]+"-"+date1[0]);
 			String date2=date1[2].trim()+"-"+date1[1]+"-"+date1[0];
 			out.println("category ID"+catId);
 			out.println("date"+date);
@@ -115,15 +115,15 @@ public class Library extends HttpServlet {
 			response.sendRedirect("View/library/addBook.jsp");
 		}
 		
-		else if(request.getParameter("bookNo")!=null){
-			System.out.println("In Delete");
+		 if(request.getParameter("bookNo")!=null){
+			//System.out.println("In Delete");
 			int bookNo=Integer.parseInt(request.getParameter("bookNo"));
 			dao.deleteCategory(bookNo);
-			System.out.println("Deleted");
+			//System.out.println("Deleted");
 			response.sendRedirect("View/library/addBook.jsp");
 		}
 		
-		else if(request.getParameter("updateId")!=null)
+		 if(request.getParameter("updateId")!=null)
 				{
 				String id=request.getParameter("updateId");
 				int bookId=Integer.parseInt(id);
@@ -144,19 +144,19 @@ public class Library extends HttpServlet {
 				    String cupbno=((AddBookPOJO)pojo).getCupboardNo();
 				   
 					
-				System.out.println("language:"+lang);
+				//System.out.println("language:"+lang);
 					out.println(bid+","+date+","+bookName+","+authorname+","+pubname+","+edition+","+price+","+cupbno+","+qty+","+lang);
 				//System.out.print(bid+","+date+","+catid+","+bookName+","+pubname+","+authorname+","+edition+","+lang+","+qty+","+price+","+cupbno);
 				}
 					
 				}
 		
-		else if(request.getParameter("updatebook")!=null)
+		 if(request.getParameter("updatebook")!=null)
 		{
 		    int status=0;
-			System.out.println("in update");
+			//System.out.println("in update");
 			int id=Integer.parseInt(request.getParameter("bno"));
-			System.out.println("updated id:"+id);
+			//System.out.println("updated id:"+id);
 			
 			String bookName=request.getParameter("bookName");
 			String pubName=request.getParameter("pubName");
@@ -167,7 +167,7 @@ public class Library extends HttpServlet {
 			String cupbNo=request.getParameter("cupbno");
 			int qty=Integer.parseInt(request.getParameter("quan"));
 			
-			System.out.println("bname:"+bookName+"pub"+pubName+"auth:"+authorName+"edit"+edition+"lang:"+lang+"price:"+price+"cu"+cupbNo+"qun"+qty);
+			//System.out.println("bname:"+bookName+"pub"+pubName+"auth:"+authorName+"edit"+edition+"lang:"+lang+"price:"+price+"cu"+cupbNo+"qun"+qty);
 			
 			AddBookPOJO ad=new AddBookPOJO();
 			
@@ -185,14 +185,14 @@ public class Library extends HttpServlet {
 			
 			status =dao.updateBook(ad);
 	           
-	        System.out.println("Successfully updated");
+	        //System.out.println("Successfully updated");
 		  
 			  response.sendRedirect("View/library/addBook.jsp");
 		}
 	
 
 		// Ajax code for Serach book Info(Book Id,Name,Author) which is not issued... 
-		else if(request.getParameter("detailId")!=null)
+	 if(request.getParameter("detailId")!=null)
 				{
 					String bookDetail = request.getParameter("detailId");
 					List list=dao.searchBookDetails(bookDetail);
@@ -202,7 +202,7 @@ public class Library extends HttpServlet {
 						}
 				}
 				
-		else if(request.getParameter("returnBooks")!=null)
+		 if(request.getParameter("returnBooks")!=null)
 				{
 					String returnBookDetail = request.getParameter("returnBooks");
 					try {
@@ -224,7 +224,7 @@ public class Library extends HttpServlet {
 				
 				
 				// Serach Student info here...
-		else if(request.getParameter("studDetails")!=null)
+		 if(request.getParameter("studDetails")!=null)
 				{
 					String studDetail = request.getParameter("studDetails");
 				//	System.out.println(studDetail);
@@ -246,7 +246,7 @@ public class Library extends HttpServlet {
 						}
 				}
 		
-		else if(request.getParameter("getstudId")!=null)
+	 if(request.getParameter("getstudId")!=null)
 		{
 			String studDetail=request.getParameter("getstudId");
 			String theStudeDetails[]=studDetail.split(" - ");
@@ -269,7 +269,7 @@ public class Library extends HttpServlet {
 			}
 		}
 		
-		else if(request.getParameter("getstudentId")!=null)
+		 if(request.getParameter("getstudentId")!=null)
 		{
 			String studentId=request.getParameter("getstudentId");
 			String studId[]=studentId.split(" - ");
@@ -283,10 +283,10 @@ public class Library extends HttpServlet {
 			    String lastName=(String) list1.get(1);
 			    Object std=list1.get(2);
 			    Object div=list1.get(3);
-			    System.out.println("Info@@@@  "+ firstName+" "+lastName+" "+std+" "+div);
+			    //System.out.println("Info@@@@  "+ firstName+" "+lastName+" "+std+" "+div);
 			   // String fullName=firstName.concat(lastName);
 			    String fullName=firstName+"-"+lastName;
-			    System.out.println("Details  "+issueBookId+","+issueStudId);
+			    //System.out.println("Details  "+issueBookId+","+issueStudId);
 				//out.print(issueBookId+","+issueStudId);
 				out.print(issueBookId+","+issueStudId+" "+fullName+"-"+std+"-"+div);
 			} catch (SQLException e) {
@@ -297,48 +297,37 @@ public class Library extends HttpServlet {
 		}
 				
 				//Add Issue Books//////
-		else if(request.getParameter("issuebook")!=null)
+		 if(request.getParameter("issuebook")!=null)
 				{
-					//System.out.println("1");
 					IssueBookPOJO pojo=new IssueBookPOJO();
 					String searchBook=request.getParameter("searchBook");
 					String searchStud=request.getParameter("searchStud");
 					String user=request.getParameter("userType");
-					String issueDate=request.getParameter("issueDate");
-					String dueDate=request.getParameter("dueDate");
+					String[] issueDate=request.getParameter("issueDate").split("-");
+					String issueDateStr=issueDate[2]+"-"+issueDate[1]+"-"+issueDate[0];
+					String[] dueDate=request.getParameter("dueDate").split("-");
+					String dueDateStr=dueDate[2]+"-"+dueDate[1]+"-"+dueDate[0];
 					String returnDate=request.getParameter("returnDate");
 					String studId=request.getParameter("studId");
-				//	System.out.println("####### "+studId);
-				//	System.out.println("dfghjklkjnhgth "+searchBook+" "+searchStud+" "+issueDate+" "+dueDate+" "+returnDate);
 					String str[] = searchBook.split("-");
-					System.out.println("bId "+str[0]);
-					System.out.println("bname "+str[1]);
 					String str1[]=searchStud.split("-");
+					
+					//setPojo
 					pojo.setBookId(Integer.parseInt(str[0].trim()));
 					
-					//int id=dao.getId(Integer.parseInt(studId));
 					if(user.equalsIgnoreCase("Student")){
 						pojo.setStudId(Integer.parseInt(studId));
-					//	pojo.setStudName(str1[0].trim());
 					}
 					else{
 						pojo.setStaffId(Integer.parseInt(str1[0].trim()));
-						//	pojo.setStaffName(str1[0].trim());
 					}
 					
-					/*pojo.setBookName(str[1].trim());
-					//pojo.setUserName(searchStud);
-					pojo.setUserName(str1[1].trim());
-					pojo.setUserType(user);*/
-					
 					pojo.setUserType(user);
-					pojo.setIssueDate(issueDate);
-					pojo.setDueDate(dueDate);
+					pojo.setIssueDate(issueDateStr);
+					pojo.setDueDate(dueDateStr);
 					pojo.setReturnDate(returnDate);
 					
-				//	pojo.setBookName(str[1].trim());
-				//	pojo.setStudName(str1[1].trim());
-					
+					//insert
 					AddBookImpl impl=new AddBookImpl();
 					try {
 						int st=impl.insertIssueBook(pojo);
@@ -356,35 +345,32 @@ public class Library extends HttpServlet {
 					}
 				}
 				
-		else if(request.getParameter("getTableData")!=null)
+		 if(request.getParameter("getTableData")!=null)
 				{
-					String date=request.getParameter("getTableData");
-					String s[]=date.split("-");
-					//out.println(s[0]+s[1]);
-					/*System.out.println(s[0]);
-					System.out.println(s[1]);*/
-					String s1[]=s[0].split("/");
-					String s2[]=s[1].split("/");
-					String date1=s1[2].trim()+"-"+s1[0]+"-"+s1[1];
-					String date2=s2[2]+"-"+s2[0].trim()+"-"+s2[1];
+					HttpSession session=request.getSession();
+					String year=(String) session.getAttribute("year");
+					
+					String[] date=request.getParameter("getTableData").split("-");
+					
+					String[] from=date[0].split("/");
+					String[] to=date[1].split("/");
+					
+					String fromStr=from[2].trim()+"-"+from[0]+"-"+from[1];
+					String toStr=to[2]+"-"+to[0].trim()+"-"+to[1];
+					
+					
 					try {
-						List list=dao.getDatewiseIssueList(date1, date2);
+						List list=dao.getDatewiseIssueList(fromStr, toStr);
 						Iterator itr = list.iterator();
 						while(itr.hasNext())
 						{
-							Object name=itr.next();
-							Object bookName=itr.next();
-							Object issueDate=itr.next();
-							Object dueDate=itr.next();
-							//System.out.println("--->>>>>>---"+name+","+bookName+","+issueDate+","+dueDate+",");
-							out.print(name+","+bookName+","+issueDate+","+dueDate+",");
+							out.print(itr.next()+",");
 						}
 						} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}	
 				}
-		else if(request.getParameter("bookdetail")!=null)
+		 if(request.getParameter("bookdetail")!=null)
 				{
 				try {
 					System.out.println("In search function");
@@ -393,7 +379,7 @@ public class Library extends HttpServlet {
 						String bName = request.getParameter("bookName");
 						String aName = request.getParameter("authorName");
 						
-						System.out.println(bName+"----"+aName);
+						//System.out.println(bName+"----"+aName);
 						
 						List list=dao.searchBookInfo(bookDetail,bName,aName);
 						Iterator itr=list.iterator();
@@ -417,7 +403,7 @@ public class Library extends HttpServlet {
 							List list1=dao.searchStudDetails(studId);
 							staffId=itr.next().toString();
 							}
-					//	System.out.println("aajchi date"+todayDate);
+					//System.out.println("aajchi date"+issueDate);
 					//	System.out.println("due date"+dueDate);
 					   int totalDays=dao.daysCount(todayDate, dueDate);
 					
@@ -431,9 +417,9 @@ public class Library extends HttpServlet {
 					}
 				}
 				
-		else if(request.getParameter("countDetail")!=null)
+		 if(request.getParameter("countDetail")!=null)
 		{
-			System.out.println("AJax WORKING------------");
+			//System.out.println("AJax WORKING------------");
 			String fine=request.getParameter("fineAmount");
 			String studentId[]=request.getParameter("studId").split(",");
 			
@@ -441,7 +427,7 @@ public class Library extends HttpServlet {
 				
 				int fineAmount=dao.getFine();
 				int preAmount=dao.getPreviousFine(studentId[1]);
-				System.out.println("Previous Amount in servlet *****"+preAmount);
+				//System.out.println("Previous Amount in servlet *****"+preAmount);
 				out.print(fineAmount+","+preAmount);//pass remain fine in out 
 			 } catch (SQLException e) {
 				
@@ -474,7 +460,7 @@ public class Library extends HttpServlet {
 				}
 				*/
 				
-			else if(request.getParameter("fineAP")!=null)
+			 if(request.getParameter("fineAP")!=null)
 				{
 					SetFinePOJO fine_pojo=dao.getFineDetails();
                 	out.print(fine_pojo.getId()+","+fine_pojo.getDate()+","+fine_pojo.getFine());
@@ -483,7 +469,7 @@ public class Library extends HttpServlet {
 		
 				else if(request.getParameter("fine")!=null&&request.getParameter("fine").equals("OK"))
 				{
-					System.out.println("Btn Name : "+request.getParameter("fine"));
+					//System.out.println("Btn Name : "+request.getParameter("fine"));
 					SetFinePOJO pojo=new SetFinePOJO();
 					String date=request.getParameter("date");
 					int fine=Integer.parseInt(request.getParameter("fine_value"));
@@ -502,7 +488,7 @@ public class Library extends HttpServlet {
 					//request.getRequestDispatcher("View/library/SetFine.jsp").forward(request, response);
 					response.sendRedirect("View/library/setFine.jsp");
 				}
-				else if(request.getParameter("fine")!=null&&request.getParameter("fine").equals("Update"))
+				 if(request.getParameter("fine")!=null&&request.getParameter("fine").equals("Update"))
 				{
 					SetFinePOJO pojo=new SetFinePOJO();
 					String date=request.getParameter("date");
@@ -515,7 +501,7 @@ public class Library extends HttpServlet {
 					response.sendRedirect("View/library/setFine.jsp");
 				}	
 		
-				else if(request.getParameter("returnBook")!=null)
+				 if(request.getParameter("returnBook")!=null)
 				{
 					if(request.getParameter("returnRadio").equals("RETURN"))
 					{
@@ -527,17 +513,17 @@ public class Library extends HttpServlet {
 					}
 				}
 		
-				else if(request.getParameter("submitBook")!=null)
+				 if(request.getParameter("submitBook")!=null)
 				{
-					System.out.println("Submit Bookkkkkkkkk");
+					//System.out.println("Submit Bookkkkkkkkk");
 					FineMasterPOJO pojo=new FineMasterPOJO();
 					if(request.getParameter("returnRadio").equals("RETURN"))
 					{
-						System.out.println("Returnnnnnnnnnnn");
+						//System.out.println("Returnnnnnnnnnnn");
 						String serachBook=request.getParameter("searchBookDetails");	
 						String book[]=serachBook.split("-");
-						System.out.println("IssueBookId is "+book[0]);
-						System.out.println("IssueBookName is "+book[1]);
+						//System.out.println("IssueBookId is "+book[0]);
+						//System.out.println("IssueBookName is "+book[1]);
 						String issueAndStudId[]=request.getParameter("studentId").split(",");
 						int dueDays=Integer.parseInt(request.getParameter("dueDays"));
 						int fineAmount=Integer.parseInt(request.getParameter("fineAmount"));
@@ -556,8 +542,12 @@ public class Library extends HttpServlet {
 						pojo.setRemainingFine(remainingFine);
 						pojo.setStudId(Integer.parseInt(issueAndStudId[1]));
 						
-						String date=request.getParameter("currentDate");
-						pojo.setReturnDate(date);
+						String date[]=request.getParameter("currentDate").split("-");
+						String fromStr=date[2].trim()+"-"+date[1]+"-"+date[0];
+						//System.out.println("Current Date*******"+fromStr);
+						
+						pojo.setReturnDate(fromStr);
+						
 						
 						try {
 							int st=dao.insertFineDetails(pojo);
@@ -568,36 +558,88 @@ public class Library extends HttpServlet {
 							int sta=dao.getDate(pojo);
 								if(status>0)
 								{
-									System.out.println("Return book");
+									//System.out.println("Return book");
 									response.sendRedirect("View/library/issueBook.jsp");
 								}
 							}
 							} catch (SQLException e) {
 							e.printStackTrace();
 						}
-					}else if(request.getParameter("returnRadio").equals("RENEW"))
+					} 
+					if(request.getParameter("returnRadio").equals("RENEW"))
 					{
-						System.out.println("Renewwwwwwwwww");
-						String studId[]=request.getParameter("studentId").split(",");
-						String dueDate=request.getParameter("newdueDate");
-						pojo.setIssueId(Integer.parseInt(studId[0]));
-						pojo.setDueDate(dueDate);
-						long millis=System.currentTimeMillis();  
-						java.sql.Date date=new java.sql.Date(millis);  
+						//System.out.println("Renewwwwwwwwww");
 						
+						
+						FineMasterPOJO pojo1=new FineMasterPOJO();
+						String searchBook=request.getParameter("searchBookDetails");
+						String searchStud=request.getParameter("studentId");
+						//System.out.println("Student****"+searchStud);
+						//String user=request.getParameter("userType");
+						
+						String[] issueDate=request.getParameter("issueDateFrom3tab").split("-");
+						String issueDateStr=issueDate[2]+"-"+issueDate[1]+"-"+issueDate[0];
+						
+						String[] dueDate=request.getParameter("newdueDate").split("-");
+						String dueDateStr=dueDate[0]+"-"+dueDate[1]+"-"+dueDate[2];
+						//String returnDate=request.getParameter("returnDate");
+						String studIdd=request.getParameter("studentId");
+						String str[] = searchBook.split("-");
+						String str1[]=searchStud.split(",");
+						String st=str1[1].trim();
+						System.out.println("ISSUE DATE--------------------------------- "+issueDateStr);
+						System.out.println("Due DATE--------------------------------- "+dueDateStr);
+						
+						//setPojo
+						pojo1.setIssueId(Integer.parseInt(str[0].trim()));
+						
+						//if(user.equalsIgnoreCase("Student")){
+							pojo1.setStudId(Integer.parseInt(str1[1].trim()));
+						/*}
+						else{
+							pojo1.setStaffId(Integer.parseInt(str1[0].trim()));
+						}*/
+						
+						//pojo1.setUserType(user);
+						pojo1.setIssueDate(issueDateStr);
+						pojo1.setDueDate(dueDateStr);
+						//pojo1.setReturnDate(returnDate);
+						AddBookImpl impl=new AddBookImpl();
 						try {
-							int status=dao.updateRenewBook(pojo,date.toString());
-							System.out.println("Execute updated");
+							int status=impl.updateRenewBook(pojo1);
+							//System.out.println("Execute updated");
 							response.sendRedirect("View/library/issueBook.jsp");
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}	
 					}
+					 if(request.getParameter("returnRadio").equals("RECOVER"))
+					{
+						//System.out.println("IN Recover******");
+						String issueAndStudId[]=request.getParameter("studentId").split(",");
+						String remark=request.getParameter("remark");
+						//System.out.println("Issue id"+issueAndStudId[0]);
+						//pojo.setIssueId(Integer.parseInt(issueAndStudId[0]));
+						
+					    IssueBookPOJO pojo1=new IssueBookPOJO();
+					    pojo1.setRemark(remark);
+						
+						try {
+							int st=dao.updateStatus(Integer.parseInt(issueAndStudId[0]), remark);
+							response.sendRedirect("View/library/issueBook.jsp");
+						}catch (SQLException e) {
+						
+							e.printStackTrace();
+						}
+					}
+					
+					
+					
 			}
-				else if(request.getParameter("studFineDetail")!=null)
+				 if(request.getParameter("studFineDetail")!=null)
 				{
 					String studInfo=request.getParameter("studFineDetail");
-					System.out.println("sdssddss"+studInfo);
+					//System.out.println("sdssddss"+studInfo);
 					
 					try {
 						List list=dao.getFineSubmission(Integer.parseInt(studInfo));
@@ -622,7 +664,7 @@ public class Library extends HttpServlet {
 
 						
 							
-						System.out.println("Information of student "+issueId+","+firstName+ "," +middleName+ "," +lastName+  "," +std+ "," +div+ ","+fine);
+						//System.out.println("Information of student "+issueId+","+firstName+ "," +middleName+ "," +lastName+  "," +std+ "," +div+ ","+fine);
 						out.print(issueId+ "," +firstName+ "," +middleName+ "," +lastName+  "," +std+ "," +div+ ","+fine+ ",");
 					
 					} catch (NumberFormatException e) {
@@ -636,9 +678,9 @@ public class Library extends HttpServlet {
 		
 			if(request.getParameter("submitfine")!=null)
 			{
-				System.out.println("Submit fine*****");
+				//System.out.println("Submit fine*****");
 				int fineAmount=Integer.parseInt(request.getParameter("totalFine"));
-				System.out.println("returnnnnnnnnnn"+fineAmount);
+				//System.out.println("returnnnnnnnnnn"+fineAmount);
 				int discount=Integer.parseInt(request.getParameter("discountamount"));
 				int paidAmount=Integer.parseInt(request.getParameter("paidamount"));
 				int  remainAmount=Integer.parseInt(request.getParameter("remainAmt"));
@@ -649,11 +691,11 @@ public class Library extends HttpServlet {
 				
 				pojo.setStudId(Integer.parseInt(studId[0]));
 				
-				System.out.println(request.getParameter("studId"));
+				//System.out.println(request.getParameter("studId"));
 				
 				
 				pojo.setIssueId(Integer.parseInt(request.getParameter("issueId")));
-				System.out.println("Issue Id"+request.getParameter("issueId"));
+				//System.out.println("Issue Id"+request.getParameter("issueId"));
 				pojo.setFineAmount(fineAmount);
 				pojo.setDiscount(discount);
 				pojo.setFinePaidAmount(paidAmount);
@@ -664,7 +706,7 @@ public class Library extends HttpServlet {
 					
 					if(status>0)
 					{
-						System.out.println("fine submit");
+						//System.out.println("fine submit");
 						response.sendRedirect("View/library/fineSubmission.jsp");
 					}
 				} catch (SQLException e) {
