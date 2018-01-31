@@ -1,4 +1,4 @@
-package com.servletStore.casteWiseEduFees.controller;
+package com.servletStore.fees.casteWiseEduFees.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,22 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.servletStore.casteWiseEduFees.model.casteWiseEduFeesDAO;
-import com.servletStore.casteWiseEduFees.model.casteWiseEduFeesIMPL;
-import com.servletStore.casteWiseEduFees.model.casteWiseEduFeesPojo;
-import com.servletStore.settings.school.model.SchoolPOJO;
+import com.servletStore.fees.casteWiseEduFees.model.casteWiseEduFeesDAO;
+import com.servletStore.fees.casteWiseEduFees.model.casteWiseEduFeesIMPL;
+import com.servletStore.fees.casteWiseEduFees.model.casteWiseEduFeesPojo;
 
-//@WebServlet("/casteWiseEduFees")
 public class casteWiseEduFees extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		
+		System.out.println("hiiiiiiiiii");
 		casteWiseEduFeesPojo pojo=new casteWiseEduFeesPojo();
 		casteWiseEduFeesDAO dao=new casteWiseEduFeesIMPL();
 		List<casteWiseEduFeesPojo> list=new ArrayList();
@@ -55,8 +55,7 @@ public class casteWiseEduFees extends HttpServlet {
 		{
 			session.setAttribute("flag", "Inserted Record Has Been Submited");
 		}
-			response.sendRedirect("/View/fees/castWiseEducationalFees.jsp");
-			
+			response.sendRedirect("View/fees/castWiseEducationalFees.jsp");
 		}
 	}
 

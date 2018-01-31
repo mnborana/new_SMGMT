@@ -607,29 +607,36 @@
                         </a>
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/cashBook/addCashBook.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Cash Book
+                                    &nbsp;Add Cash Book
                                 </a>
-                            </li>
+                            </li>                            
+                             <li>
+                                <a href="/SMGMT/View/cashBook/cashBookLedger.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; CashBook Ledger/Account </span>
+                                </a>
+                            </li>                             
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/cashBook/AccountSubAcc.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    <span class="link-title">&nbsp; Transaction </span>
+                                    <span class="link-title">&nbsp; Account/SubAccount </span>
                                 </a>
-                            </li>
+                            </li>                             
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/cashBook/cashBookOpeningBal.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Opening Balance
+                                    <span class="link-title">&nbsp; CashBook Opening Balance </span>
                                 </a>
-                            </li>
+                            </li>                       
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/cashBook/cashBookEntry.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Cash Transfer
+                                    &nbsp; CashBook Entry
                                 </a>
                             </li>
+                            
                             <li>
                                 <a href="#">
                                     <i class="fa fa-angle-right"></i>
