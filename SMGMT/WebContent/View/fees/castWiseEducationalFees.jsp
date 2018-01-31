@@ -1,14 +1,13 @@
 
+<%@page import="com.servletStore.fees.casteWiseEduFees.model.casteWiseEduFeesPojo"%>
+<%@page import="com.servletStore.fees.casteWiseEduFees.model.casteWiseEduFeesIMPL"%>
+<%@page import="com.servletStore.fees.casteWiseEduFees.model.casteWiseEduFeesDAO"%>
 <%@page import="com.servletStore.setup.model.SetupPOJO"%>
 <%@page import="com.servletStore.setup.model.SetupImpl"%>
 <%@page import="com.servletStore.setup.model.SetupDAO"%>
-<%@page import="com.servletStore.casteWiseEduFees.model.casteWiseEduFeesPojo"%>
-<%@page import="com.servletStore.casteWiseEduFees.model.casteWiseEduFeesIMPL"%>
-<%@page import="com.servletStore.casteWiseEduFees.model.casteWiseEduFeesDAO"%>
+
 <%@page import="java.util.HashMap"%>
-<%@page import="com.servletStore.register.model.InwardRegisterPojo"%>
-<%@page import="com.servletStore.register.model.InwardRegisterImpl"%>
-<%@page import="com.servletStore.register.model.InwardRegisterDAO"%>
+
 <%@page import="utility.SysDate"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -62,17 +61,7 @@
 		SetupDAO dao = new SetupImpl();
 		List list=dao.getAccessControlDetails(roll);
 		Iterator<SetupPOJO> itr= list.iterator();
-		//for showing datatable according to read/write permission
-		
-		//choose appropriate method as per your leftNavbar form option name
-		//e.g : if you are working on Attendance option in left navbar then code will be...
-		
-		/* SetupPOJO grant = new SetupPOJO();
-		int access=grant.getAttendance(); */
-		
-		//if it returns read(1) then hide FORM and ACTION COLUMN(UPDATE/DELETE) in dataTable
-		//for write(2) show your orignal full form
-				
+	
 	}
 %>
 <body onload="loadFunction()">
@@ -284,7 +273,6 @@
                                            <%
                                            int count=1;
                                            List<casteWiseEduFeesPojo> fetchList=dao.fetchDetails();
-                                           System.out.println("list is:"+fetchList);
                                            Iterator<casteWiseEduFeesPojo> itr3=fetchList.iterator();
                                            %>
                                            
@@ -295,7 +283,6 @@
                                             	 String selCategory="";
                                              	casteWiseEduFeesPojo pojo=(casteWiseEduFeesPojo)itr3.next();
                                              	int id3=((casteWiseEduFeesPojo)pojo).getId();
-                                             	System.out.println("caste-wise education:"+id3);
                                              	
                                              %>
                                             
@@ -307,7 +294,7 @@
                                              	<td><%=((casteWiseEduFeesPojo)pojo).getFees() %></td>                                             	
                                              	<td>
                                         			<a class="edit"  title="update" data-toggle="tooltip" data-placement="top" title="Update" href="#modal-4" onclick="updateInward(<%=id3%>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
-                                        			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/InwardRegister?deleteId="+<%=id3 %>><i class="fa fa-trash text-danger"></i></a>
+                                        			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="#"><i class="fa fa-trash text-danger"></i></a>
                                         		</td>
                                              	
                                              </tr>

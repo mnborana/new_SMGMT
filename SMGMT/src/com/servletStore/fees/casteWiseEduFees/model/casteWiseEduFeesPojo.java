@@ -1,4 +1,4 @@
-package com.servletStore.casteWiseEduFees.model;
+package com.servletStore.fees.casteWiseEduFees.model;
 
 public class casteWiseEduFeesPojo {
 	int id,categoryId;
