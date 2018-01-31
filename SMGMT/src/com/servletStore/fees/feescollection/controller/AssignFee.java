@@ -116,38 +116,66 @@ public class AssignFee extends HttpServlet {
 			{
 				//Start: june - End: april
 				
-				//check if its already assiged in this year
 				String dateForCheck = feesCollectionDAO.getDateForCheck(studentId,"FEE ASSIGNED");
 				
-				//System.out.println("Start Date:"+startDate+"\nEnd Date:"+endDate+"\nA Date:"+dateForCheck+"\nCurrent Date:"+currentDate);
-				if(dateForCheck=="")
+				Date start = formatter.parse(startDate);
+				Date end = formatter.parse(endDate);
+				Date cDate = formatter.parse(currentDate);
+				
+				System.out.println("Start Date:"+startDate+"\nEnd Date:"+endDate+"\nA Date:"+dateForCheck+"\nCurrent Date:"+currentDate);
+				
+				//check if its already assiged in this year
+				if(dateForCheck=="") 
 				{
-					//insert
-					System.out.println("insert for new");
-					insertStatus = feesCollectionDAO.assignStudentFee(pojo);
-					
-				}
-				else
-				{
-					Date start = formatter.parse(startDate);
-					Date end = formatter.parse(endDate);
-					Date availableDate = formatter.parse(dateForCheck);
-					
-					if(start.compareTo(availableDate)*availableDate.compareTo(end)>0)
+					//checks current date year and login year
+					if(start.compareTo(cDate)*cDate.compareTo(end)>0)
 					{
-						System.out.println("not insert");
+						//insert
+						System.out.println("insert for new student");
+						session.setAttribute("flag", "Fee Assigned");
+						insertStatus = feesCollectionDAO.assignStudentFee(pojo);
 					}
 					else
 					{
-						if(dateForCheck!="")
+						session.setAttribute("flag", "Not assinged, choose appropriate login year");
+						System.out.println("Not assinged, choose appropriate login year in first check");
+					}
+			
+				}
+				else
+				{
+					Date availableDate = formatter.parse(dateForCheck);
+					
+					//checks available record date comes in between academic year or not
+					if(start.compareTo(availableDate)*availableDate.compareTo(end)>0)
+					{
+						System.out.println("Not assinged because already assinged for this year");
+						session.setAttribute("flag", "Not assinged because already assinged for this year");
+					}
+					else
+					{
+							
+						if(availableDate.before(end))
 						{
-							System.out.println("not insert because already assinged for this year");
+							if(cDate.after(start))
+							{
+								System.out.println("insert for next year");
+								session.setAttribute("flag", "Fee Assigned");
+								insertStatus = feesCollectionDAO.assignStudentFee(pojo);
+							}
+							else
+							{
+								System.out.println("You can not assinged in advance fee for next year");
+								session.setAttribute("flag", "You can't assinged in advance fee for next year or Check Login year");
+							}
+							
 						}
 						else
 						{
-							System.out.println("insert for next year");
-							insertStatus = feesCollectionDAO.assignStudentFee(pojo);
+							session.setAttribute("flag", "Not assinged, choose appropriate login year");
+							System.out.println("Not assinged, choose appropriate login year");
 						}
+						
 					}
 					
 				}
@@ -155,16 +183,14 @@ public class AssignFee extends HttpServlet {
 				if(insertStatus>0)
 				{
 					//redirect with success 
-					session.setAttribute("flag", "Fee Assigned");
 					response.sendRedirect("/SMGMT/View/fees/studFeeAssign.jsp");
-					
 				}
 				else
 				{
 					//redirect with error
-					session.setAttribute("flag", "Already assinged for this year");
 					response.sendRedirect("/SMGMT/View/fees/studFeeAssign.jsp");
 				}
+				
 				
 				
 			} catch (SQLException | ParseException e)
