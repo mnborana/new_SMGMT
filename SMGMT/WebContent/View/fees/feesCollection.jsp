@@ -140,9 +140,10 @@
 			                                        
 			                        					DateFormat df = new SimpleDateFormat("DD-MM-YYYY");
 			                        					String currentDate = df.format(new Date()).toString();
-                                                    	//System.out.println(currentDate);
+                                                    	System.out.println(currentDate);
 			                                        	FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
 			                                        	request.setAttribute("list", feesCollectionDAO.getStadardDivisionDetails(schoolId));
+			                                        	
 			                                        %>
 			                                        <option></option>
 			                                       	<c:forEach items="${list}" var="u">  
@@ -204,26 +205,38 @@
                                                 </div>
                                                 <div class="col-lg-1 text-lg-right">
                                                     <label class="custom-control custom-radio">
-                                                        <input type="radio" name="payment_mode" id="payment_mode" value="Cash" class="custom-control-input" checked="checked">
+                                                        <input type="radio" name="payment_mode" id="payment_mode" value="Cash" class="custom-control-input" onclick="displayBank()" checked="checked">
                                                         <span class="custom-control-indicator custom_checkbox_primary"></span>
                                                         <span class="custom-control-description text-primary">Cash</span>
                                                     </label>                                                
                                                 </div>
                                                 <div class="col-lg-1 text-lg-right">
                                                     <label class="custom-control custom-radio">
-                                                        <input type="radio" name="payment_mode" id="payment_mode" value="Cheque" class="custom-control-input">
+                                                        <input type="radio" name="payment_mode" id="payment_mode" value="Cheque" class="custom-control-input" onclick="displayBank('bankDetails', 'chequeDetails')">
                                                         <span class="custom-control-indicator custom_checkbox_primary"></span>
                                                         <span class="custom-control-description text-primary">Cheque</span>
                                                     </label>                                                
                                                 </div>
                                                 <div class="col-lg-1 text-lg-right">
                                                     <label class="custom-control custom-radio">
-                                                        <input type="radio" name="payment_mode" id="payment_mode" value="Transfer" class="custom-control-input">
+                                                        <input type="radio" name="payment_mode" id="payment_mode" value="Transfer" class="custom-control-input" onclick="displayBank('bankDetails')">
                                                         <span class="custom-control-indicator custom_checkbox_primary"></span>
                                                         <span class="custom-control-description text-primary">Transfer</span>
                                                     </label>                                                
-                                                </div>                                                                                                            
+                                                </div>     
+                                                
+                                                <div class="col-lg-2 text-lg-right" id="bank_id">
+                                                    <input type="text" placeholder="Bank Name" id="bank_name" name="bank_name" class="form-control" style="width: 150px; margin-left: 100px;">
+                                                </div>                                                
+                                                
+                                                <div class="col-lg-2 text-lg-right" id="cheque_id">
+                                                    <input type="text" placeholder="Cheque Number" id="check_no" name="check_no" class="form-control" pattern= "[0-9]" style="width: 150px; margin-left: 100px;">
+                                                </div>
+                                                                                                                                                                                                                                                       
                                             </div>
+                                            
+                                                
+                                             
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
@@ -358,7 +371,7 @@ function selectStudent() {
 function selectedStudentInfo() {
 	
 	var student_id = document.getElementById('student_id').value;
-	alert("student_id "+student_id);
+	//alert("student_id "+student_id);
 	
 	var xhttp =new XMLHttpRequest();
 	
@@ -367,7 +380,7 @@ function selectedStudentInfo() {
 			if(this.readyState == 4 && this.status == 200){
 				var str=this.responseText.split(",");
 				
-				alert(str);
+				//alert(str);
 				var count=0;
 				var data="";
 				document.getElementById("remaining_fees").value = str[0];
@@ -381,7 +394,7 @@ function selectedStudentInfo() {
 						"<td>"+str[i++]+"</td>"+
 						"<td>"+str[i++]+"</td></tr>";
 				}
-				alert(data);
+				//alert(data);
 				document.getElementById("feesTable").innerHTML = data;
 			}
 		}
@@ -392,10 +405,28 @@ function selectedStudentInfo() {
 	}
 	//SELECT date, paid_fees, remaining_fees, pay_mode, particulers FROM fees_collection WHERE stud_id=1
 	
-	
 	//SELECT remaining_fees FROM fees_collection WHERE id=(SELECT MAX(id) FROM fees_collection WHERE stud_id=1)
 }
 
+$("#bank_id").hide();
+$("#cheque_id").hide();
+
+function displayBank(bank_id, cheque_id){
+	
+	if( bank_id==null ){
+		$("#bank_id").hide();
+		$("#cheque_id").hide();
+	}
+	else if(bank_id!=null && cheque_id!=null){
+		$("#bank_id").show();
+		$("#cheque_id").show();
+	}
+	else{	
+		$("#bank_id").show();
+		$("#cheque_id").hide();
+	}
+}
+    
 
 </script>	
 	
