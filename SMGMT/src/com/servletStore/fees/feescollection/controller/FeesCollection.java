@@ -73,28 +73,32 @@ public class FeesCollection extends HttpServlet {
 			String checkboxCashbook = request.getParameter("checkbox_cashbook");
 			String paymentMode = request.getParameter("payment_mode");
 			
+			
+			System.out.println("currentDate "+ currentDate);
+			
 /*			System.out.println("std_id "+std_id);
 			System.out.println("stud_id "+stud_id);
 			System.out.println("remaining_fees "+remaining_fees);
 			System.out.println("paid_fees "+paid_fees);
-			System.out.println("currentDate "+currentDate);
-			System.out.println("checkbox_cashbook "+checkbox_cashbook);
-			System.out.println("payment_mode "+payment_mode);*/
+			System.out.println("currentDate "+currentDate);*/
+			System.out.println("checkbox_cashbook "+checkboxCashbook);
+			System.out.println("payment_mode "+paymentMode);
 			
+			int remaining = Integer.parseInt(remainingFees) - Integer.parseInt(paidFees); 
+ 			
+			String[] date = currentDate.split("-");
+			String cDate=date[2]+"-"+date[1]+"-"+date[0];
+			
+
 			feesCollectionPOJO.setStdId(stdId);
 			feesCollectionPOJO.setStudId(studId);
-			feesCollectionPOJO.setRemainingFees(remainingFees);
+			feesCollectionPOJO.setRemainingFees(remaining);
 			feesCollectionPOJO.setPaidFees(paidFees);
-			feesCollectionPOJO.setCurrentDate(currentDate);
+			feesCollectionPOJO.setCurrentDate(cDate);
 			feesCollectionPOJO.setCheckboxCashbook(checkboxCashbook);
 			feesCollectionPOJO.setPaymentMode(paymentMode);
 			
 			feesCollectionDAO.insertFees(feesCollectionPOJO);
-			
-			
-			
-			    
-			
 			
 			
 			response.sendRedirect("View/fees/feesCollection.jsp");

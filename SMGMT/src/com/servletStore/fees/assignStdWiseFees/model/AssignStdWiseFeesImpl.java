@@ -3,8 +3,10 @@ package com.servletStore.fees.assignStdWiseFees.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import com.dbconnect.DBConnection;
@@ -95,6 +97,40 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 		}
 		
 		return FeesTypeList;
+	}
+
+	@Override
+	public int insert(List<AssignStdWiseFeesPojo> asList) {
+		
+		DBConnection dbConnect = new DBConnection();
+		Connection connection = dbConnect.getConnection();
+		int insertStatus = 0;
+		
+		Iterator<AssignStdWiseFeesPojo> itr = asList.iterator();
+		String insertQuery = "INSERT INTO `std_wise_fees_assignment`(`fk_class_master_id`, `fees_type_id`, `term_1_fees`, `term_2_fees`, `priority`) VALUES (?, ?, ?, ?, ?)";
+		
+			try {
+				ps = connection.prepareStatement(insertQuery);
+				
+				while(itr.hasNext()){
+					AssignStdWiseFeesPojo asPojo = itr.next();
+					
+					ps.setInt(1, asPojo.getFkClassMasterId());
+					ps.setInt(2, asPojo.getFeesTypeId());
+					ps.setInt(3, asPojo.getTermOneFees());
+					ps.setInt(4, asPojo.getTermTwoFees());
+					ps.setInt(5, asPojo.getPriority());
+					ps.addBatch();
+				}
+				
+				ps.executeBatch();
+				connection.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		return insertStatus;
 	}
 
 	
