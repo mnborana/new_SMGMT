@@ -7665,7 +7665,9 @@ button, .btn {
   right: 0; }
 
 .no-print {
-  z-index: 90; }
+  z-index: -1; 
+  visibility: hidden;
+  }
 
 .sidebar-right-opened .no-print {
   right: 250px !important; }

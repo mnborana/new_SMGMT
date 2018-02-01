@@ -1,9 +1,37 @@
 package com.servletStore.library.model;
 
 public class FineMasterPOJO {
-private int id,dueDays,fineAmount,discount,finePaidAmount,remainingFine,studId,issueId;
+private int id,dueDays,fineAmount,discount,finePaidAmount,remainingFine,studId,staffId,issueId;
+private String userType,issueDate;
+
+public String getUserType() {
+	return userType;
+}
+
+public void setUserType(String userType) {
+	this.userType = userType;
+}
+
+public int getStaffId() {
+	return staffId;
+}
+
+public void setStaffId(int staffId) {
+	this.staffId = staffId;
+}
+
 private String dueDate,returnDate;
 
+
+
+
+public String getIssueDate() {
+	return issueDate;
+}
+
+public void setIssueDate(String issueDate) {
+	this.issueDate = issueDate;
+}
 
 public String getDueDate() {
 	return dueDate;

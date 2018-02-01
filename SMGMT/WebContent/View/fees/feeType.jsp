@@ -20,27 +20,7 @@
     <title>Form Elements | Admire</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
-    <!-- global styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/components.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/custom.css"/>
-    <!-- end of page level styles -->
-    <!--Plugin styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/inputlimiter/css/jquery.inputlimiter.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/chosen/css/chosen.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jquery-tagsinput/css/jquery.tagsinput.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/daterangepicker/css/daterangepicker.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/datepicker/css/bootstrap-datepicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-switch/css/bootstrap-switch.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jasny-bootstrap/css/jasny-bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/multiselect/css/multi-select.css"/>
-    <!--End of plugin styles-->
-    <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
-    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
-    
+     <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
     <!-- end of page level styles -->
 </head>
 <%
@@ -149,18 +129,15 @@ z-index: 999999">
                                                     <label for="required2" class="col-form-label">Fees Type</label><span style="color: red;">*</span>
                                                 </div>
                                                 <div class="col-lg-4">
-
-
-                                                   <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()" required/>
-									           </div>
+                                                   <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()" pattern="[A-Za-z]" onblur="this.value=$.trim(this.value)" required/>
+                                                </div>
                                            </div>
                                            <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label for="required2" class="col-form-label">Fees</label><span style="color: red;">*</span>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" pattern="[0-9]+">
-
+                                                    <input type="text" id="fee" name="fee" class="form-control" onblur="this.value=$.trim(this.value)" pattern="[0-9]+" required/>
                                                 </div>
                                             </div>
                                              <div class="form-group row">
@@ -246,15 +223,11 @@ z-index: 999999">
 														
 														<c:if test="${d.firstTerm!=0 }">
 																<td><c:out value="${d.fees}"></c:out></td>
-																<%-- <td><c:out value="-"></c:out></td> --%>
 														</c:if>
 														<c:if test="${d.firstTerm==0 }">
-																<%-- <td><c:out value="${d.fees}"></c:out></td> --%>
 																 <td><c:out value="-"></c:out></td> 
 														</c:if>
-														
 														<c:if test="${d.secondTerm!=0 }">
-															<%-- <td><c:out value="-"></c:out></td> --%>
 															<td><c:out value="${d.fees}"></c:out></td>
 														</c:if>
 														<c:if test="${d.secondTerm==0 }">
@@ -262,7 +235,8 @@ z-index: 999999">
 														</c:if>
 														
 														<c:if test="${d.caste!=0 }">
-														<td><c:out value="${d.caste}"></c:out></td>
+														<td><c:out value="Yes"></c:out></td>
+														<%-- <td><c:out value="${d.caste}"></c:out></td> --%>
 														</c:if>
 														<c:if test="${d.caste==0 }">
 														<td><c:out value="-"></c:out></td>
@@ -356,32 +330,7 @@ z-index: 999999">
 <!-- /#wrap -->
 <!-- global scripts-->
 
-<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
-<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
-
-<!-- end of global scripts-->
-<!-- plugin level scripts -->
-<script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/chosen/js/chosen.jquery.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/jquery-tagsinput/js/jquery.tagsinput.js"></script>
-<script type="text/javascript" src="/SMGMT/config/js/pluginjs/jquery.validVal.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/daterangepicker/js/daterangepicker.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/autosize/js/jquery.autosize.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/jquery.inputmask.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.date.extensions.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.extensions.js"></script>
-<script type="text/javascript" src="/SMGMT/config/vendors/multiselect/js/jquery.multi-select.js"></script>
-<!-- <script type="text/javascript" src="../../cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.min.js"></script> -->
-<!--end of plugin scripts-->
-<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
-<script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
+	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 
 </body>
 <script type="text/javascript">
@@ -392,14 +341,12 @@ function loadDoc(id)
 	    if (this.readyState == 4 && this.status == 200) {
 	     var demoData = this.responseText;
 	     var str=demoData.split(",");
-	     alert(str);
 	     document.getElementById("idId").value=str[0];
 	     document.getElementById("feeTypeId").value=str[1];
 	   	 document.getElementById("feeId").value=str[2];
 	   	 var termFrst=str[3];
 	   	 var termSecnd=str[4];
 	   	 if(termFrst==1){
-	   		 alert(termFrst);
 		   		document.getElementById("term1Id").checked=true; 
 		 }
 	   	 else{

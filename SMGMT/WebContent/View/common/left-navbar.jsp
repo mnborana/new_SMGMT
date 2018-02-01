@@ -406,8 +406,26 @@
                             </li>                            
                         </ul>
                     </li>
+                      <%}if(pojo.getFee()!=0){ %>
+                    <li class="dropdown_menu">
+                        <a href="#">
+                           <i class="fa fa-book"></i>
+                            <span class="link-title menu_hide">&nbsp; Report</span>
+                            <span class="fa arrow menu_hide"></span>
+                        </a>
+                        <ul>
+                       
+                            <li>
+                                <a href=" /SMGMT/View/report/generalRegister.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; General Register</span>
+                                </a>
+                            </li>
+                                                   
+                        </ul>
+                    </li>
                     <%}if(pojo.getAttendance()!=0) {%>
-                    
+                   
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-tasks"></i>
@@ -548,12 +566,36 @@
                                     &nbsp; Stock Register
                                 </a>
                             </li>
+                             <%}if(pojo.getRegister()!=0){ %>
+                   	 <li>
+                        <a href="#">
+                            
+                            <span class="link-title menu_hide">&nbsp; Report</span>
+                            <span class="fa arrow menu_hide"></span>
+                        </a>
+                        <ul>
+                          
                             <li>
-                                <a href="/SMGMT/View/register/report.jsp">
+                                <a href="/SMGMT/View/register/Report/InwardRegister.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Report
+                                    &nbsp; Inward Register
                                 </a>
                             </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Outward Register
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/SMGMT/View/register/stockRegister.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Stock Register
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
                         </ul>
                     </li>
                     <%}if(pojo.getCashbook()!=0){ %>
@@ -565,29 +607,36 @@
                         </a>
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/cashBook/addCashBook.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Cash Book
+                                    &nbsp;Add Cash Book
                                 </a>
-                            </li>
+                            </li>                            
+                             <li>
+                                <a href="/SMGMT/View/cashBook/cashBookLedger.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; CashBook Ledger/Account </span>
+                                </a>
+                            </li>                             
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/cashBook/AccountSubAcc.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    <span class="link-title">&nbsp; Transaction </span>
+                                    <span class="link-title">&nbsp; Account/SubAccount </span>
                                 </a>
-                            </li>
+                            </li>                             
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/cashBook/cashBookOpeningBal.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Opening Balance
+                                    <span class="link-title">&nbsp; CashBook Opening Balance </span>
                                 </a>
-                            </li>
+                            </li>                       
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/cashBook/cashBookEntry.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Cash Transfer
+                                    &nbsp; CashBook Entry
                                 </a>
                             </li>
+                            
                             <li>
                                 <a href="#">
                                     <i class="fa fa-angle-right"></i>

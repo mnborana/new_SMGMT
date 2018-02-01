@@ -2,7 +2,7 @@ package com.servletStore.fees.assignStdWiseFees.model;
 
 public class AssignStdWiseFeesPojo {
 
-	int id, fkClassMasterId, termOneFees, termTwoFees, priority, status;
+	int id, fkClassMasterId, feesTypeId, termOneFees, termTwoFees, priority, status;
 	String feesType;
 	
 	public int getId() {
@@ -61,9 +61,17 @@ public class AssignStdWiseFeesPojo {
 		this.status = status;
 	}
 
+	public int getFeesTypeId() {
+		return feesTypeId;
+	}
+
+	public void setFeesTypeId(int feesTypeId) {
+		this.feesTypeId = feesTypeId;
+	}
+
 	@Override
 	public String toString() {
-		return "AssignStdWiseFeesPojo [id=" + id + ", fkClassMasterId=" + fkClassMasterId + ", feesTypeId=" + feesType
+		return "AssignStdWiseFeesPojo [id=" + id + ", fkClassMasterId=" + fkClassMasterId + ", feesTypeId=" + feesTypeId
 				+ ", termOneFees=" + termOneFees + ", ternTwoFees=" + termTwoFees + ", priority=" + priority
 				+ ", status=" + status + "]";
 	}

@@ -2,9 +2,11 @@ package com.servletStore.register.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dbconnect.DBConnection;
 import com.servletStore.register.model.InwardRegisterDAO;
 import com.servletStore.register.model.InwardRegisterImpl;
 import com.servletStore.register.model.InwardRegisterPojo;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 public class InwardRegister extends HttpServlet {
@@ -25,7 +36,8 @@ public class InwardRegister extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		InwardRegisterDAO impl=new InwardRegisterImpl();
-		
+		DBConnection conn=new DBConnection();
+		Connection connection=conn.getConnection();
 		HttpSession session=request.getSession();  
         
 		
@@ -198,8 +210,42 @@ public class InwardRegister extends HttpServlet {
 				
 				out.print(inward+","+date+","+sender+","+address+","+subject+","+description+",");
 			}
+						
+		}
+		
+		String submitprint=request.getParameter("InwardReport");
+		
+		if(submitprint!=null)
+		{
+			
+			String getFromToDate[]=new String[100];
+			String[] getDate=request.getParameter("getFromToDate").split("-");
+			String[] fromDate=getDate[0].split("/");
+			String fDate=fromDate[2].trim()+"-"+fromDate[1]+"-"+fromDate[0];
+			String[] toDate=getDate[1].split("/");
+			String tDate=toDate[2]+"-"+toDate[1]+"-"+toDate[0].trim();
 			
 			
+			try{
+			net.sf.jasperreports.engine.JasperReport jasperReport = null;
+			JasperDesign jasperDesign = null;
+			Map parameters = new HashMap();
+			parameters.put("fDate", fDate);
+			parameters.put("tDate", tDate);
+			
+			
+			String path = getServletContext().getRealPath("/WEB-INF/");
+			jasperDesign = JRXmlLoader.load(path + "/jasperReport/InwardRegisterReport.jrxml");
+			jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
+	        JasperViewer.viewReport(jasperPrint, false);
+			
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+			
+			
+			response.sendRedirect("/SMGMT/View/register/Report/InwardRegister.jsp");
 		}
 		
 	}

@@ -1,5 +1,6 @@
 package com.servletStore.report.libraryReport.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -7,7 +8,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.dbconnect.DBConnection;
 import com.servletStore.report.libraryReport.model.LibraryReportDAO;
 import com.servletStore.report.libraryReport.model.LibraryReportImpl;
 
@@ -29,7 +33,9 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -42,96 +48,127 @@ public class Report extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
-
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out= response.getWriter();
-		System.out.println("DFdgd");
+		DBConnection connection= new DBConnection();
+		Connection con=connection.getConnection();
+		System.out.println("Generating");
+		String schoolId=request.getParameter("schoolId");
+		String academicYr=request.getParameter("academicYr");
+		String trustyName="", schoolName="", sAddress="";
+		String query="SELECT trustee_info.edu_society_name,school_master.name,school_master.address FROM school_master,trustee_info WHERE school_master.id='"+schoolId+"'";
+		try {
+			PreparedStatement ps=con.prepareStatement(query);
+			ResultSet rs= ps.executeQuery();
+			while(rs.next())
+			{
+				trustyName=rs.getString(1);
+				schoolName=rs.getString(2);
+				sAddress=rs.getString(3);
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
 		LibraryReportDAO dao=new LibraryReportImpl();
 		String availableBooks=request.getParameter("Avail");
-		//String bookNo=request.getParameter("bookNo");
-		//System.out.println("Book No "+bookNo);
 		String date=request.getParameter("date");
 		String date1[]=date.split("-");
 		System.out.println(date1[0]+"-"+date1[1]);
 		String d1[]=date1[0].split("/");
-		//System.out.println("1st date "+d1[1]+"-"+d1[0]+"-"+d1[2]);
+		System.out.println("1st date "+d1[1]+"-"+d1[0]+"-"+d1[2]);
 		String d2[]=date1[1].split("/");
-		String startDate=d1[0]+"-"+d1[1]+"-"+d1[2];
-		String endDate=d2[0].trim()+"-"+d2[1]+"-"+d2[2];
-		//System.out.println("DDDDDDDDDDDD "+startDate+"-"+endDate);
-		/*Map map=new HashMap();
-		map.put("available", availableBooks);
-		map.put("startDate", startDate);
-		map.put("endDate", endDate);
-		map.put("bookNo", bookNo);
-		*/
-		boolean redirect=true;
+		String startDate=d1[2].trim()+"-"+d1[0].trim()+"-"+d1[1];
+		String endDate=d2[2].trim()+"-"+d2[0].trim()+"-"+d2[1];
+		//boolean redirect=true;
 		
-		if(request.getParameter("report")!=null)
+		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("Avail")))
 		{
 			try
 			{
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/smgmt", "root", "");
-			ResultSet rs=null;
-			
-				String catType="",bookName="",authorName="",edition="",language="";
-				int bookNo=0;
-				String sql="SELECT book_info_master.book_no,book_category.cat_type,book_info_master.book_name,book_info_master.author_name,book_info_master.edition,book_info_master.language FROM book_info_master,book_category,book_details_master WHERE book_info_master.cat_id=book_category.cat_id AND book_info_master.book_no=book_details_master.book_no AND book_info_master.date BETWEEN " +startDate+ "AND " +endDate;
-				PreparedStatement ps=connection.prepareStatement(sql);
-				rs=ps.executeQuery();
-				while(rs.next())
-				{
-					bookNo=rs.getInt(1);
-					catType=rs.getString(2);
-					bookName=rs.getString(3);
-					authorName=rs.getString(4);
-					edition=rs.getString(5);
-					language=rs.getString(6);
-					System.out.println("Details "+bookNo+" "+catType+" "+bookName+" "+authorName);
-				}
 				
-				JRResultSetDataSource jrDataSource=null;
-				Map parameter = new HashMap();
-				parameter.put("available", availableBooks);
-				parameter.put("bookNo", bookNo);
-				parameter.put("catType", catType);
-				parameter.put("bookName", bookName);
-				parameter.put("edition", edition);
-				parameter.put("edition", edition);
-				parameter.put("language", language);
-				parameter.put("endDate", endDate);
-				//map.put("bookNo", bookNo);
-				  net.sf.jasperreports.engine.JasperReport jasperReport = null;
-					JasperDesign jasperDesign = null;
-				String path = getServletContext().getRealPath("/reports/availableBooks.jrxml");
-				//String path="/SMGMT/reports/Library.jrxml";
+				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path));
+				net.sf.jasperreports.engine.JasperReport jasperReport = null;
+				JasperDesign jasperDesign = null;
+				Map para = new HashMap();
+				
+				para.put("startDate",""+startDate+"");
+				para.put("endDate",""+endDate+"");
+				para.put("trustyName", ""+trustyName+"");
+				para.put("schoolName", ""+schoolName+"");
+				para.put("sAddress", ""+sAddress+"");
+				
+				System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
+				String path = request.getServletContext().getRealPath("/reports/AvailableBook.jrxml");
+				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path +"//reports/AvailableBook.jasper"));
 				jasperDesign = JRXmlLoader.load(path);
 				jasperReport = JasperCompileManager.compileReport(jasperDesign);
-				//jrDataSource=new JRResultSetDataSource(rs);
-				JasperPrint jp=JasperFillManager.fillReport(jasperReport, parameter,connection);
-				//JasperExportManager.exportReportToPdfFile(jp,"/media/ap/Songs/JasperReports/Name..pdf");
-				JasperViewer jv=new JasperViewer(jp,false);
-				jv.setVisible(true);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
+		        JasperViewer.viewReport(jasperPrint, false);
+			} 
+			catch (JRException e)
+			{
+				e.printStackTrace();
 			}
-			catch (ClassNotFoundException e) 
-			{
-			e.printStackTrace();
-			} catch (SQLException e)
-			{
-			e.printStackTrace();
-			} catch (JRException e)
-			{
-			e.printStackTrace();
-			}
-		}
-	if(redirect)
-		{	
-			response.sendRedirect("/SMGMT/View/report/libraryReport.jsp");
+			
 		}
 	
-	
+		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("Cat")))
+		{
+		try
+		{
+			String catName=request.getParameter("cat");
+			net.sf.jasperreports.engine.JasperReport jasperReport = null;
+			JasperDesign jasperDesign = null;
+			Map para = new HashMap();
+			
+			para.put("startDate",""+startDate+"");
+			para.put("endDate",""+endDate+"");
+			para.put("trustyName", ""+trustyName+"");
+			para.put("schoolName", ""+schoolName+"");
+			para.put("sAddress", ""+sAddress+"");
+			para.put("catName", ""+catName+"");
+			System.out.println("Category wise data");
+			//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
+			String path = request.getServletContext().getRealPath("/reports/Category.jrxml");
+			jasperDesign = JRXmlLoader.load(path);
+			jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
+	        JasperViewer.viewReport(jasperPrint, false);
+		} 
+		catch (JRException e)
+		{
+			e.printStackTrace();
+		}
+	}
+		
+		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("Recover")))
+		{
+			try
+			{
+				net.sf.jasperreports.engine.JasperReport jasperReport = null;
+				JasperDesign jasperDesign = null;
+				Map para = new HashMap();
+				
+				para.put("startDate",""+startDate+"");
+				para.put("endDate",""+endDate+"");
+				para.put("trustyName", ""+trustyName+"");
+				para.put("schoolName", ""+schoolName+"");
+				para.put("sAddress", ""+sAddress+"");
+				System.out.println("Recovery Books");
+				//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
+				String path = request.getServletContext().getRealPath("/reports/RecoveryBook.jrxml");
+				jasperDesign = JRXmlLoader.load(path);
+				jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
+		        JasperViewer.viewReport(jasperPrint, false);
+			} 
+			catch (JRException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		response.sendRedirect("/SMGMT/View/report/libraryReport.jsp");
 	}
 }
 	

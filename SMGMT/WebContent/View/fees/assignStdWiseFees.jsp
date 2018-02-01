@@ -14,7 +14,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Form Elements | Admire</title>
+    <title>Vertical Software</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -26,19 +26,6 @@
     
     <style type="text/css">
     
-    #stdTable{
-    	width: 90%; 
-    	margin-left: 12%;
-    }
-    .stdTableTD1{
-    	width: 22%;
-    }
-     .stdTableTD2{
-    	width: 30%;
-    }
-     .stdTableTD3{
-    	width: 50%;
-    }
     #standardId {
 		display: block !important;
 	    opacity: 0;
@@ -79,8 +66,8 @@
 		 }
 		 
 		 access = grant.getFee();
-		 System.out.println("roll "+roll + " schoolId "+schoolId +" access "+access);
-		
+		 //System.out.println("roll "+roll + " schoolId "+schoolId +" access "+access);
+		 
 		//if it returns read(1) then hide form and action column in dataTable
 		//for write(2) show your orignal full form
 				
@@ -213,15 +200,15 @@ z-index: 999999">
 							                            
 							                            <div>
 							                                <div>
-							                                    <table class="table  table-striped table-bordered table-hover  no-footer"  role="grid">
+							                                    <table id="sort" class="table  table-striped table-bordered table-hover dataTable no-footer">
 							                                        <thead>
-							                                        <tr role="row">
+							                                        <tr>
 							                                            <th></th>
-							                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Fees Type</th>
-							                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term One Fees</th>
-							                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term Two Fees</th>
-							                                            <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Priority</th>
-							                                            <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Action</th>
+							                                            <th>Fees Type</th>
+							                                            <th>Term One Fees</th>
+							                                            <th>Term Two Fees</th>
+							                                            <th>Priority</th>
+							                                            <th>Action</th>
 							                                        </tr>
 							                                        </thead>
 							                                        
@@ -315,83 +302,6 @@ z-index: 999999">
 <!-- /#wrap -->
 <!-- global scripts-->
 
-<script type="text/javascript">
-
-	function saveUpdateFees(updateRowId, updateId) {
-	
-		var tr = document.getElementById("editFeeTR"+updateRowId).children;
-			
-		tr[2].removeAttribute('contenteditable');
-		tr[3].removeAttribute('contenteditable');		
-	} 
-	
-	function updateFees(rowId, updateId){
-		
-		if(document.getElementById("editFeeTD1")){
-			
-			document.getElementById("editFeeTD1").removeAttribute('contenteditable');
-			document.getElementById("editFeeTD2").removeAttribute('contenteditable');
-			
-			document.getElementById("editFeeTD1").setAttribute('id', '');
-			document.getElementById("editFeeTD2").setAttribute('id', '');
-		}
-		
-		
-		var tr = document.getElementById("editFeeTR"+rowId).children;
-			
-		tr[2].setAttribute('contenteditable', 'true');
-		tr[3].setAttribute('contenteditable', 'true');
-		
-		tr[2].setAttribute('id', 'editFeeTD1');
-		tr[3].setAttribute('id', 'editFeeTD2');
-		
-		$("#editFeeTD1").focus();
-		
-		$("#editFeeTD1, #editFeeTD2").keyup(function(evt)
-		{		
-			var charCode = window.event.keyCode;
-		    var element = document.activeElement.children;
-		    element[1].value = element[0].innerHTML;
-		    var value = element[0].innerHTML;
-		    if(charCode == 46){
-		    	if (value != null && value.trim().indexOf('.') == -1)
-	                return true;
-		    }
-		    
-			if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-		        return false;
-		    }
-		    else if(charCode == 13){
-		    	return false;
-		    }
-
-		});
-	}
-	
-	function submitForm() 
-	{
-		var checked=0;
-		var c = document.getElementsByName('feeTypeCheck');
-		var finalArray = [];
-		for(var i=0;i<c.length;i++)
-		{	
-			if (c[i].checked){
-				checked++;
-				var tr = document.getElementById("editFeeTR"+c[i].value).children;
-				alert(tr[0].id);
-				finalArray.push(tr[0].id);
-				finalArray.push(tr[1].innerHTML);
-				finalArray.push(tr[2].innerHTML);
-				finalArray.push(tr[3].innerHTML);
-				finalArray.push( document.getElementById("feeTypePriority_"+c[i].value).checked );
-			}
-		}	
-		
-		document.getElementById("tableData").value = finalArray;
-		alert(document.getElementById("tableData").value );	
-	}
-
-</script>
 
 <!-- common js -->
 	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>

@@ -2,7 +2,13 @@ package com.servletStore.library.model;
 
 public class IssueBookPOJO {
 private int bookId,studId,staffId;
-private String issueDate,dueDate,returnDate, bookName, studName, staffName,userType,authorName,edition,std,divi;
+private String issueDate,dueDate,returnDate, bookName, studName, staffName,userType,authorName,edition,std,divi,remark;
+public String getRemark() {
+	return remark;
+}
+public void setRemark(String remark) {
+	this.remark = remark;
+}
 public String getAuthorName() {
 	return authorName;
 }
