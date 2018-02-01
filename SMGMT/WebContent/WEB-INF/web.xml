@@ -5,6 +5,14 @@
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
+    <servlet-name>YearActivator</servlet-name>
+    <servlet-class>com.activator.YearActivator</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>YearActivator</servlet-name>
+    <url-pattern>/YearActivator</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>AddClassRoom</servlet-name>
     <servlet-class>com.servletStore.settings.classRoom.controller.AddClassRoom</servlet-class>
   </servlet>
@@ -93,6 +101,14 @@
     <url-pattern>/Subjects</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>SubjectAssignment</servlet-name>
+    <servlet-class>com.servletStore.settings.subjects.controller.SubjectAssignment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubjectAssignment</servlet-name>
+    <url-pattern>/SubjectAssignment</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Vehicle</servlet-name>
     <servlet-class>com.servletStore.transportation.controller.Vehicle</servlet-class>
   </servlet>
@@ -173,6 +189,31 @@
     <url-pattern>/StockRegister</url-pattern>
   </servlet-mapping>
   <servlet>
+  	<servlet-name>casteWiseEduFees</servlet-name>
+  	<servlet-class>com.servletStore.fees.casteWiseEduFees.controller.casteWiseEduFees</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>casteWiseEduFees</servlet-name>
+  <url-pattern>/casteWiseEduFees</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PTAMember</servlet-name>
+    <servlet-class>com.servletStore.ptamember.controller.PTAMember</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PTAMember</servlet-name>
+    <url-pattern>/PTAMember</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GeneralRegister</servlet-name>
+    <servlet-class>com.servletStore.report.generalRegister.controller.GeneralRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GeneralRegister</servlet-name>
+    <url-pattern>/GeneralRegister</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>UserLogout</servlet-name>
     <servlet-class>com.servletStore.login.controller.UserLogout</servlet-class>
   </servlet>
@@ -228,8 +269,7 @@
     <servlet-name>AssignStdWiseFees</servlet-name>
     <url-pattern>/AssignStdWiseFees</url-pattern>
   </servlet-mapping>
-
-   <servlet>
+  <servlet>
     <servlet-name>Report</servlet-name>
     <servlet-class> com.servletStore.report.libraryReport.controller.Report</servlet-class>
   </servlet>
@@ -237,8 +277,6 @@
     <servlet-name>Report</servlet-name>
     <url-pattern>/Report</url-pattern>
   </servlet-mapping>
- 
-
   <servlet>
     <servlet-name>FeesCollection</servlet-name>
     <servlet-class>com.servletStore.fees.feescollection.controller.FeesCollection</servlet-class>
@@ -246,6 +284,38 @@
   <servlet-mapping>
     <servlet-name>FeesCollection</servlet-name>
     <url-pattern>/FeesCollection</url-pattern>
-  </servlet-mapping> 
-
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AssignFee</servlet-name>
+    <servlet-class>com.servletStore.fees.feescollection.controller.AssignFee</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AssignFee</servlet-name>
+    <url-pattern>/AssignFee</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AddCashBook</servlet-name>
+    <servlet-class>com.servletStore.cashBook.controller.AddCashBook</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddCashBook</servlet-name>
+    <url-pattern>/AddCashBook</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CashBookLedgerAccount</servlet-name>
+    <servlet-class>com.servletStore.cashBook.controller.CashBookLedgerAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CashBookLedgerAccount</servlet-name>
+    <url-pattern>/CashBookLedgerAccount</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>SubAccount</servlet-name>
+  	<servlet-class>com.servletStore.cashBook.controller.SubAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SubAccount</servlet-name>
+  	<url-pattern>/SubAccount</url-pattern>
+  </servlet-mapping>
 </web-app>

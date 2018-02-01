@@ -19,11 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
-    <!-- global styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
-
-    <!-- end of global styles-->
+    <jsp:include page="/View/common/commonCss.jsp"></jsp:include>
    
 </head>
 
@@ -32,6 +28,7 @@
 	String schoolId = "0";
 	String academicYear = "0";
 	int roll=0;
+	int access=0;
 	
 	if (session.getAttribute("userName") == null) {
 		response.sendRedirect("/SMGMT");
@@ -49,9 +46,14 @@
 		//choose appropriate method as per your leftNavbar form option name
 		//e.g : if you are working on Attendance option in left navbar then code will be...
 		
-		/* SetupPOJO grant = new SetupPOJO();
-		int access=grant.getAttendance(); */
-		
+		 SetupPOJO grant = new SetupPOJO();
+		 while(iterator.hasNext()){
+			grant = iterator.next();
+		 }
+		 
+		 access = grant.getSetting();
+		 System.out.println("roll "+roll + " schoolId "+schoolId +" access "+access);
+		 
 		//if it returns read(1) then hide form and action column in dataTable
 		//for write(2) show your orignal full form
 				
@@ -91,11 +93,6 @@
                 <jsp:include page="/View/common/left-navbar.jsp"></jsp:include>
              <!-- /.left navbar -->
            
-           
-           	<%	
-				HttpSession session1 = request.getSession();
-				session1.setAttribute("schoolId", "1");
-			%>  
              
             <!-- /#left -->
             <div id="content" class="bg-container">
@@ -128,6 +125,10 @@
                 
              <!-- start your code from here  -->  
               
+              <%
+             	if(access==2){
+              %>
+             
                 <div class="outer">
                     <div class="inner bg-container">
                         <div class="row">
@@ -160,7 +161,9 @@
                         </div> <!-- /.row -->
                     </div> <!-- /.inner -->
                 </div> <!-- /.outer -->
-            
+             <%		
+             	}
+             %>
             
             <div class="outer">
                     <div class="inner bg-container">
@@ -182,24 +185,31 @@
                                             <tr role="row">
                                                 <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No.</th>
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Subject Name</th>
+                                                
+                                                <% if(access==2){ %>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>
+                                                 <% } %>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             
                                             <%
 	                                            SubjectDAO subDao = new SubjectImpl();
-	                                        	request.setAttribute("subList", subDao.getSubjectDetails(session1.getAttribute("schoolId").toString()));
+	                                        	request.setAttribute("subList", subDao.getSubjectDetails(schoolId));
 	                                        	int count=0;
 		                                    %>
+		                                    
 		                                    <c:forEach var="i" items="${subList}">
                                             	<tr role="row" class="even">
                                             		<td><%=++count %></td>
                                             		<td><c:out value="${i.getSubjectName()}"></c:out></td>
+                                            		
+                                            		<% if(access==2){ %>
                                             		<td>
                                             			<a class="edit" data-toggle="tooltip" data-placement="top" title="Update" href="#" onclick="updateStandard()"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
                                             			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="#"><i class="fa fa-trash text-danger"></i></a>
                                             		</td>
+                                            		 <% } %>
                                             	</tr>
                                             </c:forEach>
                                             
@@ -225,35 +235,8 @@
         
 </div>
 <!-- /#wrap -->
-
-	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
-
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script>
-
-    <script type="text/javascript" src="/SMGMT/config/vendors/select2/js/select2.js.pagespeed.jm.Eugd1Y0BmV.js"></script>
-    <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script>
-    <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script>
-    
-    <script>eval(mod_pagespeed_g_o5ieHdNa);</script>
-    <script>eval(mod_pagespeed_UzcyJ5ysoL);</script>
-    <script>eval(mod_pagespeed_sB4kJD0xfI);</script>
-    <script>eval(mod_pagespeed_aYQJk4iDci);</script>
-    <script>eval(mod_pagespeed_wVkzf2s7YZ);</script>
-    <script>eval(mod_pagespeed_Ij0pRaH8BP);</script>
-    <script>eval(mod_pagespeed_wfmKXYO4Nj);</script>
-    <script>eval(mod_pagespeed_EYzby3B1$L);</script>
-
-    <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
-
+	 <jsp:include page="/View/common/commonJs.jsp"></jsp:include>
+	
 </body>
 
 </html>

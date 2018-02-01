@@ -19,7 +19,6 @@ import com.servletStore.ptamember.model.PTAMemberImpl;
 import com.servletStore.ptamember.model.PTAMemberPojo;
 
 
-//@WebServlet("/PTAMember")
 public class PTAMember extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

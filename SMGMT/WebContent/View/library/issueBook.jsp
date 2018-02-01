@@ -197,7 +197,6 @@
 															</div>
 															<div class="form-group row">
 																<div class="col-lg-5">
-															
 																	<label class="col-form-label">Book Issue Date </label><span
 																		style="color: red;">*</span> <input type="text"
 																		id="issueDate_id" class="form-control"
@@ -456,6 +455,7 @@
 																	<%
 																		SysDate d = new SysDate();
 																	%>
+
 																	<div class="col-lg-4">
 																		<label class="col-form-label">Return Date </label><span
 																			style="color: red;">*</span> <input type="text"
@@ -532,6 +532,7 @@
 																	</div>
 																</div>
 															</div>
+
 															
 											<!-- <<<<<<<<RENEW BOOK>>>>>>>>>> -->
 															
@@ -542,9 +543,10 @@
 																		style="color: red;">*</span> <input type="text"
 																		class="form-control form_val_popup_dp3" id="dueDateRn"
 																		name="newdueDate" placeholder="YYYY-MM-DD"  />
+
 																</div>
 															</div>
-											
+					
 												<!-- <<<<<<<<RECOVER BOOK>>>>>>>>>> -->			 
 															 <div class="form-group row" id="recoverBk" style="display: none">
 																<div class="col-lg-4">
@@ -1090,6 +1092,7 @@ function getExpData(val)
 				{
 				var now = new Date();
 				var today= now.getDate();
+
 				var todayMonth=(now.getMonth())+1;
 			    var todayYear=(now.getFullYear());
 			    
@@ -1099,9 +1102,11 @@ function getExpData(val)
 
 			    
 			    var x=todayYear+"-"+todayMonth+"-"+today; //DATE
+
 				var count=1;
 				var wholeData="";
 				var i=0;
+
 				//alert(x);
 				
 					for(;demoStr[i]; ){
@@ -1131,6 +1136,7 @@ function getExpData(val)
 									"<td style='text-align: center'>"+demoStr[i+9]+"</td>"+
 									
 									"<tr>";
+
 						
 						count++;
 						i=i+10;
@@ -1354,11 +1360,12 @@ function checkedPay(checkId)
 	else{
 		document.getElementById("returnSubmit").disabled=true;
 	}
+}
 	 //var famount=document.getElementById("fineAmount").value;
 	//alert(famount);
 	//var x = document.getElementById("checkId");
 	
-}
+
 
 
 	

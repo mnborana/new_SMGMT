@@ -770,7 +770,12 @@ function admissionDate(x) {
 		var todayMonth=(now.getMonth());
 	    var todayYear=(now.getFullYear());
 	    
-	    document.getElementById("admissionDate").value=today+"-"+(todayMonth+1)+"-"+todayYear;
+	    var x=today+"-"+(todayMonth+1)+"-"+todayYear;
+	    $("#admissionDate").datepicker({
+	        format: 'dd-mm-yyyy',
+	        autoclose: true
+	    }).datepicker("update", x); 
+	    
 	}
 //====================================== END Admission Date =====================================
 //====================================== Class Allocation =====================================
