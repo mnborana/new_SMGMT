@@ -57,6 +57,9 @@ public class UserLogin extends HttpServlet {
   				session.setAttribute("year", loginYear);
   				session.setAttribute("rollId", userRollId);
   				
+  				session.setMaxInactiveInterval(20*60);
+  				
+  				
 				response.sendRedirect("/SMGMT/index.jsp");
 				
 				/*out.print("login successful "+loginYear);
