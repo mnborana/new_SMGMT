@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.servletStore.fees.feeType.model.FeeTypeDAO;
 import com.servletStore.fees.feeType.model.FeeTypeImpl;
 import com.servletStore.fees.feeType.model.FeeTypePOJO;
+import com.servletStore.fees.feeType.model.feeTypeDAO;
 
 
 
@@ -25,7 +25,7 @@ public class FeeType extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FeeTypePOJO pojo=new FeeTypePOJO();
-		FeeTypeDAO dao=new FeeTypeImpl();
+		feeTypeDAO dao=new FeeTypeImpl();
 		PrintWriter out=response.getWriter();
 		if(request.getParameter("submitFee")!=null)
 		{

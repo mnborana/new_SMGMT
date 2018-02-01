@@ -10,7 +10,7 @@ import java.util.List;
 import com.dbconnect.DBConnection;
 import com.servletStore.library.model.AddBookPOJO;
 
-public class FeeTypeImpl implements FeeTypeDAO {
+public class FeeTypeImpl implements feeTypeDAO {
 	DBConnection dbConnect = new DBConnection();
 	Connection connection=dbConnect.getConnection();
 	PreparedStatement pstmt=null;

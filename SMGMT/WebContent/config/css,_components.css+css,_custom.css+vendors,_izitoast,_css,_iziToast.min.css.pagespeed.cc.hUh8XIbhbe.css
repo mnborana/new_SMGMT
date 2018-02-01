@@ -7666,6 +7666,7 @@ button, .btn {
 
 .no-print {
   z-index: -1; 
+  visibility: hidden;
   }
 
 .sidebar-right-opened .no-print {

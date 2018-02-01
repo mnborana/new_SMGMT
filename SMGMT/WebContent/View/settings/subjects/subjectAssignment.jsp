@@ -40,6 +40,12 @@
     	width: 50%;
     }
     
+     #subjectId {
+		display: block !important;
+	    opacity: 0;
+	    margin-bottom: -10%;
+	}
+    
     </style>
 </head>
 
@@ -166,7 +172,7 @@ z-index: 999999">
                                            </div>
                                            <div class="col-lg-4">
                                                <select class="form-control chzn-select" name="subjectId" id="subjectId" title="Select Subject"  required>
-			                                        <option>Select Subject</option>
+			                                        <option value="">Select Subject</option>
 			                                        <%
 				                                    	SubjectAssignmentDAO sdao = new SubjectAssignmentImpl();
 				                                    	HashMap<Integer, String> subList = sdao.getSubjectList(schoolId);

@@ -1,4 +1,4 @@
-<%@page import="com.servletStore.fees.feeType.model.FeeTypeDAO"%>
+<%@page import="com.servletStore.fees.feeType.model.feeTypeDAO"%>
 <%@page import="com.servletStore.setup.model.SetupPOJO"%>
 <%@page import="com.servletStore.setup.model.SetupImpl"%>
 <%@page import="com.servletStore.setup.model.SetupDAO"%>
@@ -235,7 +235,7 @@ z-index: 999999">
                                             </thead>
                                             <tbody>
                                        		 	<%
-                                       		 		FeeTypeDAO dao=new FeeTypeImpl();
+                                       		 		feeTypeDAO dao=new FeeTypeImpl();
                                        		 	    request.setAttribute("display_fees", dao.getFeeType());
                                        		 	    int feeCount=0;
                                        		 	%> 
