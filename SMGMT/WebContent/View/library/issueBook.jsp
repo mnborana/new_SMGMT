@@ -409,7 +409,7 @@
 																	<div class="col-lg-4 ">
 																		<label for="required2" class="col-form-label">Issue
 																			Date</label> <input type="text" id="issueDate1"
-																			name="issueDate" class="form-control"
+																			name="issueDateFrom3tab" class="form-control"
 																			readonly="readonly">
 																	</div>
 
@@ -430,9 +430,6 @@
 
 																</div>
 															</div>
-
-
-
 															<div class="form-group row">
 																<div class="col-lg-4 ">
 																	<label for="required2" class="col-form-label">Renew/Return
@@ -444,7 +441,10 @@
 																		Return <input type="radio" value="RENEW"
 																			style="margin-left: 1%;" name="returnRadio"
 																			id="selectRn" onclick="onBook(this.value)">
-																		Renewal
+																		Renewal &nbsp;<input type="radio" value="RECOVER"
+																			style="margin-left: 1%;" name="returnRadio"
+																			id="selectRe" onclick="onBook(this.value)">
+																		Recovery Book
 																	</div>
 																</div>
 															</div>
@@ -455,10 +455,6 @@
 																	<%
 																		SysDate d = new SysDate();
 																	%>
-
-
-
-
 
 																	<div class="col-lg-4">
 																		<label class="col-form-label">Return Date </label><span
@@ -510,7 +506,7 @@
 																		<label for="required2" class="col-form-label">Paid
 																			Amount </label> <input type="text" id="paidAmountId"
 																			name="finePaid" value="0"
-																			onblur="calculatePaidAmt(this.value)" pattern="[0-9]"
+																			onblur="calculatePaidAmt(this.value)" pattern="[0-9]+"
 																			class="form-control"> <small
 																			class="help-block" data-bv-validator="notEmpty"
 																			id="error" style=""></small>
@@ -525,11 +521,6 @@
 																	<div class="col-lg-12">
 																		<label for="" id="information" class="col-form-label"></label>
 																	</div>
-
-
-
-
-
 																	<div class="col-lg-12">
 																		<label class="custom-control custom-checkbox">
 																			<input type="checkbox" class="custom-control-input"
@@ -541,17 +532,31 @@
 																	</div>
 																</div>
 															</div>
+
+															
+											<!-- <<<<<<<<RENEW BOOK>>>>>>>>>> -->
+															
 															<div class="form-group row" id="renew"
 																style="display: none">
 																<div class="col-lg-4">
 																	<label class="col-form-label">New Due Date </label><span
 																		style="color: red;">*</span> <input type="text"
 																		class="form-control form_val_popup_dp3" id="dueDateRn"
-																		name="newdueDate" placeholder="YYYY-MM-DD" required />
+																		name="newdueDate" placeholder="YYYY-MM-DD"  />
+
 																</div>
 															</div>
-
-															<div class="form-actions">
+					
+												<!-- <<<<<<<<RECOVER BOOK>>>>>>>>>> -->			 
+															 <div class="form-group row" id="recoverBk" style="display: none">
+																<div class="col-lg-4">
+																<label class="col-form-label">Remark  </label><span
+																		style="color: red;">*</span>
+																	<textarea id="text4" class="form-control" name="remark"  onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z]"cols="50" rows="5" ></textarea>
+																</div>
+															</div>
+															
+ 															<div class="form-actions">
 																<input type="submit" id="returnSubmit" value="Submit"
 																	name="submitBook" class="btn btn-success"
 																	disabled="disabled"> &nbsp;<input type="submit"
@@ -654,7 +659,7 @@ function giveDiscount()
 {
 	var fineAmount=parseInt(document.getElementById("fineAmount").value);
     var paidAmount=parseInt(document.getElementById("paidAmountId").value);
-    alert(paidAmount);
+    //alert(paidAmount);
     var remainAmt = fineAmount - paidAmount;
     
     document.getElementById("discount").value=remainAmt;
@@ -755,7 +760,7 @@ function calculatePaidAmt(val)
 			}
 			if(paidAmount<=1)
 			{
-				alert('incorrect number');
+				//alert('incorrect number');
 				 $('#giveDiscount').modal('hide');
 				document.getElementById("error").innerHTML="incorrect number";
 				
@@ -787,7 +792,7 @@ function calculatePaidAmt(val)
 		else
 		{
 			var totalFine=totalAmt-paidAmount;
-			alert(totalFine);
+			//alert(totalFine);
 			// var totalAmt=remainAmt-paidAmt;
 			document.getElementById('remainAmount').value=totalFine; 
 			document.getElementById("error").innerHTML="";	
@@ -816,13 +821,13 @@ function countPay()
 	//alert("of "+oldFineAmount+" dis "+discount);
 	if(discount > oldFineAmount)
 	{
-		alert('not count');	
+		//alert('not count');	
 		document.getElementById("totalAmount").value=0;
 		document.getElementById("discountError").innerHTML="Number should less than Fine";
 	}
 	else
 	{
-		alert('count');
+		//alert('count');
 		var totalAmt=oldFineAmount-discount;
 		document.getElementById("totalAmount").value=totalAmt;
 		document.getElementById("oldRemainFine").value=fineAmount;
@@ -1087,25 +1092,37 @@ function getExpData(val)
 				{
 				var now = new Date();
 				var today= now.getDate();
-				var todayMonth=(now.getMonth());
+
+				var todayMonth=(now.getMonth())+1;
 			    var todayYear=(now.getFullYear());
 			    
-			    var x=todayYear+"-"+(todayMonth+1)+"-"+today; //DATE
+			    if(todayMonth<10) {
+			    	todayMonth = '0'+todayMonth;
+			    } 
+
+			    
+			    var x=todayYear+"-"+todayMonth+"-"+today; //DATE
+
 				var count=1;
 				var wholeData="";
 				var i=0;
+
+				//alert(x);
+				
 					for(;demoStr[i]; ){
-						if (demoStr[i+9]>x) {
-							alert('sdf');
-							wholeData+="<tr style='background:red;'";
+						if (x>demoStr[i+9]) {
+							//alert(demoStr[i+9]);
+							//alert(x>demoStr[i+9]);
+							wholeData+="<tr style='background-color: #f3a1a1;'>";
+														
  						}else {
 							wholeData+="<tr>";
 						}
 						
 						wholeData+="<td style='text-align: center'>"+count+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+1]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+2]+"</td>";
+									"<td style='text-align: center'>"+demoStr[i]+"</td>"+
+									"<td style='text-align: center'>"+demoStr[i+1]+"</td>"+
+									"<td style='text-align: center'>"+demoStr[i+2]+"</td>";
 						if (demoStr[i+3] !='null') {
 							wholeData+="<td style='text-align: center'>Student</td>";
 						}
@@ -1113,11 +1130,13 @@ function getExpData(val)
 							wholeData+="<td style='text-align: center'>"+demoStr[i+4]+"</td>";
 						}
 						wholeData+="<td style='text-align: center'>"+demoStr[i+5]+"</td>"+ 
-						"<td style='text-align: center'>"+demoStr[i+6]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+7]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+8]+"</td>"+
-						"<td style='text-align: center'>"+demoStr[i+9]+"</td>"+
-						"<tr>";
+									"<td style='text-align: center'>"+demoStr[i+6]+"</td>"+
+									"<td style='text-align: center'>"+demoStr[i+7]+"</td>"+
+									"<td style='text-align: center'>"+demoStr[i+8]+"</td>"+
+									"<td style='text-align: center'>"+demoStr[i+9]+"</td>"+
+									
+									"<tr>";
+
 						
 						count++;
 						i=i+10;
@@ -1154,8 +1173,15 @@ function getBookInfo(bookInfo,e)
 			document.getElementById("bNo").value = stud[0];
 			document.getElementById("bName").value = stud[1];
 			document.getElementById("authrName").value = stud[2];
-			document.getElementById("issueDate1").value = stud[3];
-			document.getElementById("dueDate1").value = stud[4];
+			
+			var iDate = stud[3].split('-');
+			alert(stud[3]);
+			iDate=iDate[2]+'-'+iDate[1]+'-'+iDate[0];
+			document.getElementById("issueDate1").value = iDate;
+			
+			var dDate = stud[4].split('-');
+			dDate=dDate[2]+'-'+dDate[1]+'-'+dDate[0];
+			document.getElementById("dueDate1").value = dDate;
 
 		}
 	};
@@ -1165,55 +1191,41 @@ function getBookInfo(bookInfo,e)
 	//}
 }
 
-
-
 function onBook(radioValue)
 	{
 	//alert(radioValue);
 
 	var tDate = document.getElementById("currentDate").value;
+	var todayDate = tDate.split('-');
+	todayDate=todayDate[2]+'-'+todayDate[1]+'-'+todayDate[0];
 	var dDate = document.getElementById("dueDate1").value;
+	var dueDate = dDate.split('-');
+	dueDate=dueDate[2]+'-'+dueDate[1]+'-'+dueDate[0];
 	var studId= document.getElementById("student_Id").value;
 	//alert(studId);
 	
 	
 	document.getElementById("oldDueDate").innerHTML=" Due Date";
 	//document.getElementById("dueDate1").disabled=true;
-	getFineCount(tDate, dDate, radioValue,studId);
+	getFineCount(todayDate, dueDate, radioValue,studId);
 			
 	}
 
-function getFineCount(tDate, dDate, radioValue,studId) {
+function getFineCount(todayDate, dueDate, radioValue,studId) {
 	
 	
 	 var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var str = this.responseText.split(",");
-			//var demo=str[0];
-			
-			//document.getElementById("days").value = demo;
-			
-			//var tDate = document.getElementById("currentDate").value;
-			//var dDate = document.getElementById("dueDate1").value;
 			var issueDate=document.getElementById("issueDate1").value; 
-			
-			
-			
-			//set remainfine in this id previousFine
-			//var remainFine=document.getElementById("remainAmount").value;
-			//alert(remainFine+"RamianAmount");
-			
-			
-			
-			if(radioValue=="RETURN")
+		 if(radioValue=="RETURN")
  			{
 	 			document.getElementById("returnBk").style.display="block";
 	 			document.getElementById("renew").style.display="none";
+	 			 document.getElementById("recoverBk").style.display="none";
 	 			
-	 			
-	 			
-	 			if(tDate<dDate)
+	 			if(todayDate<dueDate)
 	 			{
 	 				//alert(tDate+" "+dDate+" if");
 	 				 document.getElementById("days").value=0;
@@ -1221,16 +1233,13 @@ function getFineCount(tDate, dDate, radioValue,studId) {
 	 				document.getElementById("oldRemainFine").value=str[1]; 
 	 				document.getElementById("previousFine").value=str[1]; 
 					document.getElementById("fineAmount").value = str[1];
-					
-		 			
-	 			}
+				}
 	 			else
 	 			{
-	 				
 	 				//alert("else");
 		 			 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-					var firstDate = new Date(tDate);
-					var secondDate = new Date(dDate);
+					var firstDate = new Date(todayDate);
+					var secondDate = new Date(dueDate);
 	
 					var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 					
@@ -1238,7 +1247,7 @@ function getFineCount(tDate, dDate, radioValue,studId) {
 					document.getElementById("previousFine").value=str[1];
 					if(parseInt(str[1])>0)
 					{
-						alert('addition');
+						//alert('addition');
 						
 						var regularFine = diffDays * parseInt(str[0]);
 						var totalFine = regularFine+parseInt(str[1]);
@@ -1249,7 +1258,7 @@ function getFineCount(tDate, dDate, radioValue,studId) {
 					}
 					else
 					{
-						alert('not add');
+						//alert('not add');
 						var totalFine = diffDays * str[0];
 						
 						document.getElementById("fineAmount").value = totalFine;
@@ -1260,24 +1269,8 @@ function getFineCount(tDate, dDate, radioValue,studId) {
 			 			document.getElementById("oldRemainFine").value=totalFine;
 			 				
 					}
-					
-					
-		 			//document.getElementById("previousFine").value=str[1]; 
-		 			
-		 			/* if(str[1]!=0)
-		 			{
-		 				var previousFine=parseInt(str[1]);
-		 				var fineAmount=parseInt(str[0]);
-		 				var totalRemainAmt=previousFine+fineAmount;
-		 				document.getElementById("remainAmount").value=totalRemainAmt;
-		 				document.getElementById("oldRemainFine").value=totalRemainAmt;
-		 			} */
-	 			}
+				}
 	 			var studId= document.getElementById("student_Id").value;
-	 			
-	 			
-	 			
-	 			
 	 			document.getElementById("returnSubmit").disabled=true;
 	 			var newFineAmt=document.getElementById("fineAmount").value;
 	 			
@@ -1285,54 +1278,80 @@ function getFineCount(tDate, dDate, radioValue,studId) {
 	 			{
 	 				document.getElementById("returnSubmit").disabled=false;
 	 			}
-	 			 /* if(totalFine==0 )
-	 				{
-	 				 	//alert('enable');
-	 					document.getElementById("returnSubmit").disabled=false;
-	 				}
-	 			 else if(tDate!=issueDate)
-					{
-	 					//alert('enable');
-						document.getElementById("returnSubmit").disabled=false;
-					} 
-	 			 else if(totalFine!=0)
-	 				 {
-		 				//alert('disable');
-		 				document.getElementById("returnSubmit").disabled=true;
-		 			} */
-	 			}
-	 		else if(radioValue=="RENEW"){
+	 			   
+ 			}
+	 		else if(radioValue=="RENEW")
+	 		{
 	 			document.getElementById("renew").style.display="block";
 	 			document.getElementById("returnBk").style.display="none";
+	 			 document.getElementById("recoverBk").style.display="none";
 	 			//document.getElementById("dueDateRn").value="";
 	 			var dueDateRenew=document.getElementById("dueDateRn").value;
-	 			//document.getElementById("dueDateRn").focus();
-	 			if(dueDateRenew=="")
+	 			/* var dueDateNew = dueDateRenew.split('-');
+	 			dueDateNew=dueDateNew[2]+'-'+dueDateNew[1]+'-'+dueDateNew[0];
+ */
+	 			//alert(dueDateRenew);
+	 			document.getElementById("returnSubmit").disabled=false;
+	 	        document.getElementById("dueDateRn").required=true;
+	 			document.getElementById("text4").required=false;
+
+	 			/* if(dueDateRenew=="")
  				{
- 				//alert('disable');
+ 				alert('disable');
  				document.getElementById("returnSubmit").disabled=true; 
  				}
-	 			 if(dueDateRenew!=null)
+	 			else 
 	 				{
-	 				//alert('enable');
+	 				alert('enable');
 	 				document.getElementById("returnSubmit").disabled=false;
-	 				}
+	 				} */
  				
 	 		}
+	 		  else if(radioValue=="RECOVER")
+	 			{
+	 			  
+	 			     document.getElementById("returnSubmit").disabled=false;
+		 			 document.getElementById("recoverBk").style.display="block";
+		 			 document.getElementById("returnBk").style.display="none";
+		 			 document.getElementById("renew").style.display="none";
+		 			document.getElementById("text4").required=true;
+		 			 document.getElementById("dueDateRn").required=false;
+	 			 
+	 			  
+	 			}   
 
 		}
 	};
 	//get student id in javascript variable and pass it in servlet
 	xhttp.open("POST", "/SMGMT/Library?countDetail=1"
-			+ "&currentDate=" + tDate + "&dueDate=" + dDate+ "&studId=" +studId, true);
+			+ "&currentDate=" + todayDate + "&dueDate=" + dueDate+ "&studId=" +studId, true);
 	xhttp.send(); 
 
 	
 }
 
+
+ 
+ 
 /*<<<<<<<<<<<<<<<<<<< Code For check box if it is selected or not >>>>>>>>>>>>>>>>>>> */
+/* function checkedPay(checkId)
+{
+	var famount=parseInt(document.getElementById("fineAmount").value);
+	if($(checkId).is(":checked"))
+		{
+		
+		document.getElementById("returnSubmit").disabled=false;
+		document.getElementById("remainAmount").value=famount;
+		}
+	else{
+		document.getElementById("returnSubmit").disabled=true;
+		}
+	
+} */
+
 function checkedPay(checkId)
 {
+	var famount=parseInt(document.getElementById("fineAmount").value);
 	if($(checkId).is(":checked"))
 		{
 		document.getElementById("returnSubmit").disabled=false;
@@ -1341,32 +1360,16 @@ function checkedPay(checkId)
 	else{
 		document.getElementById("returnSubmit").disabled=true;
 	}
-	/* //var famount=document.getElementById("fineAmount").value;
+}
+	 //var famount=document.getElementById("fineAmount").value;
 	//alert(famount);
 	//var x = document.getElementById("checkId");
-	if($(checkId).is(":checked"))
-		{
-			checkId.disabled=false;
-		//	x.style.display = "block";
-			document.getElementById("remainAmount").value=famount;
-		}
-	else 
-		{
-			x.style.display = "none";
-		} */
-}
+	
+
+
 
 	
-/* function countPay()
-{
-	var famount=document.getElementById("fineAmount").value;
-	var discount=document.getElementById("discount").value;
-  // alert(discount);
-	var paid=famount-discount;
-	document.getElementById("paidAmountId").value=paid;
-	document.getElementById("remainAmount").value=0;
-} */
-	
+
 
 </script>
 </html>
