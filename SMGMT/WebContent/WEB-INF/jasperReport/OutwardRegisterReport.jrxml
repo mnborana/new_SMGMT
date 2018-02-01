@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OutwardRegisterReport" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f7693409-4e5a-4e7f-a08d-b19d73406a7f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Common  Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[SELECT outward_register_master.outward_no,outward_register_master.date,outward_register_master.receiver_name,outward_register_master.subject,inward_outward_document_master.document_name FROM outward_register_master,inward_outward_document_master WHERE outward_register_master.document_id=inward_outward_document_master.id AND outward_register_master.date BETWEEN "2018-01-20" AND "2018-01-29"]]>
+	</queryString>
+	<field name="outward_no" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="outward_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="outward_register_master"/>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="outward_register_master"/>
+	</field>
+	<field name="receiver_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="receiver_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="outward_register_master"/>
+	</field>
+	<field name="subject" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="subject"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="outward_register_master"/>
+	</field>
+	<field name="document_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="document_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="inward_outward_document_master"/>
+	</field>
+	<group name="outward_no">
+		<groupExpression><![CDATA[$F{outward_no}]]></groupExpression>
+	</group>
+	<group name="date">
+		<groupExpression><![CDATA[$F{date}]]></groupExpression>
+	</group>
+	<group name="receiver_name">
+		<groupExpression><![CDATA[$F{receiver_name}]]></groupExpression>
+	</group>
+	<group name="subject">
+		<groupExpression><![CDATA[$F{subject}]]></groupExpression>
+	</group>
+	<group name="document_name">
+		<groupExpression><![CDATA[$F{document_name}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="111" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="66" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="41" uuid="44042cef-04e4-4e07-a633-444451075356">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="570463f4-7119-4ac0-bc1c-015d2d0f1d75"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Outward No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="100" height="41" uuid="fa7df9a0-9b09-4a8e-ba0b-dfb4808495ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71724fd3-56d0-488f-a28a-52dd3dccd757"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="200" height="41" uuid="16125b01-d865-4276-99ad-a0dc6f21d623">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e9e2f3e-d6ce-4af5-9855-ee60f459cab1"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reciever Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="200" height="41" uuid="c3e7bf05-239b-4d19-8786-22b944bd1685">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0776d39-c867-46d3-89fa-a8904bd9bd3a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subject]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="580" y="0" width="200" height="41" uuid="8b1775ab-3901-4962-b38b-664e8a6d520b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3df4422f-5d98-4fe0-87eb-e630add8d28b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Document Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="-30" width="780" height="30" uuid="4dcf5568-0b6b-4060-8484-3822313a885a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="-66" width="780" height="36" uuid="44ec6a8d-da7f-4137-8b54-287c57c6a066"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Outward Register]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="-177" width="780" height="111" uuid="fdc13fe2-3b44-4dbe-adf3-e4b2e887c112"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="44" uuid="23e1ce17-186e-4928-8d3e-07a6d575e6ef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="570463f4-7119-4ac0-bc1c-015d2d0f1d75"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{outward_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="100" height="44" uuid="d38ed452-c2c3-456f-a39c-349fea9f9bd1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71724fd3-56d0-488f-a28a-52dd3dccd757"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="200" height="43" uuid="a82575fe-a0f5-4ead-8b45-2c5cb955eec1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e9e2f3e-d6ce-4af5-9855-ee60f459cab1"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{receiver_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="200" height="43" uuid="6e29edcc-e53c-4cf6-bc68-3c94b2d930ec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0776d39-c867-46d3-89fa-a8904bd9bd3a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{subject}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="580" y="0" width="200" height="44" uuid="993b5917-d672-444d-afdd-7b512b5a574c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3df4422f-5d98-4fe0-87eb-e630add8d28b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{document_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
