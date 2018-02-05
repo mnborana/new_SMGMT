@@ -32,7 +32,7 @@ public class Subjects extends HttpServlet {
 		if(request.getParameter("subjectSubmit")!=null) {
 			
 			String subjectName = request.getParameter("subject_name");
-			String schoolId = (String) session.getAttribute("schoolId");
+			String schoolId = session.getAttribute("schoolId").toString();
 			
 			subjectPojo.setSubjectName(subjectName);
 			subjectPojo.setSchoolId(Integer.parseInt(schoolId));

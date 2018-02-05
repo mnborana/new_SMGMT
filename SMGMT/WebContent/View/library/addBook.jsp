@@ -272,9 +272,9 @@
                                                 <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Book NO</th>
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Book Name</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Author Name</th>
-                                                <!-- <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Publisher Name</th>
+                                                <th class="sorting wid-20" tabindex="0" rowspan="1" colspan="1">Publisher Name</th>
                                                 <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Edition</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Price</th> -->
+                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Price</th> 
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Cupboard No</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Quantity</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Language</th>
