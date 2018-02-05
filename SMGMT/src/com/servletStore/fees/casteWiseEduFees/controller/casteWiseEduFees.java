@@ -16,8 +16,6 @@ import com.servletStore.fees.casteWiseEduFees.model.casteWiseEduFeesDAO;
 import com.servletStore.fees.casteWiseEduFees.model.casteWiseEduFeesIMPL;
 import com.servletStore.fees.casteWiseEduFees.model.casteWiseEduFeesPojo;
 
-
-
 public class casteWiseEduFees extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

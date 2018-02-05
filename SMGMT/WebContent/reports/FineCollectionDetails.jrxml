@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fineCollectionDetails" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1629d91c-e321-4010-adff-429f543c62f2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
+	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
+	<parameter name="trustyName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{trustyName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sAddress" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{sAddress}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="startDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{startDate}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{endDate}]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT fine_master_details.paid_date,concat( student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) AS FullName,std_master.name,classroom_master.division,fine_master_details.fine_paid_amt FROM fine_master_details,student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE fine_master_details.fine_paid_amt>0 AND student_details.id=fine_master_details.stud_id AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1  AND fine_master_details.paid_date  BETWEEN $P{startDate} AND $P{endDate}]]>
+	</queryString>
+	<field name="paid_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="paid_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fine_master_details"/>
+	</field>
+	<field name="FullName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FullName"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="std_master"/>
+	</field>
+	<field name="division" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="division"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="classroom_master"/>
+	</field>
+	<field name="fine_paid_amt" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="fine_paid_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fine_master_details"/>
+	</field>
+	<variable name="fine_paid_amt1" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{fine_paid_amt}]]></variableExpression>
+	</variable>
+	<variable name="fine_paid_amt2" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{fine_paid_amt}]]></variableExpression>
+	</variable>
+	<variable name="fine_paid_amt3" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{fine_paid_amt}]]></variableExpression>
+	</variable>
+	<variable name="fine_paid_amt4" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{fine_paid_amt}]]></variableExpression>
+	</variable>
+	<group name="paid_date">
+		<groupExpression><![CDATA[$F{paid_date}]]></groupExpression>
+	</group>
+	<group name="FullName">
+		<groupExpression><![CDATA[$F{FullName}]]></groupExpression>
+	</group>
+	<group name="name">
+		<groupExpression><![CDATA[$F{name}]]></groupExpression>
+	</group>
+	<group name="division">
+		<groupExpression><![CDATA[$F{division}]]></groupExpression>
+	</group>
+	<group name="fine_paid_amt">
+		<groupExpression><![CDATA[$F{fine_paid_amt}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="126" splitType="Stretch">
+			<textField>
+				<reportElement x="150" y="30" width="240" height="30" uuid="3e8cf229-9c00-4654-9306-0851263cb281"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{trustyName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="60" width="240" height="30" uuid="6f5a06e1-1ac5-4e21-add4-2d25850a3b44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="90" width="240" height="36" uuid="39481b79-6ffd-4872-ad5f-0f7d48875f9a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="30" width="527" height="95" uuid="2082768a-af11-4fed-a01b-80f00e3cf91b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="70" width="80" height="37" uuid="21e47043-a3a1-4cc2-8fe4-81161efa2e36">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6ab96ce9-e1db-4a2a-b09f-ab1a6185c55f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="70" width="120" height="37" uuid="b2a214e9-e85b-4b85-aad3-6d2c9acc685d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca4283df-d038-4b59-a5e3-69e2d4977497"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Student Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="70" width="80" height="37" uuid="d4a6e83d-1c97-4097-bac4-03c605924922">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eaad5a70-ba8a-45f4-9c9f-47e931ba8897"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Standard]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="70" width="97" height="37" uuid="52d6b16c-6e47-4613-905b-6575e61d19b6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de9e97e6-42d2-4a46-93ef-9665cd0219a2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Division]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="70" width="100" height="37" uuid="ef12101a-8e2a-43ac-a5d1-fe1d00135031">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4da39955-401f-4926-b029-42f3a06a2383"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paid Fine Amount]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="210" y="30" width="60" height="30" uuid="8c03d666-8fdf-4cfc-8dcb-fc827a64af97"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{startDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="150" y="30" width="60" height="30" uuid="c95f7b05-82eb-4145-baa4-9d9af1ec32f8"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Start Date-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="0" width="240" height="30" uuid="008284ef-83e8-46a3-aa68-c431086d2eab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fine Collection Report]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="320" y="30" width="60" height="30" uuid="02c42248-a62a-4caf-9926-9566b829a16c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{endDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="270" y="30" width="50" height="30" uuid="492d0e7e-46ad-48f4-affd-b5078c9e5208"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[End Date-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="-1" width="527" height="31" uuid="6addd34a-33e9-44d3-99dc-2634708b52f1"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="30" width="527" height="40" uuid="312fe8c0-d023-4b2d-ae26-b7e972980452"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="70" width="50" height="37" uuid="4ec884bf-d729-4d68-8f05-5b0ee5bf5277"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Sr.No]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField pattern="M/d/yy">
+				<reportElement x="60" y="0" width="80" height="34" uuid="10cdfedf-385e-464a-a1b9-c815ae9de7e6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6ab96ce9-e1db-4a2a-b09f-ab1a6185c55f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{paid_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="120" height="34" uuid="dcc6eda5-8ec0-4f95-bb2c-6ffb22411153">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca4283df-d038-4b59-a5e3-69e2d4977497"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FullName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="80" height="34" uuid="fd98ed4b-4424-4d2c-a9dc-0381576649c2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eaad5a70-ba8a-45f4-9c9f-47e931ba8897"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="97" height="34" uuid="c0059977-2065-4ed9-a570-24c8604c3c6d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de9e97e6-42d2-4a46-93ef-9665cd0219a2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{division}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="0" width="100" height="34" uuid="4dd453ad-683c-4cca-894e-a93700de5287">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4da39955-401f-4926-b029-42f3a06a2383"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fine_paid_amt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="0" width="50" height="34" uuid="bcf317d8-d430-41a2-8d68-0c045592d969"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="186" splitType="Stretch">
+			<staticText>
+				<reportElement x="320" y="0" width="117" height="30" uuid="f509af0f-2fe7-4a7e-9dc6-f965c01c2f72"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Fine]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="437" y="0" width="100" height="30" uuid="b285aef7-bc22-4aae-b4aa-432d5b869c13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{fine_paid_amt4}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

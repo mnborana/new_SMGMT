@@ -260,16 +260,25 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 	public void insertFees(FeesCollectionPOJO feesCollectionPOJO) {
 		
 		try {
-			pstmt=connection.prepareStatement("INSERT INTO `fees_collection`(`stud_id`, `fk_classroom_master_id`, `date`, `paid_fees`, `remaining_fees`, `pay_mode`) VALUES (?,?,?,?,?,?)");
+			pstmt=connection.prepareStatement("INSERT INTO `fees_collection`(`stud_id`, `fk_classroom_master_id`, `date`, `paid_fees`, `remaining_fees`, `pay_mode`,particulars) VALUES (?,?,?,?,?,?,'FEES')");
+			
+			
+			
 			
 			pstmt.setString(1, feesCollectionPOJO.getStudId());
 			pstmt.setString(2, feesCollectionPOJO.getStdId());
 			pstmt.setString(3, feesCollectionPOJO.getCurrentDate());
 			pstmt.setString(4, feesCollectionPOJO.getPaidFees());
-			pstmt.setString(5, feesCollectionPOJO.getRemainingFees());
+			pstmt.setInt   (5, feesCollectionPOJO.getRemainingFees());
 			pstmt.setString(6, feesCollectionPOJO.getPaymentMode());
 			
 			
+			if(feesCollectionPOJO.getCheckboxCashbook()!=null){
+				
+				System.out.println("cashbook1"+feesCollectionPOJO.getCheckboxCashbook());
+			}
+			
+			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

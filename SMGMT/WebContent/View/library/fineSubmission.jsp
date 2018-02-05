@@ -145,7 +145,7 @@
                                     </div>
                                    <div class="row">
 				                          <div class="col-12">
-				                                       <div class="col-lg-8 m-t-20">
+				                                       <div class="col-lg-12 m-t-20">
 				                                          <form action="/SMGMT/Library" class="form-horizontal  login_validator" id="form_block_validator">
 		                                     				 <div class="form-group row">
 		                                          	      		<div class="col-lg-8">
@@ -217,7 +217,22 @@
 																				class="form-control"  readonly="readonly">
 																		</div>
 																		</div>
-																	</div> 		
+																		
+																		<div class="form-group row">											
+																			<% SysDate date = new SysDate(); %>
+																			<div class="col-lg-4">
+																			  <label class="col-form-label">Fine Date </label><span
+																				style="color: red;">*</span> <input type="text"
+																				class="form-control" value="<%=date.todayDate()%>"
+																				id="currentDate" name="currentDate"
+																				placeholder="YYYY-MM-DD" readonly="readonly" />
+																		  </div> 	
+																	</div>
+											
+																		
+																		
+																	</div>
+																								
 														<div class="form-group row">
 		                                                 	     <div class="form-actions">
 																	<input type="submit" id="returnSubmit" value="Submit Fine"
@@ -332,7 +347,7 @@ function getStudInfo(studInfo,e)
 			var demo = this.responseText;
 			//alert(demo);
 			var stud = demo.split(",");
-			alert(stud);
+			//alert(stud);
 			if(stud[0]=="null")
 			{
 				document.getElementById("studentListErrorMsg").innerHTML="No records found for this student";
@@ -398,11 +413,11 @@ function countTotalFine(val)
 		 }
 	 if(payAmount<1)
 		{
-			//alert('incorrect number');
+			
 			 
 			document.getElementById("error").innerHTML="* incorrect number";
 			document.getElementById("discountId").value=0;
-			//document.getElementById("paidId").value=0;
+			
 			document.getElementById("returnSubmit").disabled=true;
 			 }
 	

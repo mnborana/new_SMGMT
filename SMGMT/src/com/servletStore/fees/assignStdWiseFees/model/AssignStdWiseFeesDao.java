@@ -8,5 +8,6 @@ public interface AssignStdWiseFeesDao {
 
 	public HashMap<Integer, String> getStandards(String schoolId);
 	public List<AssignStdWiseFeesPojo> getFeestypeList();
+	public int insert(List<AssignStdWiseFeesPojo> asList);
 	
 }

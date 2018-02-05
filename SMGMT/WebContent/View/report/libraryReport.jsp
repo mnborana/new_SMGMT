@@ -144,12 +144,12 @@
 																<option
 																 disabled selected>Select Option</option>
 																<option value="Avail">Available Books</option>
-																<option  value="Cat">Category wise Books</option>
+																<option value="PurchaseBook">Purchase Books</option>
+																<option value="Cat">Category wise Books</option>
 																<option value="Recover">Recovery Book</option>
 																<option value="finePending">Fine Pending</option>
 																<option value="bookNo">Book Number</option>
-																
-																
+																<option value="FineCollectionPaid">Fine Collection</option>
 															</select>
 														</div>
 													</div>
@@ -216,7 +216,8 @@
 														</div>
                                             		</div>
                                             		</div>
-													 <div class="form-group row">
+                                            		<div id="dateId" style="display: block">
+													 <div class="form-group row" >
 														 <div class="col-lg-4  text-lg-right">
 		                                                   <label for="required2" class="col-form-label">Date </label>
 		                                               	 </div>	
@@ -229,6 +230,7 @@
 																	placeholder="dd/mm/yyyy-dd/mm/yyyy">
 															</div>
 				                             			  </div>
+                                           			</div>
                                            			</div>
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
@@ -329,6 +331,7 @@ function showHideDiv()
 {
 	var catDiv=document.getElementById("catDiv");
 	var selectOption=document.getElementById("selectOption");
+	var dateDiv=document.getElementById("dateId");
 	if(selectOption.value=="Cat")
 		{
 		catDiv.style.display="block";
@@ -336,7 +339,6 @@ function showHideDiv()
 	else{
 		catDiv.style.display="none";
 		}
-	
 	var bookNoDiv=document.getElementById("bookNoDiv");
 	var selectOption=document.getElementById("selectOption");
 	if(selectOption.value=="bookNo")
@@ -345,6 +347,7 @@ function showHideDiv()
 		}
 	else{
 		bookNoDiv.style.display="none";
+
 		}
 }
 

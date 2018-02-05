@@ -20,14 +20,16 @@ public class demou {
 				
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			
-			String year="2016-2017";
+			String year="2018-2019";
 
 			Date date = new Date();  
 			
-			String currentDate = sdf.format(date);
+			String currentDate = "2018-08-30";
+			
+			//String currentDate=sdf.format(date);
 			
 			
-			String dateForCheck = feesCollectionDAO.getDateForCheck("7","FEE ASSIGNED");
+			String dateForCheck = feesCollectionDAO.getDateForCheck("15","FEE ASSIGNED");
 	
 			String[] newYear = year.split("-"); 
 			
@@ -35,20 +37,23 @@ public class demou {
 			
 			String endDate = newYear[1]+"-04-30";
 			
+
+			
 			//System.out.println(dateForCheck);
 			
 			if(dateForCheck=="")
 			{
 				//insert 
-				System.out.println("if");
+				System.out.println("insert for new");
 			}
 			else
 			{
 				Date start = sdf.parse(startDate);
 				Date end = sdf.parse(endDate);
 				Date availableDate = sdf.parse(dateForCheck);
+				Date cDate = sdf.parse(currentDate);
 				
-				System.out.println("Start Date:"+startDate+"\nEnd Date:"+endDate+"\nA Date:"+dateForCheck+"\nCurrent Date:"+currentDate);
+				System.out.println("Start Date:"+startDate+"\nEnd Date:"+endDate+"\nFound record Date:"+dateForCheck+"\nCurrent Date:"+currentDate);
 				
 //				Date current = sdf.parse(currentDate);
 //				//System.out.println(current);
@@ -59,21 +64,29 @@ public class demou {
 				
 				if(start.compareTo(availableDate)*availableDate.compareTo(end)>0)
 				{
-					System.out.println("not insert");
+					System.out.println("not insert because already assinged for this year");
 				}
 				else
 				{
-					if(dateForCheck!="")
-					{
-						System.out.println("not insert because already assinged");
-					}
-					else
-					{
-						System.out.println("insert");
-					}
+							if(availableDate.before(end))
+							{
+								if(cDate.after(start))
+								{
+									System.out.println("insert for next year");
+								}
+								else
+								{
+									System.out.println("check current date");
+								}
+
+							}
+							else
+							{
+								System.out.println("not insert choose appropriate login year");
+							}
+								
 				}
-				 
-				
+			
 			}
 		}
 	}
