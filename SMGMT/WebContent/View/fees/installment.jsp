@@ -137,7 +137,7 @@ pageEncoding="ISO-8859-1"%>
                                                 <div class="col-lg-4  text-lg-right">
                                                     <label for="required2" class="col-form-label">Mode Name *</label>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-5">
   	                                              <input type="hidden" id="id_id"  name="id_name" />
                                                     <input type="text" id="mode_id"  name="mode_name"  onkeyup="this.value=this.value.toUpperCase()" onblur="this.value=$.trim(this.value)" pattern="[A-Za-z]" class="form-control" required/>
                                                 </div>
@@ -156,27 +156,27 @@ pageEncoding="ISO-8859-1"%>
 																			class="cr"><i class="cr-icon fa fa-circle" ></i></span>
 																			1
 																		</label>
-																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label> <input type="radio" id="installment_2" name="installment"
 																			value="2" > <span
 																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																			2
-																		</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label> <input type="radio" id="installment_3" name="installment"
 																			value="3" > <span
 																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																			3
-																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label> <input type="radio" id="installment_4" name="installment"
 																			value="4" > <span
 																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																			4
-																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label> <input type="radio" id="installment_6"  name="installment"
 																			value="6" > <span
 																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																			6
-																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label> <input type="radio" id="installment_12" name="installment"
 																			value="12" > <span
 																			class="cr"><i class="cr-icon fa fa-circle"></i></span>
@@ -190,7 +190,7 @@ pageEncoding="ISO-8859-1"%>
 																		<div class="col-lg-4 text-lg-right">
 			                                                    			<label class="col-form-label">Date *</label>
 		                                                				</div>	
-		                                                				 <div class="col-md-4">
+		                                                				 <div class="col-md-5">
 																			<div class="input-group input-append date" id="dp3" data-date-format="dd-mm-yyyy">
 							                                                    <input class="form-control" type="text" name="date" id="date_id" placeholder="dd-mm-yyyy">
 							                                                    <span class="input-group-addon add-on">
@@ -200,25 +200,13 @@ pageEncoding="ISO-8859-1"%>
 		                                                			   </div>	
                                                 		       </div> <br>
 														
-											<!-- <div class="form-group row">
-		                                                <div class="col-lg-4 text-lg-right">
-		                                                    <label class="col-form-label">Date *</label>
-		                                                </div>
-		                                                <div class="col-lg-4">
-		                                                    <input type="text" class="form-control form_val_popup_dp3" name="date" id="date_id" placeholder="YYYY-MM-DD" required/>
-		                                                </div>
-                                                </div> <br> -->
+											
                                            <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="OK" id="btn_id" name="installmentName" class="btn btn-primary">
+                                                    <input type="submit" value="Submit" id="btn_id" name="installmentName" class="btn btn-primary">
                                                 </div>
                                             </div>
-                                           <!-- <div class="form-actions form-group row">
-                                                <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="OK" id="btn_id" name="installmentName" class="btn btn-primary">
-                                                    <input type="submit" value="Exit" class="btn btn-primary">
-                                                </div>
-                                            </div> -->
+                                           
                                         </form>
                                     </div>
                                 </div>
@@ -296,7 +284,7 @@ pageEncoding="ISO-8859-1"%>
                                                	 	<div class="col-lg-4  text-lg-right">
                                                     	<label for="required2" class="col-form-label" >Mode Name *</label>
                                                 	</div>
-                                                	<div class="col-lg-4">
+                                                	<div class="col-lg-5">
 	  	                                             	 	<input type="hidden" id="model_id"  name="mod_name" />
 	                                                    	<input type="text" id="m_id"  name="m_name" onkeyup="this.value=this.value.toUpperCase()" onblur="this.value=$.trim(this.value)" pattern="[A-Za-z]" class="form-control" required />
                                                 	</div>
@@ -308,32 +296,32 @@ pageEncoding="ISO-8859-1"%>
 																*</label>
 																</div>
 																<div class="col-md-5" >
-															<div class="radio">
+															<div class="radio">&nbsp;
 																<label> <input type="radio" id="install_1" name="installmentMode"
 																	value="1" checked="checked"> <span
 																	class="cr"><i class="cr-icon fa fa-circle" ></i></span>
 																	1
-																</label>&nbsp;
+																</label>&nbsp;&nbsp;&nbsp;
 																<label> <input type="radio" id="install_2" name="installmentMode"
 																	value="2" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	2
-																</label>&nbsp; 
+																</label>&nbsp;&nbsp;&nbsp; 
 																<label> <input type="radio" id="install_3" name="installmentMode"
 																	value="3" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	3
-																</label>&nbsp;
+																</label>&nbsp;&nbsp;&nbsp;
 																<label> <input type="radio" id="install_4" name="installmentMode"
 																	value="4" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	4
-																</label>&nbsp;
+																</label>&nbsp;&nbsp;&nbsp;
 																<label> <input type="radio" id="install_6"  name="installmentMode"
 																	value="6" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	6
-																</label>&nbsp;
+																</label>&nbsp;&nbsp;&nbsp;
 																<label> <input type="radio" id="install_12" name="installmentMode"
 																	value="12" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
@@ -346,14 +334,15 @@ pageEncoding="ISO-8859-1"%>
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label class="col-form-label">Date *</label>
                                                 </div><br>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-5">
                                                     <input type="text" class="form-control form_val_popup_dp3" name="Modedate" id="modeDate_id" placeholder="YYYY-MM-DD"/>
                                                 </div>
                                             </div> 
                                            
                                             <div class="modal-footer">
 					                            <button class="btn btn btn-success" type="submit" name="updateInstallment1" id="updateInstallment1"  value="updateInstallment1">Update</button> 
-					                           	<button data-dismiss="modal" type="button">Close</button>  
+					                           	<!-- <button data-dismiss="modal" type="button">Close</button> -->
+					                           	<button class="btn btn-warning" data-dismiss="modal">Cancel</button>  
 					              	         </div>
                                         </form>	
                                  </div>

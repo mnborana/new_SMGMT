@@ -140,8 +140,10 @@
 																<option
 																 disabled selected>Select Option</option>
 																<option value="Avail">Available Books</option>
+																<option value="PurchaseBook">Purchase Books</option>
 																<option  value="Cat">Category wise Books</option>
 																<option value="Recover">Recovery Book</option>
+																<option value="FineCollectionPaid">Fine Collection</option>
 															</select>
 														</div>
 													</div>
@@ -154,7 +156,8 @@
 			                                                    <input type="text" id="catId" name="cat" class="form-control" style="  margin-left: 111%;margin-top: -13%;" onblur="this.value=$.trim(this.value)">
 			                                               </div>
                                             		</div>
-													 <div class="form-group row">
+                                            		<div id="dateId" style="display: block">
+													 <div class="form-group row" >
 														 <div class="col-lg-4  text-lg-right">
 		                                                   <label for="required2" class="col-form-label">Date </label>
 		                                               	 </div>	
@@ -168,6 +171,7 @@
 															</div>
 				                             			  </div>
                                            			</div>
+                                           			</div>
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
                                          		<input type="submit" value="Print report" name="report" class="btn btn-primary">
@@ -175,20 +179,6 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div id="dateWise" style="display: none;">
-                                    	 <div class="form-group row"> 
-		                                     <div class="col-lg-8">
-		                                         <label class="col-form-label">Start Date </label>
-		                                          <input type="text" id="startDateId"  class="form-control form_val_popup_dp3" name="startDate" autocomplete="off" placeholder="YYYY-MM-DD" required/>
-		                                      </div>
-		                                  </div>
-		                                  <div class="form-group row">
-		                                     <div class="col-lg-8">
-		                                          <label class="col-form-label">End Date </label>
-		                                          <input type="text" id="endDateId"  class="form-control form_val_popup_dp3" name="endDate" autocomplete="off" placeholder="YYYY-MM-DD" required/>
-		                                     </div>
-		                                 </div>
-		                            </div>     
                                 </div>
                             </div> <!-- /.col-lg-12 -->
                         </div> <!-- /.row -->
@@ -218,12 +208,21 @@ function showHideDiv()
 {
 	var catDiv=document.getElementById("catDiv");
 	var selectOption=document.getElementById("selectOption");
+	var dateDiv=document.getElementById("dateId");
 	if(selectOption.value=="Cat")
 		{
 		catDiv.style.display="block";
 		}
 	else{
 		catDiv.style.display="none";
+		}
+	if(selectOption.value=="PurchaseBook")
+		{
+		dateDiv.style.display="none";
+		}
+	else
+		{
+		dateDiv.style.display="block";
 		}
 }
 

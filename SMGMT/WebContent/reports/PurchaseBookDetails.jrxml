@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PurchaseBookDetails" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf1110e6-48e1-4f1e-9740-cca43cf42d88">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
+	<parameter name="trustyName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{trustyName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="academicYear" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{academicYear}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sAddress" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{sAddress}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="startDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{startDate}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{endDate}]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT book_info_master.book_no,book_category.cat_type,book_info_master.book_name,book_info_master.author_name,book_info_master.quantity,book_info_master.language FROM  book_info_master,book_category WHERE book_category.cat_id=book_info_master.cat_id AND YEAR(book_info_master.date)=$P{academicYear}]]>
+	</queryString>
+	<field name="book_no" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="book_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="book_info_master"/>
+	</field>
+	<field name="cat_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cat_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="book_category"/>
+	</field>
+	<field name="book_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="book_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="book_info_master"/>
+	</field>
+	<field name="author_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="author_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="book_info_master"/>
+	</field>
+	<field name="quantity" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="quantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="book_info_master"/>
+	</field>
+	<field name="language" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="language"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="book_info_master"/>
+	</field>
+	<group name="book_no">
+		<groupExpression><![CDATA[$F{book_no}]]></groupExpression>
+	</group>
+	<group name="cat_type">
+		<groupExpression><![CDATA[$F{cat_type}]]></groupExpression>
+	</group>
+	<group name="book_name">
+		<groupExpression><![CDATA[$F{book_name}]]></groupExpression>
+	</group>
+	<group name="author_name">
+		<groupExpression><![CDATA[$F{author_name}]]></groupExpression>
+	</group>
+	<group name="quantity">
+		<groupExpression><![CDATA[$F{quantity}]]></groupExpression>
+	</group>
+	<group name="language">
+		<groupExpression><![CDATA[$F{language}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="153" splitType="Stretch">
+			<textField>
+				<reportElement x="160" y="0" width="240" height="40" uuid="baf55030-d719-47ec-918e-c2bbdeb53395"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{trustyName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="40" width="240" height="40" uuid="42b1f32d-df57-4eff-82af-26d21ce20a27"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="80" width="240" height="38" uuid="016c995f-689e-4cdf-8a45-177ab580bd13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="120" width="80" height="32" uuid="7bf3204f-3bdd-4685-bb44-606fd19728ba"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{academicYear}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="199" y="118" width="100" height="32" uuid="bdb148f5-1fac-4975-a23d-61bed71c7d5e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Acedamic Year :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="530" height="153" uuid="e21c5a5a-3b7f-4551-a958-47bcf1af74e7"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="160" y="0" width="240" height="40" uuid="df30ac01-4103-437b-9217-ae1654f355e8"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Purchase Book Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="530" height="40" uuid="ff3bca83-6dc7-4f67-b425-bb41f2e951a7"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="30" uuid="3e80f93c-d962-4abd-a6ec-5a9fda87342c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1277bbc5-bb9a-46df-ae98-36741a548eed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Book No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="80" height="30" uuid="bc5d6d5f-98cb-4ff7-a700-6aa0336574c4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d6a41fe-c2f0-48ba-bd03-d7ff74f16621"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Category]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="87" height="30" uuid="337164a7-1ae1-41b9-b0d1-6833533933ad">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="863c966e-d0a7-4a35-85aa-49359439041d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Book Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="0" width="83" height="30" uuid="c2174987-a113-4542-b209-37aa310615d8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3c6bd6a-3e7e-496e-b834-acf8b509147a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Author Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="100" height="30" uuid="f57ebafc-b457-440d-87b2-e986a84783f2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f18474b5-d745-498a-8ab3-ab314c5c45e5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="0" width="100" height="30" uuid="7e2fd43c-9835-4889-a350-a737a485daa0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="231fca89-b472-424f-86f2-4e8a3f851b1c"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Language]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="30" uuid="90eddfb7-2317-4779-b6d2-090eae58ebb3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1277bbc5-bb9a-46df-ae98-36741a548eed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{book_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="80" height="30" uuid="fe9b6fa7-5fbf-43d5-b14e-c0aa11ec86f7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d6a41fe-c2f0-48ba-bd03-d7ff74f16621"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cat_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="87" height="30" uuid="9560e8fc-2ca2-4740-9aae-9d05ffa61cfc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="863c966e-d0a7-4a35-85aa-49359439041d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{book_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="247" y="0" width="83" height="30" uuid="86f97e93-5b8c-4d25-8c55-5d556ccb44c4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3c6bd6a-3e7e-496e-b834-acf8b509147a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{author_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="100" height="30" uuid="4f88c3cd-3855-498e-9d99-de2b7da449eb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f18474b5-d745-498a-8ab3-ab314c5c45e5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="100" height="30" uuid="721b1e5c-e03c-4a15-9241-5ae3e3e38dbe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="231fca89-b472-424f-86f2-4e8a3f851b1c"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{language}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
