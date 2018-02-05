@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BookNo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8250d489-b815-4aca-8a5d-eec9b89295b6">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SMGMT Data Source"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT book_details_master.book_id,book_info_master.book_name,book_info_master.cupboard_no FROM book_info_master,book_category,book_details_master WHERE book_info_master.cat_id=book_category.cat_id AND book_info_master.book_no=book_details_master.book_no AND book_category.cat_type="Fictional" AND book_info_master.book_name="CHAVA" AND book_info_master.date BETWEEN "2017-12-01" AND "2018-01-31"]]>
+	</queryString>
+	<field name="book_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="book_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="book_details_master"/>
+	</field>
+	<field name="book_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="book_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="book_info_master"/>
+	</field>
+	<field name="cupboard_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cupboard_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="book_info_master"/>
+	</field>
+	<group name="book_id">
+		<groupExpression><![CDATA[$F{book_id}]]></groupExpression>
+	</group>
+	<group name="book_name">
+		<groupExpression><![CDATA[$F{book_name}]]></groupExpression>
+	</group>
+	<group name="cupboard_no">
+		<groupExpression><![CDATA[$F{cupboard_no}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="220" y="6" width="179" height="30" uuid="08af273f-a559-42cb-a87e-84a1fae732c1"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Book Num Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="4c267035-ca81-445c-9d82-50aaa9b5d88e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="627786fc-47f3-4cc0-adad-c3f9c90c3c58"/>
+				</reportElement>
+				<text><![CDATA[book_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="0" width="100" height="30" uuid="c1ffaf5c-e6a5-4ea3-8167-1214ba4eddef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4fb58f29-72a1-421e-9cf6-b3106bc7475c"/>
+				</reportElement>
+				<text><![CDATA[book_name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="0" width="100" height="30" uuid="5dbf34d8-70cd-49a6-9621-d56ab3cf3e5e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df1b12c9-4f23-45a5-b825-25743fc69ffd"/>
+				</reportElement>
+				<text><![CDATA[cupboard_no]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="cd9899a1-73bc-425b-a167-d95d9ed6b5da">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="627786fc-47f3-4cc0-adad-c3f9c90c3c58"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{book_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="0" width="100" height="30" uuid="d118441a-1811-46aa-bf40-a05c19c47665">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4fb58f29-72a1-421e-9cf6-b3106bc7475c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{book_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="318" y="0" width="100" height="30" uuid="1390612e-b340-40e4-be64-a706e905d9ed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df1b12c9-4f23-45a5-b825-25743fc69ffd"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cupboard_no}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
