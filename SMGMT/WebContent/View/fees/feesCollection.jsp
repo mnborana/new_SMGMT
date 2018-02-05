@@ -138,9 +138,9 @@
 			                                        <option value="Select Standard" disabled="disabled"> Select Standard </option>
 			                                        <%
 			                                        
-			                        					DateFormat df = new SimpleDateFormat("DD-MM-YYYY");
+			                        		/* 			DateFormat df = new SimpleDateFormat("DD-MM-YYYY");
 			                        					String currentDate = df.format(new Date()).toString();
-                                                    	System.out.println(currentDate);
+                                                    	System.out.println(currentDate); */
 			                                        	FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
 			                                        	request.setAttribute("list", feesCollectionDAO.getStadardDivisionDetails(schoolId));
 			                                        	
@@ -174,7 +174,7 @@
                                                     <label for="email2" class="col-form-label">Pay Fees *</label>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input type="text" id="paid_fees" name="paid_fees" class="form-control" pattern= "[0-9]" required>
+                                                    <input type="text" id="paid_fees" name="paid_fees" class="form-control" onkeyup="if(/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
                                                 </div>                                                
                                             </div>                                            
                                             <br>
@@ -184,7 +184,7 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="input-group input-append date" id="dp3" data-date-format="dd-mm-yyyy">
-                                                    	<input class="form-control" type="text" name="currentDate" id="currentDate" placeholder="dd-mm-yyyy" required="required" value="<%= currentDate %>">
+                                                    	<input class="form-control" type="text" name="currentDate" id="currentDate" placeholder="dd-mm-yyyy" required="required">
                                                 	    <span class="input-group-addon add-on">
                                                     	<i class="fa fa-calendar"></i>
                                                 	</span>
@@ -230,7 +230,7 @@
                                                 </div>                                                
                                                 
                                                 <div class="col-lg-2 text-lg-right" id="cheque_id">
-                                                    <input type="text" placeholder="Cheque Number" id="check_no" name="check_no" class="form-control" pattern= "[0-9]" style="width: 150px; margin-left: 100px;">
+                                                    <input type="text" placeholder="Cheque Number" id="check_no" name="check_no" class="form-control" onblur="this.value=$.trim(this.value)" pattern= "[0-9]" style="width: 150px; margin-left: 100px;">
                                                 </div>
                                                                                                                                                                                                                                                        
                                             </div>
@@ -333,7 +333,7 @@ function selectStudent() {
 	
 	var standard_id = document.getElementById('standard_id').value;
 	
-	//alert("Standard Id "+standard_id);
+	alert("Standard Id "+standard_id);
 	
 	var xhttp =new XMLHttpRequest();
 	
