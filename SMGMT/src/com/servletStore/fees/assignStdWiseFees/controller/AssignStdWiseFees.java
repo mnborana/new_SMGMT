@@ -1,11 +1,15 @@
 package com.servletStore.fees.assignStdWiseFees.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.servletStore.fees.assignStdWiseFees.model.AssignStdWiseFeesDao;
 import com.servletStore.fees.assignStdWiseFees.model.AssignStdWiseFeesImpl;
@@ -23,9 +27,12 @@ public class AssignStdWiseFees extends HttpServlet {
 		
 		AssignStdWiseFeesDao asdao = new AssignStdWiseFeesImpl();
 		AssignStdWiseFeesPojo aspojo = null;
+		int insertStatus = 0;
+		HttpSession session = request.getSession();
 		
 		String stds[] = request.getParameterValues("standardIds");
 		String tableData[] = request.getParameter("tableData").split(",");
+		List<AssignStdWiseFeesPojo> asList = new ArrayList<AssignStdWiseFeesPojo>();
 		
 		for(int i=0; i<stds.length; i++){
 			//System.out.println(stds[i]);
@@ -41,10 +48,16 @@ public class AssignStdWiseFees extends HttpServlet {
 				}else{
 					aspojo.setPriority(0);
 				}
+				
+				asList.add(aspojo);
 				//System.out.println(aspojo.toString());
 			}
 		}
 		
+		insertStatus = asdao.insert(asList);
+		session.setAttribute("insertStatus", insertStatus);
+		response.sendRedirect("/SMGMT/View/fees/assignStdWiseFees.jsp");
 	}
 
+	
 }

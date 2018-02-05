@@ -24,7 +24,7 @@ public class FeesCollectionPOJO {
 	
 	private String stdId;
 	private String studId;
-	private String remainingFees;
+	private int remainingFees;
 	private String paidFees;
 	private String currentDate;
 	private String checkboxCashbook;
@@ -79,12 +79,12 @@ public class FeesCollectionPOJO {
 	public void setStudId(String studId) {
 		this.studId = studId;
 	}
-
-	public String getRemainingFees() {
+	
+	public int getRemainingFees() {
 		return remainingFees;
 	}
 
-	public void setRemainingFees(String remainingFees) {
+	public void setRemainingFees(int remainingFees) {
 		this.remainingFees = remainingFees;
 	}
 

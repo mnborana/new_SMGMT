@@ -1,12 +1,12 @@
-<%@page import="com.servletStore.setup.model.SetupImpl"%>
 <%@page import="com.servletStore.setup.model.SetupPOJO"%>
-<%@page import="java.util.List"%>
+<%@page import="com.servletStore.setup.model.SetupImpl"%>
 <%@page import="com.servletStore.setup.model.SetupDAO"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.Set"%>
-<%@page import="java.util.HashMap"%>
 <%@page import="com.servletStore.fees.assignStdWiseFees.model.AssignStdWiseFeesImpl"%>
 <%@page import="com.servletStore.fees.assignStdWiseFees.model.AssignStdWiseFeesDao"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -75,7 +75,6 @@
 %>
 
 
-
 <body>
 <div class="preloader" style=" position: fixed;
   width: 100%;
@@ -142,7 +141,7 @@ z-index: 999999">
             <!-- start your code from here  -->  
             
             
-          
+           <% if(access==2){ %>  
            <div class="outer">
                     <div class="inner bg-container">
                         <div class="row">
@@ -285,7 +284,7 @@ z-index: 999999">
                     </div> <!-- /.inner -->
                 </div> <!-- /.outer -->
                 
-                
+                <% } %>
                
             
                 
@@ -308,121 +307,6 @@ z-index: 999999">
 	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 <!-- common js -->
 
-</body>	
-<script type="text/javascript">
+</body>
 
-	function saveUpdateFees(updateRowId, updateId) {
-	
-		var tr = document.getElementById("editFeeTR"+updateRowId).children;
-			
-		tr[2].removeAttribute('contenteditable');
-		tr[3].removeAttribute('contenteditable');		
-	} 
-	
-	function updateFees(rowId, updateId){
-		
-		if(document.getElementById("editFeeTD1")){
-			
-			document.getElementById("editFeeTD1").removeAttribute('contenteditable');
-			document.getElementById("editFeeTD2").removeAttribute('contenteditable');
-			
-			document.getElementById("editFeeTD1").setAttribute('id', '');
-			document.getElementById("editFeeTD2").setAttribute('id', '');
-		}
-		
-		
-		var tr = document.getElementById("editFeeTR"+rowId).children;
-			
-		tr[2].setAttribute('contenteditable', 'true');
-		tr[3].setAttribute('contenteditable', 'true');
-		
-		tr[2].setAttribute('id', 'editFeeTD1');
-		tr[3].setAttribute('id', 'editFeeTD2');
-		
-		$("#editFeeTD1").focus();
-		
-		$("#editFeeTD1, #editFeeTD2").keypress(function(evt)
-		{		
-			var charCode = evt.keyCode;
-		    var value = document.activeElement.innerHTML;
-		    
-		    if(charCode == 13){
-		    	return false;
-		    }
-		    
-		    if(charCode == 46){
-		    	if (value != null && value.trim().indexOf('.') == -1){
-	                return true;
-		    	}
-		    }
-		    
-			if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-		        return false;
-		    }
-		    
-
-		});
-	}
-	
-	function submitForm() 
-	{
-		var checked=0;
-		var c = document.getElementsByName('feeTypeCheck');
-		var finalArray = [];
-		
-		for(var i=0;i<c.length;i++)
-		{	
-			if (c[i].checked){
-				checked++;
-				var tr = document.getElementById("editFeeTR"+c[i].value).children;
-				alert(tr[0].id);
-				finalArray.push(tr[0].id);
-				finalArray.push(tr[1].innerHTML);
-				finalArray.push(tr[2].innerHTML);
-				finalArray.push(tr[3].innerHTML);
-				finalArray.push( document.getElementById("feeTypePriority_"+c[i].value).checked );
-			}
-		}	
-		
-		document.getElementById("tableData").value = finalArray;
-		alert(document.getElementById("tableData").value );	
-	}
-	
-	
-	var fixHelper = function(e, ui) {  
-		  ui.children().each(function() {  
-		    $(this).width($(this).width());  
-		  });  
-		  return ui;  
-		};
-		
-		$("#sort tbody").sortable({  
-		 helper: fixHelper  
-		 }).disableSelection();  
-
-
-</script>
-<script type="text/javascript" src="/SMGMT/config/js/jquery.min.js"></script>
-<script type="text/javascript" src="/SMGMT/config/js/jquery-ui.js"></script>
-<script type="text/javascript">
-//Return a helper with preserved width of cells
-
-// Return a helper with preserved width of cells
-var fixHelper = function(e, ui) {
-    ui.children().each(function() {
-        $(this).width($(this).width());
-    });
-    return ui;
-};
-
-$("#sort tbody").sortable({
-    helper: fixHelper
-}).disableSelection();
-
-
-
-</script>
-<!-- common js -->
-	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
-<!-- common js -->
 </html>
