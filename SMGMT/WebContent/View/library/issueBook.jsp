@@ -1099,7 +1099,10 @@ function getExpData(val)
 			    if(todayMonth<10) {
 			    	todayMonth = '0'+todayMonth;
 			    } 
-
+                 
+			    if(today<10) {
+			    	today = '0'+today;
+			    } 
 			    
 			    var x=todayYear+"-"+todayMonth+"-"+today; //DATE
 
