@@ -52,9 +52,10 @@ public class Report extends HttpServlet {
 		PrintWriter out= response.getWriter();
 		DBConnection connection= new DBConnection();
 		Connection con=connection.getConnection();
-		System.out.println("Generating");
+		//System.out.println("Generating");
 		String schoolId=request.getParameter("schoolId");
 		String academicYr=request.getParameter("academicYr");
+		//System.out.println("Academic yeaar"+academicYr);
 		String trustyName="", schoolName="", sAddress="";
 		String query="SELECT trustee_info.edu_society_name,school_master.name,school_master.address FROM school_master,trustee_info WHERE school_master.id='"+schoolId+"'";
 		try {
@@ -98,8 +99,41 @@ public class Report extends HttpServlet {
 				para.put("schoolName", ""+schoolName+"");
 				para.put("sAddress", ""+sAddress+"");
 				
-				System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
+				//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
 				String path = request.getServletContext().getRealPath("/reports/AvailableBook.jrxml");
+				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path +"//reports/AvailableBook.jasper"));
+				jasperDesign = JRXmlLoader.load(path);
+				jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
+		        JasperViewer.viewReport(jasperPrint, false);
+			} 
+			catch (JRException e)
+			{
+				e.printStackTrace();
+			}
+			
+		}
+		
+		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("PurchaseBook")))
+		{
+			try
+			{
+				
+				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path));
+				net.sf.jasperreports.engine.JasperReport jasperReport = null;
+				JasperDesign jasperDesign = null;
+				Map para = new HashMap();
+				
+				/*para.put("startDate",""+startDate+"");
+				para.put("endDate",""+endDate+"");*/
+				para.put("academicYear", academicYr+"");
+				para.put("trustyName", ""+trustyName+"");
+				para.put("schoolName", ""+schoolName+"");
+				para.put("sAddress", ""+sAddress+"");
+				para.put("startDate", ""+startDate+"");
+				para.put("endDate", ""+endDate+"");
+				//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
+				String path = request.getServletContext().getRealPath("/reports/PurchaseBookDetails.jrxml");
 				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path +"//reports/AvailableBook.jasper"));
 				jasperDesign = JRXmlLoader.load(path);
 				jasperReport = JasperCompileManager.compileReport(jasperDesign);
@@ -158,6 +192,32 @@ public class Report extends HttpServlet {
 				System.out.println("Recovery Books");
 				//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
 				String path = request.getServletContext().getRealPath("/reports/RecoveryBook.jrxml");
+				jasperDesign = JRXmlLoader.load(path);
+				jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
+		        JasperViewer.viewReport(jasperPrint, false);
+			} 
+			catch (JRException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("FineCollectionPaid")))
+		{
+			try
+			{
+				net.sf.jasperreports.engine.JasperReport jasperReport = null;
+				JasperDesign jasperDesign = null;
+				Map para = new HashMap();
+				
+				para.put("startDate",""+startDate+"");
+				para.put("endDate",""+endDate+"");
+				para.put("trustyName", ""+trustyName+"");
+				para.put("schoolName", ""+schoolName+"");
+				para.put("sAddress", ""+sAddress+"");
+				System.out.println("fine Collection");
+				//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
+				String path = request.getServletContext().getRealPath("/reports/FineCollectionDetails.jrxml");
 				jasperDesign = JRXmlLoader.load(path);
 				jasperReport = JasperCompileManager.compileReport(jasperDesign);
 				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
