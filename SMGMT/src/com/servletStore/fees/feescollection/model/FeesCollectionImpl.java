@@ -278,7 +278,7 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 				System.out.println("cashbook1"+feesCollectionPOJO.getCheckboxCashbook());
 			}
 			
-			//pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

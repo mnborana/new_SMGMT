@@ -31,30 +31,31 @@ public class AssignStdWiseFees extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		String stds[] = request.getParameterValues("standardIds");
+		String academicYear = session.getAttribute("year").toString();
 		String tableData[] = request.getParameter("tableData").split(",");
 		List<AssignStdWiseFeesPojo> asList = new ArrayList<AssignStdWiseFeesPojo>();
 		
+		
 		for(int i=0; i<stds.length; i++){
+			int count=1;
 			//System.out.println(stds[i]);
 			for(int j=0; j<tableData.length; j++){
+				System.out.println("####### "+tableData[j]);
 				aspojo = new AssignStdWiseFeesPojo();
 				aspojo.setFkClassMasterId(Integer.parseInt(stds[i]));
 				aspojo.setFeesTypeId(Integer.parseInt(tableData[j]));
 				j++;
 				aspojo.setTermOneFees(Integer.parseInt(tableData[++j]));
 				aspojo.setTermTwoFees(Integer.parseInt(tableData[++j]));
-				if(tableData[++j].trim().equals("true")){
-					aspojo.setPriority(1);
-				}else{
-					aspojo.setPriority(0);
-				}
+				aspojo.setPriority(count);
 				
 				asList.add(aspojo);
+				count++;
 				//System.out.println(aspojo.toString());
 			}
 		}
 		
-		insertStatus = asdao.insert(asList);
+		insertStatus = asdao.insert(asList, academicYear);
 		session.setAttribute("insertStatus", insertStatus);
 		response.sendRedirect("/SMGMT/View/fees/assignStdWiseFees.jsp");
 	}
