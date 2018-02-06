@@ -5,6 +5,21 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Common  Data Adapter "/>
+	<parameter name="fDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{fDate}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{tDate}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="trustyName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{trustyName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolAddress" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolAddress}]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT outward_register_master.outward_no,outward_register_master.date,outward_register_master.receiver_name,outward_register_master.subject,inward_outward_document_master.document_name FROM outward_register_master,inward_outward_document_master WHERE outward_register_master.document_id=inward_outward_document_master.id AND outward_register_master.date BETWEEN "2018-01-20" AND "2018-01-29"]]>
 	</queryString>
@@ -47,10 +62,21 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="111" splitType="Stretch"/>
+		<band height="114" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="66" splitType="Stretch"/>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="780" height="32" uuid="44ec6a8d-da7f-4137-8b54-287c57c6a066"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Outward Register]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="41" splitType="Stretch">
@@ -115,35 +141,70 @@
 				<text><![CDATA[Document Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="-30" width="780" height="30" uuid="4dcf5568-0b6b-4060-8484-3822313a885a"/>
+				<reportElement x="0" y="-34" width="780" height="34" uuid="4dcf5568-0b6b-4060-8484-3822313a885a"/>
 				<box>
-					<pen lineWidth="0.25"/>
+					<pen lineWidth="0.5"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="-66" width="780" height="36" uuid="44ec6a8d-da7f-4137-8b54-287c57c6a066"/>
+				<reportElement x="0" y="-180" width="780" height="114" uuid="fdc13fe2-3b44-4dbe-adf3-e4b2e887c112"/>
 				<box>
-					<pen lineWidth="0.25"/>
+					<pen lineWidth="0.5"/>
 				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="-30" width="59" height="20" uuid="34687680-0ec9-44e6-92bc-5534ec6fcda2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Outward Register]]></text>
+				<text><![CDATA[From :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="-177" width="780" height="111" uuid="fdc13fe2-3b44-4dbe-adf3-e4b2e887c112"/>
-				<box>
-					<pen lineWidth="0.25"/>
-				</box>
-				<text><![CDATA[]]></text>
+				<reportElement x="470" y="-30" width="40" height="20" uuid="96a602e0-1f8a-4ac1-9354-9c22b7abfd39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[To :]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="270" y="-30" width="60" height="22" uuid="9115f3d8-6109-48e4-938e-bc50463cf353"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{fDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="-30" width="70" height="20" uuid="83e3e6d2-0f73-4683-9441-7c95652c7767"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{tDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="-172" width="600" height="30" uuid="0b0d16f6-d018-4009-9e01-ed4648fe538c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{trustyName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="-138" width="600" height="30" uuid="5a829b88-cf9d-414d-8eb2-0ed558dd4cd7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="-106" width="600" height="30" uuid="84ba5798-6b87-4523-88a3-204c048c8a10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolAddress}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="44" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="80" height="44" uuid="23e1ce17-186e-4928-8d3e-07a6d575e6ef">
+				<reportElement x="0" y="0" width="80" height="40" uuid="23e1ce17-186e-4928-8d3e-07a6d575e6ef">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="570463f4-7119-4ac0-bc1c-015d2d0f1d75"/>
 				</reportElement>
 				<box>
@@ -153,7 +214,7 @@
 				<textFieldExpression><![CDATA[$F{outward_no}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="0" width="100" height="44" uuid="d38ed452-c2c3-456f-a39c-349fea9f9bd1">
+				<reportElement x="80" y="0" width="100" height="40" uuid="d38ed452-c2c3-456f-a39c-349fea9f9bd1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71724fd3-56d0-488f-a28a-52dd3dccd757"/>
 				</reportElement>
 				<box>
@@ -163,7 +224,7 @@
 				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="180" y="0" width="200" height="43" uuid="a82575fe-a0f5-4ead-8b45-2c5cb955eec1">
+				<reportElement x="180" y="0" width="200" height="40" uuid="a82575fe-a0f5-4ead-8b45-2c5cb955eec1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e9e2f3e-d6ce-4af5-9855-ee60f459cab1"/>
 				</reportElement>
 				<box>
@@ -173,7 +234,7 @@
 				<textFieldExpression><![CDATA[$F{receiver_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="0" width="200" height="43" uuid="6e29edcc-e53c-4cf6-bc68-3c94b2d930ec">
+				<reportElement x="380" y="0" width="200" height="40" uuid="6e29edcc-e53c-4cf6-bc68-3c94b2d930ec">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0776d39-c867-46d3-89fa-a8904bd9bd3a"/>
 				</reportElement>
 				<box>
@@ -183,7 +244,7 @@
 				<textFieldExpression><![CDATA[$F{subject}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="580" y="0" width="200" height="44" uuid="993b5917-d672-444d-afdd-7b512b5a574c">
+				<reportElement x="580" y="0" width="200" height="40" uuid="993b5917-d672-444d-afdd-7b512b5a574c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3df4422f-5d98-4fe0-87eb-e630add8d28b"/>
 				</reportElement>
 				<box>

@@ -1,12 +1,6 @@
-<%@page import="com.servletStore.register.model.StockRegisterPojo"%>
-<%@page import="com.servletStore.register.model.StockRegisterImpl"%>
-<%@page import="com.servletStore.register.model.StockRegisterDAO"%>
-<%@page import="com.servletStore.cashBook.controller.CashBook"%>
-<%@page import="com.servletStore.cashBook.subAccount.model.SubAccountPOJO"%>
-<%@page import="com.servletStore.cashBook.subAccount.model.SubAccountIMPL"%>
-<%@page import="com.servletStore.cashBook.subAccount.model.SubAccountDAO"%>
-
-
+<%@page import="com.servletStore.report.studAddressInfo.model.StudAddressInfoPOJO"%>
+<%@page import="com.servletStore.report.studAddressInfo.model.StudAddressInfoIMPL"%>
+<%@page import="com.servletStore.report.studAddressInfo.model.StudAddressInfoDAO"%>
 <%@page import="com.servletStore.setup.model.SetupPOJO"%>
 <%@page import="com.servletStore.setup.model.SetupImpl"%>
 <%@page import="com.servletStore.setup.model.SetupDAO"%>
@@ -14,16 +8,14 @@
 <%@page import="utility.SysDate"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
-<%@page import="com.servletStore.settings.school.model.SchoolImpl"%>
-<%@page import="com.servletStore.settings.school.model.SchoolDAO"%>
-<%@page import="com.servletStore.settings.school.model.SchoolPOJO"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Form Validations | Admire</title>
+    <title>Vertical Software</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
@@ -68,7 +60,7 @@
 					
 	}
 %>
-<body onload="loadFunction()">
+<body>
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -107,7 +99,7 @@
 					<div class="row no-gutters">
 						<div class="col-sm-5 col-lg-6">
 							<h4 class="nav_top_align">
-								<i class="fa fa-pencil"></i> Stock Register Report
+								<i class="fa fa-pencil"></i> Student Address Info
 							</h4>
 						</div>
 						<div class="col-sm-7 col-lg-6">
@@ -117,7 +109,7 @@
 										Dashboard
 								</a></li>
 								<li class="breadcrumb-item"><a href="#">Forms</a></li>
-								<li class="active breadcrumb-item">Stock Register Report </li>
+								<li class="active breadcrumb-item">Student Address Info</li>
 							</ol>
 						</div>
 					</div>
@@ -132,55 +124,42 @@
 							<div class="col-xl-12">
 								<div class="card">
 									<div class="card-header bg-white">
-										<i class="fa fa-file-text-o"></i>Stock Register 
+										<i class="fa fa-file-text-o"></i> Student Address Info
 									</div>
 									<div class="card-block m-t-35">
-										<form action="/SMGMT/StockRegister" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
-										
+										<form action="/SMGMT/StudAddressInfo" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
 											<div class="form-group row">
-	                                            <div class="col-lg-3 text-lg-right">
-	                                               <label for="required2" class="col-form-label">Select ItemWise<span style="color:red;">*</span></label>
-	                                           </div>
-	                                           <%
-	                                           StockRegisterDAO dao=new StockRegisterImpl();
-	                                           List<StockRegisterPojo> list=dao.selectItemName();
-	                                           Iterator itr=list.iterator();
-	                                           %>
-	                                           <div class="col-lg-4">
-	                                          
-	                                              <select class="form-control chzn-select" tabindex="2" name="selectItemName"  id="required2" required>
-	                                            	 <option disabled selected>select itemName</option>
-	                                              	<%
-	                                              	while(itr.hasNext())
-	                                              	{
-	                                              		StockRegisterPojo pojo=(StockRegisterPojo)itr.next();
-	                                              		int id=((StockRegisterPojo)pojo).getId();
-	                                              		String itemName=((StockRegisterPojo)pojo).getItemName();
-	                                              	
-	                                              	%>
-	                                                 <option value="<%=id%>"><%=itemName %></option>
-	                                                <%} %>
-	                                              </select>
-	                                           </div>
-                                           </div>
-                                           
-                                           <div class="form-group row">
-	                                            <div class="col-lg-3 text-lg-right">
-	                                               <label for="required2" class="col-form-label">Select All<span style="color:red;">*</span></label>
-	                                           </div>
-	                                           <div class="col-lg-4">
-	                                        	  <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" name="checkALL" value="1" class="custom-control-input">
-                                                        <span class="custom-control-indicator"></span>
-                                                  </label>
-	                                              
-	                                           </div>
-                                           </div>
-                                          
+												<div class="col-lg-3 text-lg-right">
+													<label for="required2" class="col-form-label">Select Standard&Division<span style="color: red;">*</span>
+													</label>
+												</div>
+													<%
+													StudAddressInfoDAO dao=new StudAddressInfoIMPL();
+													List<StudAddressInfoPOJO> list1=dao.selectStdDiv(schoolId);
+													Iterator<StudAddressInfoPOJO> itr1=list1.iterator();
+													%>
+												<div class="col-lg-4">													
+													<select class="form-control chzn-select" tabindex="2" name="selectstdDiv" id="required2" required>
+														<option disabled selected>select standard&division</option>
+														<%
+														while(itr1.hasNext())
+														{
+															StudAddressInfoPOJO pojo=(StudAddressInfoPOJO)itr1.next();
+															int id=((StudAddressInfoPOJO)pojo).getId();
+															String stdDiv=((StudAddressInfoPOJO)pojo).getStdDiv();
+														
+														%>
+														<option value="<%=id%>"><%=stdDiv %></option>
+														<%} %>
+													</select>
+												</div>
+											</div>										
+
 											<div class="form-actions form-group row">
 												<div class="col-lg-4 push-lg-4">
-												<input type="hidden" name="schoolId" value="<%=schoolId%>"/>
-													<button type="submit" name="submitStockBTN" class="btn btn-success" >Submit</button>
+													<input type="hidden" name="schoolId" value="<%=schoolId%>">
+													<input type="hidden" name="academicYear" value="<%=academicYear%>">
+													<button type="submit" name="submitBtn" class="btn btn-success">Submit</button>
 													<button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
 												</div>
 											</div>
@@ -188,22 +167,12 @@
 									</div>
 								</div>
 							</div>
-							<!-- /.col-lg-12 -->
 						</div>
-						<!-- /.row -->
 					</div>
-					<!-- /.inner -->
 				</div>
-				<!-- /.outer -->			
 			</div>
 		</div>
-		<!-- /#content -->
 	</div>
-
-	<!--wrapper-->
-     
-       
-<!-- /#wrap -->
 
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
@@ -263,7 +232,6 @@
 
 
 <script type="text/javascript">
-
 </script>
 </body>
 

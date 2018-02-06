@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dbconnect.DBConnection;
+import com.servletStore.report.studAddressInfo.model.StudAddressInfoPOJO;
 
 public class InwardRegisterImpl implements InwardRegisterDAO{
 	
@@ -382,6 +383,28 @@ public class InwardRegisterImpl implements InwardRegisterDAO{
 			// TODO: handle exception
 		}
 		return list;
+	}
+
+
+	@Override
+	public List<InwardRegisterPojo> selectSchoolDetails(String schoolId) {
+		List<InwardRegisterPojo> schoolList=new ArrayList<>();
+		String selectQuery="SELECT trustee_info.edu_society_name,school_master.name,school_master.address FROM trustee_info,school_master WHERE school_master.id="+schoolId+"";
+		try {
+			pstmt = connection.prepareStatement(selectQuery);
+			ResultSet rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				InwardRegisterPojo pojo1=new InwardRegisterPojo();
+				pojo1.setTrustyName(rs.getString(1));
+				pojo1.setSchoolName(rs.getString(2));
+				pojo1.setSchoolAddress(rs.getString(3));
+				schoolList.add(pojo1);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return schoolList;
 	}		
 	
 	
