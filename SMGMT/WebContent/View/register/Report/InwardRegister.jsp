@@ -140,6 +140,7 @@
 	                                        
 	                                        <div class="modal-footer" >
                                                 <div class="col-lg-4 push-lg-4">
+                                                <input type="hidden" name="schoolId" value="<%=schoolId%>"/>
                                                      <button type="submit" name="InwardReport" class="btn btn-primary" style="margin-left: -700px;">Print</button>
                                                     <button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
                                                 </div>

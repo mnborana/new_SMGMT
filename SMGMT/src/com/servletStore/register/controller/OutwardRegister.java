@@ -2,9 +2,11 @@ package com.servletStore.register.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dbconnect.DBConnection;
+import com.servletStore.register.model.InwardRegisterPojo;
 import com.servletStore.register.model.OutwardRegisterDAO;
 import com.servletStore.register.model.OutwardRegisterImpl;
 import com.servletStore.register.model.OutwardRegisterPojo;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 public class OutwardRegister extends HttpServlet {
@@ -171,6 +183,60 @@ public class OutwardRegister extends HttpServlet {
 		 outwarddao.deleteOutwardReg(id);
 		 response.sendRedirect("View/register/outwardRegister.jsp");		 
 	 }
+	 
+	 String submitprint=request.getParameter("OutwardReport");
+		
+		if(submitprint!=null)
+		{
+			String schoolId=request.getParameter("schoolId");
+			System.out.println("school idis:"+schoolId);
+			System.out.println("school id in servlet:"+schoolId);
+			String trustyName="",schoolName="",schoolAddress="";
+			List<OutwardRegisterPojo> list11 =outwarddao.selectSchoolDetails(schoolId);
+			Iterator<OutwardRegisterPojo> itr11=list11.iterator();
+			while(itr11.hasNext())
+			{
+				 OutwardRegisterPojo pojo1=(OutwardRegisterPojo)itr11.next();
+				 trustyName=((OutwardRegisterPojo)pojo1).getTrustyName();
+				 schoolName=((OutwardRegisterPojo)pojo1).getSchoolName();
+				 schoolAddress=((OutwardRegisterPojo)pojo1).getSchoolAddress();
+			}
+			
+			
+			String getFromToDate[]=new String[100];
+			String[] getDate=request.getParameter("getFromToDate").split("-");
+			String[] fromDate=getDate[0].split("/");
+			String fDate=fromDate[2].trim()+"-"+fromDate[0]+"-"+fromDate[1];
+			String[] toDate=getDate[1].split("/");
+			String tDate=toDate[2]+"-"+toDate[0].trim()+"-"+toDate[1];
+			System.out.println("1:"+fDate+"\n2:"+tDate);
+			
+			try{
+			DBConnection conn=new DBConnection();
+			Connection connection=conn.getConnection();
+			net.sf.jasperreports.engine.JasperReport jasperReport = null;
+			JasperDesign jasperDesign = null;
+			Map parameters = new HashMap();
+			parameters.put("fDate", ""+fDate+"");
+			parameters.put("tDate", ""+tDate+"");
+			parameters.put("trustyName", trustyName);
+			parameters.put("schoolName", schoolName);
+			parameters.put("schoolAddress", schoolAddress);
+			
+			System.out.println(parameters.get("fDate")+" "+parameters.get("tDate")+" "+parameters.get("trustyName")+" "+parameters.get("schoolName")+" "+parameters.get("schoolAddress"));
+			String path = getServletContext().getRealPath("/WEB-INF/");
+			jasperDesign = JRXmlLoader.load(path + "/jasperReport/OutwardRegisterReport.jrxml");
+			jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
+	        JasperViewer.viewReport(jasperPrint, false);
+			
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+			
+			response.sendRedirect("View/register/Report/InwardRegister.jsp");
+			
+		}
 	 
 	 
 	 

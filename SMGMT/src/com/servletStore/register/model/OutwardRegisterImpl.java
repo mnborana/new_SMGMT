@@ -328,4 +328,25 @@ public class OutwardRegisterImpl implements OutwardRegisterDAO {
 			} catch (Exception e) {}
 			return list;
 	}
+
+	@Override
+	public List<OutwardRegisterPojo> selectSchoolDetails(String schoolId) {
+		List<OutwardRegisterPojo> schoolList=new ArrayList<>();
+		String selectQuery="SELECT trustee_info.edu_society_name,school_master.name,school_master.address FROM trustee_info,school_master WHERE school_master.id="+schoolId+"";
+		try {
+			pstmt = connection.prepareStatement(selectQuery);
+			ResultSet rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				OutwardRegisterPojo pojo1=new OutwardRegisterPojo();
+				pojo1.setTrustyName(rs.getString(1));
+				pojo1.setSchoolName(rs.getString(2));
+				pojo1.setSchoolAddress(rs.getString(3));
+				schoolList.add(pojo1);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return schoolList;
+	}
 }

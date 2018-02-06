@@ -318,4 +318,36 @@
   	<servlet-name>SubAccount</servlet-name>
   	<url-pattern>/SubAccount</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>StudAddressInfo</servlet-name>
+    <servlet-class>com.servletStore.report.studAddressInfo.controller.StudAddressInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudAddressInfo</servlet-name>
+    <url-pattern>/StudAddressInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>StudGeneralInfo</servlet-name>
+    <servlet-class>com.servletStore.report.StudGeneralInfo.controller.StudGeneralInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudGeneralInfo</servlet-name>
+    <url-pattern>/StudGeneralInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CashBookEntry</servlet-name>
+    <servlet-class>com.servletStore.cashBook.cashBookEntry.controller.CashBookEntry</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CashBookEntry</servlet-name>
+    <url-pattern>/CashBookEntry</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AddBank</servlet-name>
+    <servlet-class>com.servletStore.settings.bank.conroller.AddBank</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddBank</servlet-name>
+    <url-pattern>/AddBank</url-pattern>
+  </servlet-mapping>
 </web-app>

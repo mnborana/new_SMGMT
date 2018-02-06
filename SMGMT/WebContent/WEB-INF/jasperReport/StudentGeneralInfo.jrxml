@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StudentGeneralInfo" pageWidth="720" pageHeight="595" orientation="Landscape" columnWidth="680" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ae9aa591-db00-40fa-806a-7ee66fca38d9">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Common  Data Adapter "/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="standard" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{standard}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="trustyName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{trustyName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolAddress" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolAddress}]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT student_official_details.gr_no,concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) AS FullName,std_master.name,classroom_master.division,concat(religion.religion_name,'-',caste.caste_name) AS ReligionCaste,student_official_details.admission_date,student_details.aadhar_no FROM class_allocation,student_official_details,student_details,std_master,classroom_master,fk_class_master,religion,caste WHERE class_allocation.classroom_master=$P{standard} AND class_allocation.student_id=student_official_details.student_id AND class_allocation.student_id=student_details.id AND class_allocation.classroom_master=classroom_master.id AND classroom_master.fk_class_master_id=fk_class_master.id AND fk_class_master.std_id=std_master.id AND student_details.caste_id=caste.id AND caste.religion_id=religion.id]]>
+	</queryString>
+	<field name="gr_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="gr_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student_official_details"/>
+	</field>
+	<field name="FullName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FullName"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="std_master"/>
+	</field>
+	<field name="division" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="division"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="classroom_master"/>
+	</field>
+	<field name="ReligionCaste" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ReligionCaste"/>
+	</field>
+	<field name="admission_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="admission_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student_official_details"/>
+	</field>
+	<field name="aadhar_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="aadhar_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student_details"/>
+	</field>
+	<group name="gr_no">
+		<groupExpression><![CDATA[$F{gr_no}]]></groupExpression>
+	</group>
+	<group name="FullName">
+		<groupExpression><![CDATA[$F{FullName}]]></groupExpression>
+	</group>
+	<group name="name">
+		<groupExpression><![CDATA[$F{name}]]></groupExpression>
+	</group>
+	<group name="division">
+		<groupExpression><![CDATA[$F{division}]]></groupExpression>
+	</group>
+	<group name="ReligionCaste">
+		<groupExpression><![CDATA[$F{ReligionCaste}]]></groupExpression>
+	</group>
+	<group name="admission_date">
+		<groupExpression><![CDATA[$F{admission_date}]]></groupExpression>
+	</group>
+	<group name="aadhar_no">
+		<groupExpression><![CDATA[$F{aadhar_no}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="108" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="60" height="31" uuid="31f2c979-a03e-492c-ae45-703df8330b27">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3ebad0e-0d82-4155-91f0-f7d082a0f09d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gr.No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="0" width="140" height="31" uuid="9227f90d-ba25-4a89-964b-247f5a9d01d2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4c53859-6b63-4ad4-8f0b-e6500c6defba"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FullName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="50" height="31" uuid="57364752-e6d1-4f85-bb4e-ffc9e02acb22">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="614648ea-368d-42ce-8642-82984fd9a155"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Standard]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="0" width="70" height="31" uuid="b4608c37-befb-404e-9284-69b3d02198f9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9f88345-c10a-487b-abb1-126fcb02e01a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Division]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="0" width="120" height="31" uuid="2f01eb13-724d-4ee4-b4d0-c1022fb9b674">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f7d80a0-acc5-406d-9853-55984b3da61c"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Religion-Caste]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="140" height="31" uuid="d4d0e211-d58c-4825-a173-d313c2a481d2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="511fa5fd-90ea-4cf9-a6a7-9230578f835b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Admission Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="580" y="0" width="100" height="31" uuid="b04d622b-46c5-49c1-b5d3-8eb178ae2390">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0cda1d8-f4b8-45f4-9a53-4e2e3f3010a5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[AadharCard No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="-35" width="680" height="35" uuid="7832093e-358d-49a7-88ff-69170ba7512d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Student Address Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="-143" width="680" height="108" uuid="a1f2cf1e-bf0a-4f16-b11e-fdc4eebe27d6"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="-140" width="540" height="30" uuid="c106bf50-70c2-4eef-b4fd-79dd06291316"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{trustyName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="-106" width="540" height="31" uuid="00a7dddc-5bbb-4583-8736-329863f8902c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="-71" width="540" height="32" uuid="0924e6cc-3378-488b-8f48-752877fae944"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolAddress}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="60" height="30" uuid="1f7d91e1-7506-4a01-81d4-9f758f2ced92">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3ebad0e-0d82-4155-91f0-f7d082a0f09d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{gr_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="140" height="30" uuid="d4a0297f-1b6b-4684-ab77-81b63f642817">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4c53859-6b63-4ad4-8f0b-e6500c6defba"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FullName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="50" height="30" uuid="0d851baa-685c-4aae-b6f9-501e9b661a7b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="614648ea-368d-42ce-8642-82984fd9a155"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="0" width="70" height="30" uuid="33259597-944b-4ca4-85d6-378ca85c23d3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9f88345-c10a-487b-abb1-126fcb02e01a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{division}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="120" height="30" uuid="28278bf1-9adf-475d-bfee-4258de837c14">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f7d80a0-acc5-406d-9853-55984b3da61c"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ReligionCaste}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMM d, yyyy">
+				<reportElement x="440" y="0" width="140" height="30" uuid="232b8d88-c4f0-4860-9d86-6802da3e09cb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="511fa5fd-90ea-4cf9-a6a7-9230578f835b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{admission_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="580" y="0" width="100" height="30" uuid="2985769d-5afa-4db9-8327-e8650a50f387">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0cda1d8-f4b8-45f4-9a53-4e2e3f3010a5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{aadhar_no}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

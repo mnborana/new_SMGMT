@@ -1,16 +1,10 @@
-<%@page import="com.servletStore.register.model.StockRegisterPojo"%>
-<%@page import="com.servletStore.register.model.StockRegisterImpl"%>
-<%@page import="com.servletStore.register.model.StockRegisterDAO"%>
-<%@page import="com.servletStore.cashBook.controller.CashBook"%>
-<%@page import="com.servletStore.cashBook.subAccount.model.SubAccountPOJO"%>
-<%@page import="com.servletStore.cashBook.subAccount.model.SubAccountIMPL"%>
-<%@page import="com.servletStore.cashBook.subAccount.model.SubAccountDAO"%>
 
-
-<%@page import="com.servletStore.setup.model.SetupPOJO"%>
-<%@page import="com.servletStore.setup.model.SetupImpl"%>
-<%@page import="com.servletStore.setup.model.SetupDAO"%>
-
+<%@page import="com.servletStore.settings.bank.model.AddBankPOJO"%>
+<%@page import="com.servletStore.settings.bank.model.AddBankIMPL"%>
+<%@page import="com.servletStore.settings.bank.model.AddBankDAO"%>
+<%@page import="com.servletStore.settings.document.model.AddDocumentPojo"%>
+<%@page import="com.servletStore.settings.document.model.AddDocumentImpl"%>
+<%@page import="com.servletStore.settings.document.model.AddDocumentDAO"%>
 <%@page import="utility.SysDate"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -48,27 +42,7 @@
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
    
 </head>
-
-<%
-	String schoolId = "0";
-	String academicYear = "0";
-	int roll=0;
-	
-	if (session.getAttribute("userName") == null) {
-		response.sendRedirect("/SMGMT");
-	} 
-	else {
-		roll=(Integer)session.getAttribute("rollId");
-		schoolId = session.getAttribute("schoolId").toString();
-		academicYear = session.getAttribute("year").toString();
-		
-		SetupDAO dao = new SetupImpl();
-		List list=dao.getAccessControlDetails(roll);
-		Iterator<SetupPOJO> itr= list.iterator();
-					
-	}
-%>
-<body onload="loadFunction()">
+<body onload="setFocusToTextBox()"">
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -107,7 +81,7 @@
 					<div class="row no-gutters">
 						<div class="col-sm-5 col-lg-6">
 							<h4 class="nav_top_align">
-								<i class="fa fa-pencil"></i> Stock Register Report
+								<i class="fa fa-pencil"></i> Add New Bank
 							</h4>
 						</div>
 						<div class="col-sm-7 col-lg-6">
@@ -117,7 +91,7 @@
 										Dashboard
 								</a></li>
 								<li class="breadcrumb-item"><a href="#">Forms</a></li>
-								<li class="active breadcrumb-item">Stock Register Report </li>
+								<li class="active breadcrumb-item">Add New Bank </li>
 							</ol>
 						</div>
 					</div>
@@ -132,58 +106,47 @@
 							<div class="col-xl-12">
 								<div class="card">
 									<div class="card-header bg-white">
-										<i class="fa fa-file-text-o"></i>Stock Register 
+										<i class="fa fa-file-text-o"></i> Add New Bank
 									</div>
 									<div class="card-block m-t-35">
-										<form action="/SMGMT/StockRegister" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
-										
+										<form action="/SMGMT/AddBank" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
+
+
 											<div class="form-group row">
-	                                            <div class="col-lg-3 text-lg-right">
-	                                               <label for="required2" class="col-form-label">Select ItemWise<span style="color:red;">*</span></label>
-	                                           </div>
-	                                           <%
-	                                           StockRegisterDAO dao=new StockRegisterImpl();
-	                                           List<StockRegisterPojo> list=dao.selectItemName();
-	                                           Iterator itr=list.iterator();
-	                                           %>
-	                                           <div class="col-lg-4">
-	                                          
-	                                              <select class="form-control chzn-select" tabindex="2" name="selectItemName"  id="required2" required>
-	                                            	 <option disabled selected>select itemName</option>
-	                                              	<%
-	                                              	while(itr.hasNext())
-	                                              	{
-	                                              		StockRegisterPojo pojo=(StockRegisterPojo)itr.next();
-	                                              		int id=((StockRegisterPojo)pojo).getId();
-	                                              		String itemName=((StockRegisterPojo)pojo).getItemName();
-	                                              	
-	                                              	%>
-	                                                 <option value="<%=id%>"><%=itemName %></option>
-	                                                <%} %>
-	                                              </select>
-	                                           </div>
-                                           </div>
-                                           
-                                           <div class="form-group row">
-	                                            <div class="col-lg-3 text-lg-right">
-	                                               <label for="required2" class="col-form-label">Select All<span style="color:red;">*</span></label>
-	                                           </div>
-	                                           <div class="col-lg-4">
-	                                        	  <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" name="checkALL" value="1" class="custom-control-input">
-                                                        <span class="custom-control-indicator"></span>
-                                                  </label>
-	                                              
-	                                           </div>
-                                           </div>
-                                          
+												<div class="col-lg-3  text-lg-right">
+													<label for="required2" class="col-form-label">Bank Name <span style="color: red;">*</span></label>
+												</div>
+												<div class="col-lg-4">
+													<input type="text" id="required2" name="bankName" pattern="[A-Za-z]" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required>
+												</div>
+											</div>
+											
+											<div class="form-group row">
+												<div class="col-lg-3  text-lg-right">
+													<label for="required2" class="col-form-label">Branch <span style="color: red;">*</span></label>
+												</div>
+												<div class="col-lg-4">
+													<input type="text" id="required2" name="branchName" pattern="[A-Za-z]" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required>
+												</div>
+											</div>
+											
+											<div class="form-group row">
+												<div class="col-lg-3  text-lg-right">
+													<label for="required2" class="col-form-label">Account No <span style="color: red;">*</span></label>
+												</div>
+												<div class="col-lg-4">
+													<input type="text" id="required2" name="accountNo" pattern="[0-9]" class="form-control" required>
+												</div>
+											</div>
+											
+
 											<div class="form-actions form-group row">
 												<div class="col-lg-4 push-lg-4">
-												<input type="hidden" name="schoolId" value="<%=schoolId%>"/>
-													<button type="submit" name="submitStockBTN" class="btn btn-success" >Submit</button>
+													<button type="submit" name="bankSubmitBTN" class="btn btn-success" >Submit</button>
 													<button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
 												</div>
 											</div>
+
 										</form>
 									</div>
 								</div>
@@ -194,15 +157,84 @@
 					</div>
 					<!-- /.inner -->
 				</div>
-				<!-- /.outer -->			
+				<!-- /.outer -->
+
+
+				<div class="outer">
+					<div class="inner bg-container">
+						<div class="card">
+							<div class="card-header bg-white">Bank Details</div>
+							<div class="card-block m-t-35" id="user_body">
+								<div class="table-toolbar">
+
+									<div class="btn-group float-right users_grid_tools">
+										<div class="tools"></div>
+									</div>
+								</div>
+								<div>
+									<div>
+										<table	class="table  table-striped table-bordered table-hover dataTable no-footer"	id="editable_table" role="grid">
+											<thead>
+												<tr role="row">
+													<th class="sorting_asc wid-20" tabindex="0" rowspan="1"	colspan="1">Sr.No</th>
+													<th class="sorting wid-25" tabindex="0" rowspan="1"	colspan="1">Bank Name</th>
+													<th class="sorting wid-25" tabindex="0" rowspan="1"	colspan="1">Branch Name</th>
+													<th class="sorting wid-25" tabindex="0" rowspan="1"	colspan="1">Account No</th>
+													<th class="sorting wid-10" tabindex="0" rowspan="1"	colspan="1">Alias Name</th>
+													<th class="sorting wid-10" tabindex="0" rowspan="1"	colspan="1">Action</th>
+												</tr>
+											</thead>
+											
+											<%
+											int count=1;
+											AddBankDAO dao=new AddBankIMPL();
+											List<AddBankPOJO> list=dao.fetchBankDetails();
+											Iterator<AddBankPOJO> itr=list.iterator();											
+											%>
+											<tbody>
+											<%
+											while(itr.hasNext())
+											{
+												AddBankPOJO pojo=(AddBankPOJO)itr.next();
+												int id=((AddBankPOJO)pojo).getId();
+												
+											
+											%>
+
+												<tr class="gradeX">
+													<td id="<%=id%>"><%=count %></td>
+													<td><%=((AddBankPOJO)pojo).getBankName() %></td>
+													<td><%=((AddBankPOJO)pojo).getBranch() %></td>
+													<td><%=((AddBankPOJO)pojo).getAccountNo() %></td>
+													<td><%=((AddBankPOJO)pojo).getAliasName() %></td>
+													<td><a class="edit" data-toggle="tooltip"	data-placement="top" title="Update" href="#"	onclick="searchSchool(<%=id%>)"><i	class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp; 
+														<a	class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/AddDocument?deleteId=<%=id%>"><i class="fa fa-trash text-danger"></i></a>
+													</td>
+												</tr>
+												<%
+												count++;
+												}
+												%>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- END EXAMPLE TABLE PORTLET-->
+							</div>
+						</div>
+					</div>
+					<!-- /.inner -->
+				</div>
+				<!-- /.outer -->
+				
 			</div>
 		</div>
 		<!-- /#content -->
 	</div>
 
 	<!--wrapper-->
-     
        
+      
 <!-- /#wrap -->
 
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
@@ -264,7 +296,28 @@
 
 <script type="text/javascript">
 
-</script>
+	function searchSchool(id) {
+		
+		alert(id);
+		var xhttp;
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				
+				var demoStr = this.responseText.split(",");
+					
+				document.getElementById("Updateid").value = demoStr[0];				 
+				document.getElementById("updateDoc").value = demoStr[1];	
+					alert(demoStr[1]);
+			     
+				}
+			};
+		xhttp.open("POST","/SMGMT/AddDocument?documentId="+id, true);
+		xhttp.send();
+	}
+
+
+	</script>
 </body>
 
 </html>
