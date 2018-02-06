@@ -260,7 +260,7 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 	public void insertFees(FeesCollectionPOJO feesCollectionPOJO) {
 		
 		try {
-			pstmt=connection.prepareStatement("INSERT INTO `fees_collection`(`stud_id`, `fk_classroom_master_id`, `date`, `paid_fees`, `remaining_fees`, `pay_mode`) VALUES (?,?,?,?,?,?)");
+			pstmt=connection.prepareStatement("INSERT INTO `fees_collection`(`stud_id`, `fk_classroom_master_id`, `date`, `paid_fees`, `remaining_fees`, `pay_mode`,particulars) VALUES (?,?,?,?,?,?,'FEES')");
 			
 			
 			

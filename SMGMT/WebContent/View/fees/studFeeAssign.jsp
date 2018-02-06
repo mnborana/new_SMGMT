@@ -142,7 +142,7 @@
 			                                        
 			                        					DateFormat df = new SimpleDateFormat("DD-MM-YYYY");
 			                        					String currentDate = df.format(new Date()).toString();
-                                                    	//System.out.println(currentDate);
+                                                    	System.out.println(currentDate);
 			                                        	FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
 			                                        	request.setAttribute("list", feesCollectionDAO.getStadardDivisionDetails(schoolId));
 			                                        %>
@@ -205,7 +205,7 @@
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Assign Fee" name="assign" class="btn btn-primary">
+                                                    <input type="submit" value="Assign Fee" name="assign"  id="assign" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </form>
@@ -306,8 +306,6 @@
 	{
 		var student_id = document.getElementById('student_id').value;
 		
-		//alert("Student Id "+student_id);
-		
 		var xhttp =new XMLHttpRequest();
 		
 		var sum=0;
@@ -316,24 +314,42 @@
 			xhttp.onreadystatechange = function(){
 				if(this.readyState == 4 && this.status == 200){
 					var castFee=this.responseText.split(",");
-					
-					//alert(castFee.length);
-					//alert(castFee);
-					var lastSrNo = $('#tableId tr:last td:first').text();
+				
+					if(castFee.length==1)
+					{
+						alert("Cast category not assinged for this student assinged it first");
+						document.getElementById("assign").disabled = true; 
+					}
+					else
+					{
+						document.getElementById("assign").disabled = false;
+					}
 					var table = document.getElementById("tableId");
-					var count=parseInt(lastSrNo)+1
 					
+					var lastRowId = $('#tableId tr:last').attr('id');
+					
+					while(lastRowId === undefined) //for deleting last available rows
+					{
+						var lastRowId = $('#tableId tr:last').attr('id');
+						if(lastRowId)
+						{
+							break;
+						}
+						var rowCount = table.rows.length;
+					    table.deleteRow(rowCount -1);
+					}
 					
 					for(var i=0;i<castFee.length-1;i=i+2)
 					{
+						
+						var lastSrNo = $('#tableId tr:last td:first').text();
+						var count=parseInt(lastSrNo)+1;
 						
 						var rowCount = table.rows.length;
 						
 						var row = table.insertRow(rowCount);//tr
 						
 						var cell1 = row.insertCell(0);//td
-						
-						//var cellData="omkar";
 						
 						cell1.innerHTML=count; //srNo
 						
@@ -348,14 +364,9 @@
 						cell3.colSpan = 2;
 						
 						$(cell3).attr("align","center");
-						
-						count++;
-
+		
 					}
 					
-					
-
-
 					var totalRows = document.getElementById("tableId").rows.length;
 					
 					for(var i=1;i<totalRows;i++)
@@ -375,7 +386,6 @@
 								
 						}
 												
-						//alert(sum);
 					}
 					
 					var rowCount = table.rows.length;
@@ -402,12 +412,11 @@
 					
 					cell2.style.backgroundColor="#4fb7fe";
  
-
 					document.getElementById('totalFee').value=sum;
+					
 					
 					document.getElementById('heading').innerHTML="Student Fees Structure for "+castFee[castFee.length-1]+" Category";
 					
-										
 				}
 			}
 			xhttp.open("POST", "/SMGMT/AssignFee?student_id="+student_id, true);
@@ -422,8 +431,6 @@
 		
 		var standard_id = document.getElementById('standard_id').value;
 		
-		//alert("Standard Id "+standard_id);
-		
 		var xhttp =new XMLHttpRequest();
 		
 		try{
@@ -431,14 +438,25 @@
 				if(this.readyState == 4 && this.status == 200){
 					var str=this.responseText.split(",");
 					var fee=str[0].split("#");
-					//alert(fee+" lenght "+fee.length);
+					
 					var tableData="";
 					var count=1;
 					//var i=0;
 					
+					if(fee.length==1)
+					{
+						alert('Fee not assinged for this class assign it first');	
+						document.getElementById("assign").disabled = true;
+					}
+					else
+					{
+						document.getElementById("assign").disabled = false;
+					}
+					
+					
 					 for(var i=0;i < fee.length-1;i=i+3)
 					{
-					 	tableData+="<tr>"
+					 	tableData+="<tr id='row"+count+"'>"
 						+"<td>"+count+"</td>"
 						+"<td>"+fee[i]+"</td>"
 						+"<td>"+fee[i+1]+"</td>"
@@ -477,12 +495,6 @@
 		}catch(e){
 			alert("Unable to Connect Server!");
 		}
-		//SELECT student_details.id, student_details.first_name, student_details.middle_name, student_details.last_name FROM 
-		//student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND class_allocation.classroom_master=8
-		
-		//SELECT student_details.id, concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) AS full_name FROM 
-		//student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND class_allocation.classroom_master=8 AND 
-		//concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) LIKE 'suraj m%'
 	}
 
 	
