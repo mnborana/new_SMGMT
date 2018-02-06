@@ -283,14 +283,11 @@ public class Library extends HttpServlet {
 			    String lastName=(String) list1.get(1);
 			    Object std=list1.get(2);
 			    Object div=list1.get(3);
-			    //System.out.println("Info@@@@  "+ firstName+" "+lastName+" "+std+" "+div);
-			   // String fullName=firstName.concat(lastName);
 			    String fullName=firstName+"-"+lastName;
-			    //System.out.println("Details  "+issueBookId+","+issueStudId);
-				//out.print(issueBookId+","+issueStudId);
+			    
 				out.print(issueBookId+","+issueStudId+" "+fullName+"-"+std+"-"+div);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			
@@ -349,15 +346,11 @@ public class Library extends HttpServlet {
 				{
 					HttpSession session=request.getSession();
 					String year=(String) session.getAttribute("year");
-					
 					String[] date=request.getParameter("getTableData").split("-");
-					
 					String[] from=date[0].split("/");
 					String[] to=date[1].split("/");
-					
 					String fromStr=from[2].trim()+"-"+from[0]+"-"+from[1];
 					String toStr=to[2]+"-"+to[0].trim()+"-"+to[1];
-					
 					
 					try {
 						List list=dao.getDatewiseIssueList(fromStr, toStr);
@@ -373,14 +366,11 @@ public class Library extends HttpServlet {
 		 if(request.getParameter("bookdetail")!=null)
 				{
 				try {
-					System.out.println("In search function");
+					
 						String bookDetail = request.getParameter("bookdetail");
 						String todayDate = request.getParameter("currentDate");
 						String bName = request.getParameter("bookName");
 						String aName = request.getParameter("authorName");
-						
-						//System.out.println(bName+"----"+aName);
-						
 						List list=dao.searchBookInfo(bookDetail,bName,aName);
 						Iterator itr=list.iterator();
 						Object bookNo = null ;
@@ -391,7 +381,6 @@ public class Library extends HttpServlet {
 						Object issueId= null;
 						String studId= null;
 						String staffId= null;
-						
 						while(itr.hasNext()){
 							bookNo=itr.next();
 							bookName=itr.next();
@@ -403,12 +392,7 @@ public class Library extends HttpServlet {
 							List list1=dao.searchStudDetails(studId);
 							staffId=itr.next().toString();
 							}
-					//System.out.println("aajchi date"+issueDate);
-					//	System.out.println("due date"+dueDate);
 					   int totalDays=dao.daysCount(todayDate, dueDate);
-					
-					
-					//out.print(totalDays);
 					
 		          out.print(bookNo+ "," +bookName+ "," +authorName+  "," +issueDate+ "," +dueDate+ ",");
 					} catch (SQLException e) {
@@ -419,7 +403,6 @@ public class Library extends HttpServlet {
 				
 		 if(request.getParameter("countDetail")!=null)
 		{
-			//System.out.println("AJax WORKING------------");
 			String fine=request.getParameter("fineAmount");
 			String studentId[]=request.getParameter("studId").split(",");
 			
@@ -427,39 +410,12 @@ public class Library extends HttpServlet {
 				
 				int fineAmount=dao.getFine();
 				int preAmount=dao.getPreviousFine(studentId[1]);
-				//System.out.println("Previous Amount in servlet *****"+preAmount);
 				out.print(fineAmount+","+preAmount);//pass remain fine in out 
 			 } catch (SQLException e) {
 				
 				e.printStackTrace();
 			}
 		}
-		/*else if(request.getParameter("countDetail")!=null)
-				{
-					System.out.println("AJax WORKING------------");
-					
-					//out.println("AJax WORKING");
-					String todayDate = request.getParameter("currentDate");
-					String dueDate=request.getParameter("dueDate");
-					String fine=request.getParameter("fineAmount");
-					try {
-						
-						int totalDays=dao.daysCount(todayDate, dueDate);
-						int fineAmount=dao.getFine();
-						System.out.println("days diff-------- "+totalDays);
-						if(totalDays>0)
-						{
-						out.print(totalDays+","+fineAmount);
-						}else
-						{
-							out.print("0,0");
-						}
-					 } catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-				*/
-				
 			 if(request.getParameter("fineAP")!=null)
 				{
 					SetFinePOJO fine_pojo=dao.getFineDetails();
@@ -469,15 +425,11 @@ public class Library extends HttpServlet {
 		
 				else if(request.getParameter("fine")!=null&&request.getParameter("fine").equals("OK"))
 				{
-					//System.out.println("Btn Name : "+request.getParameter("fine"));
 					SetFinePOJO pojo=new SetFinePOJO();
 					String date=request.getParameter("date");
 					int fine=Integer.parseInt(request.getParameter("fine_value"));
-					
 					pojo.setDate(date);
 					pojo.setFine(fine);
-					
-					
 					try {
 						int st=dao.insertFine(pojo);
 						if(st>0)
@@ -485,7 +437,7 @@ public class Library extends HttpServlet {
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-					//request.getRequestDispatcher("View/library/SetFine.jsp").forward(request, response);
+					
 					response.sendRedirect("View/library/setFine.jsp");
 				}
 				 if(request.getParameter("fine")!=null&&request.getParameter("fine").equals("Update"))
@@ -515,15 +467,12 @@ public class Library extends HttpServlet {
 		
 				 if(request.getParameter("submitBook")!=null)
 				{
-					//System.out.println("Submit Bookkkkkkkkk");
+					
 					FineMasterPOJO pojo=new FineMasterPOJO();
 					if(request.getParameter("returnRadio").equals("RETURN"))
 					{
-						//System.out.println("Returnnnnnnnnnnn");
 						String serachBook=request.getParameter("searchBookDetails");	
 						String book[]=serachBook.split("-");
-						//System.out.println("IssueBookId is "+book[0]);
-						//System.out.println("IssueBookName is "+book[1]);
 						String issueAndStudId[]=request.getParameter("studentId").split(",");
 						int dueDays=Integer.parseInt(request.getParameter("dueDays"));
 						int fineAmount=Integer.parseInt(request.getParameter("fineAmount"));
@@ -531,9 +480,6 @@ public class Library extends HttpServlet {
 						int finePaid=Integer.parseInt(request.getParameter("finePaid"));
 						int remainingFine=Integer.parseInt(request.getParameter("remainAmt"));
 						
-						//int stdId=Integer.parseInt(request.getParameter("studentId"));
-						//System.out.println("Details "+dueDays+" "+fineAmount);
-						//System.out.println("aaaaaaaaaa"+studId);
 						pojo.setIssueId(Integer.parseInt(issueAndStudId[0]));
 						pojo.setDueDays(dueDays);
 						pojo.setFineAmount(fineAmount);
@@ -544,21 +490,15 @@ public class Library extends HttpServlet {
 						
 						String date[]=request.getParameter("currentDate").split("-");
 						String fromStr=date[2].trim()+"-"+date[1]+"-"+date[0];
-						//System.out.println("Current Date*******"+fromStr);
-						
 						pojo.setReturnDate(fromStr);
-						
-						
 						try {
 							int st=dao.insertFineDetails(pojo);
 							if(st>0)
 							{
-								//System.out.println("Id"+Integer.parseInt(studId[0]));
 							int status=dao.changeStatusReturn(Integer.parseInt(issueAndStudId[0]));
 							int sta=dao.getDate(pojo);
 								if(status>0)
 								{
-									//System.out.println("Return book");
 									response.sendRedirect("View/library/issueBook.jsp");
 								}
 							}
@@ -568,28 +508,17 @@ public class Library extends HttpServlet {
 					} 
 					if(request.getParameter("returnRadio").equals("RENEW"))
 					{
-						//System.out.println("Renewwwwwwwwww");
-						
-						
 						FineMasterPOJO pojo1=new FineMasterPOJO();
 						String searchBook=request.getParameter("searchBookDetails");
 						String searchStud=request.getParameter("studentId");
-						//System.out.println("Student****"+searchStud);
-						//String user=request.getParameter("userType");
-						
 						String[] issueDate=request.getParameter("issueDateFrom3tab").split("-");
 						String issueDateStr=issueDate[2]+"-"+issueDate[1]+"-"+issueDate[0];
-						
 						String[] dueDate=request.getParameter("newdueDate").split("-");
 						String dueDateStr=dueDate[0]+"-"+dueDate[1]+"-"+dueDate[2];
-						//String returnDate=request.getParameter("returnDate");
 						String studIdd=request.getParameter("studentId");
 						String str[] = searchBook.split("-");
 						String str1[]=searchStud.split(",");
 						String st=str1[1].trim();
-						System.out.println("ISSUE DATE--------------------------------- "+issueDateStr);
-						System.out.println("Due DATE--------------------------------- "+dueDateStr);
-						
 						//setPojo
 						pojo1.setIssueId(Integer.parseInt(str[0].trim()));
 						
@@ -684,22 +613,19 @@ public class Library extends HttpServlet {
 				int discount=Integer.parseInt(request.getParameter("discountamount"));
 				int paidAmount=Integer.parseInt(request.getParameter("paidamount"));
 				int  remainAmount=Integer.parseInt(request.getParameter("remainAmt"));
-				
-			
+				String paidDate[]=request.getParameter("currentDate").split("-");
+				String pDate=paidDate[2].trim()+"-"+paidDate[0]+"-"+paidDate[1];
+				System.out.println("DATE**************"+pDate);
 				FineMasterPOJO pojo= new FineMasterPOJO();
 				String studId[]=request.getParameter("studId").split(",");
 				
 				pojo.setStudId(Integer.parseInt(studId[0]));
-				
-				//System.out.println(request.getParameter("studId"));
-				
-				
 				pojo.setIssueId(Integer.parseInt(request.getParameter("issueId")));
-				//System.out.println("Issue Id"+request.getParameter("issueId"));
 				pojo.setFineAmount(fineAmount);
 				pojo.setDiscount(discount);
 				pojo.setFinePaidAmount(paidAmount);
 				pojo.setRemainingFine(remainAmount);
+				pojo.setPaid_date(pDate);
 				
 				try {
 					int status=dao.insertFineSubmissionDetails(pojo);

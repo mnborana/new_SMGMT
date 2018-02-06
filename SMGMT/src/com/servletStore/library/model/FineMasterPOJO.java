@@ -2,7 +2,15 @@ package com.servletStore.library.model;
 
 public class FineMasterPOJO {
 private int id,dueDays,fineAmount,discount,finePaidAmount,remainingFine,studId,staffId,issueId;
-private String userType,issueDate;
+private String userType,issueDate,paid_date;
+
+public String getPaid_date() {
+	return paid_date;
+}
+
+public void setPaid_date(String paid_date) {
+	this.paid_date = paid_date;
+}
 
 public String getUserType() {
 	return userType;

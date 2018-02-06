@@ -1099,8 +1099,10 @@ function getExpData(val)
 			    if(todayMonth<10) {
 			    	todayMonth = '0'+todayMonth;
 			    } 
+			    if(today<10) {
+			    	today = '0'+today;
+			    } 
 
-			    
 			    var x=todayYear+"-"+todayMonth+"-"+today; //DATE
 
 				var count=1;
@@ -1111,6 +1113,7 @@ function getExpData(val)
 				
 					for(;demoStr[i]; ){
 						if (x>demoStr[i+9]) {
+							
 							//alert(demoStr[i+9]);
 							//alert(x>demoStr[i+9]);
 							wholeData+="<tr style='background-color: #f3a1a1;'>";
@@ -1350,22 +1353,22 @@ function getFineCount(todayDate, dueDate, radioValue,studId) {
 } */
 
 function checkedPay(checkId)
-{
-	var famount=parseInt(document.getElementById("fineAmount").value);
+{   var totalFineAmt=parseInt(document.getElementById('fineAmount').value);
+	var paidFineAmount=parseInt(document.getElementById('paidAmountId').value);
+	var checkFine=totalFineAmt-paidFineAmount;
 	if($(checkId).is(":checked"))
 		{
 		document.getElementById("returnSubmit").disabled=false;
-		document.getElementById("remainAmount").value=famount;
+		document.getElementById("remainAmount").value=checkFine;
 		}
 	else{
 		document.getElementById("returnSubmit").disabled=true;
 	}
-}
 	 //var famount=document.getElementById("fineAmount").value;
 	//alert(famount);
 	//var x = document.getElementById("checkId");
 	
-
+}
 
 
 	
