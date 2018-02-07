@@ -132,15 +132,16 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 	}
 
 	@Override
-	public List getStudentCastwiseFee(String student_id) throws SQLException
+	public List getStudentCastwiseFee(String student_id, String standard) throws SQLException
 	{
 		DBConnection dbconnect=new DBConnection();
 		Connection connection=dbconnect.getConnection();
 		List list = new ArrayList<>();
 		
-		String query="SELECT fee_type.fees_type,caste_wise_educational_fees.fees FROM fee_type,caste_wise_educational_fees,student_details WHERE fee_type.id=caste_wise_educational_fees.fees_type_id AND student_details.category_id=caste_wise_educational_fees.caste_category_id AND student_details.id=?";
+		String query="SELECT fee_type.fees_type,caste_wise_educational_fees.fees  FROM  fk_class_master,fee_type,caste_wise_educational_fees,student_details,classroom_master, class_allocation WHERE fee_type.id=caste_wise_educational_fees.fees_type_id AND student_details.category_id=caste_wise_educational_fees.caste_category_id  AND class_allocation.student_id=student_details.id  AND class_allocation.student_id=? AND classroom_master.id=? AND class_allocation.classroom_master=classroom_master.id AND classroom_master.fk_class_master_id=fk_class_master.id AND classroom_master.fk_class_master_id=caste_wise_educational_fees.fk_class_master_standard_id";
 		pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, student_id);
+		pstmt.setString(2, standard);
 		ResultSet rs = pstmt.executeQuery();
 		
 		while(rs.next())

@@ -305,7 +305,7 @@
 	function selectCast()
 	{
 		var student_id = document.getElementById('student_id').value;
-		
+		var standard_id = document.getElementById('standard_id').value;
 		var xhttp =new XMLHttpRequest();
 		
 		var sum=0;
@@ -419,7 +419,7 @@
 					
 				}
 			}
-			xhttp.open("POST", "/SMGMT/AssignFee?student_id="+student_id, true);
+			xhttp.open("POST", "/SMGMT/AssignFee?student_id="+student_id+"&standard="+standard_id, true);
 			xhttp.send();
 		}catch(e){
 			alert("Unable to Connect Server!");
