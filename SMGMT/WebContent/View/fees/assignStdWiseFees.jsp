@@ -61,12 +61,13 @@
 		
 		SetupPOJO grant = new SetupPOJO();
 		
-		 while(itr.hasNext()){
+		 while(itr.hasNext())
+		 {
 			grant = itr.next();
 		 }
 		 
 		 access = grant.getFee();
-		 //System.out.println("roll "+roll + " schoolId "+schoolId +" access "+access);
+		 System.out.println("roll "+roll + " schoolId "+schoolId +" access "+access);
 		 
 		//if it returns read(1) then hide form and action column in dataTable
 		//for write(2) show your orignal full form
@@ -159,7 +160,7 @@ z-index: 999999">
                                                <label for="required2" class="col-form-label">Select Standards <span style="color: red;">*</span> </label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <select multiple class="form-control chzn-select" name="standardIds" id="standardId" title="Select Standard"  required>
+                                               <select multiple onchange="setStds()" class="form-control chzn-select" name="standardIds" id="standardId" title="Select Standard"  required>
 			                                        
 			                                        <%
 				                                    	AssignStdWiseFeesDao dao = new AssignStdWiseFeesImpl(); 
@@ -204,11 +205,18 @@ z-index: 999999">
 							                                    <table id="sort" class="table  table-striped table-bordered table-hover dataTable no-footer">
 							                                        <thead>
 							                                        <tr>
-							                                            <th></th>
+							                                            <th>
+							                                            	<div class='checkbox'>
+															                	<label class='text-mint'>	
+															                    	<input type='checkbox' onclick="selectAllChecks()" id='selectAllCheck' >
+															                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span>
+															                	</label>
+																    		</div>
+							                                            </th>
 							                                            <th>Fees Type</th>
 							                                            <th>Term One Fees</th>
 							                                            <th>Term Two Fees</th>
-							                                            <th>Priority</th>
+							                                            <!-- <th>Priority</th> -->
 							                                            <th>Action</th>
 							                                        </tr>
 							                                        </thead>
@@ -226,7 +234,7 @@ z-index: 999999">
 							                                        		<td id="${l.id}"> 
 																           		<div class='checkbox'>
 																                	<label class='text-mint'>	
-																                    	<input type='checkbox' value='<%=i %>' name='feeTypeCheck' id='feeTypeCheck' >
+																                    	<input type='checkbox' value='<%=i %>' onclick="getFinalTotal(<%=i%>)" name='feeTypeCheck' id='feeTypeCheck<%=i%>' >
 																                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span>
 																                	</label>
 																	    		</div>
@@ -235,14 +243,14 @@ z-index: 999999">
 							                                        		<td><c:out value="${l.termOneFees}"></c:out></td>
 							                                        		<td><c:out value="${l.termTwoFees}"></c:out></td>
 							                                        		
-							                                        		<td>
+							                                        		<%-- <td>
 							                                        			<div class='checkbox'>
 																                	<label class='text-mint'>
 																                    	<input type='checkbox' value='1' name='feeTypePriority_<%=i %>' id='feeTypePriority_<%=i %>' >
 																                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span>
 																                	</label>
 																	    		</div>	
-							                                        		</td>
+							                                        		</td> --%>
 																			
 							                                        		<td>
 							                                        			<a class="edit" style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="Update" onclick="updateFees(<%=i %>, ${l.id})">
@@ -257,6 +265,12 @@ z-index: 999999">
 							                                        	</tr>
 							                                        </c:forEach>
 							                                        </tbody>
+							                                    </table>
+							                                    <table class="table  table-striped table-bordered table-hover dataTable no-footer">
+							                                    	<tr style="background-color: #3aaefd85;">
+								                                        <td><strong style="font-size: 135%;">Total Fees of Standard(s) : </strong><strong id="stdList" style="font-size: 100%;"></strong></td>
+								                                        <td id="totalStdFess" style="width: 24%;"><strong style="font-size: 135%;">0</strong></td>
+							                                        </tr>
 							                                    </table>
 							                                </div>
 							                            </div>
@@ -302,15 +316,70 @@ z-index: 999999">
 </div>
 <!-- /#wrap -->
 <!-- global scripts-->
-
-
-<!-- common js -->
-	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
-<!-- common js -->
-
-</body>	
 <script type="text/javascript">
 
+	var totalStdFess = 0;
+	
+	function selectAllChecks(){
+		var c = document.getElementsByName('feeTypeCheck');
+		var finalArray = [];
+		totalStdFess = 0;
+		
+		if(document.getElementById('selectAllCheck').checked){
+			for(var i=0;i<c.length;i++)
+			{
+				c[i].checked=true;
+				var d = document.getElementById("feeTypeCheck"+(i+1));
+				var tr = document.getElementById("editFeeTR"+(i+1)).children;
+				
+				if(d.checked){	
+					totalStdFess = +totalStdFess+ +tr[2].innerHTML+ +tr[3].innerHTML;
+				}
+				alert(totalStdFess);
+				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
+			}
+		}
+		else
+		{
+			for(var i=0;i<c.length;i++)
+			{
+				c[i].checked=false;
+				
+				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
+			}
+		}
+	}
+	
+	function setStds() {
+		var selectedStds = "";
+		$('#standardId :selected').each(function(i, selectedElement) {
+			if(selectedStds==""){
+				selectedStds +=  $(selectedElement).text();
+			}
+			else{
+				selectedStds +=  ", " + $(selectedElement).text();
+			}
+			
+		});
+		document.getElementById("stdList").innerHTML = "<strong style='font-size: 135%;'>"+selectedStds+"</Strong>";
+	}
+	
+	function getFinalTotal(updateRowId){
+		
+		var c = document.getElementById("feeTypeCheck"+updateRowId);
+		var tr = document.getElementById("editFeeTR"+updateRowId).children;
+		
+		if(c.checked){	
+			totalStdFess = +totalStdFess+ +tr[2].innerHTML+ +tr[3].innerHTML;
+		}
+		else{		
+			totalStdFess = +totalStdFess- +tr[2].innerHTML- +tr[3].innerHTML;
+		}
+		
+		document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
+		
+	}
+	
 	function saveUpdateFees(updateRowId, updateId) {
 	
 		var tr = document.getElementById("editFeeTR"+updateRowId).children;
@@ -340,6 +409,13 @@ z-index: 999999">
 		tr[3].setAttribute('id', 'editFeeTD2');
 		
 		$("#editFeeTD1").focus();
+			
+		$("#editFeeTD1").click(function(evt){
+			$("#editFeeTD1").focus();
+		});
+		$("#editFeeTD2").click(function(evt){
+			$("#editFeeTD2").focus();
+		});
 		
 		$("#editFeeTD1, #editFeeTD2").keypress(function(evt)
 		{		
@@ -375,33 +451,27 @@ z-index: 999999">
 			if (c[i].checked){
 				checked++;
 				var tr = document.getElementById("editFeeTR"+c[i].value).children;
-				alert(tr[0].id);
+				//alert(tr[0].id);
 				finalArray.push(tr[0].id);
 				finalArray.push(tr[1].innerHTML);
 				finalArray.push(tr[2].innerHTML);
 				finalArray.push(tr[3].innerHTML);
-				finalArray.push( document.getElementById("feeTypePriority_"+c[i].value).checked );
+				
+				//finalArray.push( document.getElementById("feeTypePriority_"+c[i].value).checked );
 			}
 		}	
 		
 		document.getElementById("tableData").value = finalArray;
-		alert(document.getElementById("tableData").value );	
+		//alert(document.getElementById("tableData").value);
 	}
 	
 	
-	var fixHelper = function(e, ui) {  
-		  ui.children().each(function() {  
-		    $(this).width($(this).width());  
-		  });  
-		  return ui;  
-		};
-		
-		$("#sort tbody").sortable({  
-		 helper: fixHelper  
-		 }).disableSelection();  
+
 
 
 </script>
+</body>	
+
 <script type="text/javascript" src="/SMGMT/config/js/jquery.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/jquery-ui.js"></script>
 <script type="text/javascript">
@@ -425,4 +495,5 @@ $("#sort tbody").sortable({
 <!-- common js -->
 	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 <!-- common js -->
+
 </html>

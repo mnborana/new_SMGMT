@@ -100,35 +100,37 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 	}
 
 	@Override
-	public int insert(List<AssignStdWiseFeesPojo> asList) {
+	public int insert(List<AssignStdWiseFeesPojo> asList, String academicYear) {
 		
 		DBConnection dbConnect = new DBConnection();
 		Connection connection = dbConnect.getConnection();
 		int insertStatus = 0;
 		
 		Iterator<AssignStdWiseFeesPojo> itr = asList.iterator();
-		String insertQuery = "INSERT INTO `std_wise_fees_assignment`(`fk_class_master_id`, `fees_type_id`, `term_1_fees`, `term_2_fees`, `priority`) VALUES (?, ?, ?, ?, ?)";
+		String insertQuery = "INSERT INTO `std_wise_fees_assignment`(`fk_class_master_id`, `fees_type_id`, `term_1_fees`, `term_2_fees`, `priority`, `academic_year`) VALUES (?, ?, ?, ?, ?, ?)";
 		
-			try {
-				ps = connection.prepareStatement(insertQuery);
+		try {
+			ps = connection.prepareStatement(insertQuery);
+			
+			while(itr.hasNext()){
+				AssignStdWiseFeesPojo asPojo = itr.next();
 				
-				while(itr.hasNext()){
-					AssignStdWiseFeesPojo asPojo = itr.next();
-					
-					ps.setInt(1, asPojo.getFkClassMasterId());
-					ps.setInt(2, asPojo.getFeesTypeId());
-					ps.setInt(3, asPojo.getTermOneFees());
-					ps.setInt(4, asPojo.getTermTwoFees());
-					ps.setInt(5, asPojo.getPriority());
-					ps.addBatch();
-				}
+				ps.setInt(1, asPojo.getFkClassMasterId());
+				ps.setInt(2, asPojo.getFeesTypeId());
+				ps.setInt(3, asPojo.getTermOneFees());
+				ps.setInt(4, asPojo.getTermTwoFees());
+				ps.setInt(5, asPojo.getPriority());
+				ps.setString(6, academicYear);
 				
-				ps.executeBatch();
-				connection.close();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
+				ps.addBatch();
 			}
+			
+			ps.executeBatch();
+			connection.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return insertStatus;
 	}

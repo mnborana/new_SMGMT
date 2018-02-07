@@ -1,8 +1,10 @@
+<%@page import="com.servletStore.cashBook.cashBookEntry.model.CashBookEntryPOJO"%>
+<%@page import="com.servletStore.cashBook.cashBookEntry.model.CashBookEntryIMPL"%>
+<%@page import="com.servletStore.cashBook.cashBookEntry.model.CashBookEntryDAO"%>
 <%@page import="com.servletStore.cashBook.controller.CashBook"%>
 <%@page import="com.servletStore.cashBook.subAccount.model.SubAccountPOJO"%>
 <%@page import="com.servletStore.cashBook.subAccount.model.SubAccountIMPL"%>
 <%@page import="com.servletStore.cashBook.subAccount.model.SubAccountDAO"%>
-
 
 <%@page import="com.servletStore.setup.model.SetupPOJO"%>
 <%@page import="com.servletStore.setup.model.SetupImpl"%>
@@ -27,6 +29,7 @@
     <!-- global styles-->
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_jquery-validation-engine,_css,_validationEngine.jquery.css+vendors,_datepicker,_css,_bootstrap-datepicker.min.css+vendors,_datepicker,_css"/>
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_select2,_css,_select2.min.css+css,_pages,_dataTables.bootstrap.css+css,_pages,_tables.css.pagespeed.cc._6lRWz19bZ.css"/>
+	<link type="text/css" rel="stylesheet" href="/SMGMT/config/css,_components.css+css,_custom.css+vendors,_inputlimiter,_css,_jquery.inputlimiter.css+vendors,_bootstrap-colorpicker,_css,_bootstrap-colorpicker.min.css+vendors,_jquery-tagsinput,_c"/>
 	
 	
 	<link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/inputlimiter/css/jquery.inputlimiter.css"/>
@@ -43,6 +46,8 @@
     
     <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
+    
+    
    
 </head>
 
@@ -132,7 +137,7 @@
 											<h3>CashBook Entry</h3>
 										</div>
 										<div class="card-block m-t-35">
-										<form action="#" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
+										<form action="/SMGMT/CashBookEntry" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
 									
 										<div class="card-block">
 											<div class="row">
@@ -140,20 +145,65 @@
 													<div class="row">
 														<div class="form-group col-lg-4 input_field_sections">
 															<label for="academicYearId" class="col-form-label">Select CashBook *</label> 
-															<select	class="validate[required] form-control chzn-select"	name="selectCashBook"  required>
+															<%
+															CashBookEntryDAO dao=new CashBookEntryIMPL();
+															List<CashBookEntryPOJO> list=dao.selectCashBook();
+															Iterator<CashBookEntryPOJO> itr=list.iterator();															
+															%>
+															<select	class="validate[required] form-control chzn-select"	name="selectCashBook">
 																<option disabled selected>Select CashBook</option>
+																<%
+																while(itr.hasNext())
+																{
+																	CashBookEntryPOJO pojo=(CashBookEntryPOJO)itr.next();
+																	int id=((CashBookEntryPOJO)pojo).getId();
+																	String cashBookList=((CashBookEntryPOJO)pojo).getCashbook();
+																
+																%>
+																<option value="<%=id%>"><%=cashBookList %></option>
+																<%} %>
 															</select>
 														</div>
+														
 														<div class="form-group col-lg-4 input_field_sections">
 															<label for="stdId" class="col-form-label">Select Ledger *</label> 
-															<select class="form-control chzn-select" name="selectLedger"  required>
+															<%															
+															List<CashBookEntryPOJO> list1=dao.selectLedger();
+															Iterator<CashBookEntryPOJO> itr1=list1.iterator();
+															%>
+															<select class="form-control chzn-select" name="selectLedger" id="selectLedger" onchange="myFunction()">
 																<option disabled selected>Select Ledger</option>
+																<%
+																while(itr1.hasNext())
+																{
+																	CashBookEntryPOJO pojo=(CashBookEntryPOJO)itr1.next();
+																	int id=((CashBookEntryPOJO)pojo).getId();
+																	String selectLedger=((CashBookEntryPOJO)pojo).getLedgerName();
+																
+																%>
+																<option value="<%=id%>"><%=selectLedger %></option>
+																<%} %>
 															</select>
 														</div>
+														
 														<div class="form-group col-lg-4 input_field_sections">
 															<label for="stdId" class="col-form-label">Select Sub Account *</label> 
-															<select class="form-control chzn-select" name="selectSubAccount"  required>
+															<%
+															List<CashBookEntryPOJO> list2=dao.selectSubAccount();
+															Iterator<CashBookEntryPOJO> itr2=list2.iterator();
+															%>
+															<select class="form-control chzn-select" name="selectSubAccount">
 																<option disabled selected>Select SubAccount</option>
+																<%
+																while(itr2.hasNext())
+																{
+																	CashBookEntryPOJO pojo=(CashBookEntryPOJO)itr2.next();
+																	int id=((CashBookEntryPOJO)pojo).getId();
+																	String subAccount=((CashBookEntryPOJO)pojo).getSubAccountName();
+																
+																%>
+																<option value="<%=id%>"><%=subAccount %></option>
+																<%} %>
 															</select>
 														</div>
 													</div>
@@ -162,58 +212,69 @@
 													<div class="form-group col-lg-4 input_field_sections">
 														<label for="stdId" class="col-form-label">Select Account Type *</label> 
 														
-														<div class="col-lg-4">
-														<label class="custom-control custom-radio">
-	                                                        <input name="radio3" type="radio" class="custom-control-input" onclick="selectAccountType(this.value)" id="selectBoth" value="0">
-	                                                        <span class="custom-control-indicator"></span>
-	                                                        <span class="custom-control-description">Credit</span>
-	                                               		 </label>
-                                                
-		                                                <label class="custom-control custom-radio">
-		                                                        <input name="radio3" type="radio" class="custom-control-input" onclick="selectAccountType(this.value)" id="selectCredit" value="1">
+														<div class="form-group row" style="margin-left: 2px;">
+														
+														<input type="hidden" name="setBothType" id="setBothType"/>
+		                                               		 <label class="custom-control custom-checkbox">
+		                                               		 	<input type="hidden" name="getCreditValue" id="setCredit">
+		                                                        <input type="checkbox" class="custom-control-input" onclick="selectAccountCredit(this.value)" id="selectCredit" value="1">
+		                                                        <span class="custom-control-indicator"></span>
+		                                                        <span class="custom-control-description">Credit</span>
+	                                                 	  	 </label>
+	                                                		                                 
+			                                                <label class="custom-control custom-checkbox">
+			                                            	    <input type="hidden" name="getDebitValue" id="setDebit">
+		                                                        <input type="checkbox" class="custom-control-input" onclick="selectAccountDebit(this.value)" id="selectDebit" value="2">
 		                                                        <span class="custom-control-indicator"></span>
 		                                                        <span class="custom-control-description">Debit</span>
-		                                                </label>                                      
+	                                                 	  	 </label>                                 
 														</div>	
+														
 													</div>	
 														
 														<div class="form-group col-lg-4 input_field_sections">
 														<label for="stdId" class="col-form-label">Select Ttransaction Type *</label> 
 														
-														<div class="col-lg-4">
-														<label class="custom-control custom-radio">
-	                                                        <input name="radio3" type="radio" class="custom-control-input" onclick="selectAccountType(this.value)" id="selectBoth" value="0">
-	                                                        <span class="custom-control-indicator"></span>
-	                                                        <span class="custom-control-description">Cash</span>
-	                                               		 </label>
-                                                
-		                                                <label class="custom-control custom-radio">
-		                                                        <input name="radio3" type="radio" class="custom-control-input" onclick="selectAccountType(this.value)" id="selectCredit" value="1">
+															
+															<div class="form-group row" style="margin-left: 2px;">
+															<label class="custom-control custom-radio" >
+															<input type="hidden" name="setCash" id="setCashT">
+		                                                        <input name="radio3" type="radio" class="custom-control-input" onclick="selectAccountCash()" id="selectCash" value="0">
 		                                                        <span class="custom-control-indicator"></span>
-		                                                        <span class="custom-control-description">Bank</span>
-		                                                </label>                                      
-														</div>	
+		                                                        Cash
+		                                               		 </label>
+	                                                
+			                                                <label class="custom-control custom-radio">
+			                                                		<input type="hidden" name="setBankT" id="setBankT">
+			                                                        <input name="radio3" type="radio" class="custom-control-input" onclick="selectAccountBank()" id="selectBank" value="1">
+			                                                        <span class="custom-control-indicator"></span>
+			                                                        Bank
+			                                                </label>    
+			                                                </div>                                  
 														</div>	
 														
-														<div class="form-group col-lg-4 input_field_sections">
-															<label for="admission_date" class="col-form-label">Admission
-																Date *</label>
-															<div class="input-group input-append date" id="dp1"
-																data-date-format="dd-mm-yyyy">
-																<input type="text" class="form-control form_val_popup"
-																	name="admissionDate" id="admissionDate"
-																	placeholder="dd-mm-yyyy" required> <span
-																	class="input-group-addon add-on"> <i
-																	class="fa fa-calendar"></i>
-																</span>
-															</div>
-														</div>					
+														  <div class="col-lg-4 input_field_sections">
+					                                            <label for="stdId" class="col-form-label">Select Date *</label> 
+					                                           <%
+					                                           
+					                                           SysDate requireDate=new SysDate();
+					                                           String[] currentDate=requireDate.todayDate().split("-");
+					                                           %>
+					                                                <div class="input-group input-append date" id="dp3" data-date-format="dd-mm-yyyy">
+					                                                    <input class="form-control" type="text" name="requiredDate" placeholder="dd-mm-yyyy" value="<%=currentDate[2]+"-"+currentDate[1]+"-"+currentDate[0]%>">
+					                                                    <span class="input-group-addon add-on">
+					                                                    <i class="fa fa-calendar"></i>
+					                                                </span>
+					                                                </div>
+					                                            
+					                                        </div>
+												 	
 													</div>
 													
-													<div class="row">													
-														<div class="form-group col-lg-4 input_field_sections">
+													<div class="row" id="hideShowBank">													
+														<div class="form-group col-lg-4 input_field_sections" >
 																<label for="academicYearId" class="col-form-label">Bank Name *</label> 
-																<select	class="validate[required] form-control chzn-select"	name="selectCashBook"  required>
+																<select	class="validate[required] form-control chzn-select"	name="selectBankName" id="selectBankId">
 																	<option disabled selected>Select BankName</option>
 																</select>
 														</div>													
@@ -222,12 +283,12 @@
 													<div class="row">													
 														<div class="form-group col-lg-4 input_field_sections">
 																<label for="academicYearId" class="col-form-label">Amount *</label> 
-																<input type="text" id="required2" name="getAccountName" pattern="[A-Za-z]" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required>
+																<input type="text" id="required2" name="getAccountName" class="form-control">
 														</div>
 														
 														<div class="form-group col-lg-4 input_field_sections">
 																<label for="academicYearId" class="col-form-label">Description *</label> 
-																<input type="text" id="required2" name="getAccountName" pattern="[A-Za-z]" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required>
+																<input type="text" id="required2" name="description" pattern="[A-Za-z]" onkeyup="this.value = this.value.toUpperCase()" class="form-control" required>
 														</div>													
 													</div>
 													
@@ -237,7 +298,7 @@
 											</div>
 											<div class="form-actions form-group row">
 												<div class="col-lg-4 push-lg-4">
-													<button type="submit" name="CashBookEntryBTN" class="btn btn-success" >Submit</button>
+													<button type="submit" name="cashBookBTN" class="btn btn-success" >Submit</button>
 													<button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
 												</div>
 											</div>
@@ -293,6 +354,7 @@
     
     
     
+    
 <!-- plugin level scripts -->
 <script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
@@ -314,26 +376,71 @@
 
 <script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
-
+<script type="text/javascript" src="/SMGMT/config/js/pages/datetime_piker.js"></script>
 
 
 <script type="text/javascript">
 
-function loadFunction()
+
+function selectAccountCash()
 {
-	<%
-	if(session.getAttribute("flag")!=null){ %>
-	$(window).load(function () {
-	    iziToast.show({
-	        title: 'Success',
-	        message: '<%=session.getAttribute("flag").toString()%>',
-	        color:'#cc7fe5',       //'#00cc99'
-	        position: 'topCenter'
-	    });
-	    return false;
-	});
-	<%} session.removeAttribute("flag");%>
+
+	var y=document.getElementById("selectCash").value;
+	alert(y);
+	document.getElementById("setCashT").value=y;
+	$("#hideShowBank").hide();
+	
+		               
 }
+function selectAccountBank()
+{
+	var x=document.getElementById("selectBank").value;
+	alert(x);
+	document.getElementById("setBankT").value=x;
+	document.getElementById('selectCash').disabled=true;
+	document.getElementById('setCashT').disabled=true;
+	$('#hideShowBank').show();
+} 
+
+function myFunction()
+{
+	var x=document.getElementById("selectLedger").value;
+	alert(x);
+		
+	
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			
+			var getType = this.responseText.split();
+			alert(getType);
+			if(getType==0)
+			{
+			
+			x1=0;
+			document.getElementById('selectCredit').checked = true;
+			document.getElementById('selectDebit').checked = true;;
+			document.getElementById('setBothType').value=x1;
+			}
+			else if(getType==1)
+				{
+				document.getElementById('selectCredit').checked = true;
+				document.getElementById('setCredit').value=getType;
+				}
+			else
+				{
+				document.getElementById("selectDebit").checked = true;
+				document.getElementById("setDebit").value=getType;
+				}
+		}
+		};
+		
+	xhttp.open("POST","/SMGMT/CashBookEntry?ledgerId="+x, true);
+	xhttp.send();
+}
+
+
 </script>
 </body>
 

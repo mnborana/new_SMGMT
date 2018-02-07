@@ -301,9 +301,7 @@
 	function selectCast()
 	{
 		var student_id = document.getElementById('student_id').value;
-		
 		var standard_id = document.getElementById('standard_id').value;
-		
 		var xhttp =new XMLHttpRequest();
 		
 		var sum=0;

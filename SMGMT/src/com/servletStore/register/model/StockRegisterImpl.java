@@ -189,5 +189,63 @@ public class StockRegisterImpl implements StockRegisterDAO{
 		
 	}
 
+	@Override
+	public List<StockRegisterPojo> selectItemName() {
+		List<StockRegisterPojo> list=new ArrayList<>();
+		String selectItemName="SELECT stock_register_master.id,stock_register_master.item_name FROM stock_register_master";
+		try {
+			pstmt = connection.prepareStatement(selectItemName);
+			ResultSet rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				StockRegisterPojo pojo=new StockRegisterPojo();
+				pojo.setId(rs.getInt(1));
+				pojo.setItemName(rs.getString(2));
+				list.add(pojo);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+
+	@Override
+	public StockRegisterPojo getItemName(String itemId) {
+		StockRegisterPojo pojo=new StockRegisterPojo();
+		String itemName="SELECT stock_register_master.item_name FROM stock_register_master WHERE stock_register_master.id="+itemId+"";
+		try {
+			pstmt = connection.prepareStatement(itemName);
+			ResultSet rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				pojo.setItemName(rs.getString(1));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return pojo;
+	}
+
+	@Override
+	public List<StockRegisterPojo> selectSchoolDetails(String schoolId) {
+		List<StockRegisterPojo> schoolList=new ArrayList<>();
+		String selectQuery="SELECT trustee_info.edu_society_name,school_master.name,school_master.address FROM trustee_info,school_master WHERE school_master.id="+schoolId+"";
+		try {
+			pstmt = connection.prepareStatement(selectQuery);
+			ResultSet rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				StockRegisterPojo pojo1=new StockRegisterPojo();
+				pojo1.setTrustyName(rs.getString(1));
+				pojo1.setSchoolName(rs.getString(2));
+				pojo1.setSchoolAddress(rs.getString(3));
+				schoolList.add(pojo1);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return schoolList;
+	}		
+	
 	
 }

@@ -31,13 +31,13 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class InwardRegister extends HttpServlet {
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 	
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		InwardRegisterDAO impl=new InwardRegisterImpl();
-		DBConnection conn=new DBConnection();
-		Connection connection=conn.getConnection();
+		
 		HttpSession session=request.getSession();  
         
 		
@@ -217,23 +217,42 @@ public class InwardRegister extends HttpServlet {
 		
 		if(submitprint!=null)
 		{
+			String schoolId=request.getParameter("schoolId");
+			System.out.println("school idis:"+schoolId);
+			System.out.println("school id in servlet:"+schoolId);
+			String trustyName="",schoolName="",schoolAddress="";
+			List<InwardRegisterPojo> list11 =impl.selectSchoolDetails(schoolId);
+			Iterator<InwardRegisterPojo> itr11=list11.iterator();
+			while(itr11.hasNext())
+			{
+				InwardRegisterPojo pojo=(InwardRegisterPojo)itr11.next();
+				 trustyName=((InwardRegisterPojo)pojo).getTrustyName();
+				 schoolName=((InwardRegisterPojo)pojo).getSchoolName();
+				 schoolAddress=((InwardRegisterPojo)pojo).getSchoolAddress();
+			}
+			
 			
 			String getFromToDate[]=new String[100];
 			String[] getDate=request.getParameter("getFromToDate").split("-");
 			String[] fromDate=getDate[0].split("/");
-			String fDate=fromDate[2].trim()+"-"+fromDate[1]+"-"+fromDate[0];
+			String fDate=fromDate[2].trim()+"-"+fromDate[0]+"-"+fromDate[1];
 			String[] toDate=getDate[1].split("/");
-			String tDate=toDate[2]+"-"+toDate[1]+"-"+toDate[0].trim();
-			
+			String tDate=toDate[2]+"-"+toDate[0].trim()+"-"+toDate[1];
+			System.out.println("1:"+fDate+"\n2:"+tDate);
 			
 			try{
+			DBConnection conn=new DBConnection();
+			Connection connection=conn.getConnection();
 			net.sf.jasperreports.engine.JasperReport jasperReport = null;
 			JasperDesign jasperDesign = null;
 			Map parameters = new HashMap();
-			parameters.put("fDate", fDate);
-			parameters.put("tDate", tDate);
+			parameters.put("fDate", ""+fDate+"");
+			parameters.put("tDate", ""+tDate+"");
+			parameters.put("trustyName", trustyName);
+			parameters.put("schoolName", schoolName);
+			parameters.put("schoolAddress", schoolAddress);
 			
-			
+			System.out.println(parameters.get("fDate")+" "+parameters.get("tDate")+" "+parameters.get("trustyName")+" "+parameters.get("schoolName")+" "+parameters.get("schoolAddress"));
 			String path = getServletContext().getRealPath("/WEB-INF/");
 			jasperDesign = JRXmlLoader.load(path + "/jasperReport/InwardRegisterReport.jrxml");
 			jasperReport = JasperCompileManager.compileReport(jasperDesign);
@@ -244,8 +263,8 @@ public class InwardRegister extends HttpServlet {
 			e.printStackTrace();
 		}
 			
+			response.sendRedirect("View/register/Report/InwardRegister.jsp");
 			
-			response.sendRedirect("/SMGMT/View/register/Report/InwardRegister.jsp");
 		}
 		
 	}

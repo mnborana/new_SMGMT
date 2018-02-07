@@ -11,5 +11,7 @@ public interface StockRegisterDAO {
 	public List<StockRegisterPojo> selectStock(int stockId);
 	public List<StockRegisterPojo> setItemInModel();
 	public void deleteStock(int id);
-
+	public List<StockRegisterPojo> selectItemName();
+	public StockRegisterPojo getItemName(String itemId);
+	public List selectSchoolDetails(String schoolId);
 }
