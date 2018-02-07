@@ -28,6 +28,7 @@ public class AssignFee extends HttpServlet {
 	  PrintWriter out = response.getWriter();
 	  String standard_id = request.getParameter("standard_id");
 	  String student_id = request.getParameter("student_id");
+	  
 	  FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
 	  HttpSession session = request.getSession();
 	
@@ -63,11 +64,12 @@ public class AssignFee extends HttpServlet {
 		
 		//for getting cast wise fee for particular student
 		if(student_id!=null)
-		{	
+		{
+			String standard = request.getParameter("standard");
+			System.out.println(standard);
 			try
 			{
 				String cast = feesCollectionDAO.getStudentCast(student_id);
-				String standard = request.getParameter("standard");
 				List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id, standard);
 				
 				Iterator iterator = castFee.iterator();
