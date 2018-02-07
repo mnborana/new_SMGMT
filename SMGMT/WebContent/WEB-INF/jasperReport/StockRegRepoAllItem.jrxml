@@ -5,9 +5,6 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Common  Data Adapter "/>
-	<parameter name="itemName" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{itemName}]]></defaultValueExpression>
-	</parameter>
 	<parameter name="trustyName" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$P{trustyName}]]></defaultValueExpression>
 	</parameter>
@@ -18,7 +15,7 @@
 		<defaultValueExpression><![CDATA[$P{schoolAddress}]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT stock_register_master.item_name,stock_register_master.voucher_no,stock_register_master.item_amount,stock_register_master.number_of_items,stock_register_master.deduction_amount,stock_register_master.total_amount,stock_register_master.percentage,stock_register_master.description FROM stock_register_master WHERE stock_register_master.item_name=$P{itemName}]]>
+		<![CDATA[SELECT stock_register_master.item_name,stock_register_master.voucher_no,stock_register_master.item_amount,stock_register_master.number_of_items,stock_register_master.deduction_amount,stock_register_master.total_amount,stock_register_master.percentage,stock_register_master.description FROM stock_register_master]]>
 	</queryString>
 	<field name="item_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="item_name"/>
@@ -80,12 +77,12 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="113" splitType="Stretch"/>
+		<band height="117" splitType="Stretch"/>
 	</title>
 	<pageHeader>
 		<band height="40" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="800" height="40" uuid="1a90aa93-95bb-415a-a2c2-2714beb659cc"/>
+				<reportElement x="0" y="0" width="780" height="40" uuid="1a90aa93-95bb-415a-a2c2-2714beb659cc"/>
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
@@ -95,7 +92,7 @@
 				<text><![CDATA[Ded Stock]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="-113" width="800" height="113" uuid="b5f84ca3-1f49-404f-b443-9f858ff5d0ca"/>
+				<reportElement x="0" y="-117" width="780" height="117" uuid="b5f84ca3-1f49-404f-b443-9f858ff5d0ca"/>
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
@@ -103,21 +100,21 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="90" y="-110" width="610" height="30" uuid="dd6effc2-6cfc-41c8-ab73-a8d9abe1c3b2"/>
+				<reportElement x="90" y="-112" width="610" height="30" uuid="b8692210-b839-4463-a721-387119f969b7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{trustyName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="90" y="-80" width="610" height="29" uuid="db66350a-1401-4437-9be9-668ed8146a99"/>
+				<reportElement x="90" y="-78" width="610" height="31" uuid="b6ec931a-b716-40f3-8ede-c990ca24ddeb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{schoolName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="90" y="-40" width="610" height="30" uuid="86ee7ede-b4bf-4456-b671-6a2bb30ca0eb"/>
+				<reportElement x="90" y="-41" width="610" height="30" uuid="eef86dc1-24d2-4d9a-a023-62240b5facf6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -212,7 +209,7 @@
 				<text><![CDATA[Deduction Amt]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="690" y="0" width="110" height="42" uuid="8ad3e1bd-7291-4cb1-9dfe-dd431f536d4f">
+				<reportElement x="690" y="0" width="90" height="42" uuid="8ad3e1bd-7291-4cb1-9dfe-dd431f536d4f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1bd2ecc5-0141-454a-b85c-91f2c40e1355"/>
 				</reportElement>
 				<box>
@@ -255,7 +252,8 @@
 					<pen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{voucher_no} == null ? '-' : $F{voucher_no}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{voucher_no} ==null ? '-' : $F{voucher_no}]]></textFieldExpression>
+				<patternExpression><![CDATA[$F{item_name}.replace( " ", "-" )]]></patternExpression>
 			</textField>
 			<textField>
 				<reportElement x="230" y="0" width="90" height="41" uuid="5c6e904d-ba1c-4015-bc85-2c57939be66c">
@@ -265,7 +263,7 @@
 					<pen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{item_amount} == null ? '-' : $F{item_amount}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{item_amount} ==null ? '-' : $F{item_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="320" y="0" width="90" height="41" uuid="ae3251fc-c9c0-45f5-ba05-ddaacdf2be5b">
@@ -274,7 +272,7 @@
 				<box>
 					<pen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{number_of_items} == null ? '-' : $F{number_of_items}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -285,7 +283,7 @@
 					<pen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{deduction_amount} == null ? '-' : $F{deduction_amount}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deduction_amount} ==null ? '-' : $F{deduction_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="510" y="0" width="110" height="41" uuid="8bcdd395-ad44-4a11-9288-056416b95399">
@@ -308,7 +306,7 @@
 				<textFieldExpression><![CDATA[$F{percentage} == null ? '-' : $F{percentage}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="690" y="0" width="110" height="41" uuid="67f9df33-52c8-4130-8846-2068267cc7eb">
+				<reportElement x="690" y="0" width="90" height="41" uuid="67f9df33-52c8-4130-8846-2068267cc7eb">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1bd2ecc5-0141-454a-b85c-91f2c40e1355"/>
 				</reportElement>
 				<box>

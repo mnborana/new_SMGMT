@@ -5,10 +5,23 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Common  Data Adapter "/>
-	<parameter name="fDate" class="java.lang.String"/>
-	<parameter name="tDate" class="java.lang.String"/>
+	<parameter name="fDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{fDate}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{tDate}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="trustyName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{trustyName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolAddress" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolAddress}]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT inward_register_master.inward_no,inward_register_master.date,inward_register_master.sender_name,inward_register_master.subject,inward_outward_document_master.document_name FROM inward_register_master,inward_outward_document_master WHERE inward_register_master.document_id=inward_outward_document_master.id AND inward_register_master.date BETWEEN "2018-01-11" AND "2018-01-20"]]>
+		<![CDATA[SELECT inward_register_master.inward_no,inward_register_master.date,inward_register_master.sender_name,inward_register_master.subject,inward_outward_document_master.document_name FROM inward_register_master,inward_outward_document_master WHERE inward_register_master.document_id=inward_outward_document_master.id AND inward_register_master.date BETWEEN $P{fDate} AND $P{tDate}]]>
 	</queryString>
 	<field name="inward_no" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="inward_no"/>
@@ -56,16 +69,35 @@
 			<staticText>
 				<reportElement x="0" y="32" width="800" height="40" uuid="78b413fb-32d8-4475-b680-34a9c3d9e7e5"/>
 				<box>
-					<pen lineWidth="0.25"/>
+					<pen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="40" width="81" height="21" uuid="e941dbbd-3e91-4fe8-9e00-0a3bd94fae0d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[From]]></text>
+				<reportElement x="170" y="40" width="60" height="21" uuid="95be5c80-dbaa-415c-9b20-8fb06705ec9d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[From :]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="420" y="40" width="70" height="21" uuid="32e96b71-a942-446f-92a6-d074cc3466a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[To :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="40" width="90" height="21" uuid="264c7324-fd1b-4944-882f-154a76506c75"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{fDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="40" width="90" height="21" uuid="67810b1f-5bd6-4c59-914c-42741e03b1ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{tDate}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -133,7 +165,7 @@
 			<staticText>
 				<reportElement x="0" y="-72" width="800" height="32" uuid="a6db1e5c-4995-41e8-ab2a-94c205ccd878"/>
 				<box>
-					<pen lineWidth="0.25"/>
+					<pen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
@@ -143,11 +175,32 @@
 			<staticText>
 				<reportElement x="0" y="-181" width="800" height="109" uuid="9c43bb13-692f-4457-a49f-b4130d0f6c0a"/>
 				<box>
-					<pen lineWidth="0.25"/>
+					<pen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="100" y="-177" width="590" height="30" uuid="a781d745-f753-4d55-84d8-faaafdeda756"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{trustyName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="-143" width="590" height="27" uuid="a0f20405-e37a-4478-aaa9-99e19d11887e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="-110" width="590" height="30" uuid="703b9a4a-572b-46a3-abf5-c48e1c6697be"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolAddress}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>

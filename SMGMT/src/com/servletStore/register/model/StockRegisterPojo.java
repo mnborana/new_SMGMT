@@ -2,7 +2,7 @@ package com.servletStore.register.model;
 
 public class StockRegisterPojo {
 	int id,noOfItems,voucherNo;
-	String requireddate,itemName,itemAmt,deductionAmt,percentage,totalAmt,description;
+	String requireddate,itemName,itemAmt,deductionAmt,percentage,totalAmt,description,trustyName,schoolName,schoolAddress;
 	public int getId() {
 		return id;
 	}
@@ -62,6 +62,25 @@ public class StockRegisterPojo {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+		
+	}
+	public String getTrustyName() {
+		return trustyName;
+	}
+	public void setTrustyName(String trustyName) {
+		this.trustyName = trustyName;
+	}
+	public String getSchoolName() {
+		return schoolName;
+	}
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+	public String getSchoolAddress() {
+		return schoolAddress;
+	}
+	public void setSchoolAddress(String schoolAddress) {
+		this.schoolAddress = schoolAddress;
 	}
 
 }

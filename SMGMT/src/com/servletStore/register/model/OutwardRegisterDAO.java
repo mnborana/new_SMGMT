@@ -29,6 +29,8 @@ public interface OutwardRegisterDAO  {
 	
 	public List searchName(String input);
 	
+	public List<OutwardRegisterPojo> selectSchoolDetails(String schoolId);
+	
 	
 	
 
