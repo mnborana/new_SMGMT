@@ -40,7 +40,6 @@ public class AssignStdWiseFees extends HttpServlet {
 			int count=1;
 			//System.out.println(stds[i]);
 			for(int j=0; j<tableData.length; j++){
-				System.out.println("####### "+tableData[j]);
 				aspojo = new AssignStdWiseFeesPojo();
 				aspojo.setFkClassMasterId(Integer.parseInt(stds[i]));
 				aspojo.setFeesTypeId(Integer.parseInt(tableData[j]));

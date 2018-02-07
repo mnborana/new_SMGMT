@@ -205,7 +205,14 @@ z-index: 999999">
 							                                    <table id="sort" class="table  table-striped table-bordered table-hover dataTable no-footer">
 							                                        <thead>
 							                                        <tr>
-							                                            <th></th>
+							                                            <th>
+							                                            	<div class='checkbox'>
+															                	<label class='text-mint'>	
+															                    	<input type='checkbox' onclick="selectAllChecks()" id='selectAllCheck' >
+															                    	<span class='cr'><i class='cr-icon fa fa-check'></i></span>
+															                	</label>
+																    		</div>
+							                                            </th>
 							                                            <th>Fees Type</th>
 							                                            <th>Term One Fees</th>
 							                                            <th>Term Two Fees</th>
@@ -309,17 +316,39 @@ z-index: 999999">
 </div>
 <!-- /#wrap -->
 <!-- global scripts-->
-
-
-<!-- common js -->
-	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
-<!-- common js -->
-
-</body>	
 <script type="text/javascript">
 
 	var totalStdFess = 0;
 	
+	function selectAllChecks(){
+		var c = document.getElementsByName('feeTypeCheck');
+		var finalArray = [];
+		totalStdFess = 0;
+		
+		if(document.getElementById('selectAllCheck').checked){
+			for(var i=0;i<c.length;i++)
+			{
+				c[i].checked=true;
+				var d = document.getElementById("feeTypeCheck"+(i+1));
+				var tr = document.getElementById("editFeeTR"+(i+1)).children;
+				
+				if(d.checked){	
+					totalStdFess = +totalStdFess+ +tr[2].innerHTML+ +tr[3].innerHTML;
+				}
+				alert(totalStdFess);
+				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
+			}
+		}
+		else
+		{
+			for(var i=0;i<c.length;i++)
+			{
+				c[i].checked=false;
+				
+				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
+			}
+		}
+	}
 	
 	function setStds() {
 		var selectedStds = "";
@@ -437,19 +466,12 @@ z-index: 999999">
 	}
 	
 	
-	var fixHelper = function(e, ui) {  
-		  ui.children().each(function() {  
-		    $(this).width($(this).width());  
-		  });  
-		  return ui;  
-		};
-		
-		$("#sort tbody").sortable({  
-		 helper: fixHelper  
-		 }).disableSelection();  
+
 
 
 </script>
+</body>	
+
 <script type="text/javascript" src="/SMGMT/config/js/jquery.min.js"></script>
 <script type="text/javascript" src="/SMGMT/config/js/jquery-ui.js"></script>
 <script type="text/javascript">
@@ -473,4 +495,5 @@ $("#sort tbody").sortable({
 <!-- common js -->
 	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 <!-- common js -->
+
 </html>

@@ -67,8 +67,8 @@ public class AssignFee extends HttpServlet {
 			try
 			{
 				String cast = feesCollectionDAO.getStudentCast(student_id);
-			
-				List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id);
+				String standard = request.getParameter("standard");
+				List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id, standard);
 				
 				Iterator iterator = castFee.iterator();
 				
