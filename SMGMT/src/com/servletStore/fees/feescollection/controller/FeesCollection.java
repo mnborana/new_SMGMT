@@ -64,7 +64,6 @@ public class FeesCollection extends HttpServlet {
 		
 		if(feesCollection_btn!=null){
 			
-			System.out.println("HIIIIIIIIIIIIIIIIII");
 			String stdId = request.getParameter("standard_id");
 			String studId = request.getParameter("student_id");
 			String remainingFees = request.getParameter("remaining_fees");
