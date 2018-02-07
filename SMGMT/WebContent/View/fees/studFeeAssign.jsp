@@ -139,10 +139,6 @@
 	                                            </div>
 	                                            
 	                                            	<%
-			                                        
-			                        					DateFormat df = new SimpleDateFormat("DD-MM-YYYY");
-			                        					String currentDate = df.format(new Date()).toString();
-                                                    	System.out.println(currentDate);
 			                                        	FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
 			                                        	request.setAttribute("list", feesCollectionDAO.getStadardDivisionDetails(schoolId));
 			                                        %>
@@ -205,7 +201,7 @@
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Assign Fee" name="assign"  id="assign" class="btn btn-primary">
+                                                    <input type="submit" value="Assign Fee" name="assign"  id="assign" class="btn btn-primary" disabled="disabled">
                                                 </div>
                                             </div>
                                         </form>
@@ -448,13 +444,8 @@
 						alert('Fee not assinged for this class assign it first');	
 						document.getElementById("assign").disabled = true;
 					}
-					else
-					{
-						document.getElementById("assign").disabled = false;
-					}
 					
-					
-					 for(var i=0;i < fee.length-1;i=i+3)
+					for(var i=0;i < fee.length-1;i=i+3)
 					{
 					 	tableData+="<tr id='row"+count+"'>"
 						+"<td>"+count+"</td>"
