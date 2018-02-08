@@ -2,8 +2,11 @@ package com.servletStore.register.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -12,9 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dbconnect.DBConnection;
+import com.servletStore.register.model.InwardRegisterPojo;
 import com.servletStore.register.model.StockRegisterDAO;
 import com.servletStore.register.model.StockRegisterImpl;
 import com.servletStore.register.model.StockRegisterPojo;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 
@@ -129,6 +142,84 @@ public class StockRegister extends HttpServlet {
 			int stockId=Integer.parseInt(id);
 			stockdao.deleteStock(stockId);
 			response.sendRedirect("View/register/stockRegister.jsp");	
+		}
+		
+		String submitBTN=request.getParameter("submitStockBTN");
+		if(submitBTN!=null)
+		{
+			String selectCheck=request.getParameter("checkALL");
+			String itemId=request.getParameter("selectItemName");
+			System.out.println("item id:"+itemId);
+			String schoolId=request.getParameter("schoolId");
+			String trustyName="",schoolName="",schoolAddress="";
+			List<StockRegisterPojo> list11 =stockdao.selectSchoolDetails(schoolId);
+			Iterator<StockRegisterPojo> itr11=list11.iterator();
+			while(itr11.hasNext())
+			{
+				 StockRegisterPojo pojo11=(StockRegisterPojo)itr11.next();
+				 trustyName=((StockRegisterPojo)pojo11).getTrustyName();
+				 schoolName=((StockRegisterPojo)pojo11).getSchoolName();
+				 schoolAddress=((StockRegisterPojo)pojo11).getSchoolAddress();
+			}
+			
+			if(itemId!=null){
+				System.out.println("hii");
+				StockRegisterPojo pojo1=stockdao.getItemName(itemId);
+				String itemName=pojo1.getItemName();
+				System.out.println("item name is:"+itemName);			
+				
+				try{
+				DBConnection conn=new DBConnection();
+				Connection connection=conn.getConnection();
+				net.sf.jasperreports.engine.JasperReport jasperReport = null;
+				JasperDesign jasperDesign = null;
+				Map parameters = new HashMap();
+				parameters.put("itemName", itemName);
+				parameters.put("trustyName", trustyName);
+				parameters.put("schoolName", schoolName);
+				parameters.put("schoolAddress", schoolAddress);
+			
+				System.out.println(parameters.get("fDate")+" "+parameters.get("tDate")+" "+parameters.get("trustyName")+" "+parameters.get("schoolName")+" "+parameters.get("schoolAddress"));
+				String path = getServletContext().getRealPath("/WEB-INF/");
+				jasperDesign = JRXmlLoader.load(path + "/jasperReport/StockRegisterReport.jrxml");
+				jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
+		        JasperViewer.viewReport(jasperPrint, false);
+				
+			} catch (JRException e) {
+				e.printStackTrace();
+			}
+				
+			} 
+			else if(selectCheck.equals("1"))
+			{
+				try{
+				DBConnection conn=new DBConnection();
+				Connection connection=conn.getConnection();
+				net.sf.jasperreports.engine.JasperReport jasperReport = null;
+				JasperDesign jasperDesign = null;
+				Map parameters = new HashMap();
+				parameters.put("trustyName", trustyName);
+				parameters.put("schoolName", schoolName);
+				parameters.put("schoolAddress", schoolAddress);
+				
+				System.out.println(parameters.get("fDate")+" "+parameters.get("tDate")+" "+parameters.get("trustyName")+" "+parameters.get("schoolName")+" "+parameters.get("schoolAddress"));
+				String path = getServletContext().getRealPath("/WEB-INF/");
+				jasperDesign = JRXmlLoader.load(path + "/jasperReport/StockRegRepoAllItem.jrxml");
+				jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
+		        JasperViewer.viewReport(jasperPrint, false);
+				
+			} catch (JRException e) {
+				e.printStackTrace();
+			}
+				
+				
+			}
+			
+			
+			response.sendRedirect("View/register/Report/StockRegister.jsp");
+			
 		}
 		
 		

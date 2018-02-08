@@ -24,6 +24,8 @@
    
 </head>
 <%
+
+
 	String schoolId = "0";
 	String academicYear = "0";
 	int roll=0;

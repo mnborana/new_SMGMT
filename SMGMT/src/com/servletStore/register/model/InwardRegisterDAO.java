@@ -30,6 +30,7 @@ public interface InwardRegisterDAO {
 	public List searchName(String input);
 	
 	public List<InwardRegisterPojo> selectInwardDetails(String input1,String input2);
+	public List selectSchoolDetails(String schoolId);
 	
 	
 	

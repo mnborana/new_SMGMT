@@ -188,6 +188,12 @@
                                 </a>
                             </li>
                             
+							 <li>
+                                <a href="/SMGMT/View/settings/addBank/addBank.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Add Bank
+                                </a>
+                            </li>
                             <li>
                                 <a href="/SMGMT/View/settings/classRoom/classRoom.jsp">
                                     <i class="fa fa-angle-right"></i>
@@ -275,12 +281,7 @@
                                     &nbsp; Description
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Bank Name
-                                </a>
-                            </li>
+                           
                             <li>
                                 <a href="#">
                                     <i class="fa fa-angle-right"></i>
@@ -421,6 +422,19 @@
                                     <span class="link-title">&nbsp; General Register</span>
                                 </a>
                             </li>
+							 <li>
+                                <a href=" /SMGMT/View/report/studAddressInfo.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Student Address Info</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href=" /SMGMT/View/report/StudentGeneralInfo.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Student General Info</span>
+                                </a>
+                            </li>
+							
                                                    
                         </ul>
                     </li>
@@ -575,20 +589,20 @@
                         </a>
                         <ul>
                           
-                            <li>
+                             <li>
                                 <a href="/SMGMT/View/register/Report/InwardRegister.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Inward Register
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="/SMGMT/View/register/Report/OutwardRegister.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Outward Register
                                 </a>
                             </li>
                             <li>
-                                <a href="/SMGMT/View/register/stockRegister.jsp">
+                                <a href="/SMGMT/View/register/Report/StockRegister.jsp">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Stock Register
                                 </a>
