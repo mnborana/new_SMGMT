@@ -36,7 +36,7 @@
 
 <body onload="loadFunction()">
 	<%
-	session.setAttribute("schoolId", "2");
+	session.setAttribute("schoolId", "1");
 	String schoolId=session.getAttribute("schoolId").toString();
 	%>
 	<div class="preloader"
