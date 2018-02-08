@@ -328,14 +328,15 @@ z-index: 999999">
 		if(document.getElementById('selectAllCheck').checked){
 			for(var i=0;i<c.length;i++)
 			{
-				c[i].checked=true;
+				//c[i].checked=true;
 				var d = document.getElementById("feeTypeCheck"+(i+1));
+				d.checked=true;
 				var tr = document.getElementById("editFeeTR"+(i+1)).children;
 				
 				if(d.checked){	
 					totalStdFess = +totalStdFess+ +tr[2].innerHTML+ +tr[3].innerHTML;
 				}
-				alert(totalStdFess);
+				//alert(totalStdFess);
 				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
 			}
 		}
@@ -344,7 +345,6 @@ z-index: 999999">
 			for(var i=0;i<c.length;i++)
 			{
 				c[i].checked=false;
-				
 				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
 			}
 		}

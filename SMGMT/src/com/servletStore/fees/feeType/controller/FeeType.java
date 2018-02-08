@@ -30,6 +30,12 @@ public class FeeType extends HttpServlet {
 		{
 			String feeType=request.getParameter("feeType");
 			String fee=request.getParameter("fee");
+			if(fee=="")
+			{
+				fee="0";
+			}
+			int fees=Integer.parseInt(fee);
+			
 			String term1=request.getParameter("term1");
 			String term2=request.getParameter("term2");
 			String caste=request.getParameter("caste");
@@ -50,7 +56,7 @@ public class FeeType extends HttpServlet {
 				pojo.setSecondTerm(Integer.parseInt(term2));
 			}
 			pojo.setFeesType(feeType);
-			pojo.setFees(Integer.parseInt(fee));
+			pojo.setFees(fees);
 			if(caste==null)
 			{
 				caste="0";
