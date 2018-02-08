@@ -1,3 +1,5 @@
+<%@page import="com.servletStore.report.admissionReport.model.AdmissionReportImpl"%>
+<%@page import="com.servletStore.report.admissionReport.model.AdmissionReportDAO"%>
 <%@page import="com.servletStore.report.libraryReport.model.LibraryReportImpl"%>
 <%@page import="com.servletStore.report.libraryReport.model.LibraryReportDAO"%>
 <%@page import="com.servletStore.setup.model.SetupPOJO"%>
@@ -110,7 +112,7 @@
                                     <li class="breadcrumb-item">
                                         <a href="#">Report</a>
                                     </li>
-                                    <li class="active breadcrumb-item">Library Report</li>
+                                    <li class="active breadcrumb-item">Admission Report</li>
                                 </ol>
                             </div>
                         </div>
@@ -126,10 +128,10 @@
                                 <div class="card">
                                     <div class="card-header bg-white">
                                         <i class="fa fa-file-text-o"></i>
-                                        	Library Report
+                                        	Admission Report
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="/SMGMT/Report" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/AdmissionReport" method="post" class="form-horizontal  login_validator" id="form_block_validator">
                                            		 <div class="form-group row">
 		                                                <div class="col-lg-4  text-lg-right">
 		                                                	<input type="hidden" name="bookNo">
@@ -143,100 +145,40 @@
 																name="reportOption" id="selectOption" onchange="showHideDiv()">
 																<option
 																 disabled selected>Select Option</option>
-																<option value="pruchase">Purchase Books</option>
-																<option value="Cat">Category wise Books</option>
-																<option value="Recover">Recovery Book</option>
-																<option value="finePending">Fine Pending</option>
-																<option value="bookNo">Book Number</option>
-																<option value="FineCollectionPaid">Fine Collection</option>
+																<option value="handicapStud">Physical Handicap Student List</option>
+																<option value="minorityStud">Minor Student List</option>
 															</select>
 														</div>
 													</div>
-													<div id="catDiv" style="display: none;">
-													<div class="form-group row"  >
-			                                              <div class="col-lg-4 text-lg-right">
-			                                                    <label for="required2" class="col-form-label">Category Name</label><span style="color: red;">*</span>
-			                                              </div>
-			                                              <div class="col-lg-4 ">
-															 <select class="form-control chzn-select"
-																name="cat" id="catId">
-																<option
-																 disabled selected>Select Option</option>
-																<option value="educational">Educational</option>
-																<option  value="novel">Novel</option>
-																<option value="biography">Biography</option>
-																<option value="fictional">Fictional</option>
-															</select>
-														</div>
-                                            		</div>
-                                            		</div>
-                                            		<div id="bookNoDiv" style="display: none;">
-													<div class="form-group row"  >
-			                                              <div class="col-lg-4 text-lg-right">
-			                                                    <label for="required2" class="col-form-label">Book Category</label><span style="color: red;">*</span>
-			                                              </div>
-			                                         <%
-	                                            		//String cat="";
-	                                            		LibraryReportDAO dao=new LibraryReportImpl();
-	                                            		//request.setAttribute("list", dao.getBookCategory());
-	                                            		List<Object> list=dao.getBookCategory();
-	                                            		%>
-			                                              <div class="col-lg-4">
-															 <select class="form-control chzn-select"
-																name="bookCat" id="bookCatId" onchange="getBookName()">
-																<option
-																 disabled selected>Select Option</option>
-																<%
-																Iterator<Object> itr= list.iterator();
-																while(itr.hasNext())
-																{
-																	Object catId=itr.next();
-																	Object catName=itr.next();
-																	%>
-																	<option value="<%=catId %>"><%=catName %></option>
-																	<%
-																}
-																%>
-																
-															</select>
-														</div>
-														</div>
-														<div class="form-group row">
-														<div class="col-lg-4 text-lg-right">
-			                                                    <label for="required2" class="col-form-label">Book Name</label><span style="color: red;">*</span>
-			                                              </div>
-			                                              <div class="col-lg-4 ">
-															 <select class="form-control chzn-select"
-																name="bName" id="bNameId">
-																<option value="bName1">
-																 </option>
-																
-															</select>
-														</div>
-                                            		</div>
-                                            		</div>
-                                            		<div id="dateId" style="display: block">
-													 <div class="form-group row" >
-														 <div class="col-lg-4  text-lg-right">
-		                                                   <label for="required2" class="col-form-label">Date </label>
-		                                               	 </div>	
-														  <div class="col-lg-4">
-															<div class="input-group"
-																style="float: left; margin-top: -2%;">
-																<span class="input-group-addon"> <i
-																	class="fa fa-calendar"></i>
-																</span> <input type="text" name="requiredDate" class="form-control" id="reportrange" 
-																	placeholder="dd/mm/yyyy-dd/mm/yyyy">
-															</div>
-				                             			  </div>
-                                           			</div>
-                                           			</div>
-                                            <div class="form-actions form-group row">
-                                                <div class="col-lg-4 push-lg-4">
-                                         		<input type="submit" value="Print report" name="report" class="btn btn-primary">
-                                                </div>
-                                            </div>
+											
+													 <div id="stdDiv" style="display: none;"> 
+														<div class="form-group row ">
+				                                              <div class="col-lg-4 text-lg-right">
+				                                                    <label for="required2" class="col-form-label">Select Standard Division</label><span style="color: red;">*</span>
+				                                              </div>
+					                                         <%
+					                                         AdmissionReportDAO dao=new AdmissionReportImpl();
+		                                            		 request.setAttribute("list", dao.getStadardDivisionDetails(schoolId));
+		                                            		//List<Object> list=dao.getStadardDivisionDetails(schoolId);
+		                                            		%>
+				                                          
+	                                            	<div class="col-lg-4">  
+	                                                	<select class="form-control chzn-select" id="standard_id" name="standard" onchange="selectStudent()" required>
+															<option value="" selected="selected">Select Standard</option>
+															<c:forEach items="${list}" var="u">  
+																<option value="${u.getClassRoomMasterId()}">${u.getStdName()} ${u.getDivName()} - ${u.getShift()}</option>
+															</c:forEach>
+														</select>
+													</div>
+											 </div>
+												</div>
+	                                             <div class="form-actions form-group row">
+	                                                <div class="col-lg-4 push-lg-4">
+	                                         		<input type="submit" value="Print Report" name="report" class="btn btn-primary">
+	                                                </div>
+	                                            </div>
                                         </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div> <!-- /.col-lg-12 -->
@@ -263,82 +205,19 @@
 
 </body>
 <script type="text/javascript">
-/* function getBookName()
-{
-	
-	var category=document.getElementById("bookCatId").value;
-	alert(category);
-	xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-				//alert(this.responseText);		
-			var stud=this.responseText.split("~");
-			alert(stud);
-			var books=stud.split(",");
-			//alert(books);
-	}
-	};
-	//alert(category);
-	xhttp.open("POST","/SMGMT/Report?catId="+category, true);
-	xhttp.send();	
-	
-} */
-
-function getBookName()
-{
-	$('#bNameId').children('option:not(:first)').remove();
-	$("#bNameId option[value='bName1']").remove();
-	var category=document.getElementById("bookCatId");
-	var bookCatId = category.options[category.selectedIndex].value;
-	alert(bookCatId);
-	var xhttp;
-	var option;
-	xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-				//alert(this.responseText);		
-			var stud=this.responseText.split("~");
-			//alert("DATA"+stud);
-			var bookCat = document.getElementById("bNameId");							
-			option = document.createElement("option");
-			option.text = "Choose a Book";
-			option.value = "bName1";
-			option.disabled=true;
-			option.selected=true;
-			bookCat.add(option);	 						
-			//alert(option.text)
-			 for(var i=0;i<stud.length-1;i++)
-			{
-				var stud_id=stud[i].split(",");
-				//alert(stud_id);
-					option = document.createElement("option");
-					option.text =stud_id[1];
-					option.value = stud_id[0];
-					bookCat.add(option);
-					//alert(option.text)
-			}
-				$("#bNameId").trigger('chosen:updated');	
-										
-			}
-		
-		};
-	xhttp.open("POST","/SMGMT/Report?catId="+bookCatId, true);
-	xhttp.send();	
-}
 
 function showHideDiv()
 {
-	var catDiv=document.getElementById("catDiv");
+	 var stdDiv=document.getElementById("stdDiv");
 	var selectOption=document.getElementById("selectOption");
-	var dateDiv=document.getElementById("dateId");
-	if(selectOption.value=="Cat")
+	if(selectOption.value=="minorityStud")
 		{
-		catDiv.style.display="block";
+		stdDiv.style.display="block";
 		}
 	else{
-		catDiv.style.display="none";
+		stdDiv.style.display="none";
 		}
-	var bookNoDiv=document.getElementById("bookNoDiv");
+	/*var bookNoDiv=document.getElementById("bookNoDiv");
 	var selectOption=document.getElementById("selectOption");
 	if(selectOption.value=="bookNo")
 		{
@@ -347,7 +226,7 @@ function showHideDiv()
 	else{
 		bookNoDiv.style.display="none";
 
-		}
+		} */
 }
 
 </script>
