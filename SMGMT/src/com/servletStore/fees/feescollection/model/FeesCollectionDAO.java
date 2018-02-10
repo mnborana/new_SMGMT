@@ -34,4 +34,6 @@ public interface FeesCollectionDAO {
 	public List getStudentFeesInfo(String student_id);
 
 	public void insertFees(FeesCollectionPOJO feesCollectionPOJO);
+	
+	public String checkStudFee(String student_id)throws SQLException;
 }

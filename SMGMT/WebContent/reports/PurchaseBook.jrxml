@@ -107,7 +107,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Available Books]]></text>
+				<text><![CDATA[Purchase Books]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="290" y="30" width="53" height="30" uuid="3ed8decc-0b60-44fc-a873-18d2535633a6"/>

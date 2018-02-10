@@ -463,11 +463,6 @@
 					
 					// 
 					
-					
-					
-					
-					
-					
 					var data="<option disabled selected>Select Student </option>";
 					
 					for (var i = 0; i < str.length-1;) {
