@@ -123,7 +123,7 @@ z-index: 999999">
                                         	Fees Type
                                     </div>
                                     <div class="card-block m-t-35">
-                                        <form action="/SMGMT/FeeType" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/FeeType" method="post" class="form-horizontal  login_validator" id="form_block_validator" onsubmit="return CheckForm()">
                                             <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label for="required2" class="col-form-label">Fees Type</label><span style="color: red;">*</span>
@@ -132,7 +132,20 @@ z-index: 999999">
                                                    <input type="text" id="feeType" name="feeType" class="form-control" onkeyup="this.value=this.value.toUpperCase()" pattern="[A-Za-z]" onblur="this.value=$.trim(this.value)" required/>
                                                 </div>
                                            </div>
-                                           <div class="form-group row">
+                                              <div class="form-group row">
+                                                <div class="col-lg-4 text-lg-right">
+                                                    <label for="required2" class="col-form-label">Caste</label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label class="custom-control custom-checkbox">&nbsp;&nbsp;
+                                                        <input type="checkbox" name="caste" value="1" onclick="checkedCaste(this)" class="custom-control-input">
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div id="feesDiv" style="display: block;">
+                                             <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label for="required2" class="col-form-label">Fees</label><span style="color: red;">*</span>
                                                 </div>
@@ -146,32 +159,21 @@ z-index: 999999">
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <label class="custom-control custom-checkbox">&nbsp;&nbsp;
-                                                        <input type="checkbox" name="term1" value="1" class="custom-control-input" checked>
+                                                        <input type="checkbox" name="term1" value="1" id="select1" class="custom-control-input" onclick="checkFees()" checked>
                                                         <span class="custom-control-indicator"></span>
                                                         <span class="custom-control-description">I Term</span>
                                                     </label>
                                                     <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" name="term2" value="1" class="custom-control-input">
+                                                        <input type="checkbox" name="term2" value="1" id="select2" class="custom-control-input" onclick="checkFees()">
                                                         <span class="custom-control-indicator"></span>
                                                         <span class="custom-control-description">II Term</span>
                                                     </label>
                                                 </div>
                                             </div>
-                                              <div class="form-group row">
-                                                <div class="col-lg-4 text-lg-right">
-                                                    <label for="required2" class="col-form-label">Caste</label>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <label class="custom-control custom-checkbox">&nbsp;&nbsp;
-                                                        <input type="checkbox" name="caste" value="1" class="custom-control-input">
-                                                        <span class="custom-control-indicator"></span>
-                                                        <span class="custom-control-description"></span>
-                                                    </label>
-                                                </div>
                                             </div>
                                              <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="OK" name="submitFee" class="btn btn-primary">
+                                                    <input type="submit" value="Submit Fee" name="submitFee" id="submitId" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </form>
@@ -275,6 +277,7 @@ z-index: 999999">
                                                     <input type="text" id="feeTypeId" name="feeTypeUp" class="form-control" onblur="this.value=$.trim(this.value)" onkeyup="this.value = this.value.toUpperCase();" required >
                                                 </div>
                                            </div>
+                                           <div id="updateFeeDiv" style="display: block;"> 
                                            <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label for="required2" class="col-form-label">Fees </label>
@@ -299,6 +302,7 @@ z-index: 999999">
                                                         <span class="custom-control-description">II Term</span>
                                                     </label>
                                                 </div>
+                                            </div>
                                             </div>
                                               <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
@@ -334,6 +338,19 @@ z-index: 999999">
 
 </body>
 <script type="text/javascript">
+function checkedCaste(checkId)
+{
+	var fees=document.getElementById("feesDiv");
+	if($(checkId).is(":checked"))
+		{
+			fees.style.display="none";
+		}
+	else
+		{
+			fees.style.display="block";
+			//$("feesDiv").show();
+		}
+}
 function loadDoc(id)
 {
 	var xhttp = new XMLHttpRequest();
@@ -368,13 +385,41 @@ function loadDoc(id)
 	   		 {
 	   		document.getElementById("casteId").checked=false;
 	   		 }
+	  
+	   	 var updateDiv=document.getElementById("updateFeeDiv");
+	    	if(str[2]==0)
+		   		{
+		   		updateDiv.style.display="none";
+		   		}
+	    	else
+	    		{
+	    		updateDiv.style.display="block";
+	    		}
 	    }
 	  };
 	  xhttp.open("POST","/SMGMT/FeeType?updateId="+id, true);
 	  xhttp.send();
-
 }
 
+function CheckForm(){
+	var checked=false;
+	var term1 = document.getElementById("select1");
+	var term2 = document.getElementById("select2");
+	if(term1.checked || term2.checked)
+		{
+			checked = true;
+		}
+	else
+		{
+		alert('Select atleast one checkbox');
+		}
+	return checked ;
+}
+
+function checkFees()
+{
+	document.getElementById("submitId").disabled=false;
+}
 </script>
 
 

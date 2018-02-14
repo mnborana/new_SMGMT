@@ -316,7 +316,15 @@
     <servlet-name>SubAccount</servlet-name>
     <url-pattern>/SubAccount</url-pattern>
   </servlet-mapping>
-  <servlet>
+   <servlet>
+    <servlet-name>AdmissionReport</servlet-name>
+    <servlet-class>com.servletStore.report.admissionReport.controller.AdmissionReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdmissionReport</servlet-name>
+    <url-pattern>/AdmissionReport</url-pattern>
+  </servlet-mapping>
+   <servlet>
     <servlet-name>StudAddressInfo</servlet-name>
     <servlet-class>com.servletStore.report.studAddressInfo.controller.StudAddressInfo</servlet-class>
   </servlet>

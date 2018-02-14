@@ -165,7 +165,7 @@ z-index: 999999">
 			                                        <%
 				                                    	AssignStdWiseFeesDao dao = new AssignStdWiseFeesImpl(); 
 				                                    	HashMap<Integer, String> stdList = dao.getStandards(schoolId);
-				                                   
+				                                   		
 				                                    	Set keys = stdList.keySet(); 
 														Iterator itr = keys.iterator();
 														
@@ -266,6 +266,40 @@ z-index: 999999">
 							                                        </c:forEach>
 							                                        </tbody>
 							                                    </table>
+							                                    
+							                                    
+							                                    <td>
+							                                    <table class="table  table-striped table-bordered table-hover dataTable no-footer">
+							                                    	<thead>
+							                                    	<th>Fees Type</th>
+							                                    	<%
+							                                        	List categoryList = dao.getCategoryList();
+								                                    	Iterator itr2 = categoryList.iterator();
+								                                    	while(itr2.hasNext()){
+								                                    		String category = itr2.next().toString();
+								                                    %>
+								                                    		<th><%=category%></th>
+								                                    <%		
+								                                    	}
+								                                    	//SELECT fee_type.fees_type, caste_wise_educational_fees.fees, caste_category.category_name FROM fee_type, caste_wise_educational_fees, caste_category WHERE fee_type.id=caste_wise_educational_fees.fees_type_id AND caste_wise_educational_fees.caste_category_id=caste_category.id AND caste_wise_educational_fees.fk_class_master_standard_id=1   ORDER BY `fee_type`.`fees_type` ASC
+							                                        %>
+							                                    	</thead>
+							                                    	<tbody>
+							                                    	
+							                                    		<td></td>
+							                                    		<td></td>
+							                                    		<td></td>
+							                                    		<td></td>
+							                                    		<td></td>
+							                                    		<td></td>
+							                                    		<td></td>
+							                                    		<td></td>
+							                                    		<td></td>
+							                                    		<td></td>
+							                                    	</tbody>
+							                                    </table>
+							                                    </td>
+							                                    
 							                                    <table class="table  table-striped table-bordered table-hover dataTable no-footer">
 							                                    	<tr style="background-color: #3aaefd85;">
 								                                        <td><strong style="font-size: 135%;">Total Fees of Standard(s) : </strong><strong id="stdList" style="font-size: 100%;"></strong></td>
@@ -328,14 +362,15 @@ z-index: 999999">
 		if(document.getElementById('selectAllCheck').checked){
 			for(var i=0;i<c.length;i++)
 			{
-				c[i].checked=true;
+				//c[i].checked=true;
 				var d = document.getElementById("feeTypeCheck"+(i+1));
+				d.checked=true;
 				var tr = document.getElementById("editFeeTR"+(i+1)).children;
 				
 				if(d.checked){	
 					totalStdFess = +totalStdFess+ +tr[2].innerHTML+ +tr[3].innerHTML;
 				}
-				alert(totalStdFess);
+				//alert(totalStdFess);
 				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
 			}
 		}
@@ -344,7 +379,6 @@ z-index: 999999">
 			for(var i=0;i<c.length;i++)
 			{
 				c[i].checked=false;
-				
 				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
 			}
 		}

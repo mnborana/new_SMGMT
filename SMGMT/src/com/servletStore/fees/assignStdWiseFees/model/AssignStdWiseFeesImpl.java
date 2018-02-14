@@ -135,5 +135,28 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 		return insertStatus;
 	}
 
+	@Override
+	public List<String> getCategoryList() {
+		DBConnection dbConnect = new DBConnection();
+		Connection connection = dbConnect.getConnection();
+		
+		List<String> categoryList = new ArrayList<>();
+		String str = "SELECT `category_name` FROM `caste_category` ORDER BY `caste_category`.`id` ASC";
+
+		try {
+			ps = connection.prepareStatement(str);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				categoryList.add(rs.getString(1));
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return categoryList;
+	}
+
 	
 }

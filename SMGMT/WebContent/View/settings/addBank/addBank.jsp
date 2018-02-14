@@ -1,7 +1,5 @@
 
-<%@page import="com.servletStore.settings.bank.model.AddBankPOJO"%>
-<%@page import="com.servletStore.settings.bank.model.AddBankIMPL"%>
-<%@page import="com.servletStore.settings.bank.model.AddBankDAO"%>
+
 <%@page import="com.servletStore.settings.document.model.AddDocumentPojo"%>
 <%@page import="com.servletStore.settings.document.model.AddDocumentImpl"%>
 <%@page import="com.servletStore.settings.document.model.AddDocumentDAO"%>
@@ -185,7 +183,7 @@
 												</tr>
 											</thead>
 											
-											<%
+<%-- 											<%
 											int count=1;
 											AddBankDAO dao=new AddBankIMPL();
 											List<AddBankPOJO> list=dao.fetchBankDetails();
@@ -216,7 +214,7 @@
 												}
 												%>
 											</tbody>
-										</table>
+ --%>										</table>
 									</div>
 								</div>
 								<!-- END EXAMPLE TABLE PORTLET-->

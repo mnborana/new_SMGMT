@@ -28,6 +28,7 @@ public class AssignFee extends HttpServlet {
 	  PrintWriter out = response.getWriter();
 	  String standard_id = request.getParameter("standard_id");
 	  String student_id = request.getParameter("student_id");
+	  
 	  FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
 	  HttpSession session = request.getSession();
 	
@@ -63,22 +64,40 @@ public class AssignFee extends HttpServlet {
 		
 		//for getting cast wise fee for particular student
 		if(student_id!=null)
-		{	
+		{
+			String standard = request.getParameter("standard");
+			
 			try
 			{
-				String cast = feesCollectionDAO.getStudentCast(student_id);
-				String standard = request.getParameter("standard");
-				List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id, standard);
+				//-----------assigning fee for next year remaining--------------
 				
-				Iterator iterator = castFee.iterator();
-				
-				while (iterator.hasNext()) {
-					out.print(iterator.next()+",");
+				//check if already assinged or not
+				System.out.println(student_id);
+				String check=feesCollectionDAO.checkStudFee(student_id);
+				if(check.equals("FEE ASSIGNED"))
+				{
+					out.println(check);
+					//out.print(",second string");
 				}
+				else
+				{
+					String cast = feesCollectionDAO.getStudentCast(student_id);
 					
+					
+					List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id, standard);
+					
+					Iterator iterator = castFee.iterator();
+					
+					while (iterator.hasNext()) {
+						out.print(iterator.next()+",");
+					}
+						
+					
+					out.println(cast);
 				
-				out.println(cast);
-			
+				}
+				
+				
 			
 			} catch (SQLException e)
 			{
@@ -94,6 +113,7 @@ public class AssignFee extends HttpServlet {
 			  String studentId=request.getParameter("student_Id");
 			  String totalFee=request.getParameter("totalFee");
 			  String academicYear = request.getParameter("year");
+			 
 			  int insertStatus=0;
 			  
 			  String[] splitYear = academicYear.split("-");
@@ -133,11 +153,13 @@ public class AssignFee extends HttpServlet {
 						//insert
 						System.out.println("insert for new student");
 						session.setAttribute("flag", "Fee Assigned");
+						out.print("Fee Assigned");
 						insertStatus = feesCollectionDAO.assignStudentFee(pojo);
 					}
 					else
 					{
 						session.setAttribute("flag", "Not assinged, choose appropriate login year");
+						out.print("Not assinged, choose appropriate login year");
 						System.out.println("Not assinged, choose appropriate login year in first check");
 					}
 			
@@ -150,6 +172,7 @@ public class AssignFee extends HttpServlet {
 					if(start.compareTo(availableDate)*availableDate.compareTo(end)>0)
 					{
 						System.out.println("Not assinged because already assinged for this year");
+						out.print("Not assinged because already assinged for this year");
 						session.setAttribute("flag", "Not assinged because already assinged for this year");
 					}
 					else
@@ -161,11 +184,13 @@ public class AssignFee extends HttpServlet {
 							{
 								System.out.println("insert for next year");
 								session.setAttribute("flag", "Fee Assigned");
+								out.print("Fee Assigned");
 								insertStatus = feesCollectionDAO.assignStudentFee(pojo);
 							}
 							else
 							{
 								System.out.println("You can not assinged in advance fee for next year");
+								out.print("You can't assinged in advance fee for next year or Check Login year");
 								session.setAttribute("flag", "You can't assinged in advance fee for next year or Check Login year");
 							}
 							
@@ -173,22 +198,23 @@ public class AssignFee extends HttpServlet {
 						else
 						{
 							session.setAttribute("flag", "Not assinged, choose appropriate login year");
+							out.print("Not assinged, choose appropriate login year");
 							System.out.println("Not assinged, choose appropriate login year");
 						}
 						
 					}
 					
 				}
-				
+
 				if(insertStatus>0)
 				{
 					//redirect with success 
-					response.sendRedirect("/SMGMT/View/fees/studFeeAssign.jsp");
+					//response.sendRedirect("/SMGMT/View/fees/feesCollection.jsp");
 				}
 				else
 				{
 					//redirect with error
-					response.sendRedirect("/SMGMT/View/fees/studFeeAssign.jsp");
+					//response.sendRedirect("/SMGMT/View/fees/feesCollection.jsp");
 				}
 				
 				

@@ -76,13 +76,13 @@ public class Report extends HttpServlet {
 		
 		LibraryReportDAO dao=new LibraryReportImpl();
 		
-		String availableBooks=request.getParameter("Avail");
+		String availableBooks=request.getParameter("pruchase");
 		String reqdate=request.getParameter("requiredDate");
 		
 		
 		//boolean redirect=true;
 		
-		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("Avail")))
+		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("pruchase")))
 		{
 			try
 			{
@@ -106,7 +106,7 @@ public class Report extends HttpServlet {
 				para.put("sAddress", ""+sAddress+"");
 				
 				//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
-				String path = request.getServletContext().getRealPath("/reports/AvailableBook.jrxml");
+				String path = request.getServletContext().getRealPath("/reports/PurchaseBook.jrxml");
 				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path +"//reports/AvailableBook.jasper"));
 				jasperDesign = JRXmlLoader.load(path);
 				jasperReport = JasperCompileManager.compileReport(jasperDesign);
@@ -117,43 +117,8 @@ public class Report extends HttpServlet {
 			{
 				e.printStackTrace();
 			}
-			
 		}
 		
-		/*if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("PurchaseBook")))
-		{
-			try
-			{
-				
-				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path));
-				net.sf.jasperreports.engine.JasperReport jasperReport = null;
-				JasperDesign jasperDesign = null;
-				Map para = new HashMap();
-				
-				para.put("startDate",""+startDate+"");
-				para.put("endDate",""+endDate+"");
-				para.put("academicYear", academicYr+"");
-				para.put("trustyName", ""+trustyName+"");
-				para.put("schoolName", ""+schoolName+"");
-				para.put("sAddress", ""+sAddress+"");
-				para.put("startDate", ""+startDate+"");
-				para.put("endDate", ""+endDate+"");
-				//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
-				String path = request.getServletContext().getRealPath("/reports/PurchaseBookDetails.jrxml");
-				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path +"//reports/AvailableBook.jasper"));
-				jasperDesign = JRXmlLoader.load(path);
-				jasperReport = JasperCompileManager.compileReport(jasperDesign);
-				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
-		        JasperViewer.viewReport(jasperPrint, false);
-			} 
-			catch (JRException e)
-			{
-				e.printStackTrace();
-			}
-			
-		}*/
-		
-	
 		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("Cat")))
 		{
 		try

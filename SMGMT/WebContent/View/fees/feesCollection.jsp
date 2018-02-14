@@ -51,11 +51,20 @@
 		
 		//if it returns read(1) then hide FORM and ACTION COLUMN(UPDATE/DELETE) in dataTable
 		//for write(2) show your orignal full form
-				
+		
+		
+		//----------------to do task------------------------
+		
+		//remove rti student from list
+		//-----------assigning fee for next year remaining--------------
+		//validation
+		//-------------------end------------------
 	}
 %>
 
 <body>
+
+
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -158,9 +167,8 @@
                                                     <label for="email2" class="col-form-label">Select Student*</label>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                <select class="form-control chzn-select" title="Select Student" name="student_id" id="student_id" onchange="selectedStudentInfo()" required="required">
+                                                <select class="form-control chzn-select" title="Select Student" name="student_id" id="student_id" onchange="selectCast()" required="required">
 			                                    	<option value="Select Student" disabled="disabled"> Select Student </option>
-			                                    	
 			                                    </select>                                                    
                                                 </div>                                               
                                             </div>
@@ -242,7 +250,7 @@
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <button type="submit" name="feesCollection_btn" id="feesCollection_btn" value="feesCollection_btn" class="btn btn-primary">Submit</button>
+                                                    <button type="submit" name="feesCollection_btn" id="feesCollection_btn" value="feesCollection_btn" class="btn btn-primary" disabled="disabled">Submit</button>
                                                     <!-- <input type="submit" value="Submit" name="feesCollection_btn" id="feesCollection_btn" class="btn btn-primary"> -->
                                                 </div>
                                             </div>
@@ -254,6 +262,7 @@
                     </div> <!-- /.inner -->
                 </div> <!-- /.outer -->
             
+            <input type="text" id="year" value="<%=academicYear%>">
             
             <div class="outer">
                     <div class="inner bg-container">
@@ -331,7 +340,210 @@
 	
 <script type="text/javascript">
 
+
+var feeForAssign = [];
+
+function myFunction(res){
+	    iziToast.show({
+            title: 'Status',
+            message: res,
+				color : '#00cc99',
+				position : 'topCenter'
+			});
+	
+}
+
 function selectStudent() {
+	
+	var standard_id = document.getElementById('standard_id').value;
+	
+	var xhttp =new XMLHttpRequest();
+	
+	try{
+		xhttp.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var str=this.responseText.split(",");
+				var fee=str[0].split("#");
+				
+				var tableData="";
+				var count=1;
+				//var i=0;
+				
+				if(fee.length==1)
+				{
+					alert('Fee not assinged for this class assign it first');	
+					document.getElementById("feesCollection_btn").disabled = true;
+				}
+				else
+				{
+					document.getElementById("feesCollection_btn").disabled = false;
+					
+					var newArr=[];
+					newArr.push(fee[fee.length-1]);
+					 
+					 for(var i=1;i<str.length;i++)
+					 {
+						 newArr.push(str[i]);
+					 }
+					
+					
+					
+					
+					
+					fee.splice(-1,1);
+					feeForAssign=[];
+					feeForAssign.push(fee);
+				//	alert(feeForAssign);
+					
+					 
+					var data="<option disabled selected>Select Student </option>";
+					
+					for (var i = 0; i < newArr.length-1;) {
+						
+						data+='<option value='+newArr[ i++]+'>'+ newArr[ i++] +' </option>';
+					}
+
+					document.getElementById("student_id").innerHTML=data;
+					$("#student_id").trigger('chosen:updated');	
+					
+					
+					
+					
+					
+				}
+				
+				/* for(var i=0;i < fee.length-1;i=i+3)
+				{
+				 	tableData+="<tr id='row"+count+"'>"
+					+"<td>"+count+"</td>"
+					+"<td>"+fee[i]+"</td>"
+					+"<td>"+fee[i+1]+"</td>"
+					+"<td>"+fee[i+2]+"</td>"
+					+"</tr>";
+					
+					count++;
+				alert(tableData);
+					
+				}
+				 document.getElementById("feeStructure").innerHTML=tableData; */
+								
+			}
+		}
+		xhttp.open("POST", "/SMGMT/AssignFee?standard_id="+standard_id, true);
+		xhttp.send();
+	}catch(e){
+		alert("Unable to Connect Server!");
+	}
+}
+
+
+function selectCast()
+{
+	var student_id = document.getElementById('student_id').value;
+	var standard_id = document.getElementById('standard_id').value;
+	var xhttp =new XMLHttpRequest();
+	var sum=0;
+	
+	try{
+		xhttp.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var castFee=this.responseText;
+			//	alert(castFee+" length: "+castFee.length);
+				if(castFee.trim()==="FEE ASSIGNED")
+				{
+					selectedStudentInfo();
+				}
+				else
+				{
+					if(castFee.length==1)
+					{
+						alert("Cast category not assinged for this student assinged it first");
+						document.getElementById("feesCollection_btn").disabled = true;
+					}
+					else
+					{
+						document.getElementById("remaining_fees").value ="";
+						var allFee = castFee.split(",");	
+						allFee.splice(-1,1); //for removing last element
+						if(feeForAssign.length>1)
+						{
+							while(feeForAssign.length > 1) { //for removing last assigned fee
+								feeForAssign.pop();
+							}	
+						}
+						feeForAssign.push(allFee); //added cast fee into standard fee
+						
+						var feeForAddition="";
+						for(var i=0;i<feeForAssign.length-1;i++)
+						{
+							feeForAddition+=feeForAssign[i];						
+						} 
+						feeForAddition+=","+feeForAssign[feeForAssign.length-1];//assign all fee into variable
+						
+						
+						var temp=feeForAddition.split(",");
+						//alert(temp);
+						
+						var feeSum=0;
+						for(var i=0;i<temp.length;i++)
+						{
+							feeSum+=parseInt(temp[i]);
+						}//addition of all fees
+						
+						//passing sumation to asign fee
+						var r = confirm("Do you want to assign fee for this student ?");
+					    if (r == true) {
+					    	assignFee(feeSum);    
+					    } else {
+					        alert('Fee not assigned for this student');
+					    }
+						
+					}
+					
+				}
+				
+				
+
+			}
+		}
+		xhttp.open("POST", "/SMGMT/AssignFee?student_id="+student_id+"&standard="+standard_id, true);
+		xhttp.send();
+	}catch(e){
+		alert("Unable to Connect Server!");
+	}
+
+	
+}
+
+
+function assignFee(fee)
+{
+	var aYear = document.getElementById('year').value;
+	var student_id = document.getElementById('student_id').value;
+	var standard_id = document.getElementById('standard_id').value;
+	
+	//alert(aYear);
+	 var xhttp =new XMLHttpRequest();
+	
+	try{
+		xhttp.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var result=this.responseText;
+				myFunction(result);
+			}
+		}
+		xhttp.open("POST", "/SMGMT/AssignFee?assign=1&standard_Id="+standard_id+"&student_Id="+student_id+"&totalFee="+fee+"&year="+aYear, true);
+		xhttp.send();
+	}catch(e){
+		alert("Unable to Connect Server!");
+	} 
+}
+
+
+
+
+
+/* function Student() {
 	
 	var standard_id = document.getElementById('standard_id').value;
 	
@@ -368,7 +580,7 @@ function selectStudent() {
 	//SELECT student_details.id, concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) AS full_name FROM 
 	//student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND class_allocation.classroom_master=8 AND 
 	//concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) LIKE 'suraj m%'
-}
+} */
 
 function selectedStudentInfo() {
 	
@@ -382,7 +594,6 @@ function selectedStudentInfo() {
 			if(this.readyState == 4 && this.status == 200){
 				var str=this.responseText.split(",");
 				
-				//alert(str);
 				var count=0;
 				var data="";
 				document.getElementById("remaining_fees").value = str[0];
