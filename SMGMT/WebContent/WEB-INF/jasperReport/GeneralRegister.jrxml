@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GR Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
