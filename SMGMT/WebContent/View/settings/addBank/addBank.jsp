@@ -183,7 +183,7 @@
 												</tr>
 											</thead>
 											
-											<%
+<%-- 											<%
 											int count=1;
 											AddBankDAO dao=new AddBankIMPL();
 											List<AddBankPOJO> list=dao.fetchBankDetails();
@@ -214,7 +214,7 @@
 												}
 												%>
 											</tbody>
-										</table>
+ --%>										</table>
 									</div>
 								</div>
 								<!-- END EXAMPLE TABLE PORTLET-->
