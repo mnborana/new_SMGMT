@@ -1,4 +1,4 @@
-
+<%-- 
 <%@page import="com.servletStore.settings.bank.model.AddBankPOJO"%>
 <%@page import="com.servletStore.settings.bank.model.AddBankIMPL"%>
 <%@page import="com.servletStore.settings.bank.model.AddBankDAO"%>
@@ -320,4 +320,4 @@
 	</script>
 </body>
 
-</html>
+</html> --%>

@@ -434,6 +434,12 @@
                                     <span class="link-title">&nbsp; Student General Info</span>
                                 </a>
                             </li>
+                              <li>
+                                <a href=" /SMGMT/View/report/admissionReport.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Admission Report</span>
+                                </a>
+                            </li>
 							
                                                    
                         </ul>
