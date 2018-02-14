@@ -189,14 +189,13 @@
     <url-pattern>/StockRegister</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>casteWiseEduFees</servlet-name>
-  	<servlet-class>com.servletStore.fees.casteWiseEduFees.controller.casteWiseEduFees</servlet-class>
+    <servlet-name>casteWiseEduFees</servlet-name>
+    <servlet-class>com.servletStore.fees.casteWiseEduFees.controller.casteWiseEduFees</servlet-class>
   </servlet>
   <servlet-mapping>
-  <servlet-name>casteWiseEduFees</servlet-name>
-  <url-pattern>/casteWiseEduFees</url-pattern>
+    <servlet-name>casteWiseEduFees</servlet-name>
+    <url-pattern>/casteWiseEduFees</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>PTAMember</servlet-name>
     <servlet-class>com.servletStore.ptamember.controller.PTAMember</servlet-class>
@@ -309,16 +308,15 @@
     <servlet-name>CashBookLedgerAccount</servlet-name>
     <url-pattern>/CashBookLedgerAccount</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-  	<servlet-name>SubAccount</servlet-name>
-  	<servlet-class>com.servletStore.cashBook.controller.SubAccount</servlet-class>
+    <servlet-name>SubAccount</servlet-name>
+    <servlet-class>com.servletStore.cashBook.controller.SubAccount</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>SubAccount</servlet-name>
-  	<url-pattern>/SubAccount</url-pattern>
+    <servlet-name>SubAccount</servlet-name>
+    <url-pattern>/SubAccount</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>StudAddressInfo</servlet-name>
     <servlet-class>com.servletStore.report.studAddressInfo.controller.StudAddressInfo</servlet-class>
   </servlet>
@@ -349,5 +347,13 @@
   <servlet-mapping>
     <servlet-name>AddBank</servlet-name>
     <url-pattern>/AddBank</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GenderWiseReport</servlet-name>
+    <servlet-class>com.servletStore.report.genderWiseReport.Controller.GenderWiseReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GenderWiseReport</servlet-name>
+    <url-pattern>/GenderWiseReport</url-pattern>
   </servlet-mapping>
 </web-app>

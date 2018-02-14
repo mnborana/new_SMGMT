@@ -1,4 +1,3 @@
-
 <%@page import="com.servletStore.fees.feescollection.model.FeesCollectionImpl"%>
 <%@page import="com.servletStore.fees.feescollection.model.FeesCollectionDAO"%>
 <%@page import="com.servletStore.setup.model.SetupImpl"%>
@@ -123,7 +122,7 @@
 										<i class="fa fa-file-text-o"></i> Gender Wise Report
 									</div>
 									<div class="card-block m-t-35">
-										<form action="/SMGMT/#" method="post"
+										<form action="/SMGMT/GenderWiseReport" method="post"
 											class="form-horizontal  login_validator"
 											id="form_block_validator">
 
@@ -184,7 +183,7 @@
 												</div>
 											</div>
 
-<br>
+										<br>
 											<div class="form-actions form-group row">
 												<div class="col-lg-4 push-lg-4">
 													<input type="hidden" name="schoolId" value="<%=schoolId%>">
