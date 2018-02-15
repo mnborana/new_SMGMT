@@ -54,9 +54,6 @@
 		
 		
 		//----------------to do task------------------------
-		
-		//remove rti student from list
-		//-----------assigning fee for next year remaining--------------
 		//validation
 		//-------------------end------------------
 	}
@@ -441,6 +438,7 @@ function selectCast()
 {
 	var student_id = document.getElementById('student_id').value;
 	var standard_id = document.getElementById('standard_id').value;
+	var academicYear = document.getElementById('year').value;
 	var xhttp =new XMLHttpRequest();
 	var sum=0;
 	
@@ -465,6 +463,7 @@ function selectCast()
 						document.getElementById("remaining_fees").value ="";
 						var allFee = castFee.split(",");	
 						allFee.splice(-1,1); //for removing last element
+						//alert(feeForAssign);
 						if(feeForAssign.length>1)
 						{
 							while(feeForAssign.length > 1) { //for removing last assigned fee
@@ -479,7 +478,6 @@ function selectCast()
 							feeForAddition+=feeForAssign[i];						
 						} 
 						feeForAddition+=","+feeForAssign[feeForAssign.length-1];//assign all fee into variable
-						
 						
 						var temp=feeForAddition.split(",");
 						//alert(temp);
@@ -502,11 +500,9 @@ function selectCast()
 					
 				}
 				
-				
-
 			}
 		}
-		xhttp.open("POST", "/SMGMT/AssignFee?student_id="+student_id+"&standard="+standard_id, true);
+		xhttp.open("POST", "/SMGMT/AssignFee?student_id="+student_id+"&standard="+standard_id+"&year="+academicYear, true);
 		xhttp.send();
 	}catch(e){
 		alert("Unable to Connect Server!");
@@ -529,6 +525,7 @@ function assignFee(fee)
 		xhttp.onreadystatechange = function(){
 			if(this.readyState == 4 && this.status == 200){
 				var result=this.responseText;
+				document.getElementById('remaining_fees').value = fee;
 				myFunction(result);
 			}
 		}

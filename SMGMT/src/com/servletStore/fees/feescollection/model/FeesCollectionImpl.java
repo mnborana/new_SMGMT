@@ -65,7 +65,7 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 		
 		ResultSet rs = null;
 		String query = "SELECT student_details.id, concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) "
-					 + "AS full_name FROM student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND "
+					 + "AS full_name FROM student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND student_details.status=0 AND "
 					 + "class_allocation.classroom_master="+standard_id;
 		
 		List studInfo=new ArrayList<>();
@@ -291,18 +291,20 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 		Connection connection=dbconnect.getConnection();
 		
 		String checkFeeStatus="";
+		String date="";
 
-		String query="SELECT fees_collection.particulars FROM fees_collection WHERE fees_collection.stud_id="+student_id;
+		String query="SELECT fees_collection.particulars,fees_collection.date FROM fees_collection WHERE fees_collection.stud_id="+student_id;
 		pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery();
 		
 		while(rs.next())
 		{
 			checkFeeStatus=rs.getString(1);
+			date=rs.getString(2);
 		}
 		
 		connection.close();
-		return checkFeeStatus;
+		return checkFeeStatus+","+date;
 
 	}
 
