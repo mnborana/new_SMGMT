@@ -1,5 +1,4 @@
 
-
 <%@page import="com.servletStore.settings.document.model.AddDocumentPojo"%>
 <%@page import="com.servletStore.settings.document.model.AddDocumentImpl"%>
 <%@page import="com.servletStore.settings.document.model.AddDocumentDAO"%>
@@ -318,4 +317,4 @@
 	</script>
 </body>
 
-</html>
+</html> 

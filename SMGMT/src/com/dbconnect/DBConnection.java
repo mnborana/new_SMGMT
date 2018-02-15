@@ -12,7 +12,7 @@ public class DBConnection {
 
 	String url = "jdbc:mysql://localhost:3306/";
 	//String url = "jdbc:mysql://192.168.0.20:3306/";
-	String dbName = "smgmt";
+	String dbName = "lcjoshi";
 	String userName = "root";
 	String password = "";
 	Connection con;

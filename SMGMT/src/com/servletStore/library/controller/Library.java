@@ -105,9 +105,9 @@ public class Library extends HttpServlet {
 						int status=impl.insertBookDetails(id);
 						System.out.println("Books added in BookDetail");
 					}
-					/*HttpSession session = request.getSession();
+					HttpSession session = request.getSession();
 					session.setAttribute("flag", "Books Added Successfully");
-					System.out.println("Books added");*/
+					System.out.println("Books added");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
