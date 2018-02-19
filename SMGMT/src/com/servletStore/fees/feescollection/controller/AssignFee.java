@@ -35,6 +35,7 @@ public class AssignFee extends HttpServlet {
 	  //ajax for searching standard wise student and fee
 		if(standard_id!=null){
 			
+			System.out.println(standard_id);
 			List studentList = feesCollectionDAO.getStudentInfo(standard_id);
 			
 			try
@@ -42,6 +43,8 @@ public class AssignFee extends HttpServlet {
 				List feeList = feesCollectionDAO.getStandardWiseFee(standard_id);
 			
 				Iterator itr = feeList.iterator();
+				
+				System.out.println(feeList.toString());
 				
 				while(itr.hasNext())
 				{
@@ -82,6 +85,8 @@ public class AssignFee extends HttpServlet {
 					
 					
 					List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id, standard);
+					
+					System.out.println(castFee.toString());
 					
 					Iterator iterator = castFee.iterator();
 					
