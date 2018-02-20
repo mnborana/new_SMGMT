@@ -163,32 +163,6 @@ public class AssignFee extends HttpServlet {
 					
 				}
 				
-				
-				
-			/*	if(check.equals("FEE ASSIGNED"))
-				{
-					out.println(check);
-					//out.print(",second string");
-				}
-				else
-				{
-					String cast = feesCollectionDAO.getStudentCast(student_id);
-					
-					
-					List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id, standard);
-					
-					Iterator iterator = castFee.iterator();
-					
-					while (iterator.hasNext()) {
-						out.print(iterator.next()+",");
-					}
-						
-					
-					out.println(cast);
-				
-				}*/
-				
-				
 			
 			} catch (SQLException | ParseException e)
 			{
