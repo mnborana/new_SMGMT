@@ -959,18 +959,18 @@ function myFunction()
     var someFormattedDate = y + '-' + mm + '-' + dd;
     document.getElementById('dueDate_id').value = someFormattedDate; */
     /*<<<<<<<<<<<<<<<<< For snackbar >>>>>>>>>>>>>>>>>>>>>>> */
-<%-- 	<%
+	<%
 	if(session.getAttribute("flag")!=null){ %>
 	$(window).load(function () {
         iziToast.show({
             title: 'Success',
             message: '<%=session.getAttribute("flag").toString()%>',
-            color:'#cc7fe5',       //'#00cc99'
+            color:'#00cc99',    
             position: 'topCenter'
         });
         return false;
     });
-	<%} session.removeAttribute("flag");%> --%>
+	<%} session.removeAttribute("flag");%>
 }
 
 /* <<<<<<<<<<<<<<<<<<< Ajax for Serach book Info which is issued >>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -1047,9 +1047,7 @@ function getstuddetails(id){
 	    	 {	
 	    	 	var text=text+"<option value=\""+stud[i]+"\"> </option>";
 	    	 }
-	     
 			document.getElementById("browseStud").innerHTML = text;	
-			
 	    }
 	  };
 	  xhttp.open("POST", "/SMGMT/Library?studDetails="+id, true);
@@ -1178,7 +1176,6 @@ function getBookInfo(bookInfo,e)
 			document.getElementById("authrName").value = stud[2];
 			
 			var iDate = stud[3].split('-');
-			alert(stud[3]);
 			iDate=iDate[2]+'-'+iDate[1]+'-'+iDate[0];
 			document.getElementById("issueDate1").value = iDate;
 			
@@ -1337,20 +1334,6 @@ function getFineCount(todayDate, dueDate, radioValue,studId) {
  
  
 /*<<<<<<<<<<<<<<<<<<< Code For check box if it is selected or not >>>>>>>>>>>>>>>>>>> */
-/* function checkedPay(checkId)
-{
-	var famount=parseInt(document.getElementById("fineAmount").value);
-	if($(checkId).is(":checked"))
-		{
-		
-		document.getElementById("returnSubmit").disabled=false;
-		document.getElementById("remainAmount").value=famount;
-		}
-	else{
-		document.getElementById("returnSubmit").disabled=true;
-		}
-	
-} */
 
 function checkedPay(checkId)
 {   var totalFineAmt=parseInt(document.getElementById('fineAmount').value);
