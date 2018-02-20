@@ -400,7 +400,7 @@
                                                 </div>
                                                 <div class="col-lg-4">
                                                      <label for="required2" class="col-form-label" style="margin-top: 11%;">Edition </label>
-                                                	 <input type="text" name="edition" id="edition" class="form-control" onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Za-z0-9]" required>
+                                                	 <input type="text" name="edition" id="edition" class="form-control" onkeyup="this.value = this.value.toUpperCase();" required>
                                                 </div> 
                                                 <div class="col-lg-4 ">
                                                     <label for="required2" class="col-form-label" style="margin-top: 11%;">Price </label>
@@ -425,17 +425,6 @@
 															</select>
 												</div>
 												</div>
-                                                <!-- <div class="col-lg-4 input_field_sections">
-	                                            	<h5>Select Language *</h5>
-	                                            	<div class="form-group">
-		                                            	<select class="form-control"  name="language" id="lang">
-		                                                   <option value="English">English</option>
-		                                                    <option value="Hindi">Hindi</option>
-		                                                    <option value="Marathi">Marathi</option>
-		                                                    <option value="Urdu">Urdu</option>
-														 </select>
-                                           			</div> 
-                                        		</div> -->
 			                         		 <div class="modal-footer">
 					                            <button class="btn btn-primary waves-effect" type="submit" name="updatebook" id="sub">Update Book</button> 
 					                           	<button class="btn btn-warning" data-dismiss="modal">Close</button>  
@@ -447,36 +436,6 @@
                     </div>  
                 </div>
 
-
-<!-- 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script> -->
-<!-- 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script> -->
-
-<!--     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script> -->
-<!--     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script> -->
-<!--     <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script> -->
-<!--     <script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script> -->
-<!--     <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script> -->
-<!--     <script type="text/javascript" src="/SMGMT/config/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script> -->
-<!--     <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script> -->
-<!-- 	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script> -->
-<!--     <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script> -->
-<!-- 	<script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script> -->
-<!-- 	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script> -->
-
-<!--     <script type="text/javascript" src="/SMGMT/config/vendors/select2/js/select2.js.pagespeed.jm.Eugd1Y0BmV.js"></script> -->
-<!--     <script src="/SMGMT/config/vendors/datatables/js/jquery.dataTables.min.js+dataTables.bootstrap.min.js.pagespeed.jc.HRNT0WoBU9.js"></script> -->
-<!--     <script src="/SMGMT/config/vendors/datatables/js/dataTables.responsive.min.js+dataTables.buttons.min.js+buttons.colVis.min.js+buttons.html5.min.js+buttons.bootstrap.min.js+buttons.print.min.js.pagespeed.jc.TdR_"></script> -->
-    
-<!--     <script>eval(mod_pagespeed_g_o5ieHdNa);</script> -->
-<!--     <script>eval(mod_pagespeed_UzcyJ5ysoL);</script> -->
-<!--     <script>eval(mod_pagespeed_sB4kJD0xfI);</script> -->
-<!--     <script>eval(mod_pagespeed_aYQJk4iDci);</script> -->
-<!--     <script>eval(mod_pagespeed_wVkzf2s7YZ);</script> -->
-<!--     <script>eval(mod_pagespeed_Ij0pRaH8BP);</script> -->
-<!--     <script>eval(mod_pagespeed_wfmKXYO4Nj);</script> -->
-<!--     <script>eval(mod_pagespeed_EYzby3B1$L);</script> -->
-
-<!--     <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script> -->
 <jsp:include page="/View/common/commonJs.jsp"></jsp:include>
 </body>
 
