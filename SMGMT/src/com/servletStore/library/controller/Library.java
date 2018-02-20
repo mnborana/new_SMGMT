@@ -154,10 +154,11 @@ public class Library extends HttpServlet {
 		 if(request.getParameter("updatebook")!=null)
 		{
 		    int status=0;
-			//System.out.println("in update");
+			System.out.println("in update");
 			int id=Integer.parseInt(request.getParameter("bno"));
-			//System.out.println("updated id:"+id);
-			
+			System.out.println("updated id:"+id);
+			String date[]=request.getParameter("date").split("-");
+			String date1=date[2]+"-"+date[1]+"-"+date[0];
 			String bookName=request.getParameter("bookName");
 			String pubName=request.getParameter("pubName");
 			String authorName=request.getParameter("authorName");
@@ -173,7 +174,7 @@ public class Library extends HttpServlet {
 			
 
 			ad.setBookNo(id);
-			//ad.setDate(date);
+			ad.setDate(date1);
 			ad.setBookName(bookName);
 			ad.setPublisherName(pubName);
 			ad.setAuthorName(authorName);

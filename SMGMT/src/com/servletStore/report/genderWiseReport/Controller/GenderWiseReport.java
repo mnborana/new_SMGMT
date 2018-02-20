@@ -54,7 +54,7 @@ public class GenderWiseReport extends HttpServlet {
 //				String path = request.getServletContext().getRealPath("/WEB-INF/jasperReport/genderWiseReport.jrxml");
 				//jasperDesign = JRXmlLoader.load(path);
 				
-				System.out.println(gender+" "+standard_id);
+				System.out.println(gender+" is "+standard_id);
 				
 				jasperReport = JasperCompileManager.compileReport(jasperDesign);
 				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
