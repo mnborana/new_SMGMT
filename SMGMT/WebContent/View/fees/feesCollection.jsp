@@ -248,7 +248,7 @@
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
                                                     <button type="submit" name="feesCollection_btn" id="feesCollection_btn" value="feesCollection_btn" class="btn btn-primary" disabled="disabled">Submit</button>
-													<input type="button" value="Show Modal" data-toggle="modal" data-target="#search_modal" class="btn btn-primary"> 
+													<!-- <input type="button" value="Show Modal" data-toggle="modal" data-target="#search_modal" class="btn btn-primary"> --> 
                                                 </div>
                                             </div>
                                         </form>
@@ -365,6 +365,7 @@
 var feeForAssign = [];
 var feeSum=0;
 
+/*----- toast----- */
 function myFunction(res){
 	    iziToast.show({
             title: 'Status',
@@ -375,24 +376,23 @@ function myFunction(res){
 	
 }
 
+
+/*------------ Setting student in dropdown and getting standard wise fee--------------- */
 function selectStudent() {
 	
 	var standard_id = document.getElementById('standard_id').value;
-	
-	
+
 	var xhttp =new XMLHttpRequest();
 	
 	try{
 		xhttp.onreadystatechange = function(){
 			if(this.readyState == 4 && this.status == 200){
 				var str=this.responseText.split(",");
-				//alert(str);
 				var fee=str[0].split("#");
 				
 				
 				var tableData="";
 				var count=1;
-				//var i=0;
 				
 				if(fee.length==1)
 				{
@@ -414,7 +414,6 @@ function selectStudent() {
 					fee.splice(-1,1);
 					feeForAssign=[];
 					feeForAssign.push(fee);
-					//alert(feeForAssign);
 					
 					 
 					var data="<option disabled selected>Select Student </option>";
@@ -428,25 +427,9 @@ function selectStudent() {
 					$("#student_id").trigger('chosen:updated');	
 					
 					
-					
-					
-					
 				}
 				
-				/* for(var i=0;i < fee.length-1;i=i+3)
-				{
-				 	tableData+="<tr id='row"+count+"'>"
-					+"<td>"+count+"</td>"
-					+"<td>"+fee[i]+"</td>"
-					+"<td>"+fee[i+1]+"</td>"
-					+"<td>"+fee[i+2]+"</td>"
-					+"</tr>";
-					
-					count++;
-				alert(tableData);
-					
-				}
-				 document.getElementById("feeStructure").innerHTML=tableData; */
+			
 								
 			}
 		}
@@ -458,6 +441,8 @@ function selectStudent() {
 }
 
 
+
+/*-------- getting castWise fee and calculating with standardwise fee and setting it into modal table------------------- */
 function selectCast()
 {
 	var student_id = document.getElementById('student_id').value;
@@ -489,7 +474,6 @@ function selectCast()
 						var allFee = castFee.split(",");	
 						cast = allFee[allFee.length-1];
 						allFee.splice(-1,1); //for removing last element
-						//alert(feeForAssign);
 						if(feeForAssign.length>1)
 						{
 							while(feeForAssign.length > 1) { //for removing last assigned fee
@@ -500,7 +484,6 @@ function selectCast()
 						
 						//copying array for seeting it into table
 						var feeStruct = feeForAssign.slice(0);
-						//alert(feeStruct);
 						
 						
 						var feeForAddition="";
@@ -509,14 +492,11 @@ function selectCast()
 						var newArr = [];
 						  for(var i=0;i<feeForAssign.length;i++)
 							{
-							  
-							  
 							  tempArray=feeForAssign[i].toString().split(",");
 							  for(var j=0;j<tempArray.length;j++)
 								{
 								  newArr.push(tempArray[j].split(","))
 								 }
-							  
 							}
 						  feeForAddition =newArr.slice(0);
 						  
@@ -529,15 +509,12 @@ function selectCast()
 								}  
 							}
 						  
-					//	  alert(newArr+" "+newArr.length+" "+typeof newArr[0]);
-						  
 						feeSum=0;
 						for(var i=0;i<newArr.length;i++)
 						{
 							feeSum+=parseInt(newArr[i]);
 						}//addition of all fees
 						
-					//	alert(feeSum);
 						
 						$('#feeStruc').modal('show'); 
 						
@@ -546,7 +523,6 @@ function selectCast()
 							  var tableData = "";
 							  var count = 1;
 							  
-							  //alert(feeForAddition[0]);
 							  for(var i=0;i< feeForAddition.length-1;i=i+3)
 							  {
 									if(feeForAddition[i+2]=== undefined)
@@ -623,15 +599,13 @@ function selectCast()
 }
 
 
-
+/*------------ assigning total fee----------------- */
 function assignFee()
 {
-	alert(feeSum);
 	var aYear = document.getElementById('year').value;
 	var student_id = document.getElementById('student_id').value;
 	var standard_id = document.getElementById('standard_id').value;
 	
-	//alert(aYear);
 	 var xhttp =new XMLHttpRequest();
 	
 	try{
@@ -656,44 +630,7 @@ function assignFee()
 
 
 
-/* function Student() {
-	
-	var standard_id = document.getElementById('standard_id').value;
-	
-	alert("Standard Id "+standard_id);
-	
-	var xhttp =new XMLHttpRequest();
-	
-	try{
-		xhttp.onreadystatechange = function(){
-			if(this.readyState == 4 && this.status == 200){
-				var str=this.responseText.split(",");
-				
-				var data="<option disabled selected>Select Student </option>";
-				
-				for (var i = 0; i < str.length-1;) {
-					
-					data+='<option value='+str[ i++]+'>'+ str[ i++] +' </option>';
-				}
-				
-				//alert(data);
-				
-				document.getElementById("student_id").innerHTML=data;
-				$("#student_id").trigger('chosen:updated');					
-			}
-		}
-		xhttp.open("POST", "/SMGMT/FeesCollection?standard_id="+standard_id, true);
-		xhttp.send();
-	}catch(e){
-		alert("Unable to Connect Server!");
-	}
-	//SELECT student_details.id, student_details.first_name, student_details.middle_name, student_details.last_name FROM 
-	//student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND class_allocation.classroom_master=8
-	
-	//SELECT student_details.id, concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) AS full_name FROM 
-	//student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND class_allocation.classroom_master=8 AND 
-	//concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) LIKE 'suraj m%'
-} */
+
 
 function selectedStudentInfo() {
 	
