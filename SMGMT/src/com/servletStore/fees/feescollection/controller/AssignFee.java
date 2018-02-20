@@ -35,6 +35,7 @@ public class AssignFee extends HttpServlet {
 	  //ajax for searching standard wise student and fee
 		if(standard_id!=null){
 			
+			System.out.println(standard_id);
 			List studentList = feesCollectionDAO.getStudentInfo(standard_id);
 			
 			try
@@ -42,6 +43,8 @@ public class AssignFee extends HttpServlet {
 				List feeList = feesCollectionDAO.getStandardWiseFee(standard_id);
 			
 				Iterator itr = feeList.iterator();
+				
+				System.out.println(feeList.toString());
 				
 				while(itr.hasNext())
 				{
@@ -66,25 +69,24 @@ public class AssignFee extends HttpServlet {
 		if(student_id!=null)
 		{
 			String standard = request.getParameter("standard");
+			String academicYear = request.getParameter("year");
 			
 			try
 			{
 				//-----------assigning fee for next year remaining--------------
 				
 				//check if already assinged or not
-				System.out.println(student_id);
 				String check=feesCollectionDAO.checkStudFee(student_id);
-				if(check.equals("FEE ASSIGNED"))
-				{
-					out.println(check);
-					//out.print(",second string");
-				}
-				else
+				
+				
+				if(check.equals(","))
 				{
 					String cast = feesCollectionDAO.getStudentCast(student_id);
 					
 					
 					List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id, standard);
+					
+					System.out.println(castFee.toString());
 					
 					Iterator iterator = castFee.iterator();
 					
@@ -94,12 +96,75 @@ public class AssignFee extends HttpServlet {
 						
 					
 					out.println(cast);
-				
+				}
+				else
+				{
+					
+					String data[] = check.split(",");
+					String status = data[0];
+					String aDate = data[1];
+					
+					String[] splitYear = academicYear.split("-");
+					String startDate = splitYear[0]+"-07-01";
+					String endDate = splitYear[1]+"-04-30";
+							
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+					Date date = new Date();  
+					String currentDate=formatter.format(date);  
+					
+					Date start = formatter.parse(startDate);
+					Date end = formatter.parse(endDate);
+					Date cDate = formatter.parse(currentDate);
+					
+					Date availableDate = formatter.parse(aDate);
+					
+					//checks available record date comes in between academic year or not
+					if(start.compareTo(availableDate)*availableDate.compareTo(end)>0)
+					{
+						System.out.println("Not assinged because already assinged for this year");
+						out.print("FEE ASSIGNED");
+						//session.setAttribute("flag", "Not assinged because already assinged for this year");
+					}
+					else
+					{
+							
+						if(availableDate.before(end))
+						{
+							if(cDate.after(start))
+							{
+								String cast = feesCollectionDAO.getStudentCast(student_id);
+								
+								
+								List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id, standard);
+								
+								Iterator iterator = castFee.iterator();
+								
+								while (iterator.hasNext()) {
+									out.print(iterator.next()+",");
+								}
+									
+								out.println(cast);
+							}
+							else
+							{
+								System.out.println("You can not assinged in advance fee for next year");
+								out.print("You can not assinged in advance fee for next year");
+							}
+							
+						}
+						else
+						{
+							out.print("Not assinged, choose appropriate login year");
+							System.out.println("Not assinged, choose appropriate login year");
+						}
+						
+					}
+					
+					
 				}
 				
-				
 			
-			} catch (SQLException e)
+			} catch (SQLException | ParseException e)
 			{
 				e.printStackTrace();
 			}
