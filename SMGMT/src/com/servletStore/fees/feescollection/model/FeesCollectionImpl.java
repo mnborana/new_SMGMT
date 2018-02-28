@@ -65,7 +65,7 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 		
 		ResultSet rs = null;
 		String query = "SELECT student_details.id, concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) "
-					 + "AS full_name FROM student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND "
+					 + "AS full_name FROM student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND student_details.status=0 AND "
 					 + "class_allocation.classroom_master="+standard_id;
 		
 		List studInfo=new ArrayList<>();
@@ -114,15 +114,16 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 		Connection connection=dbconnect.getConnection();
 		List list = new ArrayList<>();
 		
-		String query="SELECT std_wise_fees_assignment.term_1_fees,std_wise_fees_assignment.term_2_fees FROM fee_type,std_wise_fees_assignment,classroom_master WHERE classroom_master.fk_class_master_id=std_wise_fees_assignment.fk_class_master_id AND fee_type.id=std_wise_fees_assignment.fees_type_id AND classroom_master.id=?";
+		String query="SELECT fee_type.fees_type,std_wise_fees_assignment.term_1_fees,std_wise_fees_assignment.term_2_fees FROM fee_type,std_wise_fees_assignment,classroom_master WHERE classroom_master.fk_class_master_id=std_wise_fees_assignment.fk_class_master_id AND fee_type.id=std_wise_fees_assignment.fees_type_id AND classroom_master.id=? ORDER BY std_wise_fees_assignment.priority";
 		pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, standard_id);
 		ResultSet rs = pstmt.executeQuery();
 		
 		while(rs.next())
 		{
-			list.add(rs.getInt(1));
+			list.add(rs.getString(1));
 			list.add(rs.getInt(2));
+			list.add(rs.getInt(3));
 		}
 		
 		connection.close();
@@ -137,7 +138,7 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 		Connection connection=dbconnect.getConnection();
 		List list = new ArrayList<>();
 		
-		String query="SELECT caste_wise_educational_fees.fees  FROM  fk_class_master,fee_type,caste_wise_educational_fees,student_details,classroom_master, class_allocation WHERE fee_type.id=caste_wise_educational_fees.fees_type_id AND student_details.category_id=caste_wise_educational_fees.caste_category_id  AND class_allocation.student_id=student_details.id  AND class_allocation.student_id=? AND classroom_master.id=? AND class_allocation.classroom_master=classroom_master.id AND classroom_master.fk_class_master_id=fk_class_master.id AND classroom_master.fk_class_master_id=caste_wise_educational_fees.fk_class_master_standard_id";
+		String query="SELECT fee_type.fees_type,caste_wise_educational_fees.fees  FROM  fk_class_master,fee_type,caste_wise_educational_fees,student_details,classroom_master, class_allocation WHERE fee_type.id=caste_wise_educational_fees.fees_type_id AND student_details.category_id=caste_wise_educational_fees.caste_category_id  AND class_allocation.student_id=student_details.id  AND class_allocation.student_id=? AND classroom_master.id=? AND class_allocation.classroom_master=classroom_master.id AND classroom_master.fk_class_master_id=fk_class_master.id AND classroom_master.fk_class_master_id=caste_wise_educational_fees.fk_class_master_standard_id";
 		pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, student_id);
 		pstmt.setString(2, standard);
@@ -145,7 +146,8 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 		
 		while(rs.next())
 		{
-			list.add(rs.getInt(1));
+			list.add(rs.getString(1));
+			list.add(rs.getInt(2));
 		}
 		
 		connection.close();
@@ -291,18 +293,20 @@ public class FeesCollectionImpl implements FeesCollectionDAO {
 		Connection connection=dbconnect.getConnection();
 		
 		String checkFeeStatus="";
+		String date="";
 
-		String query="SELECT fees_collection.particulars FROM fees_collection WHERE fees_collection.stud_id="+student_id;
+		String query="SELECT fees_collection.particulars,fees_collection.date FROM fees_collection WHERE fees_collection.stud_id="+student_id;
 		pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery();
 		
 		while(rs.next())
 		{
 			checkFeeStatus=rs.getString(1);
+			date=rs.getString(2);
 		}
 		
 		connection.close();
-		return checkFeeStatus;
+		return checkFeeStatus+","+date;
 
 	}
 

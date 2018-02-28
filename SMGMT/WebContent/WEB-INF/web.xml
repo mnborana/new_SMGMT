@@ -356,4 +356,24 @@
     <servlet-name>AddBank</servlet-name>
     <url-pattern>/AddBank</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>GenderWiseReport</servlet-name>
+    <servlet-class>com.servletStore.report.genderWiseReport.Controller.GenderWiseReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GenderWiseReport</servlet-name>
+    <url-pattern>/GenderWiseReport</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Icard</servlet-name>
+    <servlet-class>com.servletStore.report.icardReport.controller.Icard</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Icard</servlet-name>
+    <url-pattern>/Icard</url-pattern>
+  </servlet-mapping>
+  
+  
+  
 </web-app>

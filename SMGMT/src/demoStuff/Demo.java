@@ -2,9 +2,15 @@ package demoStuff;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 
+import com.servletStore.fees.feescollection.model.FeesCollectionDAO;
+import com.servletStore.fees.feescollection.model.FeesCollectionImpl;
 import com.servletStore.setup.model.SetupDAO;
 import com.servletStore.setup.model.SetupImpl;
 import com.servletStore.setup.model.SetupPOJO;
@@ -12,6 +18,35 @@ import com.servletStore.setup.model.SetupPOJO;
 public class Demo {
 
 	public static void main(String[] args) throws SQLException {
+		
+		
+		FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
+		  
+		String check=feesCollectionDAO.checkStudFee("2");
+		
+		if(check.equals(","))
+		{
+			
+		}
+		else
+		{
+			String data[] = check.split(",");
+			
+			String status = data[0];
+			
+			String date = data[1];
+			
+			
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+					
+			java.util.Date currentDate = new java.util.Date();
+			
+			LocalDate ld= LocalDate.now();
+			dtf.format(ld);
+			
+			
+			System.out.println(status+" a Date "+date+" Curent Date "+ld);
+		}
 		
 		
 		
