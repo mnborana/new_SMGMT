@@ -29,7 +29,7 @@
     #standardId {
 		display: block !important;
 	    opacity: 0;
-	    margin-top: -25%;
+	    margin-bottom: -10%;
 	}
 	
 	
@@ -160,8 +160,8 @@ z-index: 999999">
                                                <label for="required2" class="col-form-label">Select Standards <span style="color: red;">*</span> </label>
                                            </div>
                                            <div class="col-lg-4">
-                                               <select multiple onchange="setStds()" class="form-control chzn-select" name="standardIds" id="standardId" title="Select Standard"  required>
-			                                        
+                                               <select onchange="setStds()" class="form-control chzn-select" name="standardIds" id="standardId" title="Select Standard"  required>
+			                                        <option value="">Select Standard</option>
 			                                        <%
 				                                    	AssignStdWiseFeesDao dao = new AssignStdWiseFeesImpl(); 
 				                                    	HashMap<Integer, String> stdList = dao.getStandards(schoolId);
@@ -266,46 +266,24 @@ z-index: 999999">
 							                                        </c:forEach>
 							                                        </tbody>
 							                                    </table>
-							                                    
-							                                    
-							                                    <td>
-							                                    <table class="table  table-striped table-bordered table-hover dataTable no-footer">
-							                                    	<thead>
-							                                    	<th>Fees Type</th>
-							                                    	<%
-							                                        	List categoryList = dao.getCategoryList();
-								                                    	Iterator itr2 = categoryList.iterator();
-								                                    	while(itr2.hasNext()){
-								                                    		String category = itr2.next().toString();
-								                                    %>
-								                                    		<th><%=category%></th>
-								                                    <%		
-								                                    	}
-								                                    	//SELECT fee_type.fees_type, caste_wise_educational_fees.fees, caste_category.category_name FROM fee_type, caste_wise_educational_fees, caste_category WHERE fee_type.id=caste_wise_educational_fees.fees_type_id AND caste_wise_educational_fees.caste_category_id=caste_category.id AND caste_wise_educational_fees.fk_class_master_standard_id=1   ORDER BY `fee_type`.`fees_type` ASC
-							                                        %>
-							                                    	</thead>
-							                                    	<tbody>
-							                                    	
-							                                    		<td></td>
-							                                    		<td></td>
-							                                    		<td></td>
-							                                    		<td></td>
-							                                    		<td></td>
-							                                    		<td></td>
-							                                    		<td></td>
-							                                    		<td></td>
-							                                    		<td></td>
-							                                    		<td></td>
-							                                    	</tbody>
+							                                   
+							                                   	<hr><hr>
+							                                    <div class="card-header bg-white" style=" padding-left: 0; font-size: 130%;" id="categoryFessLable">
+										                            
+										                        </div>
+							                                    <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="castWiseFeesTable">
+							                                    	<thead> </thead>
+							                                    	<tbody> </tbody>
 							                                    </table>
-							                                    </td>
 							                                    
-							                                    <table class="table  table-striped table-bordered table-hover dataTable no-footer">
+							                                    <table class="table table-striped table-bordered table-hover dataTable no-footer">
 							                                    	<tr style="background-color: #3aaefd85;">
-								                                        <td><strong style="font-size: 135%;">Total Fees of Standard(s) : </strong><strong id="stdList" style="font-size: 100%;"></strong></td>
+								                                        <td><strong style="font-size: 135%;">Total Fees of Standard </strong><strong id="stdList" style="font-size: 100%;">  </strong> <span id="selectedCategory"></span> <strong style="font-size: 135%;"> : </strong></td>
 								                                        <td id="totalStdFess" style="width: 24%;"><strong style="font-size: 135%;">0</strong></td>
 							                                        </tr>
 							                                    </table>
+							                                    
+							                                    
 							                                </div>
 							                            </div>
 							                            <!-- END EXAMPLE TABLE PORTLET-->
@@ -334,9 +312,6 @@ z-index: 999999">
                 </div> <!-- /.outer -->
                 
                 
-               
-            
-                
                 <!-- /.outer -->
             </div>
         </div>
@@ -353,6 +328,8 @@ z-index: 999999">
 <script type="text/javascript">
 
 	var totalStdFess = 0;
+	var totalCastWiseFess = 0;
+	var checkedCatFeesArray=[];
 	
 	function selectAllChecks(){
 		var c = document.getElementsByName('feeTypeCheck');
@@ -371,7 +348,7 @@ z-index: 999999">
 					totalStdFess = +totalStdFess+ +tr[2].innerHTML+ +tr[3].innerHTML;
 				}
 				//alert(totalStdFess);
-				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
+				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+(+totalStdFess + +totalCastWiseFess)+"</Strong>";
 			}
 		}
 		else
@@ -379,7 +356,7 @@ z-index: 999999">
 			for(var i=0;i<c.length;i++)
 			{
 				c[i].checked=false;
-				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
+				document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+(+totalStdFess + +totalCastWiseFess)+"</Strong>";
 			}
 		}
 	}
@@ -393,9 +370,126 @@ z-index: 999999">
 			else{
 				selectedStds +=  ", " + $(selectedElement).text();
 			}
-			
 		});
 		document.getElementById("stdList").innerHTML = "<strong style='font-size: 135%;'>"+selectedStds+"</Strong>";
+		
+		
+		var xhttp;
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var finalStr = this.responseText.split("@@@");
+				
+				var headStr = finalStr[0].split(",");
+				//alert(headStr);
+				var demoStr = finalStr[1].split(",");
+				//alert(demoStr);
+				
+				var table = document.getElementById("castWiseFeesTable").children;
+				var finalData = "";
+				var headData = "";
+				
+				var j=0;
+				headData += "<tr><th></th><th>Category</th>";
+				while (j<headStr.length-1) {
+					headData += "<th>"+headStr[j]+"</th>";
+					j++;
+				}
+				headData += "</tr>";
+				
+				var i=0;
+				var num=1;
+				while (i<demoStr.length-1) {					
+					var counter = headStr.length;
+					var count=1;
+					
+					document.getElementById("categoryFessLable").innerHTML="Category Wise Fees";
+					
+					finalData += "<tr id='castWiseFeesTR"+num+"'>";
+					
+					finalData += "<td><div class='checkbox'>"+
+	                	"<label class='text-mint'>"+
+	                	"<input type='checkbox'  onclick='getFinalFeesWithCat("+num+")' id='categoryFeesCheck"+(num)+"' value="+demoStr[i]+" name='categoryFeesCheck' >"+
+	                    	"<span class='cr'><i class='cr-icon fa fa-check'></i></span>"+
+	                	"</label>"+
+		    		"</div></td>";
+		    		
+					while(counter>0){
+						
+						if(count==1){
+							
+							if(demoStr[i]=="null"){
+								finalData += "<td>-</td>";
+							}
+							else{
+								finalData += "<td>"+demoStr[i]+"</td>";
+							}
+							counter--;
+							i++;
+						}
+						else if((count+1)%2!=0){
+							
+							if(demoStr[i]=="null"){
+								finalData += "<td>-</td>";
+							}
+							else{
+								finalData += "<td>"+demoStr[i]+"</td>";
+							}
+							counter--;
+							i++;
+						}
+						else{
+							i++;
+						}
+						
+						count++;
+					}
+					
+					finalData += "</tr>"
+					num++;
+				}
+				
+				table[0].innerHTML=headData;
+				table[1].innerHTML=finalData;
+			}
+		};
+		
+		xhttp.open("POST", "/SMGMT/AssignStdWiseFees?stdId="+document.getElementById("standardId").value, true);
+		xhttp.send();
+		
+	}
+	
+	function getFinalFeesWithCat(id) {
+		
+		var c = document.getElementsByName('categoryFeesCheck');
+		var totalFees = 0;
+		var cat="";
+		
+		for(var i=0;i<c.length;i++)
+		{
+			var d = document.getElementById("categoryFeesCheck"+(i+1));
+			var tr = document.getElementById("castWiseFeesTR"+id).children;
+			
+			
+			if(id!=(i+1)){
+				d.checked=false;
+			}
+			else{
+				if(document.getElementById("categoryFeesCheck"+id).checked){		
+					for(var j=2;j<tr.length;j++){
+						if(tr[j].innerHTML!="-"){
+							totalFees = +totalFees + +tr[j].innerHTML;
+						}
+					}
+					cat = " for " + $("#categoryFeesCheck"+id).val() + " Category ";
+				}
+			}
+		}
+		
+		document.getElementById("selectedCategory").innerHTML = "<strong style='font-size: 135%;'>"+cat+"</Strong>";
+		totalCastWiseFess = totalFees;
+		document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+(+totalStdFess + +totalCastWiseFess)+"</Strong>";
+		
 	}
 	
 	function getFinalTotal(updateRowId){
@@ -410,7 +504,7 @@ z-index: 999999">
 			totalStdFess = +totalStdFess- +tr[2].innerHTML- +tr[3].innerHTML;
 		}
 		
-		document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+totalStdFess+"</Strong>";
+		document.getElementById("totalStdFess").innerHTML = "<strong style='font-size: 135%;'>"+(+totalStdFess + +totalCastWiseFess)+"</Strong>";
 		
 	}
 	
