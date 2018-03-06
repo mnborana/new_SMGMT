@@ -483,7 +483,7 @@ function selectCast()
 						var feeStruct = feeForAssign.slice(0);
 						
 						
-						var feeForAddition="";
+						var feeForAddition=[];
 						
 						var tempArray = [];
 						var newArr = [];
@@ -519,24 +519,27 @@ function selectCast()
 						$('#feeStruc').on('shown.bs.modal', function (e) {
 							  var tableData = "";
 							  var count = 1;
+							//  alert(feeForAddition);
 							  
-							  for(var i=0;i< feeForAddition.length-1;i=i+3)
+							  for(var i=0;i< feeForAddition.length;)
 							  {
-									if(feeForAddition[i+2]=== undefined)
+									//alert(feeForAddition[i+2]);
+								  if( isNaN(feeForAddition[i+2])|| feeForAddition[i+2]=== undefined)
 									{
+									//	alert('hello');
 										tableData +="<tr>"
 											+"<td>"+count+"</td>"
-											+"<td>"+feeForAddition[i]+"</td>"
-											+"<td colspan='2' align='center'>"+feeForAddition[i+1]+"</td>"
+											+"<td>"+feeForAddition[i++]+"</td>"
+											+"<td colspan='2' align='center'>"+feeForAddition[i++]+"</td>"
 											+"</tr>";
 									}
 									else
-									{
+									{ 
 										tableData +="<tr>"
 											+"<td>"+count+"</td>"
-											+"<td>"+feeForAddition[i]+"</td>"
-											+"<td>"+feeForAddition[i+1]+"</td>"
-											+"<td>"+feeForAddition[i+2]+"</td>"
+											+"<td>"+feeForAddition[i++]+"</td>"
+											+"<td>"+feeForAddition[i++]+"</td>"
+											+"<td>"+feeForAddition[i++]+"</td>"
 											+"</tr>";	
 									}
 									count++;
