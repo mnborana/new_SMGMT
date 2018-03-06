@@ -264,9 +264,7 @@
 
     <script type="text/javascript" src="/SMGMT/config/js/pages/users.js"></script>
     
-    
-    
-    
+ 
 <!-- plugin level scripts -->
 <script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
 <script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
