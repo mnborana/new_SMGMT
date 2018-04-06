@@ -255,7 +255,7 @@ z-index: 999999">
                                         
                                         <%
                                          	AddClassRoomDAO classImpl = new AddClassRoomImpl();
-	                                     	List l = classImpl.getClassRoomDetails("1");
+	                                     	List l = classImpl.getClassRoomDetails(schoolId);
 	                                    
 	 										int count=1;
 	                                     	Iterator itr = l.iterator();

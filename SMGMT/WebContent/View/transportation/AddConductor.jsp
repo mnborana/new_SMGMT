@@ -179,7 +179,7 @@
                                                   <label for="required2" class="col-form-label">Vehicle No.*</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                	<select class="form-control chzn-select" tabindex="2" id="required2" name="vehicle_no">
+                                                	<select class="form-control chzn-select" tabindex="2" id="required2" name="vehicle_no" >
                                                 	    <option disabled selected>Choose a Vehicle</option>
                                                 	    <%
                                                 	    	for(int i=0;i<al3_id.size();i++)
@@ -191,6 +191,7 @@
                                                 	    %>
                                                 	</select>
                                           	 		</div>
+                                          	 		   <span id="vehicle_msg" style="color: red;display: none">this field is required</span>
                                             </div>
                                             
                                             
@@ -200,8 +201,10 @@
                                                     <label for="required2" class="col-form-label">Name*</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="required2" name="driver_name"  value=" " class="form-control" onkeyup="this.value=this.value.toUpperCase();" required>
+                                                    <input type="text" id="required2" name="driver_name"  value=" " class="form-control" onkeyup="this.value=this.value.toUpperCase();" onkeypress="return IsCharacter(event,'error');" ondrop="return false;" onpaste="return false;" onkeyup="this.value=this.value.toUpperCase();" required>
                                                 </div>
+                                              <span id="error" style="color: red;display: none">Only Characters allowed</span>
+                                                
                                             </div>
                                          
                                          
@@ -249,16 +252,18 @@
                                            
                                            <div class="form-group row">
                                                 <div class="col-lg-4  text-lg-right">
-                                                    <label for="digits" class="col-form-label">Phone No *</label>
+                                                    <label for="digits" class="col-form-label">Mobile No *</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="digits" name="digits_only" value=" " class="form-control" required>
+                                                    <input type="text" id="digits" name="digit1" value=" " maxlength="10" class="form-control" onkeypress="return IsNumeric(event,'err');" ondrop="return false;" onpaste="return false;" required>
                                                 </div>
+                                              <span id="err" style="color: red;display: none">Only digits allowed</span>
+                                                
                                             </div>
                                             
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Add Conductor" name="add_conductor_btn" class="btn btn-primary">
+                                                    <input type="submit" value="Add Conductor" name="add_conductor_btn" class="btn btn-primary" onclick="validateVehicle()">
                                                 </div>
                                             </div>
                                         </form>
@@ -583,9 +588,28 @@
  <script type="text/javascript" src="/SMGMT/config/js/jquery.min.js"></script>
       
 	<script>   
-	$(document).ready(function(){  
+	/* $(document).ready(function(){  
 	        $("#hide_check").hide();  
-	    }); 
+	    });  */
+	    
+	    var specialKeys = new Array();
+	    specialKeys.push(8); //Backspace
+	    function IsNumeric(e,msg) {
+	        var keyCode = e.which ? e.which : e.keyCode
+	        var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+	        document.getElementById(msg).style.display = ret ? "none" : "inline";
+	        return ret;
+	    }
+
+
+	    function IsCharacter(e,msg)
+	    { 
+	    	 var keyCode = e.which ? e.which : e.keyCode
+	    			    var ret = ((keyCode > 64 && keyCode < 91) ||(keyCode > 96 && keyCode < 123)||(keyCode==8)|| specialKeys.indexOf(keyCode) != -1);
+	    			    document.getElementById(msg).style.display = ret ? "none" : "inline";
+	    			   // alert(ret)
+	    			    return ret;
+	    }
 	function show_checkbox(ap)
 	{  		
 		var a=document.getElementById(ap).value.trim();
@@ -649,7 +673,18 @@
 		flag=true;
 	}
 	
-
+	function validateVehicle()
+	{
+		//vehicle_msg
+		//alert("APAPAOUT")
+		if(document.getElementById("required2").selectedIndex==0)
+		{
+			//alert("APAPA")
+			document.getElementById("vehicle_msg").style.display="block";
+			//return false;
+		}	
+		
+	}
 	</script>
 
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>

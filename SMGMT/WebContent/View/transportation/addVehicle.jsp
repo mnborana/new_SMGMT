@@ -109,9 +109,10 @@
                                                   <label for="required2" class="col-form-label">Vehicle Type</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="required2" name="vehicle_type" type="text" value=" "  tabindex="1" class="form-control" onkeyup="this.value=this.value.toUpperCase();" autofocus>                                                   
+                                                    <input type="text" id="required2" name="vehicle_type" type="text" tabindex="1" class="form-control" onkeypress="return IsCharacter(event,'tmsg');" ondrop="return false;" onpaste="return false;" onkeyup="this.value=this.value.toUpperCase();" placeholder="vehicle Type" autofocus>                                                   
                                                     
                                                 </div>
+                                                <span id="tmsg" style="color: red;display: none">Only characters allowed</span>
                                             </div>
                                             
                                             
@@ -121,18 +122,22 @@
                                                     <label class="col-form-label">Vehicle No. *</label>
                                                 </div>
                                                 <div class="col-lg-1" >
-                                                <input class="form-control" id="first" type="text" value="" name="mh" maxlength="2" tabindex="2" width="3" placeholder="xx" onkeyup="{movetoNext(this, 'second');this.value=this.value.toUpperCase();}" required>
+                                                <input class="form-control" id="first" type="text" value="" name="mh" maxlength="2" tabindex="2" width="3" placeholder="MH" onkeyup="{movetoNext(this, 'second');this.value=this.value.toUpperCase();}" onkeypress="return IsCharacter(event,'cmsg');" ondrop="return false;" onpaste="return false;"  required>
                                             </div>
                                             <div class="col-lg-1" >
-                                                <input class="form-control focused_input" id="second" type="text" value="" name="tt" maxlength="2" tabindex="3" placeholder="xx" onkeyup="movetoNext(this, 'third')" required>
+                                                <input class="form-control focused_input" id="second" type="text" value="" name="tt" maxlength="2" tabindex="3" placeholder="xx" onkeyup="movetoNext(this, 'third')" onkeypress="return IsNumeric(event,'vmsg');" ondrop="return false;" onpaste="return false;" required>
                                             </div>
                                             <div class="col-lg-1">
-                                                <input class="form-control focused_input" type="text" id="third" value="" name="m" maxlength="2" tabindex="4" placeholder="xx" onkeyup="{movetoNext(this, 'fourth');this.value=this.value.toUpperCase();}" required>
+                                                <input class="form-control focused_input" type="text" id="third" value="" name="m" maxlength="2" tabindex="4" placeholder="xx" onkeyup="{movetoNext(this, 'fourth');this.value=this.value.toUpperCase();}" onkeypress="return IsCharacter(event,'cmsg');" ondrop="return false;" onpaste="return false;"  required>
                                             </div>
                                             <div class="col-lg-1">
-                                                <input class="form-control focused_input" type="text" id="fourth" value="" name="fofe" maxlength="4" tabindex="5" placeholder="xxxx" required>
+                                                <input class="form-control focused_input" type="text" id="fourth" value="" name="fofe" maxlength="4" tabindex="5"  onkeypress="return IsNumeric(event,'vmsg');" ondrop="return false;" onpaste="return false;"   placeholder="xxxx" required>
                                             </div>
-                                            </div>
+                                                  <span id="vmsg" style="color: red;display: none">Only digits allowed</span>
+                                            		<span id="cmsg" style="color: red;display: none">Only characters allowed</span>
+                                            
+                                           </div>
+                                           
                                           
                                          
                                             
@@ -141,21 +146,30 @@
                                                     <label class="col-form-label">No. of Seats </label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input name="seats_no" value=" " type="text" class="form-control"  tabindex="6" placeholder="No. of seats"/>
+                                                    <input name="seats_no" id="seat_no"  onkeypress="return IsNumeric(event,'emsg');" ondrop="return false;" onpaste="return false;"  type="text" class="form-control"  tabindex="6" placeholder="No. of seats"/>
+                                             
                                                 </div>
+                                                  <span id="emsg" style="color: red;display: none">Only digits allowed</span>
                                             </div>
+                                            
+                                            
+                                            
+                                            
                                             <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label  class="col-form-label">Maximum Allowed </label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input name="max_allowed" value=" " type="text" class="form-control focused_input" tabindex="7" placeholder="Maximum Allowed Seats"/>
+                                                    <input name="max_allowed"  id="max_seat" type="text" onkeypress="return IsNumeric(event,'errmsg');" ondrop="return false;" onpaste="return false;" class="form-control" tabindex="7" placeholder="max seats"/>
+                                               		
                                                 </div>
+                                              <span id="errmsg" style="color: red;display: none">Only digits allowed</span>
                                             </div>                                                                                                                              
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
                                                     <input type="submit" value="Add Vehicle" class="btn btn-primary" name="add_vehicle_btn">
+                                                	
                                                 </div>
                                             </div>
                                         </form>
@@ -302,6 +316,7 @@
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <input name="mod_max_allowed" id="view_mod_max_allowed" value=" " type="text" class="form-control focused_input" placeholder="Maximum Allowed Seats" readonly/>
+                                                <span id="errmsg"></span>
                                                 </div>
                                             </div>                                                                                                                              
                                             
@@ -457,8 +472,42 @@
 		xhttp.open("POST","/SMGMT/Vehicle?id="+id, true);
 		xhttp.send();
 	}
+function validationForNum(inputtext,msg)
+{
+		  //called when key is pressed in textbox
+		  $("#"+inputtext).keypress(function (e) 
+				  {
+		     //if the letter is not digit then display error and don't type anything
+		             if (e.which != 8 && e.which != 0 && (e.which< 48 || e.which >57)) 
+		       {
+		        //display error message
+		        $("#"+msg).html("Digits Only").show().fadeOut("slow");
+		               return false;
+		      }
+		   });
+		
+}
 
-	
+
+
+var specialKeys = new Array();
+specialKeys.push(8); //Backspace
+function IsNumeric(e,msg) {
+    var keyCode = e.which ? e.which : e.keyCode
+    var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+    document.getElementById(msg).style.display = ret ? "none" : "inline";
+    return ret;
+}
+
+
+function IsCharacter(e,msg)
+{ 
+	 var keyCode = e.which ? e.which : e.keyCode
+			    var ret = ((keyCode > 64 && keyCode < 91) ||(keyCode > 96 && keyCode < 123)||(keyCode==8)|| specialKeys.indexOf(keyCode) != -1);
+			    document.getElementById(msg).style.display = ret ? "none" : "inline";
+			   // alert(ret)
+			    return ret;
+}
 
 </script>
 

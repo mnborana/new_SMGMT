@@ -304,15 +304,81 @@ z-index: 999999">
                                            </div>
                                        </div>
                                    </form>
+                                  </div>
+                               </div>
+                           </div> <!-- /.col-lg-12 -->
+                       </div> <!-- /.row -->
+                   </div> <!-- /.inner -->
+               </div> <!-- /.outer -->
+               <!-- /.outer -->
+ 
+ 				<div class="outer">
+                    <div class="inner bg-container">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-header bg-white">
+                                        Standard List With Fees Assigned
                                     </div>
+                                    <div class="card-block m-t-35" id="user_body">
+			                            <div class="table-toolbar">
+			                                
+			                                <div class="btn-group float-right users_grid_tools">
+			                                    <div class="tools"></div>
+			                                </div>
+			                            </div>
+			                            <div>
+			                                <div>
+			                                    <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="editable_table" role="grid">
+			                                        <thead>
+			                                        	<tr role="row">
+				                                            <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No.</th>
+				                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Class</th>
+				                                           	
+				                                            <% if(access==2){ %>
+				                                            	<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>
+				                                            <% } %>
+				                                        </tr>
+			                                        </thead>
+			                                        
+			                                        <tbody>
+			                                        	 <%
+				                                         	AssignStdWiseFeesDao aswfImpl = new AssignStdWiseFeesImpl();
+					                                     	List l = aswfImpl.getFeesAssignedStds(schoolId);
+					                                    
+					 										int count=1;
+					                                     	Iterator itr1 = l.iterator();
+					                                     	while(itr1.hasNext()){
+					                                     		String id = itr1.next().toString();
+					                                  	%>
+				                                        	<tr role="row" class="even">
+				                                        		<td><%=count %></td>
+				                                        		<td><%=itr1.next() %></td>
+				                                        		
+				                                        		<% if(access==2){ %>
+				                                        		<td>
+				                                        			<a class="edit" data-placement="top" title="Update" href="#update" data-toggle="modal"  onclick="updateFees(<%=id %>)"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
+				                                        			<a data-placement="top" title="View" onclick="getFeesStructure(<%=id %>)" href="#view" data-toggle="modal"><i class="fa fa-eye" style="color: #09bf41bf"></i></a>&nbsp; &nbsp;
+				                                        			<a data-toggle="tooltip" data-placement="top" title="Print" href="#"><i class="fa fa-print" style="color: #f91353"></i></a>
+				                                        		</td>
+				                                        		<% } %>
+				                                        	</tr>
+				                                        <%
+				                                   	count++;
+				                                  	}
+				                                  %> 
+			                                        </tbody>
+			                                    </table>
+			                                </div>
+			                            </div>
+			                            <!-- END EXAMPLE TABLE PORTLET-->
+			                        </div>
                                 </div>
                             </div> <!-- /.col-lg-12 -->
                         </div> <!-- /.row -->
                     </div> <!-- /.inner -->
                 </div> <!-- /.outer -->
-                
-                
-                <!-- /.outer -->
+ 
             </div>
         </div>
         <!-- /#content -->
@@ -321,8 +387,92 @@ z-index: 999999">
     
     <!-- /#content -->
   
-
-</div>
+  	<!-- Model-->
+       <div class="modal fade show" id="update" role="dialog" aria-labelledby="modalLabelnews">
+          <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                      <h4 class="modal-title text-white" id="modalLabelnews"><strong>Update Assigned Fees</strong></h4>
+                  </div>
+                  <div class="modal-body">
+                  	<form action="/SMGMT/Installment" class="form-horizontal  login_validator" id="form_block_validator" method="post">
+                                  
+                    </form>	
+                  </div>
+              </div>
+          </div>
+      </div>  
+      
+      
+      <div class="modal fade show" id="view" role="dialog" aria-labelledby="modalLabelnews">
+          <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content" style="width: 140%; margin-left: -19%;">
+                  <div class="modal-header bg-primary">
+                      <h4 class="modal-title text-white" id="modalLabelnews"><strong>Assigned Fees</strong></h4>
+                  </div>
+                  <div class="modal-body">
+                  	<form action="/SMGMT/Installment" class="form-horizontal  login_validator" id="form_block_validator" method="post">
+                          <div class="outer">
+		                    <div class="inner bg-container">
+		                        <div class="row">
+		                            <div class="col-xl-12">
+		                                    
+		                                    <div class="card-block m-t-35" id="user_body">
+					                            <div class="table-toolbar">
+					                                
+					                                <div class="btn-group float-right users_grid_tools">
+					                                    <div class="tools"></div>
+					                                </div>
+					                            </div>
+					                                    <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="FeesStructTable" role="grid">
+					                                        <thead>
+					                                        	<tr role="row">
+						                                            <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr.No.</th>
+						                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term-I Fees</th>
+						                                            <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term-II Fees</th>
+						                                        </tr>
+					                                        </thead>
+					                                        <%
+					                                        	request.setAttribute("FeesTypeList", dao.getFeestypeList());
+					                                        	int j=0;
+					                                        %>
+					                                        <tbody>
+							                                        <c:forEach items="${FeesTypeList}" var="l">
+							                                        	<%++j; %>
+							                                        	<tr role="row" class="even" id="editFeeTR<%=i%>">
+							                                        		<td><c:out value="${l.feesType}"> </c:out></td> 
+							                                        		<td><c:out value="${l.termOneFees}"></c:out></td>
+							                                        		<td><c:out value="${l.termTwoFees}"></c:out></td>
+							                                        		
+							                                        	</tr>
+							                                        </c:forEach>
+					                                        </tbody>
+					                                    </table>
+					                                    
+					                                    <table class="table  table-striped table-bordered table-hover dataTable no-footer" id="castWiseFeesStructTable" role="grid">
+					                                        <thead>
+					                                        	
+					                                        </thead>
+					                                        <tbody>
+					                                        
+					                                        </tbody>
+					                                    </table>
+					                                    
+					                            <!-- END EXAMPLE TABLE PORTLET-->
+					                        </div>
+		                            </div> <!-- /.col-lg-12 -->
+		                        </div> <!-- /.row -->
+		                    </div> <!-- /.inner -->
+		                </div> <!-- /.outer -->        
+                    </form>	
+                  </div>
+              </div>
+          </div>
+      </div> 
+      
+  
+  
+  
 <!-- /#wrap -->
 <!-- global scripts-->
 <script type="text/javascript">
@@ -330,6 +480,116 @@ z-index: 999999">
 	var totalStdFess = 0;
 	var totalCastWiseFess = 0;
 	var checkedCatFeesArray=[];
+	
+	
+	function getFeesStructure(stdId){
+		if(stdId==""){
+			return;
+		}
+		
+		var xhttp =new XMLHttpRequest();
+		try{
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var getData=this.responseText.split(",");
+					
+					FeesStructTable
+					getCastWiseFeesStructure(stdId);
+				}
+			}
+			
+			xhttp.open("GET", "/SMGMT/AssignStdWiseFees?stdId="+stdId+"&getFeesStructure=1", true);
+			xhttp.send();
+		}catch(e){
+			alert("Unable to Connect Server!");
+		}
+	}
+	
+	function getCastWiseFeesStructure(stdId){
+		if(stdId==""){
+			return;
+		}
+		
+		var xhttp =new XMLHttpRequest();
+		try{
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var finalStr = this.responseText.split("@@@");
+					//alert(finalStr);
+					var headStr = finalStr[0].split(",");
+					//alert(headStr);
+					var demoStr = finalStr[1].split(",");
+					//alert(demoStr);
+					
+					var table = document.getElementById("castWiseFeesStructTable").children;
+					var finalData = "";
+					var headData = "";
+					
+					var j=0;
+					headData += "<tr><th>Category</th>";
+					while (j<headStr.length-1) {
+						headData += "<th>"+headStr[j]+"</th>";
+						j++;
+					}
+					headData += "</tr>";
+					
+					var i=0;
+					var num=1;
+					while (i<demoStr.length-1) {					
+						var counter = headStr.length;
+						var count=1;
+						
+						//document.getElementById("categoryFessLable").innerHTML="Category Wise Fees";
+						
+						finalData += "<tr id='castWiseFeesStructTableTR"+num+"'>";
+						
+						while(counter>0){
+							
+							if(count==1){
+								
+								if(demoStr[i]=="null"){
+									finalData += "<td>-</td>";
+								}
+								else{
+									finalData += "<td>"+demoStr[i]+"</td>";
+								}
+								counter--;
+								i++;
+							}
+							else if((count+1)%2!=0){
+								
+								if(demoStr[i]=="null"){
+									finalData += "<td>-</td>";
+								}
+								else{
+									finalData += "<td>"+demoStr[i]+"</td>";
+								}
+								counter--;
+								i++;
+							}
+							else{
+								i++;
+							}
+							
+							count++;
+						}
+						
+						finalData += "</tr>"
+						num++;
+					}
+					
+					table[0].innerHTML=headData;
+					table[1].innerHTML=finalData;
+					
+				}
+			}
+			
+			xhttp.open("POST", "/SMGMT/AssignStdWiseFees?stdId="+stdId, true);
+			xhttp.send();
+		}catch(e){
+			alert("Unable to Connect Server!");
+		}
+	}
 	
 	function selectAllChecks(){
 		var c = document.getElementsByName('feeTypeCheck');

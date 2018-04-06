@@ -130,6 +130,27 @@
                                     List<RoutePOJO> rao_list=rao.getRouteDetails();
                                     List<AssignRoutePOJO> assi_list=ad.getAssignRouteDetails();
                                     int ap1=0;
+                                    System.out.println("-----------");
+                                    //ArrayList<String> al1=new ArrayList();
+                                  	//ArrayList<String> al2=new ArrayList();
+//                                     for(int i=0;i<rao_list.size();i++)
+//                                     {
+//                                     	al1.add(rao_list.get(i).getRoute_name());
+//                                     }
+//                                     for(int i=0;i<rao_list.size();i++)
+//                                     {
+//                                     	al2.add(assi_list.get(i).getRoute_name());
+//                                     }
+//                                     System.out.println("=====Route Details");
+//                                     for(int i=0;i<al1.size();i++)
+//                                     {
+//                                     	System.out.println(al1.get(i));
+//                                     }
+//                                     System.out.println("=====Assign Route Details");
+//                                     for(int i=0;i<al2.size();i++)
+//                                     {
+//                                     	System.out.println(al2.get(i));
+//                                     }
                                     //ArrayList<String> al1=new ArrayList();
                                     //ArrayList<String> al2=new ArrayList();
                                     ArrayList<Integer> al1_id=new ArrayList();
@@ -184,18 +205,20 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-4">
-                                                	<select class="form-control chzn-select" tabindex="2" id="required2" name="vehicle_no" required>
+                                                	<select class="form-control chzn-select" tabindex="2" id="required2" name="vehicle_no" required onchange="getRoutes(this.id,'required3')">
                                                 	    <option disabled selected>Choose a Vehicle</option>
                                                 	  <%
-                                                	  for(int i=0;i<veh_list.size();i++)
+                                                	  		for(int i=0;i<veh_list.size();i++)
                                                 			{
                                                 	    %>
 	                                                	    	<option value="<%=veh_list.get(i).getId()%>"><%=veh_list.get(i).getVeh_no()%></option>
                                                 	    <%
                                                 	    	}
-                                                	    %>>
+                                                	    %>
                                                 	</select>
                                           	 	</div>
+                             <div><span id="vehicle_msg" style="color: red;display: none;">This field is required</span></div>
+                                          	 	
                                             </div>
                                            
                                          <div class="form-group row">
@@ -206,20 +229,12 @@
                                                  <div class="col-lg-4">
                                                 	
                                                 	     <select class="form-control chzn-select-deselect" id="required3" name="route_name" multiple required>
-                                                    <optgroup label="choose a Route">
+                                                    <optgroup label="choose a Route" id="optgrp">
                                                         
-                                                   
-                                                	    <%
-                                                	    	for(int i=0;i<rao_list.size();i++)
-                                                			{
-                                                	    %>
-	                                                	    	<option value="<%=rao_list.get(i).getId()%>"><%=rao_list.get(i).getRoute_name()%></option>
-                                                	    <%
-                                                	    	}
-                                                	    %>
                                                 	    </optgroup>
                                                 	</select>
                                           	 	</div>
+                                          	 	  <div><span id="vehicle_msg1" style="color: red;display: none;">This field is required</span></div>
                                             </div>  
                                            
                                           
@@ -227,7 +242,7 @@
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" name="assign_route_btn" value="Assign Route" class="btn btn-primary">
+                                                    <input type="submit" name="assign_route_btn" value="Assign Route" class="btn btn-primary" onclick="validateVehicle();validateRoute()">
                                                 </div>
                                             </div>
                                         </form>
@@ -304,12 +319,12 @@
                                                 
                                                  <div class="col-lg-4">
 	                                                 <input type="hidden" id="update_Updateid" name="UpdateId">
-                                                	<select  id="update_required2" name="vehicle_no">
-                                                	    <%
-                                                	    	for(int i=0;i<al3_id.size();i++)
+                                                	<select class="form-control chzn-select-deselect" id="update_required2" name="vehicle_no" onchange="getRoutes(this.id,'update_required3')">
+                                                	                                                    	  <%
+                                                	  		for(int i=0;i<veh_list.size();i++)
                                                 			{
                                                 	    %>
-	                                                	    	<option value="<%=al3_id.get(i)%>"><%=al3.get(i)%></option>
+	                                                	    	<option value="<%=veh_list.get(i).getId()%>"><%=veh_list.get(i).getVeh_no()%></option>
                                                 	    <%
                                                 	    	}
                                                 	    %>
@@ -324,15 +339,10 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-4">
-                                                	<select tabindex="2" id="update_required3" name="route_name">                                                	    
-                                                	    <%
-                                                	    	for(int i=0;i<rao_list.size();i++)
-                                                			{
-                                                	    %>
-	                                                	    	<option value="<%=rao_list.get(i).getId()%>"><%=rao_list.get(i).getRoute_name()%></option>
-                                                	    <%
-                                                	    	}
-                                                	    %>
+                                                	<select class="form-control chzn-select-deselect" tabindex="2" id="update_required3" name="route_name" multiple required>                                                	    
+                                                	<optgroup label="choose a Route">
+                                                        
+                                               		</optgroup>
                                                 	</select>
                                           	 	</div>
                                             </div>  
@@ -496,7 +506,8 @@
 					}
 				}
 				//alert(demoStr[3]);
-				$("#required2").trigger('chosen:updated');	
+				$("#required2").trigger('chosen:updated');
+				$("#update_required2").trigger('chosen:updated');
 				$("#required3").trigger('chosen:updated');	
 			}	
 		}
@@ -508,7 +519,64 @@
 		x.remove(0);		
 		flag=true;
 	}
-
+	
+	function getRoutes(id,id1)
+	{
+		var veh_id=document.getElementById(id).options[document.getElementById(id).selectedIndex].value;
+		//alert(document.getElementById(id).options[document.getElementById(id).selectedIndex].text)
+		//alert(document.getElementById(id).options[document.getElementById(id).selectedIndex].value)
+		var xhttp;
+		var x,option,x1,option1;
+		x=document.getElementById(id1);
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var data=this.responseText.split("~");
+				////alert(data);
+				x1="<optgroup>";
+				for(var i=0;i<data.length-1;i++)
+				{
+					var route_id_name=data[i].split("=");					
+					x1+="<option value="+route_id_name[0]+">"+route_id_name[1]+"</option>";
+				}	
+				x1+="</optgroup>";
+				x.innerHTML=(x1);
+				//alert("added")
+				$("#"+id1).trigger('chosen:updated');	
+			}	
+		};
+		xhttp.open("POST","/SMGMT/AssignRoute?veh_id="+veh_id, true);
+		xhttp.send();
+	}
+	
+	function validateVehicle()
+	{
+		//vehicle_msg
+		//alert("APAPAOUT")
+		if(document.getElementById("required2").selectedIndex==0)
+		{
+			//alert("APAPA")
+			document.getElementById("vehicle_msg").style.display="block";
+			//document.getElementById("vehicle_msg1").style.display="block";
+			//return false;
+		}
+		
+	}
+	
+	function validateRoute()
+	{
+		//vehicle_msg
+		//alert(document.getElementById("required2").selectedIndex)
+		if(document.getElementById("required3").selectedIndex==-1)
+		{
+			//alert("APAPA")
+			document.getElementById("vehicle_msg1").style.display="block";
+			//document.getElementById("vehicle_msg1").style.display="block";
+			//return false;
+		}
+	}
 </script>
 
 

@@ -192,6 +192,28 @@ public class AssignRouteImpl implements AssignRouteDAO
 		return list;
 	}
 
+	@Override
+	public List<Integer> getVehicleRoutesById(int id) {
+		// TODO Auto-generated method stub
+		System.out.println("Vehicle Id : "+id);
+		List<Integer> list=new ArrayList<>();
+		String s1="SELECT route_id FROM assignroute_master WHERE vehicle_id=?";
+		try	
+		{
+			pstmt = connection.prepareStatement(s1);
+			pstmt.setInt(1,id);
+			ResultSet rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				list.add(rs.getInt("route_id"));
+			}
+		} 
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+
 
 
 }

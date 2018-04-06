@@ -30,7 +30,17 @@ public class AssignStdWiseFees extends HttpServlet {
 		AssignStdWiseFeesDao aswImpl = new AssignStdWiseFeesImpl();
 		PrintWriter out = response.getWriter();
 		
-		if(request.getParameter("stdId")!=null){
+		if(request.getParameter("getFeesStructure")=="1" && request.getParameter("stdId")!=null){
+			List l = aswImpl.getFeesStructure(request.getParameter("stdId"));
+			Iterator itr = l.iterator();
+			
+			while(itr.hasNext()){
+				
+			}
+			
+			
+		}
+		else if(request.getParameter("stdId")!=null){
 			
 			String stdId = request.getParameter("stdId");
 			String s = "";

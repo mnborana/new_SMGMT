@@ -334,10 +334,10 @@
                                     &nbsp; Online Saral Form
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">
+                             <li>
+                                <a href="/SMGMT/View/student/updateStudentContactDetails.jsp">
                                     <i class="fa fa-angle-right"></i>
-                                    &nbsp; Change Contact Number
+                                    &nbsp; Change Student Details
                                 </a>
                             </li>
                             <li>
@@ -407,6 +407,50 @@
                             </li>                            
                         </ul>
                     </li>
+                    
+                    <%}if(pojo.getFee()!=0){ %>
+                    <li class="dropdown_menu">
+                        <a href="#">
+                            <i class="fa fa-tasks"></i>
+                            <span class="link-title menu_hide">&nbsp; Attendance</span>
+                            <span class="fa arrow menu_hide"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/SMGMT/View/attendance/generateCatlog/generateCatlog.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Generate Catlog
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="link-title">&nbsp; Assign Roll No Student </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/SMGMT/View/attendance/generateCatlog/catlogRemoveStudent.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Remove Student From Catlog
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Student Attendance
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Report
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    
+                    
                       <%}if(pojo.getFee()!=0){ %>
                     <li class="dropdown_menu">
                         <a href="#">
@@ -440,8 +484,21 @@
                                     <span class="link-title">&nbsp; Admission Report</span>
                                 </a>
                             </li>
-							
-                                                   
+                            
+                          
+                            <li>
+                                <a href="/SMGMT/View/report/categaryWiseReport.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; CategarytWise Report   
+                                    </a>
+                            </li>
+                            <li>
+                                <a href="/SMGMT/View/report/leavingCertificate.jsp">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Leaving Certificate Report
+                                </a>
+                            </li>
+                            
                         </ul>
                     </li>
                     <%}if(pojo.getAttendance()!=0) {%>
@@ -721,6 +778,22 @@
                                     &nbsp; Add Transmission Fee
                                 </a>
                             </li>
+                            
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Reports
+                                </a>    
+	                             <ul>
+	                             	<li>
+          			                    <a href="/SMGMT/View/transportation/reports/transportationReport.jsp">
+                      		            &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i>
+                              		    &nbsp;Student Transportation Report
+                              			</a>
+                              		</li>
+								</ul>
+							</li>
+							
                         </ul>
                     </li>
 

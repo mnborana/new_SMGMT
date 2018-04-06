@@ -144,8 +144,10 @@
                                                     <label for="required2" class="col-form-label">Route name *</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="required2" name="route_name" value="<%=route_name%>" class="form-control focused_input" placeholder="route Name" required onkeyup="this.value=this.value.toUpperCase();checkRouteName(this.value);">                                                     
+                                                    <input type="text" id="required2" name="route_name" value="<%=route_name%>" class="form-control focused_input" placeholder="route Name" required onkeyup="this.value=this.value.toUpperCase();checkRouteName(this.value);" onkeypress="return IsCharacter(event,'cmsg');" ondrop="return false;" onpaste="return false;" >                                                     
                                                 </div>
+                                                  <span id="cmsg" style="color: red;display: none">Only characters allowed</span>
+                                                
                                                 <div class="col-lg-4">
                                                      <strong id="warning"></strong>
                                                 </div>
@@ -423,6 +425,25 @@
 	}
 
 	
+	
+	var specialKeys = new Array();
+	specialKeys.push(8); //Backspace
+	function IsNumeric(e,msg) {
+	    var keyCode = e.which ? e.which : e.keyCode
+	    var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+	    document.getElementById(msg).style.display = ret ? "none" : "inline";
+	    return ret;
+	}
+
+
+	function IsCharacter(e,msg)
+	{ 
+		 var keyCode = e.which ? e.which : e.keyCode
+				    var ret = ((keyCode > 64 && keyCode < 91) ||(keyCode > 96 && keyCode < 123)||(keyCode==8)|| specialKeys.indexOf(keyCode) != -1);
+				    document.getElementById(msg).style.display = ret ? "none" : "inline";
+				   // alert(ret)
+				    return ret;
+	}
 
 </script>
 

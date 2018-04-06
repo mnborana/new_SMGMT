@@ -5,6 +5,9 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +22,9 @@ import com.servletStore.transportation.assignroute.model.AssignRoutePOJO;
 import com.servletStore.transportation.driver.model.DriverDAO;
 import com.servletStore.transportation.driver.model.DriverImpl;
 import com.servletStore.transportation.driver.model.DriverPOJO;
+import com.servletStore.transportation.route.model.RouteDAO;
+import com.servletStore.transportation.route.model.RouteImpl;
+import com.servletStore.transportation.route.model.RoutePOJO;
 
 /**
  * Servlet implementation class AssignRoute
@@ -118,6 +124,41 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				e.printStackTrace();
 			}
 		}
+		else if(request.getParameter("veh_id")!=null)
+		{
+			redirect=false;
+			RouteDAO rao=new RouteImpl();
+			List<RoutePOJO> rao_list=rao.getRouteDetails();
+			AssignRouteDAO ad=new AssignRouteImpl();
+			List<Integer> assi_list=ad.getVehicleRoutesById(Integer.parseInt(request.getParameter("veh_id")));
+			boolean store=true;
+			List<String> route_names=new ArrayList<>();
+			int ap=0;
+			for(int i=0;i<rao_list.size();i++)
+			{
+				store=true;
+				System.out.println("ROUTE ID 1 : "+rao_list.get(i).getId());
+				for(int j=0;j<assi_list.size();j++)
+				{
+					System.out.println("ROUTE ID 2 : "+assi_list.get(j));
+					if(assi_list.get(j)==rao_list.get(i).getId())
+					{
+						System.out.println("TRUE");
+						store=false;
+						//break;
+					}
+				}	
+				if(store)
+				{
+					System.out.println("STORE : "+rao_list.get(i).getId());
+					route_names.add(rao_list.get(i).getId()+"="+rao_list.get(i).getRoute_name());
+				} 
+			}
+			for(int i=0;i<route_names.size();i++)
+			{
+				out.print(route_names.get(i)+"~");
+			}
+		}	
 		if(redirect)
 			response.sendRedirect("View/transportation/AssignRoute.jsp");
 	}

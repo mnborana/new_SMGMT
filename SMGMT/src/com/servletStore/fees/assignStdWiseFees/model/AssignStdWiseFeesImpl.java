@@ -25,7 +25,7 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 		
 		String getstandardList = "SELECT fk_class_master.id, std_master.name FROM std_master, fk_class_master, fk_school_section_details WHERE fk_class_master.std_id=std_master.id AND fk_class_master.fk_school_sec_id=fk_school_section_details.id AND fk_school_section_details.school_id=? ORDER BY `std_master`.`name`  ASC";
 		try {
-
+			
 			ps = connection.prepareStatement(getstandardList);
 			ps.setInt(1, Integer.parseInt(schoolId));
 			ResultSet rs = ps.executeQuery();
@@ -300,6 +300,59 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 		}
 		
 		return categoryFeesTypeList;
+	}
+
+	
+	@Override
+	public List<String> getFeesAssignedStds(String schoolId) {
+		DBConnection dbConnect = new DBConnection();
+		Connection connection = dbConnect.getConnection();
+		
+		
+		List<String> stdList = new ArrayList<>();
+		String str = "SELECT std_wise_fees_assignment.fk_class_master_id, std_master.name FROM std_master INNER JOIN fk_class_master ON fk_class_master.std_id=std_master.id INNER JOIN fk_school_section_details ON fk_school_section_details.school_id="+schoolId+" AND fk_class_master.fk_school_sec_id=fk_school_section_details.id INNER JOIN std_wise_fees_assignment ON std_wise_fees_assignment.fk_class_master_id=fk_class_master.id GROUP BY std_wise_fees_assignment.fk_class_master_id";
+
+		try {
+			ps = connection.prepareStatement(str);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				stdList.add(rs.getString(1).trim());
+				stdList.add(rs.getString(2).trim());
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return stdList;
+	}
+
+	
+	@Override
+	public List<String> getFeesStructure(String stdId) {
+		DBConnection dbConnect = new DBConnection();
+		Connection connection = dbConnect.getConnection();
+		
+		
+		List<String> feesStructure = new ArrayList<>();
+		String str = "SELECT fee_type.fees_type, std_wise_fees_assignment.term_1_fees, std_wise_fees_assignment.term_2_fees FROM `std_wise_fees_assignment`, fee_type WHERE std_wise_fees_assignment.fk_class_master_id="+stdId+" AND fee_type.id=std_wise_fees_assignment.fees_type_id";
+
+		try {
+			ps = connection.prepareStatement(str);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				feesStructure.add(rs.getString(1).trim());
+				feesStructure.add(rs.getString(2).trim());
+				feesStructure.add(rs.getString(3).trim());
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return feesStructure;
 	}
 
 	

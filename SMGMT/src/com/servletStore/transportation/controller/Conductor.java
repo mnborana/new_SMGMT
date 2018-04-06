@@ -41,7 +41,7 @@ public class Conductor extends HttpServlet {
 			String temp_addrs=request.getParameter("temp_addrs").toUpperCase().trim();
 			String perm_addrs=request.getParameter("perm_addrs").toUpperCase().trim();
 			String dob=request.getParameter("dob").toUpperCase().trim();
-			String contact=request.getParameter("digits_only").toUpperCase().trim();			
+			String contact=request.getParameter("digit1").toUpperCase().trim();			
 			conductorPojo.setVeh_id(Integer.parseInt(veh_no));
 			conductorPojo.setName(name);
 			conductorPojo.setTemp_addrs(temp_addrs);

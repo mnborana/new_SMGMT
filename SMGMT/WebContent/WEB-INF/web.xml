@@ -374,6 +374,40 @@
     <url-pattern>/Icard</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>UpdateStudentDetails</servlet-name>
+    <servlet-class>com.servletStore.student.controller.updateStudentContactDetails</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateStudentDetails</servlet-name>
+    <url-pattern>/updateStudentContactDetails</url-pattern>
+  </servlet-mapping>
   
+   <servlet>
+    <servlet-name>LCReportGeneration</servlet-name>
+    <servlet-class>com.servletStore.student.studentReports.controller.LCReportGeneration</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LCReportGeneration</servlet-name>
+    <url-pattern>/LCReportGeneration</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>categaryWiseReportGeneration</servlet-name>
+    <servlet-class>com.servletStore.student.studentReports.controller.categaryWiseReportGeneration</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>categaryWiseReportGeneration</servlet-name>
+    <url-pattern>/categaryWiseReportGeneration</url-pattern>
+  </servlet-mapping> 
+  
+   <servlet>
+    <servlet-name>CatlogRemove</servlet-name>
+    <servlet-class>com.servletStore.attendance.generateCatlog.controller.RemoveNameFromCatlog</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CatlogRemove</servlet-name>
+    <url-pattern>/RemoveNameFromCatlog</url-pattern>
+  </servlet-mapping>
   
 </web-app>

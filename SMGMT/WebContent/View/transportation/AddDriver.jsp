@@ -186,7 +186,7 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-4">
-                                                	<select class="form-control chzn-select" tabindex="2" id="required2" name="vehicle_no">
+                                                	<select class="form-control chzn-select" tabindex="2" id="required2" name="vehicle_no" required="" ><div id=check ></div>
                                                 	    <option disabled selected>Choose a Vehicle</option>
                                                 	    <%
                                                 	    	for(int i=0;i<al3_id.size();i++)
@@ -198,6 +198,7 @@
                                                 	    %>
                                                 	</select>
                                           	 		</div>
+                                          	 		<div><span id="vehicle_msg" style="color: red;display: none;">This field is required</span></div>
                                             </div>
                                             
                                             
@@ -207,9 +208,14 @@
                                                     <label for="required2" class="col-form-label">Name*</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="required2" name="driver_name"  value="" class="form-control" onkeyup="this.value=this.value.toUpperCase();" required >
+                                                    <input type="text" id="required2" name="driver_name"  value="" class="form-control" onkeypress="return IsCharacter(event,'error');" ondrop="return false;" onpaste="return false;" onkeyup="this.value=this.value.toUpperCase();"  required >
                                                 </div>
+                                                <span id="error" style="color: red;display: none">Only Characters allowed</span>
                                             </div>
+                                            
+                                            
+                                            
+                                            
                                             <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
                                                     <label for="email2" class="col-form-label">Present Address </label>
@@ -253,11 +259,12 @@
                                            
                                            <div class="form-group row">
                                                 <div class="col-lg-4  text-lg-right">
-                                                    <label for="required2" class="col-form-label">Phone No*</label>
+                                                    <label for="required2" class="col-form-label">Mobile No*</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="required2" name="digits_only" value="" class="form-control" maxlength="10" required >
+                                                    <input type="text" id="required2" name="digits_only" value="" class="form-control" maxlength="10" onkeypress="return IsNumeric(event,'err');" ondrop="return false;" onpaste="return false;" required >
                                                 </div>
+                                                 <span id="err" style="color: red;display: none">Only Digits allowed</span>
                                             </div>
                                             
                                             
@@ -266,8 +273,9 @@
                                                     <label for="required2" class="col-form-label">License Number*</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="text" id="required2" name="license"  value=""  class="form-control" onkeyup="this.value=this.value.toUpperCase();" required>
+                                                    <input type="text" id="required2" name="license"  value=""  class="form-control" onkeypress="return IsAlphaNumeric(event,'err1');" ondrop="return false;" onpaste="return false;" onkeyup="this.value=this.value.toUpperCase();" required>
                                                 </div>
+                                                <span id="err1" style="color: red;display: none">Only contain digits and character allowed</span>
                                             </div>
                                             
                                             
@@ -275,7 +283,7 @@
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <input type="submit" value="Add Driver" name="add_driver_btn" class="btn btn-primary">
+                                                    <input type="submit" value="Add Driver" name="add_driver_btn" class="btn btn-primary" onclick="validateVehicle()">
                                                 </div>
                                             </div>
                                         </form>
@@ -629,10 +637,24 @@
        
    <script>   
 	
-	$(document).ready(function(){  
-	        $("#hide_check").hide();  
-	       
-	    }); 
+   var specialKeys = new Array();
+   specialKeys.push(8); //Backspace
+   function IsNumeric(e,msg) {
+       var keyCode = e.which ? e.which : e.keyCode
+       var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+       document.getElementById(msg).style.display = ret ? "none" : "inline";
+       return ret;
+   }
+
+
+   function IsCharacter(e,msg)
+   { 
+   	 var keyCode = e.which ? e.which : e.keyCode
+   			    var ret = ((keyCode > 64 && keyCode < 91) ||(keyCode > 96 && keyCode < 123)||(keyCode==8)|| specialKeys.indexOf(keyCode) != -1);
+   			    document.getElementById(msg).style.display = ret ? "none" : "inline";
+   			   // alert(ret)
+   			    return ret;
+   }
 	function show_checkbox(ap)
 	{  		
 		var a=document.getElementById(ap).value.trim();
@@ -700,6 +722,30 @@
 	{
 		x.remove(0);		
 		flag=true;
+	}
+	
+	
+	function IsAlphaNumeric(e,msg)
+	{
+		
+		 var keyCode = e.which ? e.which : e.keyCode
+				    var ret = ((keyCode > 64 && keyCode < 91) ||(keyCode > 96 && keyCode < 123)||(keyCode >= 48 && keyCode <= 57) || (keyCode==8)|| specialKeys.indexOf(keyCode) != -1);
+				    document.getElementById(msg).style.display = ret ? "none" : "inline";
+				   // alert(ret)
+				    return ret;
+	}
+	
+	function validateVehicle()
+	{
+		//vehicle_msg
+		//alert("APAPAOUT")
+		if(document.getElementById("required2").selectedIndex==0)
+		{
+			//alert("APAPA")
+			document.getElementById("vehicle_msg").style.display="block";
+			//return false;
+		}	
+		
 	}
 </script>     
         

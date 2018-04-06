@@ -124,8 +124,8 @@
               int sid;
               		StudentDetailsDAO stud_dao=new StudentDetailsImpl();
               		List<StudentDetailsPOJO> stud_pojo=stud_dao.getStudentDetails();
-              		System.out.println("GR1:"+stud_pojo.get(0).getGrNo());
-              		System.out.println("GR2:"+stud_pojo.get(1).getGrNo());
+              		//System.out.println("GR1:"+stud_pojo.get(0).getGrNo());
+              		//System.out.println("GR2:"+stud_pojo.get(1).getGrNo());
               %>
           <form name="MyForm" action="/SMGMT/StudentTransmissionFee" class="form-horizontal  login_validator" method="post" id="form_block_validator">
              
@@ -363,16 +363,19 @@
                                             	%>
                                             	<tr>
                                             	<td style="width:100px">
-                                            		Total Fee<input style="width:80px" type="text" id="required_total" name="total" value="" placeholder="Total Fee" class="form-control focused_input" required>                                                     
+                                            		Total Fee<input style="width:100px" type="text" id="required_total" name="total" value="" placeholder="Total Fee" class="form-control focused_input" required>                                                     
                                                 </td>
                                                 <td style="width:100px">
-                                            		Discount<input style="width:80px" type="text" id="required_disc" name="disc" value="" placeholder="Discount" class="form-control focused_input" onkeyup="calculateTotal(this.value)" required>                                                     
+                                            		Discount<input style="width:80px" type="text" id="required_disc" name="disc" value="" onkeypress="return IsNumeric(event,'errmsg');" ondrop="return false;" onpaste="return false;" placeholder="Discount" class="form-control focused_input" onkeyup="calculateTotal(this.value)" required>
+                                            		 <span id="errmsg" style="color: red;display: none">Only digits allowed</span>
+                                            	                                     	
+                                            	                                                     
                                                 </td>
                                             	<td style="width:100px">
-                                            		Final Fee<input style="width:80px" type="text" id="required_final" name="final" value="" placeholder="Final Fee" class="form-control focused_input" required>                                                     
+                                            		Final Fee<input style="width:100px" type="text" id="required_final" name="final" value="" placeholder="Final Fee" class="form-control focused_input" required>                                                     
                                                 </td>
-                                            	</tr>                                      	
-                                            	
+                                            	</tr> 
+                                        
                                             	
                                             	     
                                             	</tbody>
@@ -893,6 +896,7 @@
 				{
 				x="2";
 				}
+			//alert(x);
 		var  vehicleNo=document.getElementById("vehicleList").value;
 	
 		var xhttp;   		
@@ -985,7 +989,25 @@
 
     
     
-    
+    var specialKeys = new Array();
+	specialKeys.push(8); //Backspace
+	function IsNumeric(e,msg) {
+	    var keyCode = e.which ? e.which : e.keyCode
+	    var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+	    document.getElementById(msg).style.display = ret ? "none" : "inline";
+	    return ret;
+	}
+
+
+	function IsCharacter(e,msg)
+	{ 
+		 var keyCode = e.which ? e.which : e.keyCode
+				    var ret = ((keyCode > 64 && keyCode < 91) ||(keyCode > 96 && keyCode < 123)||(keyCode==8)|| specialKeys.indexOf(keyCode) != -1);
+				    document.getElementById(msg).style.display = ret ? "none" : "inline";
+				   // alert(ret)
+				    return ret;
+	}
+
     
     
 	

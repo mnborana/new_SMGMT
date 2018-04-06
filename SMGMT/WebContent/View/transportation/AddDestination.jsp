@@ -121,7 +121,7 @@ z-index: 999999">
                                     <%
                                     			RouteDAO rd=new RouteImpl();
                                                 List<RoutePOJO> route_list=rd.getRouteDetails();
-                                                String id="",route_name="",dest="",fee="",btn_val="Add Destination",r_name="";
+                                                String id="",route_name="",dest="",fee="",btn_val="Add Stop",r_name="";
  			                                 	if(session.getAttribute("r_name")!=null)
                 									{
                 									 r_name=(String)session.getAttribute("r_name");
@@ -130,7 +130,7 @@ z-index: 999999">
                 							 
 						                %>
                                     
-                                        <form action="/SMGMT/Destination?id=<%=id %>" method="post" class="form-horizontal  login_validator" id="form_block_validator">
+                                        <form action="/SMGMT/Destination?id=<%=id %>" method="post" class="form-horizontal " id="form_block_validator">
                                             <div class="form-group row">
                                                 <div class="col-lg-4  text-lg-right">
                                                     <label for="required2" class="col-form-label">Select Route* </label>
@@ -139,7 +139,7 @@ z-index: 999999">
                                                 <div class="col-lg-4">
                                                 <%if(r_name!=""){%>
                                                     <select class="form-control chzn-select" tabindex="2" id="required2" name="route_name">
-                                                	    <option disabled selected>Choose a Vehicle</option>
+                                                	    <option disabled selected>Choose a Route</option>
                                                 	    <%
                                                 	    	for(int i=0;i<route_list.size();i++)
                                                 			{
@@ -173,13 +173,18 @@ z-index: 999999">
                                       %>
                                       </div>
                                          </div> 
+                                         
+                                            
                                             <div class="form-group row">
                                                 <div class="col-lg-4 text-lg-right">
-                                                    <label class="col-form-label">Destination*</label>
+                                                     <label class="col-form-label">Stop*</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input id="dest" name="dest" type="text" value="<%=dest %>" class="form-control focused_input" onkeyup="this.value=this.value.toUpperCase();checkdest('required2',this.value,'warning','dest','btnsubmit');" placeholder="Destination"  autofocus required />
+                                                    <input id="" name="" type="hidden" value="" class="" onkeyup="this.value=this.value.toUpperCase();checkdest('required2',this.value,'warning','dest','btnsubmit');" placeholder="stop" onkeypress="return IsCharacter(event,'cmsg');" ondrop="return false;" onpaste="return false;"   autofocus required />
+                                                    <input class="form-control" id="dest" type="text" value="<%=dest %>" name="dest" placeholder="Stop" onkeyup="this.value=this.value.toUpperCase();checkdest('required2',this.value,'warning','dest','btnsubmit');" onkeypress="return IsCharacter(event,'cmsg');" ondrop="return false;" onpaste="return false;" autofocus required>
                                                 </div>
+                                   <span id="cmsg" style="color: red;display: none">Only characters allowed</span>
+                                                
                                                 <div class="col-lg-4">
                                                      <strong id="warning"></strong>
                                                 </div>
@@ -190,8 +195,10 @@ z-index: 999999">
                                                     <label  class="col-form-label">Fee*</label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input id="fee" name="fee" type="text" value="<%=fee %>" class="form-control focused_input" id="fees" placeholder="Fee" required/>
+                                                    <input id="fee" name="fee" type="text" value="<%=fee %>" class="form-control" id="fees" placeholder="Fee" onkeypress="return IsNumeric(event,'fmsg');" ondrop="return false;" onpaste="return false;" required/>
                                                 </div>
+                                   <span id="fmsg" style="color: red;display: none">Only digits allowed</span>
+                                                
                                             </div>
                                             
                                           
@@ -233,7 +240,7 @@ z-index: 999999">
                                             <tr role="row">
                                                 <th class="sorting_asc wid-2" tabindex="0" rowspan="1" colspan="1">Sr NO</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Route Name</th>
-                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Destination</th>
+                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Stop</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Fee</th> 
                                                 <th class="sorting wid-15" tabindex="0" rowspan="1" colspan="1">Status</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Actions</th>                                               
@@ -512,6 +519,24 @@ z-index: 999999">
 		flag=true;
 	}
 	
+	var specialKeys = new Array();
+	specialKeys.push(8); //Backspace
+	function IsNumeric(e,msg) {
+	    var keyCode = e.which ? e.which : e.keyCode
+	    var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+	    document.getElementById(msg).style.display = ret ? "none" : "inline";
+	    return ret;
+	}
+
+
+	function IsCharacter(e,msg)
+	{ 
+		 var keyCode = e.which ? e.which : e.keyCode
+				    var ret = ((keyCode > 64 && keyCode < 91) ||(keyCode > 96 && keyCode < 123)||(keyCode==8)|| specialKeys.indexOf(keyCode) != -1);
+				    document.getElementById(msg).style.display = ret ? "none" : "inline";
+				   // alert(ret)
+				    return ret;
+	}
 
 </script>
 
