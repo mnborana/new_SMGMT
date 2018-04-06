@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IcardBothSide" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c536834-8d09-4dd5-99e9-58eaa5b76851">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
+	<parameter name="trustyName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{trustyName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sAddress" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{sAddress}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="standard" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{standard}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="academicYr" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{academicYr}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="stud" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{stud}]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT class_allocation.id,class_allocation.roll_no,concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name)AS StudentName,std_master.name,classroom_master.division,classroom_master.shift,student_official_details.gr_no, student_details.dob ,student_parent_details.father_name,student_parent_details.father_mobileno,student_details.address FROM student_parent_details, student_details,std_master,classroom_master,fk_class_master,fk_school_section_details,class_allocation ,student_official_details WHERE student_parent_details.student_id=student_details.id AND student_details.id=student_official_details.student_id AND  class_allocation.student_id = student_details.id AND class_allocation.classroom_master=classroom_master.id AND class_allocation.classroom_master=$P{standard} AND  class_allocation.id=$P{stud} AND fk_school_section_details.school_id=1 AND 
+fk_class_master.fk_school_sec_id=fk_school_section_details.id AND std_master.id=fk_class_master.std_id AND classroom_master.fk_class_master_id=fk_class_master.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="class_allocation"/>
+	</field>
+	<field name="StudentName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="StudentName"/>
+	</field>
+	<field name="roll_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="roll_no"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="std_master"/>
+	</field>
+	<field name="division" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="division"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="classroom_master"/>
+	</field>
+	<field name="shift" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="shift"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="classroom_master"/>
+	</field>
+	<field name="gr_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="gr_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student_official_details"/>
+	</field>
+	<field name="dob" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="dob"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student_details"/>
+	</field>
+	<field name="father_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="father_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student_parent_details"/>
+	</field>
+	<field name="father_mobileno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="father_mobileno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student_parent_details"/>
+	</field>
+	<field name="address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student_details"/>
+	</field>
+	<group name="id">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+	</group>
+	<group name="StudentName">
+		<groupExpression><![CDATA[$F{StudentName}]]></groupExpression>
+	</group>
+	<group name="name">
+		<groupExpression><![CDATA[$F{name}]]></groupExpression>
+	</group>
+	<group name="division">
+		<groupExpression><![CDATA[$F{division}]]></groupExpression>
+	</group>
+	<group name="shift">
+		<groupExpression><![CDATA[$F{shift}]]></groupExpression>
+	</group>
+	<group name="gr_no">
+		<groupExpression><![CDATA[$F{gr_no}]]></groupExpression>
+	</group>
+	<group name="dob">
+		<groupExpression><![CDATA[$F{dob}]]></groupExpression>
+	</group>
+	<group name="father_name">
+		<groupExpression><![CDATA[$F{father_name}]]></groupExpression>
+	</group>
+	<group name="father_mobileno">
+		<groupExpression><![CDATA[$F{father_mobileno}]]></groupExpression>
+	</group>
+	<group name="address">
+		<groupExpression><![CDATA[$F{address}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="420" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="270" height="200" uuid="65b870fa-6b83-4a6e-bfc9-e8f1cc465025"/>
+			</rectangle>
+			<image>
+				<reportElement x="180" y="90" width="90" height="110" uuid="dfee3d3c-49e3-4a0b-add4-a7c316a81632"/>
+				<imageExpression><![CDATA["D:/student.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="80" y="120" width="100" height="20" uuid="f8ea773b-c506-46bf-85e7-c236e718a5b9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{StudentName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="120" width="80" height="20" uuid="e5a63d7f-a219-4fec-9b65-5ecabeab260f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Student Name :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="0" width="100" height="20" uuid="86dc28fd-aab6-47d5-a3c2-ced9d85ac914"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$P{trustyName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="20" width="100" height="20" uuid="b38c94ff-1ede-403e-9592-aaea445e82b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$P{schoolName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="60" width="100" height="30" uuid="bb61d5be-4768-4330-865c-69e2ca6838dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{academicYr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="140" width="100" height="20" uuid="1424e718-174f-4314-885f-1456f1cc523b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="140" width="80" height="20" uuid="53141278-07b1-4127-b8fb-bd7ce30d715f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Std :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="160" width="100" height="20" uuid="48b76d3e-90fe-4618-997b-f6385f0cfdc0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{roll_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="160" width="80" height="20" uuid="c1ed4fbd-0789-4821-b5d7-9de8444b907e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Roll No :]]></text>
+			</staticText>
+			<textField pattern="MMM d, yyyy">
+				<reportElement x="80" y="180" width="100" height="20" uuid="c8a93039-3d72-42cd-a604-650dd18effd4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dob}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="30" uuid="bccf2cc4-32e5-4d26-9a30-1b82000636e0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Identity Card]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="270" height="60" uuid="b8032116-e899-49ad-b939-556141f5cbd1"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="270" height="30" uuid="43de7210-6cae-4660-a5a8-80e68f9d3e08"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="180" width="80" height="20" uuid="f207534f-22c3-44e9-91f3-0dbd850d562a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ D.O.B :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="280" y="0" width="270" height="200" uuid="4c7455ad-db1a-46c6-aa5c-469c256920aa"/>
+			</rectangle>
+			<textField>
+				<reportElement x="380" y="10" width="100" height="30" uuid="ade36da0-58f7-4864-8f12-38937783f4f9"/>
+				<textFieldExpression><![CDATA[$F{father_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="10" width="100" height="30" uuid="f9e0a8d4-3ee9-4418-af63-15e0435e879a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Parent Name :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="40" width="100" height="30" uuid="8dfa6112-44e7-40c5-805d-933f9c15980e"/>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="40" width="100" height="30" uuid="24b3bc2f-cb49-4a26-91d6-95b4fbc76b64"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Address :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="80" width="100" height="30" uuid="c1b9af9d-e37e-43a0-89f7-65b37f5a381b"/>
+				<textFieldExpression><![CDATA[$F{father_mobileno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="80" width="100" height="30" uuid="3e24a346-3e47-4392-8678-7de4a5777459"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Phone No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="170" width="270" height="30" uuid="4b238155-cc22-49ce-a841-dbc3bf8d4291"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Finder is kindly requested to return the same to the     school.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="170" width="270" height="30" uuid="0623b686-ebe7-4106-b5f4-a8faea6c6169"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="143" width="90" height="27" uuid="360a4e4f-bb92-4e7d-a7d4-e3e4cbb42ea1"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[  Class Teacher]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="143" width="80" height="27" uuid="389197e8-9023-4277-a6ca-e44daf3f59f1"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[  Student sign]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="143" width="100" height="27" uuid="abaa385c-5997-47d7-889d-7ccd07ca0208"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[  Principle/HM]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="40" width="100" height="20" uuid="3cbca7fd-4fac-4fd8-8c6c-bfdcf66fc00e"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$P{sAddress}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="80" y="100" width="100" height="20" uuid="fd928011-3191-400e-a05a-d33b570009d4"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{gr_no}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="100" width="80" height="20" uuid="7c24e511-9807-4bc6-b287-67d88e48e0d8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Icard No :]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

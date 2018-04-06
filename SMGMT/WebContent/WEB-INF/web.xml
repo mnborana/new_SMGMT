@@ -316,6 +316,19 @@
     <servlet-name>SubAccount</servlet-name>
     <url-pattern>/SubAccount</url-pattern>
   </servlet-mapping>
+<<<<<<< HEAD
+  
+  <servlet>
+    <servlet-name>Icard</servlet-name>
+    <servlet-class>com.servletStore.report.icardReport.controller.Icard</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Icard</servlet-name>
+    <url-pattern>/Icard</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
+=======
    <servlet>
     <servlet-name>AdmissionReport</servlet-name>
     <servlet-class>com.servletStore.report.admissionReport.controller.AdmissionReport</servlet-class>
@@ -377,3 +390,4 @@
   
   
 </web-app>
+>>>>>>> refs/remotes/origin/HEAD

@@ -169,6 +169,15 @@
 	                                </a>
 	                            </li>
 	                        </ul>
+	                        <ul>
+	                            <li>
+	                                <a href="/SMGMT/View/report/icardGenerate.jsp">
+	                                    <i class="fa fa-angle-right"></i>
+	                                    &nbsp; Identity Card Generation
+	                                </a>
+	                            </li>
+	                        </ul>
+	                        
 	                       </li>
 	                                           
                     <%}if(pojo.getSetting()!=0){ %>

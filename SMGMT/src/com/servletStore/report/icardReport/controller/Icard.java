@@ -1,7 +1,6 @@
 package com.servletStore.report.icardReport.controller;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,11 +37,8 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 //@WebServlet("/Icard")
 public class Icard extends HttpServlet {
-	private static final long serialVersionUID = 1L;
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	
@@ -90,47 +86,56 @@ public class Icard extends HttpServlet {
 					String stdId=request.getParameter("student_Id");
 					String rd=request.getParameter("userType");
 					String checkStudent=request.getParameter("allStudentCheck");
-					System.out.println("Check*****"+checkStudent);
-					if(rd.equals("Type1") || ((rd.equals("Type1")) && (checkStudent.equals("on"))))
+					System.out.println("Student id"+stdId);
+					//System.out.println("ckeckbox"+checkStudent);
+					net.sf.jasperreports.engine.JasperReport jasperReport = null;
+					JasperDesign jasperDesign = null;
+					Map para = new HashMap();
+					
+					
+					para.put("trustyName", ""+trustyName+"");
+					para.put("schoolName", ""+schoolName+"");
+					para.put("sAddress", ""+sAddress+"");
+					para.put("standard", ""+standard+"");
+					para.put("stud", ""+stdId+"");
+					para.put("academicYr",""+academicYr+"");
+					
+					
+					if((rd.equals("Type1")) && (stdId==null))
 					{
-						
-						net.sf.jasperreports.engine.JasperReport jasperReport = null;
-						JasperDesign jasperDesign = null;
-						Map para = new HashMap();
-						
-						
-						para.put("trustyName", ""+trustyName+"");
-						para.put("schoolName", ""+schoolName+"");
-						para.put("sAddress", ""+sAddress+"");
-						para.put("standard", ""+standard+"");
-						para.put("stud", ""+stdId+"");
-						para.put("academicYr",""+academicYr+"");
-						
 						String path = request.getServletContext().getRealPath("/reports/IcardAllStudent.jrxml");
 						jasperDesign = JRXmlLoader.load(path);
 						jasperReport = JasperCompileManager.compileReport(jasperDesign);
 						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
 				        JasperViewer.viewReport(jasperPrint, false);
 					}
-					if(rd.equals("Type2") || ((rd.equals("Type2")) && (checkStudent.equals("on"))))
-					{
-						net.sf.jasperreports.engine.JasperReport jasperReport = null;
-						JasperDesign jasperDesign = null;
-						Map para = new HashMap();
-						
-						para.put("trustyName", ""+trustyName+"");
-						para.put("schoolName", ""+schoolName+"");
-						para.put("sAddress", ""+sAddress+"");
-						para.put("standard", ""+standard+"");
-						para.put("stud", ""+stdId+"");
-						para.put("academicYr",""+academicYr+"");
-						
+					 if((rd.equals("Type2")) && (stdId==null))
+					 {
 						String path = request.getServletContext().getRealPath("/reports/IcardBothSide.jrxml");
 						jasperDesign = JRXmlLoader.load(path);
 						jasperReport = JasperCompileManager.compileReport(jasperDesign);
 						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
 				        JasperViewer.viewReport(jasperPrint, false);
 					}
+					 if((rd.equals("Type1")) && (stdId!=null))
+					{
+						String path = request.getServletContext().getRealPath("/reports/IcardSingleStudent.jrxml");
+						jasperDesign = JRXmlLoader.load(path);
+						jasperReport = JasperCompileManager.compileReport(jasperDesign);
+						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
+				        JasperViewer.viewReport(jasperPrint, false);
+					}
+					 if((rd.equals("Type2")) && (stdId!=null))
+					{
+						System.out.println("Studddddddddd");
+						String path = request.getServletContext().getRealPath("/reports/IcardBothSideSingleStudent.jrxml");
+						jasperDesign = JRXmlLoader.load(path);
+						jasperReport = JasperCompileManager.compileReport(jasperDesign);
+						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
+				        JasperViewer.viewReport(jasperPrint, false);
+					}
+					
+					
 				}
 				catch (JRException e)
 				{
