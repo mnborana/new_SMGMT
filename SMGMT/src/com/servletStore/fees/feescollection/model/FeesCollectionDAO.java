@@ -23,7 +23,7 @@ public interface FeesCollectionDAO {
 	
 	public List getStandardWiseFee(String standard_id) throws SQLException;
 	
-	public List getStudentCastwiseFee(String student_id)throws SQLException;
+	public List getStudentCastwiseFee(String student_id, String standard)throws SQLException;
 	
 	public int assignStudentFee(AssignFeeDAO pojo) throws SQLException;
 	
@@ -34,4 +34,6 @@ public interface FeesCollectionDAO {
 	public List getStudentFeesInfo(String student_id);
 
 	public void insertFees(FeesCollectionPOJO feesCollectionPOJO);
+	
+	public String checkStudFee(String student_id)throws SQLException;
 }

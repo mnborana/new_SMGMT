@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -57,9 +58,11 @@ public class Report extends HttpServlet {
 		String academicYr=request.getParameter("academicYr");
 		//System.out.println("Academic yeaar"+academicYr);
 		String trustyName="", schoolName="", sAddress="";
+		PreparedStatement ps=null;
+		boolean forward=true;
 		String query="SELECT trustee_info.edu_society_name,school_master.name,school_master.address FROM school_master,trustee_info WHERE school_master.id='"+schoolId+"'";
 		try {
-			PreparedStatement ps=con.prepareStatement(query);
+			ps=con.prepareStatement(query);
 			ResultSet rs= ps.executeQuery();
 			while(rs.next())
 			{
@@ -72,22 +75,25 @@ public class Report extends HttpServlet {
 		}
 		
 		LibraryReportDAO dao=new LibraryReportImpl();
-		String availableBooks=request.getParameter("Avail");
-		String date=request.getParameter("date");
-		String date1[]=date.split("-");
-		System.out.println(date1[0]+"-"+date1[1]);
-		String d1[]=date1[0].split("/");
-		System.out.println("1st date "+d1[1]+"-"+d1[0]+"-"+d1[2]);
-		String d2[]=date1[1].split("/");
-		String startDate=d1[2].trim()+"-"+d1[0].trim()+"-"+d1[1];
-		String endDate=d2[2].trim()+"-"+d2[0].trim()+"-"+d2[1];
+		
+		String availableBooks=request.getParameter("pruchase");
+		String reqdate=request.getParameter("requiredDate");
+		
+		
 		//boolean redirect=true;
 		
-		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("Avail")))
+		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("pruchase")))
 		{
 			try
 			{
-				
+				System.out.println("date is:"+reqdate);
+				String date1[]=reqdate.split("-");
+				System.out.println(date1[0]+"-"+date1[1]);
+				String d1[]=date1[0].split("/");
+				System.out.println("1st date "+d1[1]+"-"+d1[0]+"-"+d1[2]);
+				String d2[]=date1[1].split("/");
+				String startDate=d1[2].trim()+"-"+d1[0].trim()+"-"+d1[1];
+				String endDate=d2[2].trim()+"-"+d2[0].trim()+"-"+d2[1];
 				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path));
 				net.sf.jasperreports.engine.JasperReport jasperReport = null;
 				JasperDesign jasperDesign = null;
@@ -100,7 +106,7 @@ public class Report extends HttpServlet {
 				para.put("sAddress", ""+sAddress+"");
 				
 				//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
-				String path = request.getServletContext().getRealPath("/reports/AvailableBook.jrxml");
+				String path = request.getServletContext().getRealPath("/reports/PurchaseBook.jrxml");
 				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path +"//reports/AvailableBook.jasper"));
 				jasperDesign = JRXmlLoader.load(path);
 				jasperReport = JasperCompileManager.compileReport(jasperDesign);
@@ -111,46 +117,20 @@ public class Report extends HttpServlet {
 			{
 				e.printStackTrace();
 			}
-			
 		}
 		
-		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("PurchaseBook")))
-		{
-			try
-			{
-				
-				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path));
-				net.sf.jasperreports.engine.JasperReport jasperReport = null;
-				JasperDesign jasperDesign = null;
-				Map para = new HashMap();
-				
-				/*para.put("startDate",""+startDate+"");
-				para.put("endDate",""+endDate+"");*/
-				para.put("academicYear", academicYr+"");
-				para.put("trustyName", ""+trustyName+"");
-				para.put("schoolName", ""+schoolName+"");
-				para.put("sAddress", ""+sAddress+"");
-				para.put("startDate", ""+startDate+"");
-				para.put("endDate", ""+endDate+"");
-				//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
-				String path = request.getServletContext().getRealPath("/reports/PurchaseBookDetails.jrxml");
-				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path +"//reports/AvailableBook.jasper"));
-				jasperDesign = JRXmlLoader.load(path);
-				jasperReport = JasperCompileManager.compileReport(jasperDesign);
-				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
-		        JasperViewer.viewReport(jasperPrint, false);
-			} 
-			catch (JRException e)
-			{
-				e.printStackTrace();
-			}
-			
-		}
-	
 		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("Cat")))
 		{
 		try
 		{
+			System.out.println("date is:"+reqdate);
+			String date1[]=reqdate.split("-");
+			System.out.println(date1[0]+"-"+date1[1]);
+			String d1[]=date1[0].split("/");
+			System.out.println("1st date "+d1[1]+"-"+d1[0]+"-"+d1[2]);
+			String d2[]=date1[1].split("/");
+			String startDate=d1[2].trim()+"-"+d1[0].trim()+"-"+d1[1];
+			String endDate=d2[2].trim()+"-"+d2[0].trim()+"-"+d2[1];
 			String catName=request.getParameter("cat");
 			net.sf.jasperreports.engine.JasperReport jasperReport = null;
 			JasperDesign jasperDesign = null;
@@ -164,7 +144,7 @@ public class Report extends HttpServlet {
 			para.put("catName", ""+catName+"");
 			System.out.println("Category wise data");
 			//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
-			String path = request.getServletContext().getRealPath("/reports/Category.jrxml");
+			String path = request.getServletContext().getRealPath("/reports/BookCategory.jrxml");
 			jasperDesign = JRXmlLoader.load(path);
 			jasperReport = JasperCompileManager.compileReport(jasperDesign);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
@@ -180,6 +160,14 @@ public class Report extends HttpServlet {
 		{
 			try
 			{
+				System.out.println("date is:"+reqdate);
+				String date1[]=reqdate.split("-");
+				System.out.println(date1[0]+"-"+date1[1]);
+				String d1[]=date1[0].split("/");
+				System.out.println("1st date "+d1[1]+"-"+d1[0]+"-"+d1[2]);
+				String d2[]=date1[1].split("/");
+				String startDate=d1[2].trim()+"-"+d1[0].trim()+"-"+d1[1];
+				String endDate=d2[2].trim()+"-"+d2[0].trim()+"-"+d2[1];
 				net.sf.jasperreports.engine.JasperReport jasperReport = null;
 				JasperDesign jasperDesign = null;
 				Map para = new HashMap();
@@ -202,10 +190,53 @@ public class Report extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
+		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("finePending")))
+		{
+			try
+			{
+				System.out.println("date is:"+reqdate);
+				String date1[]=reqdate.split("-");
+				System.out.println(date1[0]+"-"+date1[1]);
+				String d1[]=date1[0].split("/");
+				System.out.println("1st date "+d1[1]+"-"+d1[0]+"-"+d1[2]);
+				String d2[]=date1[1].split("/");
+				String startDate=d1[2].trim()+"-"+d1[0].trim()+"-"+d1[1];
+				String endDate=d2[2].trim()+"-"+d2[0].trim()+"-"+d2[1];
+				//String studId=request.getParameter("studId");
+				net.sf.jasperreports.engine.JasperReport jasperReport = null;
+				JasperDesign jasperDesign = null;
+				Map para = new HashMap();
+				para.put("startDate",""+startDate+"");
+				para.put("endDate",""+endDate+"");
+				para.put("trustyName", ""+trustyName+"");
+				para.put("schoolName", ""+schoolName+"");
+				para.put("sAddress", ""+sAddress+"");
+				//para.put("studId", studId);
+				System.out.println("Fine Pending");
+				String path = request.getServletContext().getRealPath("/reports/FinePending.jrxml");
+				jasperDesign = JRXmlLoader.load(path);
+				jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
+		        JasperViewer.viewReport(jasperPrint, false);
+			} 
+			catch (JRException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
 		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("FineCollectionPaid")))
 		{
 			try
 			{
+				String date1[]=reqdate.split("-");
+				System.out.println(date1[0]+"-"+date1[1]);
+				String d1[]=date1[0].split("/");
+				System.out.println("1st date "+d1[1]+"-"+d1[0]+"-"+d1[2]);
+				String d2[]=date1[1].split("/");
+				String startDate=d1[2].trim()+"-"+d1[0].trim()+"-"+d1[1];
+				String endDate=d2[2].trim()+"-"+d2[0].trim()+"-"+d2[1];
 				net.sf.jasperreports.engine.JasperReport jasperReport = null;
 				JasperDesign jasperDesign = null;
 				Map para = new HashMap();
@@ -228,7 +259,72 @@ public class Report extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		response.sendRedirect("/SMGMT/View/report/libraryReport.jsp");
+		
+		if((request.getParameter("report")!=null) && (request.getParameter("reportOption").equals("bookNo")))
+		{
+			try
+			{
+				System.out.println("date is:"+reqdate);
+				String date1[]=reqdate.split("-");
+				System.out.println(date1[0]+"-"+date1[1]);
+				String d1[]=date1[0].split("/");
+				System.out.println("1st date "+d1[1]+"-"+d1[0]+"-"+d1[2]);
+				String d2[]=date1[1].split("/");
+				String startDate=d1[2].trim()+"-"+d1[0].trim()+"-"+d1[1];
+				String endDate=d2[2].trim()+"-"+d2[0].trim()+"-"+d2[1];
+				String catType=request.getParameter("bookCat"); 
+				String bookName=request.getParameter("bName");
+				System.out.println("Cat Type "+catType+ " "+bookName);
+				net.sf.jasperreports.engine.JasperReport jasperReport = null;
+				JasperDesign jasperDesign = null;
+				Map<String,Object> para = new HashMap<>();
+				para.put("startDate",""+startDate+"");
+				para.put("endDate",""+endDate+"");
+				para.put("trustyName", ""+trustyName+"");
+				para.put("schoolName", ""+schoolName+"");
+				para.put("sAddress", ""+sAddress+"");
+				para.put("catType", ""+catType+"");
+				para.put("bookName",""+bookName+"");
+				System.out.println("Book no cupboardwise.."+para);
+				String path = request.getServletContext().getRealPath("/reports/BookNoCupbWise.jrxml");
+		
+				jasperDesign = JRXmlLoader.load(path);
+				jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, para, con);
+		        JasperViewer.viewReport(jasperPrint, false);
+			} 
+			catch (JRException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		if(request.getParameter("catId")!=null)
+		{
+			forward=false;
+			String cat_id=request.getParameter("catId");
+			System.out.println("in categoey...");
+			int id=Integer.parseInt(cat_id);
+			
+			System.out.println("cat id:"+id);
+			List<Object> list=dao.getBookName(id);
+			Iterator itr=list.iterator();
+			System.out.println("Size "+list);
+			while(itr.hasNext())
+			{
+				out.print(itr.next()+"~");
+				//out.print(itr.next()+","+itr.next()+",");
+				//System.out.println("Book Name Dispalyed");
+			}
+			
+		}
+		if(forward)
+		{
+			response.sendRedirect("/SMGMT/View/report/libraryReport.jsp");
+		}
+
+		
+
 	}
 }
 	

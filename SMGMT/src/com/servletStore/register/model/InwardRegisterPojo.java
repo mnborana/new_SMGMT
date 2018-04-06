@@ -2,7 +2,7 @@ package com.servletStore.register.model;
 
 public class InwardRegisterPojo {
 	int id,inwardNo,documentId;
-	String date,senderName,subject,address,description,docmentName,sender_receiver_name,mobileNo,fromDate,toDate;
+	String date,senderName,subject,address,description,docmentName,sender_receiver_name,mobileNo,fromDate,toDate,trustyName,schoolName,schoolAddress;
 	public int getId() {
 		return id;
 	}
@@ -88,6 +88,30 @@ public class InwardRegisterPojo {
 
 	public void setToDate(String toDate) {
 		this.toDate = toDate;
+	}
+
+	public String getTrustyName() {
+		return trustyName;
+	}
+
+	public void setTrustyName(String trustyName) {
+		this.trustyName = trustyName;
+	}
+
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+
+	public String getSchoolAddress() {
+		return schoolAddress;
+	}
+
+	public void setSchoolAddress(String schoolAddress) {
+		this.schoolAddress = schoolAddress;
 	}
 	
 	

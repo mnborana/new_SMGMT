@@ -124,10 +124,10 @@
 							<div class="col-xl-12">
 								<div class="card">
 									<div class="card-header bg-white">
-										<i class="fa fa-file-text-o"></i> Outward Register
+										<i class="fa fa-file-text-o"></i> Outward Register 
 									</div>
 									<div class="card-block m-t-35">
-										<form action="/SMGMT/InwardRegister" method="post" class="form-horizontal login_validator" id="form_block_validator">
+										<form action="/SMGMT/OutwardRegister" method="post" class="form-horizontal login_validator" id="form_block_validator">
 											 <div class="col-lg-4 input_field_sections" style="margin-left: 400px;">
 	                                            <h5>Select From & To Date</h5>
 	                                                <div class="input-group">
@@ -140,7 +140,8 @@
 	                                        
 	                                        <div class="modal-footer" >
                                                 <div class="col-lg-4 push-lg-4">
-                                                     <button type="submit" name="InwardRegister" class="btn btn-primary" style="margin-left: -700px;">Print</button>
+                                                <input type="hidden" name="schoolId" value="<%=schoolId%>"/>
+                                                     <button type="submit" name="OutwardReport" class="btn btn-primary" style="margin-left: -700px;">Print</button>
                                                     <button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
                                                 </div>
                                             </div>

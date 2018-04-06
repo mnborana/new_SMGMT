@@ -24,6 +24,8 @@
    
 </head>
 <%
+
+
 	String schoolId = "0";
 	String academicYear = "0";
 	int roll=0;
@@ -49,11 +51,14 @@
 		
 		//if it returns read(1) then hide FORM and ACTION COLUMN(UPDATE/DELETE) in dataTable
 		//for write(2) show your orignal full form
-				
+		
+		
 	}
 %>
 
 <body>
+
+
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -156,9 +161,8 @@
                                                     <label for="email2" class="col-form-label">Select Student*</label>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                <select class="form-control chzn-select" title="Select Student" name="student_id" id="student_id" onchange="selectedStudentInfo()" required="required">
+                                                <select class="form-control chzn-select" title="Select Student" name="student_id" id="student_id" onchange="selectCast()" required="required">
 			                                    	<option value="Select Student" disabled="disabled"> Select Student </option>
-			                                    	
 			                                    </select>                                                    
                                                 </div>                                               
                                             </div>
@@ -240,8 +244,8 @@
                                            
                                             <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
-                                                    <button type="submit" name="feesCollection_btn" id="feesCollection_btn" value="feesCollection_btn" class="btn btn-primary">Submit</button>
-                                                    <!-- <input type="submit" value="Submit" name="feesCollection_btn" id="feesCollection_btn" class="btn btn-primary"> -->
+                                                    <button type="submit" name="feesCollection_btn" id="feesCollection_btn" value="feesCollection_btn" class="btn btn-primary" disabled="disabled">Submit</button>
+													<!-- <input type="button" value="Show Modal" data-toggle="modal" data-target="#search_modal" class="btn btn-primary"> --> 
                                                 </div>
                                             </div>
                                         </form>
@@ -252,6 +256,7 @@
                     </div> <!-- /.inner -->
                 </div> <!-- /.outer -->
             
+            <input type="text" id="year" value="<%=academicYear%>">
             
             <div class="outer">
                     <div class="inner bg-container">
@@ -295,19 +300,43 @@
                 </div>
                 <!-- /.outer -->
                 <!-- Modal -->
-                <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="feeStruc" tabindex="-1" role="dialog" aria-hidden="true">
                     <form>
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span class="float-right" aria-hidden="true">&times;</span>
-                                </button>
-                                <div class="input-group search_bar_small">
-                                    <input type="text" class="form-control" placeholder="Search..." name="search">
-                                    <span class="input-group-btn">
-							        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-							      </span>
+                                <div class="modal-header">
+                                	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    	<span class="float-right" aria-hidden="true">&times;</span>
+                                	</button>
+									<h4 class="modal-title" id="modalHead">Fee Structure</h4>
                                 </div>
+                                
+                                <div class="modal-body">
+        							<table class="table  table-striped table-bordered table-hover  no-footer" id="tableId"  role="grid">
+								          <thead>
+									        <tr role="row">
+											<th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">No</th>
+							                  <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Fees Type</th>
+							                  <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term One Fees</th>
+							                  <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Term Two Fees</th>
+							              </tr>
+					                       </thead>
+					                       <tbody id="feeStructure">
+					                       	<tr id="trid">
+					                       		<td></td>
+					                       		<td></td>
+					                       		<td></td>
+					                       		<td></td>
+					                    	</tr>
+					                    </tbody>           
+							         </table>
+      							</div>
+                                
+                                <div class="modal-footer">
+                                	<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="assignFee()">Assign Fee</button>
+							        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							    </div>
+                                
                             </div>
                         </div>
                     </form>
@@ -329,44 +358,279 @@
 	
 <script type="text/javascript">
 
+
+var feeForAssign = [];
+var feeSum=0;
+
+/*----- toast----- */
+function myFunction(res){
+	    iziToast.show({
+            title: 'Status',
+            message: res,
+				color : '#00cc99',
+				position : 'topCenter'
+			});
+	
+}
+
+
+/*------------ Setting student in dropdown and getting standard wise fee--------------- */
 function selectStudent() {
 	
 	var standard_id = document.getElementById('standard_id').value;
-	
-	alert("Standard Id "+standard_id);
-	
+
 	var xhttp =new XMLHttpRequest();
 	
 	try{
 		xhttp.onreadystatechange = function(){
 			if(this.readyState == 4 && this.status == 200){
 				var str=this.responseText.split(",");
+				var fee=str[0].split("#");
 				
-				var data="<option disabled selected>Select Student </option>";
 				
-				for (var i = 0; i < str.length-1;) {
+				var tableData="";
+				var count=1;
+				
+				if(fee.length==1)
+				{
+					alert('Fee not assinged for this class assign it first');	
+					document.getElementById("feesCollection_btn").disabled = true;
+				}
+				else
+				{
+					document.getElementById("feesCollection_btn").disabled = false;
 					
-					data+='<option value='+str[ i++]+'>'+ str[ i++] +' </option>';
+					var newArr=[];
+					newArr.push(fee[fee.length-1]);
+					 
+					 for(var i=1;i<str.length;i++)
+					 {
+						 newArr.push(str[i]);
+					 }
+				
+					fee.splice(-1,1);
+					feeForAssign=[];
+					feeForAssign.push(fee);
+					
+					 
+					var data="<option disabled selected>Select Student </option>";
+					
+					for (var i = 0; i < newArr.length-1;) {
+						
+						data+='<option value='+newArr[ i++]+'>'+ newArr[ i++] +' </option>';
+					}
+
+					document.getElementById("student_id").innerHTML=data;
+					$("#student_id").trigger('chosen:updated');	
+					
+					
 				}
 				
-				//alert(data);
-				
-				document.getElementById("student_id").innerHTML=data;
-				$("#student_id").trigger('chosen:updated');					
+			
+								
 			}
 		}
-		xhttp.open("POST", "/SMGMT/FeesCollection?standard_id="+standard_id, true);
+		xhttp.open("POST", "/SMGMT/AssignFee?standard_id="+standard_id, true);
 		xhttp.send();
 	}catch(e){
 		alert("Unable to Connect Server!");
 	}
-	//SELECT student_details.id, student_details.first_name, student_details.middle_name, student_details.last_name FROM 
-	//student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND class_allocation.classroom_master=8
-	
-	//SELECT student_details.id, concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) AS full_name FROM 
-	//student_details, class_allocation WHERE class_allocation.student_id = student_details.id AND class_allocation.classroom_master=8 AND 
-	//concat(student_details.first_name,' ',student_details.middle_name,' ',student_details.last_name) LIKE 'suraj m%'
 }
+
+
+
+/*-------- getting castWise fee and calculating with standardwise fee and setting it into modal table------------------- */
+function selectCast()
+{
+	var student_id = document.getElementById('student_id').value;
+	var standard_id = document.getElementById('standard_id').value;
+	var academicYear = document.getElementById('year').value;
+	var xhttp =new XMLHttpRequest();
+	var sum=0;
+	
+	var cast = "";
+	
+	try{
+		xhttp.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var castFee=this.responseText;
+				if(castFee.trim()==="FEE ASSIGNED")
+				{
+					selectedStudentInfo();
+				}
+				else
+				{
+					if(castFee.length==1)
+					{
+						alert("Cast category not assinged for this student assinged it first");
+						document.getElementById("feesCollection_btn").disabled = true;
+					}
+					else
+					{
+						document.getElementById("remaining_fees").value ="";
+						var allFee = castFee.split(",");	
+						cast = allFee[allFee.length-1];
+						allFee.splice(-1,1); //for removing last element
+						if(feeForAssign.length>1)
+						{
+							while(feeForAssign.length > 1) { //for removing last assigned fee
+								feeForAssign.pop();
+							}	
+						}
+						feeForAssign.push(allFee); //added cast fee into standard fee
+						
+						//copying array for seeting it into table
+						var feeStruct = feeForAssign.slice(0);
+						
+						
+						var feeForAddition=[];
+						
+						var tempArray = [];
+						var newArr = [];
+						  for(var i=0;i<feeForAssign.length;i++)
+							{
+							  tempArray=feeForAssign[i].toString().split(",");
+							  for(var j=0;j<tempArray.length;j++)
+								{
+								  newArr.push(tempArray[j].split(","))
+								 }
+							}
+						  feeForAddition =newArr.slice(0);
+						  
+						  
+						  for(var i=0;i<newArr.length;i++)
+							{
+							  	if(isNaN(newArr[i]))
+								{
+							  		newArr.splice(i,1);
+								}  
+							}
+						  
+						feeSum=0;
+						for(var i=0;i<newArr.length;i++)
+						{
+							feeSum+=parseInt(newArr[i]);
+						}//addition of all fees
+						
+						
+						$('#feeStruc').modal('show'); 
+						
+						
+						$('#feeStruc').on('shown.bs.modal', function (e) {
+							  var tableData = "";
+							  var count = 1;
+							//  alert(feeForAddition);
+							  
+							  for(var i=0;i< feeForAddition.length;)
+							  {
+									//alert(feeForAddition[i+2]);
+								  if( isNaN(feeForAddition[i+2])|| feeForAddition[i+2]=== undefined)
+									{
+									//	alert('hello');
+										tableData +="<tr>"
+											+"<td>"+count+"</td>"
+											+"<td>"+feeForAddition[i++]+"</td>"
+											+"<td colspan='2' align='center'>"+feeForAddition[i++]+"</td>"
+											+"</tr>";
+									}
+									else
+									{ 
+										tableData +="<tr>"
+											+"<td>"+count+"</td>"
+											+"<td>"+feeForAddition[i++]+"</td>"
+											+"<td>"+feeForAddition[i++]+"</td>"
+											+"<td>"+feeForAddition[i++]+"</td>"
+											+"</tr>";	
+									}
+									count++;
+								  
+								  	
+							  }
+							  document.getElementById("feeStructure").innerHTML=tableData;
+							  
+							  var table = document.getElementById("tableId");
+							  
+							  var rowCount = table.rows.length;
+								
+								var row = table.insertRow(rowCount);//tr
+								
+								var cell1 = row.insertCell(0);//td
+								
+								cell1.innerHTML="<b>Total Fee</b>";
+								
+								cell1.colSpan = 2
+								
+								$(cell1).attr("align","center");
+								
+								cell1.style.backgroundColor="#4fb7fe";
+								
+								var cell2 = row.insertCell(1);//td
+								
+								cell2.innerHTML="<b>"+feeSum+"<b>";
+								
+								cell2.colSpan = 2
+								
+								$(cell2).attr("align","center");
+								
+								cell2.style.backgroundColor="#4fb7fe";
+								
+								var selectedStudent = document.getElementById("student_id");
+								var studName = selectedStudent.options[selectedStudent.selectedIndex].text;
+								
+								document.getElementById("modalHead").innerHTML=studName+" Fee Structure for "+cast+" Category"
+							  
+							});
+
+						
+						
+					}
+					
+				}
+				
+			}
+		}
+		xhttp.open("POST", "/SMGMT/AssignFee?student_id="+student_id+"&standard="+standard_id+"&year="+academicYear, true);
+		xhttp.send();
+	}catch(e){
+		alert("Unable to Connect Server!");
+	}
+
+	
+}
+
+
+/*------------ assigning total fee----------------- */
+function assignFee()
+{
+	var aYear = document.getElementById('year').value;
+	var student_id = document.getElementById('student_id').value;
+	var standard_id = document.getElementById('standard_id').value;
+	
+	 var xhttp =new XMLHttpRequest();
+	
+	try{
+		xhttp.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var result=this.responseText;
+				if(result=="Fee Assigned")
+				{
+					document.getElementById('remaining_fees').value = feeSum;					
+				}
+				myFunction(result);
+			}
+		}
+		xhttp.open("POST", "/SMGMT/AssignFee?assign=1&standard_Id="+standard_id+"&student_Id="+student_id+"&totalFee="+feeSum+"&year="+aYear, true);
+		xhttp.send();
+	}catch(e){
+		alert("Unable to Connect Server!");
+	} 
+}
+
+
+
+
+
+
 
 function selectedStudentInfo() {
 	
@@ -380,7 +644,6 @@ function selectedStudentInfo() {
 			if(this.readyState == 4 && this.status == 200){
 				var str=this.responseText.split(",");
 				
-				//alert(str);
 				var count=0;
 				var data="";
 				document.getElementById("remaining_fees").value = str[0];

@@ -173,6 +173,7 @@
 
 														</div>
 													</div>
+<<<<<<< HEAD
 												<!-- 	<div class="form-group row" id="allStudentCheck">
 													<div class="col-lg-4  text-lg-right">
 		                                                	       <label for="required2" class="col-form-label"></label>
@@ -288,6 +289,123 @@
 	{
 		var stud_id=document.getElementById('student_id').value;
 		//alert("Student"+stud_id);
+=======
+													<div class="form-group row" id="allStudentCheck">
+													<div class="col-lg-4  text-lg-right">
+		                                                	       <label for="required2" class="col-form-label"></label>
+		                                                </div>
+													<div class="col-lg-6">
+													
+																		<label class="custom-control custom-checkbox">
+																			<input type="checkbox" class="custom-control-input"> 
+																			<span class="custom-control-indicator"></span>
+																			<span class="custom-control-description">All Student</span>
+																		</label>
+													</div>
+													</div>
+													<div class="form-group row">
+													<div class="col-lg-4  text-lg-right">
+		                                                	       <label for="required2" class="col-form-label"></label>
+		                                                </div>
+																<div class="col-lg-4 ">
+																	<div class="controls">
+																		<input type="radio" value="Type1"
+																			style="margin-left: 1%;" name="userType"
+																			id="userType" onclick="searchDetails(this.value)"
+																			checked="checked"> Type1 <input
+																			type="radio" value="Type2" style="margin-left: 1%;"
+																			name="userType" id="userType"
+																			onclick="searchDetails(this.value)"> Type2
+																	</div>
+																</div>
+															</div>	
+										
+                                        	
+                                        	 <div class="form-actions form-group row">
+                                                <div class="col-lg-4 push-lg-4">
+                                                    <input type="submit" value="Print" name="icard" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> <!-- /.col-lg-12 -->
+                        </div> <!-- /.row -->
+                    </div> <!-- /.inner -->
+                </div> <!-- /.outer -->
+			</div>
+           </div> <!-- /#content -->
+        </div>
+        
+       <!--wrapper-->
+       
+        
+</div>
+<!-- /#wrap -->
+
+	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
+	<script type="text/javascript">
+<%-- 	function myFunction(){
+		<%if (session.getAttribute("flag") != null) {%>
+		$(window).load(function () {
+	        iziToast.show({
+	            title: 'Status',
+	            message: '<%=session.getAttribute("flag").toString()%> ',
+					color : '#00cc99',
+					position : 'topCenter'
+				});
+				return false;
+			});
+	<%}
+			session.removeAttribute("flag");%>
+
+	} --%>
+	
+
+	
+	
+	function selectStandard() {
+		
+		var standard_id = document.getElementById('standard_id').value;
+		//alert("Std "+standard_id);
+		
+		//alert("Standard Id "+standard_id);
+		$("#allStudentCheck").show();
+		
+		var xhttp =new XMLHttpRequest();
+		
+		try{
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var str=this.responseText.split(",");
+					//var fee=str[0].split("#");
+					//alert(str);
+					var data="<option disabled selected>Select Student </option>";
+					
+					for (var i = 0; i < str.length-1;) {
+						
+						data+='<option value='+str[ i++]+'>'+ str[ i++] +' </option>';
+					}
+					
+					//alert(data);
+					
+					document.getElementById("student_id").innerHTML=data;
+					$("#student_id").trigger('chosen:updated');					
+				}
+			}
+			xhttp.open("POST", "/SMGMT/Icard?standard_id="+standard_id, true);
+			xhttp.send();
+		}catch(e){
+			alert("Unable to Connect Server!");
+		}
+}
+
+	
+	function selectStudent()
+	{
+		var stud_id=document.getElementById('student_id').value;
+		alert("Student"+stud_id);
+>>>>>>> refs/remotes/origin/HEAD
 		//var allStudentCheck=document.getElementById('allStudentCheck');
 		
 			$("#allStudentCheck").hide();

@@ -2,7 +2,7 @@ package com.servletStore.register.model;
 
 public class OutwardRegisterPojo {
 	int id,outwardNo;
-	String requireddate,receiverName,subject,address,description,outwardDoc,mobileNo,emailId;
+	String requireddate,receiverName,subject,address,description,outwardDoc,mobileNo,emailId,trustyName,schoolName,schoolAddress;
 	public int getId() {
 		return id;
 	}
@@ -65,6 +65,24 @@ public class OutwardRegisterPojo {
 	}
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+	public String getTrustyName() {
+		return trustyName;
+	}
+	public void setTrustyName(String trustyName) {
+		this.trustyName = trustyName;
+	}
+	public String getSchoolName() {
+		return schoolName;
+	}
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+	public String getSchoolAddress() {
+		return schoolAddress;
+	}
+	public void setSchoolAddress(String schoolAddress) {
+		this.schoolAddress = schoolAddress;
 	}
 	
 	

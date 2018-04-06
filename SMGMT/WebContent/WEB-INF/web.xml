@@ -316,6 +316,7 @@
     <servlet-name>SubAccount</servlet-name>
     <url-pattern>/SubAccount</url-pattern>
   </servlet-mapping>
+<<<<<<< HEAD
   
   <servlet>
     <servlet-name>Icard</servlet-name>
@@ -327,3 +328,66 @@
   </servlet-mapping>
   
 </web-app>
+=======
+   <servlet>
+    <servlet-name>AdmissionReport</servlet-name>
+    <servlet-class>com.servletStore.report.admissionReport.controller.AdmissionReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdmissionReport</servlet-name>
+    <url-pattern>/AdmissionReport</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>StudAddressInfo</servlet-name>
+    <servlet-class>com.servletStore.report.studAddressInfo.controller.StudAddressInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudAddressInfo</servlet-name>
+    <url-pattern>/StudAddressInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>StudGeneralInfo</servlet-name>
+    <servlet-class>com.servletStore.report.StudGeneralInfo.controller.StudGeneralInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudGeneralInfo</servlet-name>
+    <url-pattern>/StudGeneralInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CashBookEntry</servlet-name>
+    <servlet-class>com.servletStore.cashBook.cashBookEntry.controller.CashBookEntry</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CashBookEntry</servlet-name>
+    <url-pattern>/CashBookEntry</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AddBank</servlet-name>
+    <servlet-class>com.servletStore.settings.bank.conroller.AddBank</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddBank</servlet-name>
+    <url-pattern>/AddBank</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GenderWiseReport</servlet-name>
+    <servlet-class>com.servletStore.report.genderWiseReport.Controller.GenderWiseReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GenderWiseReport</servlet-name>
+    <url-pattern>/GenderWiseReport</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Icard</servlet-name>
+    <servlet-class>com.servletStore.report.icardReport.controller.Icard</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Icard</servlet-name>
+    <url-pattern>/Icard</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+</web-app>
+>>>>>>> refs/remotes/origin/HEAD

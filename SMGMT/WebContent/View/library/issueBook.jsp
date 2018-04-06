@@ -930,14 +930,18 @@ function myFunction()
         iziToast.show({
             title: 'Success',
             message: '<%=session.getAttribute("flag").toString()%>',
-            color:'#cc7fe5',       //'#00cc99'
+            color:'#00cc99',    
             position: 'topCenter'
         });
         return false;
     });
+<<<<<<< HEAD
 	<%} session.removeAttribute("flag");%> 
 	
 	
+=======
+	<%} session.removeAttribute("flag");%>
+>>>>>>> refs/remotes/origin/HEAD
 }
 
 /* <<<<<<<<<<<<<<<<<<< Ajax for Serach book Info which is issued >>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -1012,9 +1016,7 @@ function getstuddetails(id){
 	    	 {	
 	    	 	var text=text+"<option value=\""+stud[i]+"\"> </option>";
 	    	 }
-	     
 			document.getElementById("browseStud").innerHTML = text;	
-			
 	    }
 	  };
 	  xhttp.open("POST", "/SMGMT/Library?studDetails="+id, true);
@@ -1064,7 +1066,6 @@ function getExpData(val)
 			    if(todayMonth<10) {
 			    	todayMonth = '0'+todayMonth;
 			    } 
-			    
 			    if(today<10) {
 			    	today = '0'+today;
 			    } 
@@ -1135,7 +1136,10 @@ function getBookInfo(bookInfo,e)
 			document.getElementById("authrName").value = stud[2];
 			
 			var iDate = stud[3].split('-');
+<<<<<<< HEAD
 			
+=======
+>>>>>>> refs/remotes/origin/HEAD
 			iDate=iDate[2]+'-'+iDate[1]+'-'+iDate[0];
 			document.getElementById("issueDate1").value = iDate;
 			
@@ -1256,7 +1260,16 @@ function getFineCount(todayDate, dueDate, radioValue,studId) {
 
 	
 }
+<<<<<<< HEAD
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Return book even fine has remaining>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+=======
+
+
+ 
+ 
+/*<<<<<<<<<<<<<<<<<<< Code For check box if it is selected or not >>>>>>>>>>>>>>>>>>> */
+
+>>>>>>> refs/remotes/origin/HEAD
 function checkedPay(checkId)
 {   var totalFineAmt=parseInt(document.getElementById('fineAmount').value);
 	var paidFineAmount=parseInt(document.getElementById('paidAmountId').value);

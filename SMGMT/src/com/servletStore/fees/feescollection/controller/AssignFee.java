@@ -28,12 +28,14 @@ public class AssignFee extends HttpServlet {
 	  PrintWriter out = response.getWriter();
 	  String standard_id = request.getParameter("standard_id");
 	  String student_id = request.getParameter("student_id");
+	  
 	  FeesCollectionDAO feesCollectionDAO = new FeesCollectionImpl();
 	  HttpSession session = request.getSession();
 	
 	  //ajax for searching standard wise student and fee
 		if(standard_id!=null){
 			
+			System.out.println(standard_id);
 			List studentList = feesCollectionDAO.getStudentInfo(standard_id);
 			
 			try
@@ -41,6 +43,8 @@ public class AssignFee extends HttpServlet {
 				List feeList = feesCollectionDAO.getStandardWiseFee(standard_id);
 			
 				Iterator itr = feeList.iterator();
+				
+				System.out.println(feeList.toString());
 				
 				while(itr.hasNext())
 				{
@@ -63,24 +67,104 @@ public class AssignFee extends HttpServlet {
 		
 		//for getting cast wise fee for particular student
 		if(student_id!=null)
-		{	
+		{
+			String standard = request.getParameter("standard");
+			String academicYear = request.getParameter("year");
+			
 			try
 			{
-				String cast = feesCollectionDAO.getStudentCast(student_id);
-			
-				List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id);
+				//-----------assigning fee for next year remaining--------------
 				
-				Iterator iterator = castFee.iterator();
+				//check if already assinged or not
+				String check=feesCollectionDAO.checkStudFee(student_id);
 				
-				while (iterator.hasNext()) {
-					out.print(iterator.next()+",");
-				}
+				
+				if(check.equals(","))
+				{
+					String cast = feesCollectionDAO.getStudentCast(student_id);
 					
+					
+					List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id, standard);
+					
+					System.out.println(castFee.toString());
+					
+					Iterator iterator = castFee.iterator();
+					
+					while (iterator.hasNext()) {
+						out.print(iterator.next()+",");
+					}
+						
+					
+					out.println(cast);
+				}
+				else
+				{
+					
+					String data[] = check.split(",");
+					String status = data[0];
+					String aDate = data[1];
+					
+					String[] splitYear = academicYear.split("-");
+					String startDate = splitYear[0]+"-07-01";
+					String endDate = splitYear[1]+"-04-30";
+							
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+					Date date = new Date();  
+					String currentDate=formatter.format(date);  
+					
+					Date start = formatter.parse(startDate);
+					Date end = formatter.parse(endDate);
+					Date cDate = formatter.parse(currentDate);
+					
+					Date availableDate = formatter.parse(aDate);
+					
+					//checks available record date comes in between academic year or not
+					if(start.compareTo(availableDate)*availableDate.compareTo(end)>0)
+					{
+						System.out.println("Not assinged because already assinged for this year");
+						out.print("FEE ASSIGNED");
+						//session.setAttribute("flag", "Not assinged because already assinged for this year");
+					}
+					else
+					{
+							
+						if(availableDate.before(end))
+						{
+							if(cDate.after(start))
+							{
+								String cast = feesCollectionDAO.getStudentCast(student_id);
+								
+								
+								List castFee = feesCollectionDAO.getStudentCastwiseFee(student_id, standard);
+								
+								Iterator iterator = castFee.iterator();
+								
+								while (iterator.hasNext()) {
+									out.print(iterator.next()+",");
+								}
+									
+								out.println(cast);
+							}
+							else
+							{
+								System.out.println("You can not assinged in advance fee for next year");
+								out.print("You can not assinged in advance fee for next year");
+							}
+							
+						}
+						else
+						{
+							out.print("Not assinged, choose appropriate login year");
+							System.out.println("Not assinged, choose appropriate login year");
+						}
+						
+					}
+					
+					
+				}
 				
-				out.println(cast);
 			
-			
-			} catch (SQLException e)
+			} catch (SQLException | ParseException e)
 			{
 				e.printStackTrace();
 			}
@@ -94,6 +178,7 @@ public class AssignFee extends HttpServlet {
 			  String studentId=request.getParameter("student_Id");
 			  String totalFee=request.getParameter("totalFee");
 			  String academicYear = request.getParameter("year");
+			 
 			  int insertStatus=0;
 			  
 			  String[] splitYear = academicYear.split("-");
@@ -133,11 +218,13 @@ public class AssignFee extends HttpServlet {
 						//insert
 						System.out.println("insert for new student");
 						session.setAttribute("flag", "Fee Assigned");
+						out.print("Fee Assigned");
 						insertStatus = feesCollectionDAO.assignStudentFee(pojo);
 					}
 					else
 					{
 						session.setAttribute("flag", "Not assinged, choose appropriate login year");
+						out.print("Not assinged, choose appropriate login year");
 						System.out.println("Not assinged, choose appropriate login year in first check");
 					}
 			
@@ -150,6 +237,7 @@ public class AssignFee extends HttpServlet {
 					if(start.compareTo(availableDate)*availableDate.compareTo(end)>0)
 					{
 						System.out.println("Not assinged because already assinged for this year");
+						out.print("Not assinged because already assinged for this year");
 						session.setAttribute("flag", "Not assinged because already assinged for this year");
 					}
 					else
@@ -161,11 +249,13 @@ public class AssignFee extends HttpServlet {
 							{
 								System.out.println("insert for next year");
 								session.setAttribute("flag", "Fee Assigned");
+								out.print("Fee Assigned");
 								insertStatus = feesCollectionDAO.assignStudentFee(pojo);
 							}
 							else
 							{
 								System.out.println("You can not assinged in advance fee for next year");
+								out.print("You can't assinged in advance fee for next year or Check Login year");
 								session.setAttribute("flag", "You can't assinged in advance fee for next year or Check Login year");
 							}
 							
@@ -173,22 +263,23 @@ public class AssignFee extends HttpServlet {
 						else
 						{
 							session.setAttribute("flag", "Not assinged, choose appropriate login year");
+							out.print("Not assinged, choose appropriate login year");
 							System.out.println("Not assinged, choose appropriate login year");
 						}
 						
 					}
 					
 				}
-				
+
 				if(insertStatus>0)
 				{
 					//redirect with success 
-					response.sendRedirect("/SMGMT/View/fees/studFeeAssign.jsp");
+					//response.sendRedirect("/SMGMT/View/fees/feesCollection.jsp");
 				}
 				else
 				{
 					//redirect with error
-					response.sendRedirect("/SMGMT/View/fees/studFeeAssign.jsp");
+					//response.sendRedirect("/SMGMT/View/fees/feesCollection.jsp");
 				}
 				
 				

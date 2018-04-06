@@ -1,3 +1,6 @@
+<%@page import="com.servletStore.cashBook.cashBookOpeningBalance.model.CashBookOpeningBalPOJO"%>
+<%@page import="com.servletStore.cashBook.cashBookOpeningBalance.model.CashBookOpeningBalIMPL"%>
+<%@page import="com.servletStore.cashBook.cashBookOpeningBalance.model.CashBookOpeningBalDAO"%>
 <%@page import="com.servletStore.cashBook.controller.CashBook"%>
 <%@page import="com.servletStore.cashBook.subAccount.model.SubAccountPOJO"%>
 <%@page import="com.servletStore.cashBook.subAccount.model.SubAccountIMPL"%>
@@ -104,7 +107,7 @@
 					<div class="row no-gutters">
 						<div class="col-sm-5 col-lg-6">
 							<h4 class="nav_top_align">
-								<i class="fa fa-pencil"></i> CashBook And Bankt
+								<i class="fa fa-pencil"></i> CashBook Opening Balance
 							</h4>
 						</div>
 						<div class="col-sm-7 col-lg-6">
@@ -114,148 +117,174 @@
 										Dashboard
 								</a></li>
 								<li class="breadcrumb-item"><a href="#">Forms</a></li>
-								<li class="active breadcrumb-item">CashBook And Bankt </li>
+								<li class="active breadcrumb-item">CashBook Opening Balance </li>
 							</ol>
 						</div>
 					</div>
 				</div>
 				</header>
-
-				<!-- start your code from here  -->
-
-				<div class="outer">
-					<div class="inner bg-container">
-						<div class="row">
-							<div class="col-xl-12">
-								<div class="card">
-									<div class="card-header bg-white">
-										<i class="fa fa-file-text-o"></i>CashBook
-									</div>
-									<div class="card-block m-t-35">
-										<form action="/SMGMT/SubAccount" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
-										
-											<div class="form-group row">
-	                                            <div class="col-lg-3 text-lg-right">
-	                                               <label for="required2" class="col-form-label">Select CashBook<span style="color:red;">*</span></label>
-	                                           </div>
-	                                           <div class="col-lg-4">
-	                                           
-	                                              <select class="form-control chzn-select" tabindex="2" name="selectCashBook" id="required2" required>
-	                                            	 <option disabled selected>select CashBook</option>
-	                                              	
-	                                                 <option value=""></option>
-	                                               
-	                                              </select>
-	                                           </div>
-                                         	</div>                                        	
-                                          
-											<div class="form-group row">
-												<div class="col-lg-3  text-lg-right">
-													<label for="required2" class="col-form-label">Amount<span style="color: red;">*</span></label>
-												</div>
-												<div class="col-lg-4">
-													<input type="text" id="required2" name="getAmount" class="form-control" required>
-												</div>
-											</div>										
-											
-											<div class="form-actions form-group row">
-												<div class="col-lg-4 push-lg-4">
-													<button type="submit" name="submitBTN" class="btn btn-success" >Submit</button>
-													<button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
-												</div>
-											</div>			
-
-										</form>
-									</div>
-								</div>
-							</div>
-							<!-- /.col-lg-12 -->
-						</div>
-						<!-- /.row -->
-					</div>
-					<!-- /.inner -->
-				</div>
-				<!-- /.outer -->		
 				
-				<div class="outer">
-					<div class="inner bg-container">
-						<div class="row">
-							<div class="col-xl-12">
-								<div class="card">
-									<div class="card-header bg-white">
-										<i class="fa fa-file-text-o"></i>Bank
-									</div>
-									<div class="card-block m-t-35">
-										<form action="/SMGMT/SubAccount" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
-										
-											<div class="form-group row">
-	                                            <div class="col-lg-3 text-lg-right">
-	                                               <label for="required2" class="col-form-label">Select CashBook<span style="color:red;">*</span></label>
-	                                           </div>
-	                                           <div class="col-lg-4">
-	                                           
-	                                              <select class="form-control chzn-select" tabindex="2" name="selectBankCashBook" id="required2" required>
-	                                            	 <option disabled selected>select CashBook</option>
-	                                              	
-	                                                 <option value=""></option>
-	                                               
-	                                              </select>
-	                                           </div>
-                                         	</div>       
-                                         	
-                                         	<div class="form-group row">
-	                                            <div class="col-lg-3 text-lg-right">
-	                                               <label for="required2" class="col-form-label">Select Bank<span style="color:red;">*</span></label>
-	                                           </div>
-	                                           <div class="col-lg-4">
-	                                           
-	                                              <select class="form-control chzn-select" tabindex="2" name="selectBank" id="required2" required>
-	                                            	 <option disabled selected>select Bank</option>
-	                                              	
-	                                                 <option value=""></option>
-	                                               
-	                                              </select>
-	                                           </div>
-                                         	</div>                                         	
-                                          
-											<div class="form-group row">
-												<div class="col-lg-3  text-lg-right">
-													<label for="required2" class="col-form-label">Amount<span style="color: red;">*</span></label>
-												</div>
-												<div class="col-lg-4">
-													<input type="text" id="required2" name="getBAmount" class="form-control" required>
-												</div>
-											</div>										
-											
-											<div class="form-actions form-group row">
-												<div class="col-lg-4 push-lg-4">
-													<button type="submit" name="submitBTN" class="btn btn-success" >Submit</button>
-													<button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
-												</div>
-											</div>			
-
-										</form>
-									</div>
-								</div>
-							</div>
-							<!-- /.col-lg-12 -->
-						</div>
-						<!-- /.row -->
-					</div>
-					<!-- /.inner -->
-				</div>
-				<!-- /.outer -->			
 				
+				 <div class="outer">
+                <div class="inner bg-light lter bg-container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                   CashBook Opening Balance
+                                </div>
+                                <div class="card-block m-t-35">
+                                    <div>
+                                        <div class="nav-tabs-custom">
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item">
+                                                    <a href="#tab_2" class="nav-link active" data-toggle="tab">CashBook</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#tab_1" class="nav-link" data-toggle="tab">Bank</a>
+                                                </li>
+                                                
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane active gallery-padding" id="tab_2">
+                                               <div class="card-block m-t-35">
+													<form action="#" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
+													
+													<div class="form-group row">
+			                                            <div class="col-lg-3 text-lg-right">
+			                                               <label for="required2" class="col-form-label">Select CashBook<span style="color:red;">*</span></label>
+			                                           </div>
+			                                           <%
+			                                           CashBookOpeningBalDAO dao=new CashBookOpeningBalIMPL();
+			                                           List<CashBookOpeningBalPOJO> list=dao.getCashBookList();
+			                                           Iterator<CashBookOpeningBalPOJO> itr=list.iterator();
+			                                           %>
+			                                           <div class="col-lg-4">
+			                                              <select class="form-control chzn-select" tabindex="2" name="selectCashBook" id="required2" required>
+			                                            	 <option disabled selected>select CashBook</option>  
+			                                            	 <%
+			                                            	 while(itr.hasNext())
+			                                            	 {
+			                                            		 CashBookOpeningBalPOJO pojo=(CashBookOpeningBalPOJO)itr.next();
+			                                            		 int id=((CashBookOpeningBalPOJO)pojo).getId();
+			                                            		 String cashBookList=((CashBookOpeningBalPOJO)pojo).getCashBook();
+			                                            	 
+			                                            	 %>                                 	
+			                                                 <option value="<%=id%>"><%=cashBookList %></option>
+			                                                 <%
+			                                            	 }
+			                                                 %>
+			                                              </select>
+			                                           </div>
+		                                         	</div>
+		                                          
+													<div class="form-group row">
+														<div class="col-lg-3  text-lg-right">
+															<label for="required2" class="col-form-label">Amount<span style="color: red;">*</span></label>
+														</div>
+														<div class="col-lg-4">
+															<input type="text" id="required2" name="getAmount" class="form-control" required>
+														</div>
+													</div>
+													
+														<div class="col-lg-4 push-lg-4">
+															<button type="submit" name="CashBookLedgerBTN" class="btn btn-success" >Submit</button>
+															<button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
+														</div>
+													</form>
+													
+														</div>
+														</div>			
+														
+			                                                <div class="tab-pane gallery2-padding" id="tab_1">
+			                                                    <div class="card-block m-t-35">
+																<form action="/SMGMT/CashBookLedgerAccount" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
+																
+																<div class="form-group row">
+			                                            <div class="col-lg-3 text-lg-right">
+			                                               <label for="required2" class="col-form-label">Select CashBook<span style="color:red;">*</span></label>
+			                                           </div>
+			                                           <%
+			                                           List<CashBookOpeningBalPOJO> list1=dao.getCashBookList();
+			                                           Iterator<CashBookOpeningBalPOJO> itr1=list1.iterator();
+			                                           %>
+			                                           <div class="col-lg-4">
+			                                              <select class="form-control chzn-select" tabindex="2" name="selectCashBook" id="required2" required>
+			                                            	 <option disabled selected>select CashBook</option>  
+			                                            	 <%
+			                                            	 while(itr1.hasNext())
+			                                            	 {
+			                                            		 CashBookOpeningBalPOJO pojo=(CashBookOpeningBalPOJO)itr1.next();
+			                                            		 int id1=((CashBookOpeningBalPOJO)pojo).getId();
+			                                            		 String cashBookList1=((CashBookOpeningBalPOJO)pojo).getCashBook();
+			                                            	 
+			                                            	 %>                                 	
+			                                                 <option value="<%=id1%>"><%=cashBookList1 %></option>
+			                                                 <%
+			                                            	 }
+			                                                 %>
+			                                              </select>
+			                                           </div>
+		                                         	</div>
+					                                         	
+					                                         	<div class="form-group row">
+						                                            <div class="col-lg-3 text-lg-right">
+						                                               <label for="required2" class="col-form-label">Select Bank<span style="color:red;">*</span></label>
+						                                           </div>
+						                                           <%
+						                                           	List<CashBookOpeningBalPOJO> list2=dao.getBankList();
+						                                           	Iterator<CashBookOpeningBalPOJO> itr2=list2.iterator();
+						                                           %>
+						                                           <div class="col-lg-4">
+						                                              <select class="form-control chzn-select" tabindex="2" name="selectBank" id="required2" required>
+						                                            	 <option disabled selected>select bank</option> 
+						                                            	 <%
+						                                            	 while(itr2.hasNext())
+						                                            	 {
+						                                            		 CashBookOpeningBalPOJO pojo=(CashBookOpeningBalPOJO)itr2.next();
+						                                            		 int id=((CashBookOpeningBalPOJO)pojo).getId();
+						                                            		 String bankAliasName=((CashBookOpeningBalPOJO)pojo).getBank();
+						                                            	 
+						                                            	 %>                                  	
+						                                                 <option value="<%=id%>"><%=bankAliasName %></option>
+						                                                 <%} %>
+						                                              </select>
+						                                           </div>
+					                                         	</div>
+					                                          
+																<div class="form-group row">
+																	<div class="col-lg-3  text-lg-right">
+																		<label for="required" class="col-form-label">Amount<span style="color: red;">*</span></label>
+																	</div>
+																	<div class="col-lg-4">
+																		<input type="text" id="required" name="getAmount" class="form-control" required>
+																	</div>
+																</div>
+																
+																	<div class="col-lg-4 push-lg-4">
+																		<button type="submit" name="CashBookLedgerBTN" class="btn btn-success" >Submit</button>
+																		<button type="button" class="btn btn-danger" style="margin-left: 10px;">Exit</button>
+																	</div>
+																</form>
+														</div>
+			                                                </div>
+			               							   </div>
+			                                          </div>
+			                                            <!-- /.tab-content -->
+			                                        </div>
+			                                        <!-- nav-tabs-custom -->
+			                                    </div>
+			                                </div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <!-- /.inner -->
+			            </div>
+					</div>
+				</div>
 			</div>
-		</div>
-		<!-- /#content -->
-	</div>
-
-	<!--wrapper-->
-     
-       
-<!-- /#wrap -->
-
+		       
 	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
 	<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
 

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StockRegisterReport" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f8b220ac-2bfd-4a89-a74d-93ce23d8c96f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Common  Data Adapter "/>
+	<parameter name="trustyName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{trustyName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="schoolAddress" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{schoolAddress}]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT stock_register_master.item_name,stock_register_master.voucher_no,stock_register_master.item_amount,stock_register_master.number_of_items,stock_register_master.deduction_amount,stock_register_master.total_amount,stock_register_master.percentage,stock_register_master.description FROM stock_register_master]]>
+	</queryString>
+	<field name="item_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="item_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stock_register_master"/>
+	</field>
+	<field name="voucher_no" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="voucher_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stock_register_master"/>
+	</field>
+	<field name="item_amount" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="item_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stock_register_master"/>
+	</field>
+	<field name="number_of_items" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="number_of_items"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stock_register_master"/>
+	</field>
+	<field name="deduction_amount" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="deduction_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stock_register_master"/>
+	</field>
+	<field name="total_amount" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="total_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stock_register_master"/>
+	</field>
+	<field name="percentage" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stock_register_master"/>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stock_register_master"/>
+	</field>
+	<group name="item_name">
+		<groupExpression><![CDATA[$F{item_name}]]></groupExpression>
+	</group>
+	<group name="voucher_no">
+		<groupExpression><![CDATA[$F{voucher_no}]]></groupExpression>
+	</group>
+	<group name="item_amount">
+		<groupExpression><![CDATA[$F{item_amount}]]></groupExpression>
+	</group>
+	<group name="number_of_items">
+		<groupExpression><![CDATA[$F{number_of_items}]]></groupExpression>
+	</group>
+	<group name="deduction_amount">
+		<groupExpression><![CDATA[$F{deduction_amount}]]></groupExpression>
+	</group>
+	<group name="total_amount">
+		<groupExpression><![CDATA[$F{total_amount}]]></groupExpression>
+	</group>
+	<group name="percentage">
+		<groupExpression><![CDATA[$F{percentage}]]></groupExpression>
+	</group>
+	<group name="description">
+		<groupExpression><![CDATA[$F{description}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="117" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="780" height="40" uuid="1a90aa93-95bb-415a-a2c2-2714beb659cc"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ded Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="-117" width="780" height="117" uuid="b5f84ca3-1f49-404f-b443-9f858ff5d0ca"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="-112" width="610" height="30" uuid="b8692210-b839-4463-a721-387119f969b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{trustyName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="-78" width="610" height="31" uuid="b6ec931a-b716-40f3-8ede-c990ca24ddeb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="-41" width="610" height="30" uuid="eef86dc1-24d2-4d9a-a023-62240b5facf6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolAddress}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="50" y="0" width="90" height="42" uuid="93e36a8e-2191-4b76-aefb-df10f5bf2295">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1308251b-4c80-454e-bd4a-ad1197b81405"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="0" width="90" height="42" uuid="1da59922-c484-4723-aa40-3cb14eb03077">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19228d7c-41f0-47ad-9646-f9488a559651"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Voucher No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="0" width="90" height="42" uuid="a55a787e-ceb4-4e62-a6a6-c03456b8c424">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d896cd39-7899-451f-b41b-cac302a1960b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Basic Amt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="0" width="90" height="42" uuid="c6a0aaf9-f7c8-4674-92ad-67bd0592b8ee">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e79b1d9f-e6cf-49aa-bf73-a357a0506bcc"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number Of Items]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="0" width="110" height="42" uuid="43e6e4b2-fcf4-4e93-b9de-e23eb4abd26e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5410579b-5be4-4cc0-95e6-5a855df8efb6"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Amt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="620" y="0" width="70" height="42" uuid="08f7c486-b3c8-4d2a-b99c-c7df01fdfec5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94413131-ef45-4af1-8c7b-b3928cf788d7"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Depriciate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="100" height="42" uuid="47091cbc-8494-4856-b75c-3bbadcd70a64">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7eb71de3-a497-4a40-9978-5776e621399c"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Deduction Amt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="690" y="0" width="90" height="42" uuid="8ad3e1bd-7291-4cb1-9dfe-dd431f536d4f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1bd2ecc5-0141-454a-b85c-91f2c40e1355"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="50" height="42" uuid="f3a7fa8b-c440-4511-b872-56d63bc6bbe4"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sr.No]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="50" y="0" width="90" height="41" uuid="ad6af360-3321-48a1-a48e-e7c064629ae5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1308251b-4c80-454e-bd4a-ad1197b81405"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{item_name} == null ? '-' : $F{item_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="90" height="41" uuid="1d69fe4a-2dc1-450c-b3e6-0fdfa36dfd30">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19228d7c-41f0-47ad-9646-f9488a559651"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{voucher_no} ==null ? '-' : $F{voucher_no}]]></textFieldExpression>
+				<patternExpression><![CDATA[$F{item_name}.replace( " ", "-" )]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="90" height="41" uuid="5c6e904d-ba1c-4015-bc85-2c57939be66c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d896cd39-7899-451f-b41b-cac302a1960b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{item_amount} ==null ? '-' : $F{item_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="90" height="41" uuid="ae3251fc-c9c0-45f5-ba05-ddaacdf2be5b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e79b1d9f-e6cf-49aa-bf73-a357a0506bcc"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{number_of_items} == null ? '-' : $F{number_of_items}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="0" width="100" height="41" uuid="5f658044-bffa-4ad4-9da1-01ce478505a5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7eb71de3-a497-4a40-9978-5776e621399c"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{deduction_amount} ==null ? '-' : $F{deduction_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="0" width="110" height="41" uuid="8bcdd395-ad44-4a11-9288-056416b95399">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5410579b-5be4-4cc0-95e6-5a855df8efb6"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_amount} == null ? '-' : $F{total_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="620" y="0" width="70" height="41" uuid="da0d3a7d-0143-4100-b4e8-a11604783693">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94413131-ef45-4af1-8c7b-b3928cf788d7"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{percentage} == null ? '-' : $F{percentage}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="690" y="0" width="90" height="41" uuid="67f9df33-52c8-4130-8846-2068267cc7eb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1bd2ecc5-0141-454a-b85c-91f2c40e1355"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{description} == null ? '-' : $F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="50" height="41" uuid="9b7df439-cea6-452c-9ea7-160c676c3f1a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == null ? '-' : $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

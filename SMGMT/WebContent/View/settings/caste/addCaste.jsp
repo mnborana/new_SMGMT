@@ -13,23 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/SMGMT/config/img/xlogo1.ico.pagespeed.ic.ONh6qx31g4.html"/>
     <!-- global styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/components.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/custom.css"/>
-    <!-- end of page level styles -->
-    <!--Plugin styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/inputlimiter/css/jquery.inputlimiter.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/chosen/css/chosen.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jquery-tagsinput/css/jquery.tagsinput.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/daterangepicker/css/daterangepicker.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/datepicker/css/bootstrap-datepicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/bootstrap-switch/css/bootstrap-switch.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/jasny-bootstrap/css/jasny-bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/vendors/multiselect/css/multi-select.css"/>
-    <!--End of plugin styles-->
-    <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" href="/SMGMT/config/css/pages/form_elements.css"/>
+    <!-- common css -->
+		<jsp:include page="/View/common/commonCss.jsp"></jsp:include>
+     <!-- common css -->
 
     <!-- end of global styles-->
     <style type="text/css">
@@ -175,56 +161,68 @@
 
                         </div> <!-- /.row -->
                        
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card m-t-35">
-                                    <div class="card-header bg-white">
-                                         CASTE LIST
-                                    </div>
-                                    <div class="card-block">
-                                        <div class="table-responsive m-t-35">
-                                            <table class="table  table-striped table-bordered table-hover dataTable no-footer">
-                                                <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                            		<th>Category</th>
-                                            		<th>Religion</th>
-                                            		<th>Caste Name</th>
-                                            		<th>Action</th>
-                                                </tr>
-                                                </thead>
-                                                <%
-													CasteDAO casteDAO=new CasteImpl();
-													request.setAttribute("list", casteDAO.getCasteDetails());
-										 			int i=0;
-												%>
-                                                <tbody>
-	                                                <c:forEach items="${list}" var="u">
-														<tr>
-															<td><%=(++i) %></td>
-															<td><c:out value="${u.getCasteCategoryName()}"></c:out></td>
-															<td><c:out value="${u.getReligionName()}"></c:out></td>
-															<td><c:out value="${u.getCasteName()}"></c:out></td>
-		                                                    <td >
-		                                                    	<a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="#">
-		                                            				<i class="fa fa-pencil text-warning"></i>
-		                                            			</a>&nbsp; &nbsp; &nbsp;
-		                                            			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/Caste?caste_id=${u.getCaste_id()}">
-		                                            				<i class="fa fa-trash text-danger"></i>
-		                                            			</a>
-		                                                    </td>
-														</tr>
-													</c:forEach>
-                                                
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                         
-                        </div>                        
-                        
+                                      <div class="outer">
+							                <div class="inner bg-container">
+							                    <div class="card">
+							                        <div class="card-header bg-white">
+							                            CASTE LIST
+							                        </div>
+							                        <div class="card-block m-t-35" id="user_body">
+							                            <div class="table-toolbar">
+							                                
+							                                <div class="btn-group float-right users_grid_tools">
+							                                    <div class="tools"></div>
+							                                </div>
+							                            </div>
+							                            
+							                            <div>
+							                                <div>
+							                                    <table id="editable_table" class="table  table-striped table-bordered table-hover dataTable no-footer" role="grid" >
+							                                        <thead>
+							                                        <tr>
+							                                            <th>No.</th>
+					                                            		<th>Category</th>
+					                                            		<th>Religion</th>
+					                                            		<th>Caste Name</th>
+					                                            		<th>Action</th>
+							                                        </tr>
+							                                        </thead>
+							                                        
+							                                        <%
+																		CasteDAO casteDAO=new CasteImpl();
+																		request.setAttribute("list", casteDAO.getCasteDetails());
+															 			int i=0;
+							                                        %>
+							                                        
+							                                        <tbody>	
+							                                        
+						                                                <c:forEach items="${list}" var="u">
+																			<tr>
+																				<td><%=(++i) %></td>
+																				<td><c:out value="${u.getCasteCategoryName()}"></c:out></td>
+																				<td><c:out value="${u.getReligionName()}"></c:out></td>
+																				<td><c:out value="${u.getCasteName()}"></c:out></td>
+							                                                    <td >
+							                                                    	<a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="#">
+							                                            				<i class="fa fa-pencil text-warning"></i>
+							                                            			</a>&nbsp; &nbsp; &nbsp;
+							                                            			<a class="delete hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="Delete" href="/SMGMT/Caste?caste_id=${u.getCaste_id()}">
+							                                            				<i class="fa fa-trash text-danger"></i>
+							                                            			</a>
+							                                                    </td>
+																			</tr>
+																		</c:forEach>
+							                                        </tbody>
+							                                    </table>
+
+							                                </div>
+							                            </div>
+							                            <!-- END EXAMPLE TABLE PORTLET-->
+							                        </div>
+							                    </div>
+							                </div>
+							                <!-- /.inner -->
+							            </div>
                         
                         
                     </div> <!-- /.inner -->
@@ -242,53 +240,12 @@
        <!--wrapper-->
        
         
-        
-</div>
 <!-- /#wrap -->
 
-	<script type="text/javascript" src="/SMGMT/config/js/components.js"></script>
-<script type="text/javascript" src="/SMGMT/config/js/custom.js"></script>
+<!-- common js -->
+	<jsp:include page="/View/common/commonJs.jsp"></jsp:include>
+<!-- common js -->
 
-<!-- end of global scripts-->
-<!-- plugin level scripts -->
-	<script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation-engine/js/jquery.validationEngine-en.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/jquery-validation/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/datetimepicker/js/DateTimePicker.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
-    <script type="text/javascript" src="/SMGMT/config/js/pages/form_validation.js"></script>
-	<!-- <script type="text/javascript" src="js/components.js.pagespeed.jm.vxV3GQYFro.js"></script>
-	<script type="text/javascript" src="js/custom.js.pagespeed.jm.CN8Ow3CJOG.js"></script> -->
-	
-	<script type="text/javascript" src="/SMGMT/config/vendors/jquery.uniform/js/jquery.uniform.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/inputlimiter/js/jquery.inputlimiter.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/chosen/js/chosen.jquery.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/jquery-tagsinput/js/jquery.tagsinput.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/pluginjs/jquery.validVal.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/moment/js/moment.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/daterangepicker/js/daterangepicker.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/autosize/js/jquery.autosize.min.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/jquery.inputmask.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.date.extensions.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/inputmask/js/inputmask.extensions.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/vendors/multiselect/js/jquery.multi-select.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.min.js"></script>
-	<!--end of plugin scripts-->
-	<script type="text/javascript" src="/SMGMT/config/js/form.js"></script>
-	<script type="text/javascript" src="/SMGMT/config/js/pages/form_elements.js"></script>
-	<script src="/SMGMT/config/vendors/bootstrap-switch,_js,_bootstrap-switch.min.js+switchery,_js,_switchery.min.js.pagespeed.jc.Z7BLPQIxUe.js""></script>
-	<script>eval(mod_pagespeed_6q1EIQWfni);</script>
-	<script>eval(mod_pagespeed_d3eUViXN4C);</script>
-
-	<script type="text/javascript" src="/SMGMT/config/js/pages/radio_checkbox.js.pagespeed.jm.nna8wpyJlw.js"></script>
 
 </body>
 </html>
