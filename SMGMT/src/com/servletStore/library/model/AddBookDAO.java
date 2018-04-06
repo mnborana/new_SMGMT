@@ -19,6 +19,8 @@ public List searchBookDetails(String bookDetail);
 
 public List searchStudDetails(String studDetail);
 
+public List searchStaffDetails(String staffDetail);
+
 public int insertIssueBook(IssueBookPOJO pojo) throws SQLException;
 
 public int changeStatus(int bookdetails_id) throws SQLException;

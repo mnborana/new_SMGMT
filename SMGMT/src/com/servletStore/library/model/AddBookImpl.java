@@ -11,6 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 
+
 import utility.SysDate;
 
 import com.dbconnect.DBConnection;
@@ -227,6 +228,39 @@ public List searchStudDetails(String studDetail) {
 			if(!rs.isBeforeFirst()){
 				
 				String query1="SELECT student_details.id,student_official_details.gr_no,student_details.first_name,student_details.last_name,std_master.name,classroom_master.division,classroom_master.shift FROM student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE student_official_details.gr_no LIKE '"+studDetail+"%' AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
+				PreparedStatement ps1= connection.prepareStatement(query1);
+				rs=ps1.executeQuery();
+			}
+			while(rs.next())
+			{
+				list1.add(rs.getInt(1));
+				list1.add(rs.getInt(2));
+			    list1.add(rs.getString(3));
+			    list1.add(rs.getString(4));
+			    list1.add((rs.getString(5)));
+				list1.add((rs.getString(6)));
+				list1.add((rs.getString(7)));
+			}
+				
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+			return list1;
+	}
+
+@Override
+public List searchStaffDetails(String staffDetail) {
+		List list1=new ArrayList();
+		ResultSet rs=null;
+		try {
+			
+			String query="SELECT student_details.id,student_official_details.gr_no,student_details.first_name,student_details.last_name,std_master.name,classroom_master.division,classroom_master.shift FROM student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE student_details.first_name LIKE '"+staffDetail+"%' AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
+			PreparedStatement ps2=connection.prepareStatement(query);
+			rs=ps2.executeQuery();
+			if(!rs.isBeforeFirst()){
+				
+				String query1="SELECT student_details.id,student_official_details.gr_no,student_details.first_name,student_details.last_name,std_master.name,classroom_master.division,classroom_master.shift FROM student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE student_official_details.gr_no LIKE '"+staffDetail+"%' AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
 				PreparedStatement ps1= connection.prepareStatement(query1);
 				rs=ps1.executeQuery();
 			}
@@ -722,7 +756,6 @@ public List searchStudDetails(String studDetail) {
 		}
 			return list;
 	}
-	
 	
 	@Override
 	public int insertFineSubmissionDetails(FineMasterPOJO pojo) throws SQLException {

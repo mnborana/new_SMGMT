@@ -188,7 +188,7 @@
 																style="display: none;">
 																<div class="col-lg-5">
 																	<input type="text" list="browseStud" autocomplete="off"
-																		onkeyup="getstuddetails(this.value)"
+																		onkeyup="getteacherDetails(this.value)"
 																		class="form-control" id="searchTeacher"
 																		name="searchTeacher"
 																		placeholder="Search Teacher by Id/Name" required>
@@ -260,7 +260,6 @@
 																				%>
 																				<c:forEach items="${display_book}" var="d">
 																					<tr role="row" class="even">
-
 																						<td><%=(++bookCount)%></td>
 																						<c:if test="${d.studName!=null }">
 																							<td><c:out value="Student"></c:out></td>
@@ -1055,7 +1054,7 @@ function getstuddetails(id){
 }
 
 function getteacherDetails(id){
-//	alert(id);
+	alert(id);
 	var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
@@ -1248,7 +1247,6 @@ function getFineCount(todayDate, dueDate, radioValue,studId) {
 					if(parseInt(str[1])>0)
 					{
 						//alert('addition');
-						
 						var regularFine = diffDays * parseInt(str[0]);
 						var totalFine = regularFine+parseInt(str[1]);
 						document.getElementById("fineAmount").value = totalFine;
@@ -1309,12 +1307,11 @@ function getFineCount(todayDate, dueDate, radioValue,studId) {
 	 		}
 	 		  else if(radioValue=="RECOVER")
 	 			{
-	 			  
 	 			     document.getElementById("returnSubmit").disabled=false;
 		 			 document.getElementById("recoverBk").style.display="block";
 		 			 document.getElementById("returnBk").style.display="none";
 		 			 document.getElementById("renew").style.display="none";
-		 			document.getElementById("text4").required=true;
+		 			 document.getElementById("text4").required=true;
 		 			 document.getElementById("dueDateRn").required=false;
 	 			 
 	 			  
@@ -1326,12 +1323,7 @@ function getFineCount(todayDate, dueDate, radioValue,studId) {
 	xhttp.open("POST", "/SMGMT/Library?countDetail=1"
 			+ "&currentDate=" + todayDate + "&dueDate=" + dueDate+ "&studId=" +studId, true);
 	xhttp.send(); 
-
-	
 }
-
-
- 
  
 /*<<<<<<<<<<<<<<<<<<< Code For check box if it is selected or not >>>>>>>>>>>>>>>>>>> */
 
@@ -1347,10 +1339,6 @@ function checkedPay(checkId)
 	else{
 		document.getElementById("returnSubmit").disabled=true;
 	}
-	 //var famount=document.getElementById("fineAmount").value;
-	//alert(famount);
-	//var x = document.getElementById("checkId");
-	
 }
 
 
