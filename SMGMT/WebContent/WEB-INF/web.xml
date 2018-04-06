@@ -316,6 +316,7 @@
     <servlet-name>SubAccount</servlet-name>
     <url-pattern>/SubAccount</url-pattern>
   </servlet-mapping>
+
    <servlet>
     <servlet-name>AdmissionReport</servlet-name>
     <servlet-class>com.servletStore.report.admissionReport.controller.AdmissionReport</servlet-class>
@@ -383,3 +384,4 @@
  
   
 </web-app>
+
