@@ -245,6 +245,23 @@ public class Library extends HttpServlet {
 						out.print(grNo+" - "+firstName+" "+lastName+ " - " +std+" - "+div+" - "+shift+",");				
 						}
 				}
+		 if(request.getParameter("teacherDetails")!=null)
+		 {
+			// System.out.println("In servlet Teacher");
+			 String teacherDetails=request.getParameter("teacherDetails");
+			// System.out.println("Teacher Details"+teacherDetails);
+			 List list=dao.searchTeacherDetails(teacherDetails);
+			 Iterator itr=list.iterator();
+			 
+			 while(itr.hasNext())
+			 {
+				 Object teacherName=itr.next();
+				 Object dept=itr.next();
+				 out.print(teacherName+"-"+dept+",");
+			 }
+			
+			 
+		 }
 		
 	 if(request.getParameter("getstudId")!=null)
 		{
@@ -268,7 +285,27 @@ public class Library extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+	 if(request.getParameter("getTeacherId")!=null)
+	 {
+		 System.out.println("In servlet");
+		 
+		 String teacherDetail=request.getParameter("getTeacherId");
+		 String teacherDetails[]=teacherDetail.split("-");
+		 String name=teacherDetails[0];
+		 //String fname=name[0];
+		 //String lname=name[1];
+		 String dept=teacherDetails[1];
+		 try{
+			 
+			 int teacherid=dao.getTeacherId(name,dept);
+			 out.print(teacherid);
+		 	}catch (Exception e) {
+			 e.printStackTrace();
+		}
+	 }
+	 
+	
+		/*<<<<<<<<<<<<<Get student id for searching in search bar>>>>>>>>>>>>>>>>>>>>>>>>>*/
 		 if(request.getParameter("getstudentId")!=null)
 		{
 			String studentId=request.getParameter("getstudentId");
@@ -306,6 +343,7 @@ public class Library extends HttpServlet {
 					String dueDateStr=dueDate[2]+"-"+dueDate[1]+"-"+dueDate[0];
 					String returnDate=request.getParameter("returnDate");
 					String studId=request.getParameter("studId");
+					String staffId=request.getParameter("staffId");
 					String str[] = searchBook.split("-");
 					String str1[]=searchStud.split("-");
 					
@@ -315,8 +353,9 @@ public class Library extends HttpServlet {
 					if(user.equalsIgnoreCase("Student")){
 						pojo.setStudId(Integer.parseInt(studId));
 					}
-					else{
-						pojo.setStaffId(Integer.parseInt(str1[0].trim()));
+					else if(user.equalsIgnoreCase("Teacher")) {
+						
+						pojo.setStaffId(Integer.parseInt(staffId));
 					}
 					
 					pojo.setUserType(user);
@@ -462,6 +501,7 @@ public class Library extends HttpServlet {
 					{
 						String dueDate=request.getParameter("dueDate");
 						
+						
 					}
 				}
 		
@@ -479,6 +519,7 @@ public class Library extends HttpServlet {
 						int discount=Integer.parseInt(request.getParameter("discount"));
 						int finePaid=Integer.parseInt(request.getParameter("finePaid"));
 						int remainingFine=Integer.parseInt(request.getParameter("remainAmt"));
+						System.out.println("Remaining amount"+remainingFine);
 						
 						pojo.setIssueId(Integer.parseInt(issueAndStudId[0]));
 						pojo.setDueDays(dueDays);
@@ -490,7 +531,7 @@ public class Library extends HttpServlet {
 						
 						String date[]=request.getParameter("currentDate").split("-");
 						String fromStr=date[2].trim()+"-"+date[1]+"-"+date[0];
-						pojo.setReturnDate(fromStr);
+						pojo.setPaid_date(fromStr);
 						try {
 							int st=dao.insertFineDetails(pojo);
 							if(st>0)
@@ -506,11 +547,15 @@ public class Library extends HttpServlet {
 							e.printStackTrace();
 						}
 					} 
+					
 					if(request.getParameter("returnRadio").equals("RENEW"))
 					{
 						FineMasterPOJO pojo1=new FineMasterPOJO();
 						String searchBook=request.getParameter("searchBookDetails");
 						String searchStud=request.getParameter("studentId");
+						//int remainingFine=Integer.parseInt(request.getParameter("remainAmt"));
+						//System.out.println("Remaining amount"+remainingFine);
+						//String remainFine=request.getParameter("remainAmt");									
 						String[] issueDate=request.getParameter("issueDateFrom3tab").split("-");
 						String issueDateStr=issueDate[2]+"-"+issueDate[1]+"-"+issueDate[0];
 						String[] dueDate=request.getParameter("newdueDate").split("-");
@@ -532,10 +577,19 @@ public class Library extends HttpServlet {
 						//pojo1.setUserType(user);
 						pojo1.setIssueDate(issueDateStr);
 						pojo1.setDueDate(dueDateStr);
+						//pojo1.setRemainingFine(remainingFine);
 						//pojo1.setReturnDate(returnDate);
+						
+						
 						AddBookImpl impl=new AddBookImpl();
 						try {
 							int status=impl.updateRenewBook(pojo1);
+							/*if(remainingFine>0)
+							{
+								HttpSession session = request.getSession();
+								session.setAttribute("status", "Please pay fine!!!");
+								response.sendRedirect("View/library/issueBook.jsp");
+							}*/
 							//System.out.println("Execute updated");
 							response.sendRedirect("View/library/issueBook.jsp");
 						} catch (SQLException e) {

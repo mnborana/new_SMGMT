@@ -19,6 +19,8 @@ public List searchBookDetails(String bookDetail);
 
 public List searchStudDetails(String studDetail);
 
+public List  searchTeacherDetails(String teacherDetail);
+
 public int insertIssueBook(IssueBookPOJO pojo) throws SQLException;
 
 public int changeStatus(int bookdetails_id) throws SQLException;
@@ -42,6 +44,8 @@ public int daysCount(Object todayDate, Object dueDate) throws SQLException;
 public List getReturnBookDetails(String returnBookDetails) throws SQLException;
 
 public int getStudId(String grNo, String firstName, String std, String div, String shift, String lastName)throws SQLException;
+
+public  int getTeacherId(String name,String deparment) throws SQLException;
 
 public List getStudentId(int bookId)throws SQLException;
 

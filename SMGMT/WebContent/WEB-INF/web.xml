@@ -189,14 +189,13 @@
     <url-pattern>/StockRegister</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>casteWiseEduFees</servlet-name>
-  	<servlet-class>com.servletStore.fees.casteWiseEduFees.controller.casteWiseEduFees</servlet-class>
+    <servlet-name>casteWiseEduFees</servlet-name>
+    <servlet-class>com.servletStore.fees.casteWiseEduFees.controller.casteWiseEduFees</servlet-class>
   </servlet>
   <servlet-mapping>
-  <servlet-name>casteWiseEduFees</servlet-name>
-  <url-pattern>/casteWiseEduFees</url-pattern>
+    <servlet-name>casteWiseEduFees</servlet-name>
+    <url-pattern>/casteWiseEduFees</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>PTAMember</servlet-name>
     <servlet-class>com.servletStore.ptamember.controller.PTAMember</servlet-class>
@@ -309,13 +308,22 @@
     <servlet-name>CashBookLedgerAccount</servlet-name>
     <url-pattern>/CashBookLedgerAccount</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-  	<servlet-name>SubAccount</servlet-name>
-  	<servlet-class>com.servletStore.cashBook.controller.SubAccount</servlet-class>
+    <servlet-name>SubAccount</servlet-name>
+    <servlet-class>com.servletStore.cashBook.controller.SubAccount</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>SubAccount</servlet-name>
-  	<url-pattern>/SubAccount</url-pattern>
+    <servlet-name>SubAccount</servlet-name>
+    <url-pattern>/SubAccount</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Icard</servlet-name>
+    <servlet-class>com.servletStore.report.icardReport.controller.Icard</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Icard</servlet-name>
+    <url-pattern>/Icard</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
