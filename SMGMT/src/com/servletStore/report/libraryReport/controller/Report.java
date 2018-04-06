@@ -94,10 +94,13 @@ public class Report extends HttpServlet {
 				String d2[]=date1[1].split("/");
 				String startDate=d1[2].trim()+"-"+d1[0].trim()+"-"+d1[1];
 				String endDate=d2[2].trim()+"-"+d2[0].trim()+"-"+d2[1];
+				
 				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path));
 				net.sf.jasperreports.engine.JasperReport jasperReport = null;
 				JasperDesign jasperDesign = null;
 				Map para = new HashMap();
+				
+				
 				
 				para.put("startDate",""+startDate+"");
 				para.put("endDate",""+endDate+"");
@@ -105,7 +108,8 @@ public class Report extends HttpServlet {
 				para.put("schoolName", ""+schoolName+"");
 				para.put("sAddress", ""+sAddress+"");
 				
-				//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
+				
+				System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
 				String path = request.getServletContext().getRealPath("/reports/PurchaseBook.jrxml");
 				//JasperReport jr = (JasperReport)JRLoader.loadObject(new File(path +"//reports/AvailableBook.jasper"));
 				jasperDesign = JRXmlLoader.load(path);
@@ -136,14 +140,18 @@ public class Report extends HttpServlet {
 			JasperDesign jasperDesign = null;
 			Map para = new HashMap();
 			
+			//String title= "Book Category";
+			
 			para.put("startDate",""+startDate+"");
 			para.put("endDate",""+endDate+"");
 			para.put("trustyName", ""+trustyName+"");
 			para.put("schoolName", ""+schoolName+"");
 			para.put("sAddress", ""+sAddress+"");
 			para.put("catName", ""+catName+"");
+			para.put("title", "Book Categoryyyy");
 			System.out.println("Category wise data");
-			//System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName"));
+			
+			System.out.println("start"+para.get("startDate")+"\nend "+para.get("endDate")+"\n schoolName"+para.get("schoolName")+" \n Ttl"+para.get("title"));
 			String path = request.getServletContext().getRealPath("/reports/BookCategory.jrxml");
 			jasperDesign = JRXmlLoader.load(path);
 			jasperReport = JasperCompileManager.compileReport(jasperDesign);

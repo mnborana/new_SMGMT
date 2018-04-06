@@ -20,7 +20,7 @@ public class SubAccount extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		SubAccountDAO dao=new SubAccountIMPL();
-		//HttpSession session=request.getSession();
+		HttpSession session=request.getSession();
 		
 		String submit=request.getParameter("AccountSubAccBTN");
 		if(submit!=null)
@@ -40,8 +40,7 @@ public class SubAccount extends HttpServlet {
 			int i=dao.insertSubAccountDetails(pojo);
 			if(i>0)
 			{
-				System.out.println("inserted Successfully");
-				//session.setAttribute("flag", "Inserted Successfully");
+				session.setAttribute("flag", "Inserted Successfully");
 			}
 		}
 		response.sendRedirect("View/cashBook/AccountSubAcc.jsp");

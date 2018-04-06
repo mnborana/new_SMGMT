@@ -473,7 +473,6 @@ function loadDoc(id) {
 	     document.getElementById("price").value=str[6];
 	     document.getElementById("cupbNo").value=str[7];
 	     document.getElementById("qty").value=str[8];   
-	   //  document.getElementById("lang").value=str[9]; 
 	     var dd=document.getElementById("lang");
 	 
 		for (var i = 0; i < dd.options.length; i++) {

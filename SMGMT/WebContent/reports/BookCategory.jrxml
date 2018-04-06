@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c99f4c59-f50e-45e1-880e-05335500293b">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BookCategory" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c99f4c59-f50e-45e1-880e-05335500293b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SMGMT Data Source"/>
 	<parameter name="startDate" class="java.lang.String">
@@ -19,6 +19,9 @@
 		<defaultValueExpression><![CDATA[$P{schoolName}]]></defaultValueExpression>
 	</parameter>
 	<parameter name="sAddress" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{title}]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT book_details_master.book_id,book_category.cat_type,book_info_master.book_name,book_info_master.author_name,book_info_master.edition,book_info_master.language FROM book_info_master,book_category,book_details_master WHERE book_info_master.cat_id=book_category.cat_id AND book_info_master.book_no=book_details_master.book_no AND book_category.cat_type=$P{catName} AND book_info_master.date BETWEEN $P{startDate} AND $P{endDate}]]>
 	</queryString>
@@ -101,13 +104,6 @@
 	</title>
 	<pageHeader>
 		<band height="61" splitType="Stretch">
-			<staticText>
-				<reportElement x="210" y="1" width="100" height="30" uuid="95107c31-57fa-442f-8dbb-7cf739562870"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Book Category]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="200" y="30" width="60" height="30" uuid="5036ff98-85b0-40ce-985e-0a9d4c879f49"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
@@ -133,19 +129,22 @@
 				<text><![CDATA[Start Date:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-10" y="-1" width="570" height="31" uuid="41917816-4248-4079-9928-7cfc2cf7d0fc"/>
-				<box>
-					<pen lineWidth="0.5"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="-10" y="30" width="570" height="31" uuid="1a95949a-d77b-4323-8025-64889e4a791c"/>
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="-10" y="-1" width="570" height="31" uuid="89244d9e-7b74-4f1e-864a-402ea5e0890d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>

@@ -54,7 +54,7 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 		
 		List<AssignStdWiseFeesPojo> FeesTypeList = new ArrayList<>();
 		
-		String getQuery = "SELECT `id`, `fees_type`, `fees`, `term_1`, `term_2` FROM `fee_type` WHERE caste=0";
+		String getQuery = "SELECT `id`, `fees_type`, `fees`, `term_1`, `term_2` FROM `fee_type`  WHERE caste=0";
 		
 		try{
 			
@@ -140,7 +140,6 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 		DBConnection dbConnect = new DBConnection();
 		Connection connection = dbConnect.getConnection();
 		
-		
 		List<String> categoryList = new ArrayList<>();
 		String str = "SELECT `category_name` FROM `caste_category` ORDER BY `caste_category`.`id` ASC";
 
@@ -157,149 +156,6 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 		}
 		
 		return categoryList;
-	}
-
-	@Override
-	public List<String> getCategoryWiseFeesList(String stdId) {
-		
-		DBConnection dbConnect = new DBConnection();
-		Connection connect = dbConnect.getConnection();
-		PreparedStatement ps1, ps2;
-		
-		List<String> categoryWiseFeesList = new ArrayList<>();
-		String query = "SELECT fee_type.fees_type, caste_category.category_name, caste_wise_educational_fees.fees FROM caste_category LEFT JOIN caste_wise_educational_fees ON caste_wise_educational_fees.caste_category_id=caste_category.id AND caste_wise_educational_fees.fk_class_master_standard_id=? AND caste_wise_educational_fees.fees_type_id=? LEFT JOIN fee_type ON fee_type.id=caste_wise_educational_fees.fees_type_id ORDER BY caste_category.id";
-		
-		String s = "SELECT fee_type.id FROM fee_type, classroom_master, caste_wise_educational_fees, fk_class_master WHERE caste_wise_educational_fees.fees_type_id=fee_type.id AND caste_wise_educational_fees.fk_class_master_standard_id=classroom_master.fk_class_master_id AND classroom_master.fk_class_master_id=fk_class_master.id AND classroom_master.fk_class_master_id=? GROUP BY fee_type.fees_type";
-		
-		String count = "SELECT COUNT(*) FROM `caste_category`";
-		int categoryCount = 0;
-		
-		try {
-			
-			ps = connect.prepareStatement(s);
-			ps.setString(1, stdId);
-			ResultSet rs2 = ps.executeQuery();
-			
-			while(rs2.next()){
-				categoryCount = rs2.getInt(1);
-			}
-			categoryWiseFeesList.add(String.valueOf(categoryCount));
-			
-			ps = connect.prepareStatement(s);
-			ps.setString(1, stdId);
-			
-			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()){
-			
-				ps1 = connect.prepareStatement(query);
-				ps1.setString(1, stdId);
-				ps1.setString(2, rs.getString(1));
-				
-				ResultSet rs1 = ps1.executeQuery();
-				
-				String str = "";
-				
-				while(rs1.next())
-				{
-					//if(!str.equals(rs1.getString(1))){
-					//	str = rs1.getString(1); 
-						categoryWiseFeesList.add(rs1.getString(1));
-					//}
-					
-					categoryWiseFeesList.add(rs1.getString(2));
-					categoryWiseFeesList.add(rs1.getString(3));
-				}
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
- 		
-		//System.out.println("mb : "+categoryWiseFeesList);
-		return categoryWiseFeesList;
-	}
-	
-	@Override
-	public List<String> getCategoryWiseFeesList2(String stdId) {
-		
-		DBConnection dbConnect = new DBConnection();
-		Connection connect = dbConnect.getConnection();
-		PreparedStatement ps1, ps2;
-		
-		List<String> categoryWiseFeesList = new ArrayList<>();
-		String query = "SELECT data.category_name, caste_wise_educational_fees.fees FROM (SELECT caste_category.id, caste_category.category_name FROM caste_category WHERE caste_category.id=?) as data LEFT JOIN caste_wise_educational_fees ON caste_wise_educational_fees.caste_category_id=data.id AND caste_wise_educational_fees.fk_class_master_standard_id=? AND caste_wise_educational_fees.fees_type_id=? LEFT JOIN fee_type ON fee_type.id=caste_wise_educational_fees.fees_type_id ORDER BY data.id";
-		
-		String s = "SELECT fee_type.id FROM fee_type, classroom_master, caste_wise_educational_fees, fk_class_master WHERE caste_wise_educational_fees.fees_type_id=fee_type.id AND caste_wise_educational_fees.fk_class_master_standard_id=classroom_master.fk_class_master_id AND classroom_master.fk_class_master_id=fk_class_master.id AND classroom_master.fk_class_master_id=? GROUP BY fee_type.fees_type";
-		
-		String categoryList = "SELECT `id`, `category_name` FROM `caste_category` ORDER BY `caste_category`.`id` ASC";	
-		int categoryCount = 0;
-		
-		try {
-			
-			ps2 = connect.prepareStatement(categoryList);
-			ResultSet rs2 = ps2.executeQuery();
-			
-			while(rs2.next()){
-				
-				int cid = rs2.getInt(1);
-			
-				ps = connect.prepareStatement(s);
-				ps.setString(1, stdId);
-				
-				ResultSet rs = ps.executeQuery();
-				
-				while(rs.next()){
-				
-					ps1 = connect.prepareStatement(query);
-					ps1.setInt(1, cid);
-					ps1.setString(2, stdId);
-					ps1.setString(3, rs.getString(1));
-					
-					ResultSet rs1 = ps1.executeQuery();
-					
-					String str = "";
-						
-					while(rs1.next())
-					{
-						categoryWiseFeesList.add(rs1.getString(1));
-						categoryWiseFeesList.add(rs1.getString(2));
-					}
-				}
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
- 		
-		System.out.println(categoryWiseFeesList);
-		return categoryWiseFeesList;
-	}
-
-	@Override
-	public List<String> getCategoryFeesTypes(String stdId) {
-		
-		DBConnection dbConnect = new DBConnection();
-		Connection connection = dbConnect.getConnection();
-		
-		
-		List<String> categoryFeesTypeList = new ArrayList<>();	
-		String str = "SELECT fee_type.fees_type FROM fee_type, classroom_master, caste_wise_educational_fees, fk_class_master WHERE caste_wise_educational_fees.fees_type_id=fee_type.id AND caste_wise_educational_fees.fk_class_master_standard_id=classroom_master.fk_class_master_id AND classroom_master.fk_class_master_id=fk_class_master.id AND classroom_master.fk_class_master_id=? GROUP BY fee_type.fees_type";
-		
-		try {
-			ps = connection.prepareStatement(str);
-			ps.setString(1, stdId);
-			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()){
-				categoryFeesTypeList.add(rs.getString(1));
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return categoryFeesTypeList;
 	}
 
 	
@@ -353,6 +209,24 @@ public class AssignStdWiseFeesImpl implements AssignStdWiseFeesDao {
 		}
 		
 		return feesStructure;
+	}
+
+	@Override
+	public List<String> getCategoryWiseFeesList(String stdId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getCategoryWiseFeesList2(String stdId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getCategoryFeesTypes(String stdId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

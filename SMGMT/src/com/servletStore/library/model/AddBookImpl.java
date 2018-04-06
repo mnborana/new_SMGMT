@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.util.SystemPropertyUtils;
+
 
 import utility.SysDate;
 
@@ -247,16 +249,90 @@ public List searchStudDetails(String studDetail) {
 		}
 			return list1;
 	}
+
+@Override
+public List searchStaffDetails(String staffDetail) {
+		List list1=new ArrayList();
+		ResultSet rs=null;
+		try {
+			
+			String query="SELECT student_details.id,student_official_details.gr_no,student_details.first_name,student_details.last_name,std_master.name,classroom_master.division,classroom_master.shift FROM student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE student_details.first_name LIKE '"+staffDetail+"%' AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
+			PreparedStatement ps2=connection.prepareStatement(query);
+			rs=ps2.executeQuery();
+			if(!rs.isBeforeFirst()){
+				
+				String query1="SELECT student_details.id,student_official_details.gr_no,student_details.first_name,student_details.last_name,std_master.name,classroom_master.division,classroom_master.shift FROM student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE student_official_details.gr_no LIKE '"+staffDetail+"%' AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
+				PreparedStatement ps1= connection.prepareStatement(query1);
+				rs=ps1.executeQuery();
+			}
+			while(rs.next())
+			{
+				list1.add(rs.getInt(1));
+				list1.add(rs.getInt(2));
+			    list1.add(rs.getString(3));
+			    list1.add(rs.getString(4));
+			    list1.add((rs.getString(5)));
+				list1.add((rs.getString(6)));
+				list1.add((rs.getString(7)));
+			}
+				
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+			return list1;
+	}
+@Override
+/*public List searchTeacherDetails(String teacherDetail) {
+	//System.out.println("In impl");
+	List listTeacher=new ArrayList();
+	ResultSet rs=null;
+	try{
+		String query="SELECT concat(staff_master.full_name)AS TeacherName,staff_master.department FROM `staff_master` WHERE staff_master.full_name LIKE '"+teacherDetail+"%'";
+		//System.out.println(query);
+		PreparedStatement ps=connection.prepareStatement(query);
+		rs=ps.executeQuery();
+		while(rs.next())
+		{
+			listTeacher.add(rs.getString(1));
+			listTeacher.add(rs.getString(2));
+		}
+		
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+		
+	}
+	return listTeacher;
+}
+
 	 
 @Override
-	public int insertIssueBook(IssueBookPOJO pojo) throws SQLException {
+*/	public int insertIssueBook(IssueBookPOJO pojo) throws SQLException {
 		//System.out.println("pojo "+pojo.toString());
-		String a = String.valueOf(pojo.getStudId());
-		if(a.equals("0")){
-			  a="NULL";
-		   }
+		String studentId = String.valueOf(pojo.getStudId());
+		String staffId=String.valueOf(pojo.getStaffId());
+		System.out.println("Staff Id"+staffId);
+		System.out.println("Student Id"+studentId);
+		String query="";
 		
-		String query="INSERT INTO `issue_book`(`bookdetails_id`, `stud_id`, `issue_date`, `due_date`) values("+ pojo.getBookId()+","+a+",'"+pojo.getIssueDate()+"','"+ pojo.getDueDate()+"')";
+		if(!studentId.equals("0"))
+		{
+		 query="INSERT INTO `issue_book`(`bookdetails_id`, `stud_id`, `issue_date`, `due_date`) values("+ pojo.getBookId()+","+studentId+",'"+pojo.getIssueDate()+"','"+ pojo.getDueDate()+"')";
+		}else if(studentId.equals("0")){
+			studentId="NULL";
+			
+		}
+		if(!staffId.equals("0"))
+		{
+			query="INSERT INTO `issue_book`(`bookdetails_id`, `staff_id`, `issue_date`, `due_date`) values("+ pojo.getBookId()+","+staffId+",'"+pojo.getIssueDate()+"','"+ pojo.getDueDate()+"')";
+			System.out.println("Query"+query);
+		}
+		else if(staffId.equals("0")){
+			staffId="NULL";
+			
+		}
+		
 		PreparedStatement ps=connection.prepareStatement(query);
 			   int st=ps.executeUpdate();
 			   return pojo.getBookId();
@@ -315,14 +391,15 @@ public List searchStudDetails(String studDetail) {
 				}
 				
 				
-				if(String.valueOf(rs.getInt("staff_id"))!=null)
+				if(String.valueOf(rs.getInt("id"))!=null)
 				{
-					String query2="SELECT staff.firstname FROM staff WHERE staff.staff_id="+rs.getInt("staff_id");
+					String query2="SELECT staff_master.full_name,staff_master.department FROM `staff_master` WHERE staff_master.id="+rs.getInt("id");
+					//SELECT concate(staff.full_name)AS TeacherName FROM staff_master WHERE staff_master.id="+rs.getInt("id");
 
 					ps3 =connection.prepareStatement(query2);
 					ResultSet rs2=ps3.executeQuery(query2);
 					while(rs2.next()){
-						pojo.setStaffName(rs2.getString("firstname"));
+						pojo.setStaffName(rs2.getString("full_name"));
 					}
 				}else{
 					pojo.setStaffName("-");
@@ -572,7 +649,8 @@ public List searchStudDetails(String studDetail) {
 	public int getStudId(String grNo, String firstName, String std, String div, String shift, String lastName) throws SQLException {
 		int id=0;
 		String str="SELECT student_details.id FROM student_details,student_official_details,class_allocation,fk_class_master,fk_school_section_details,classroom_master,std_master WHERE student_official_details.gr_no=? AND student_details.first_name=? AND student_details.last_name=? AND std_master.name=? ANd classroom_master.division=? AND classroom_master.shift=?  AND student_official_details.student_id=student_details.id AND student_official_details.lc_status=0 AND class_allocation.student_id=student_details.id AND class_allocation.academic_year='2017-2018' AND class_allocation.catalog_status=0 AND classroom_master.id=class_allocation.classroom_master AND fk_class_master.id=classroom_master.fk_class_master_id AND std_master.id=fk_class_master.std_id AND fk_school_section_details.id=fk_class_master.fk_school_sec_id AND fk_school_section_details.school_id=1";
-		 pstmt=connection.prepareStatement(str);
+		System.out.println(str);
+		pstmt=connection.prepareStatement(str);
 		 pstmt.setInt(1, Integer.parseInt(grNo.trim()));
 		 pstmt.setString(2, firstName);
 		 pstmt.setString(3, lastName);
@@ -587,10 +665,28 @@ public List searchStudDetails(String studDetail) {
 		 }
 		return id;
 	}
+	@Override
+	public int getTeacherId(String name, String deparment) throws SQLException {
+		int id=0;
+		
+		String query="SELECT staff_master.id FROM staff_master WHERE staff_master.full_name=? AND staff_master.department=?";
+		System.out.println(query);
+		pstmt=connection.prepareStatement(query);
+		pstmt.setString(1,name);
+		pstmt.setString(2,deparment);
+		ResultSet rs=pstmt.executeQuery();
+		while(rs.next())
+		{
+			 id=rs.getInt(1);
+		}
+		System.out.println("Staff Id "+id);
+		return id;
+	}
+	
 	
 	@Override
 	public int insertFineDetails(FineMasterPOJO pojo) throws SQLException{
-		String query="INSERT into fine_master_details(stud_id,issue_id,due_days,fine_amt,discount,fine_paid_amt,remaining_fine_amt) VALUES(?,?,?,?,?,?,?)";
+		String query="INSERT into fine_master_details(stud_id,issue_id,due_days,fine_amt,discount,fine_paid_amt,remaining_fine_amt,paid_date) VALUES(?,?,?,?,?,?,?,?)";
 		pstmt=connection.prepareStatement(query);
 		pstmt.setInt(1, pojo.getStudId());
 		pstmt.setInt(2, pojo.getIssueId());
@@ -599,6 +695,7 @@ public List searchStudDetails(String studDetail) {
 		pstmt.setInt(5, pojo.getDiscount());
 		pstmt.setInt(6, pojo.getFinePaidAmount());
 		pstmt.setInt(7, pojo.getRemainingFine());
+		pstmt.setString(8,pojo.getPaid_date());
 		int status= pstmt.executeUpdate();
 		return status;
 		
@@ -723,7 +820,6 @@ public List searchStudDetails(String studDetail) {
 			return list;
 	}
 	
-	
 	@Override
 	public int insertFineSubmissionDetails(FineMasterPOJO pojo) throws SQLException {
 		String query="INSERT INTO fine_master_details(stud_id,issue_id,due_days,fine_amt,discount,fine_paid_amt,remaining_fine_amt,paid_date) VALUES(?,?,?,?,?,?,?,?)";
@@ -740,6 +836,8 @@ public List searchStudDetails(String studDetail) {
 		int status=pstmt.executeUpdate();
 		return status;
 	}
+	
+	
 	
 }
 

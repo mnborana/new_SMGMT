@@ -316,6 +316,7 @@
     <servlet-name>SubAccount</servlet-name>
     <url-pattern>/SubAccount</url-pattern>
   </servlet-mapping>
+
    <servlet>
     <servlet-name>AdmissionReport</servlet-name>
     <servlet-class>com.servletStore.report.admissionReport.controller.AdmissionReport</servlet-class>
@@ -364,7 +365,6 @@
     <servlet-name>GenderWiseReport</servlet-name>
     <url-pattern>/GenderWiseReport</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>Icard</servlet-name>
     <servlet-class>com.servletStore.report.icardReport.controller.Icard</servlet-class>
@@ -373,8 +373,7 @@
     <servlet-name>Icard</servlet-name>
     <url-pattern>/Icard</url-pattern>
   </servlet-mapping>
-  
-  <servlet>
+   <servlet>
     <servlet-name>UpdateStudentDetails</servlet-name>
     <servlet-class>com.servletStore.student.controller.updateStudentContactDetails</servlet-class>
   </servlet>
@@ -409,5 +408,16 @@
     <servlet-name>CatlogRemove</servlet-name>
     <url-pattern>/RemoveNameFromCatlog</url-pattern>
   </servlet-mapping>
+
+   <servlet>
+    <servlet-name>Staff</servlet-name>
+    <servlet-class> com.servletStore.staff.controller.Staff</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Staff</servlet-name>
+    <url-pattern>/Staff</url-pattern>
+  </servlet-mapping>
+ 
   
 </web-app>
+

@@ -35,8 +35,11 @@ public class CashBookLedgerAccount extends HttpServlet {
 		pojo.setAccountName(nameOfAccount);
 		pojo.setAccountType(selectAccType);
 		
-		dao.insertLedgerAccount(pojo);
-		
+		int i=dao.insertLedgerAccount(pojo);
+		if(i>0)
+		{
+			session.setAttribute("flag", "Inserted Successfully");
+		}
 	}
 		response.sendRedirect("View/cashBook/cashBookLedger.jsp");
 	}
