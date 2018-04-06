@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.servletStore.fees.installment.model.InstallmentDAO;
 import com.servletStore.fees.installment.model.InstallmentImpl;
@@ -31,28 +30,32 @@ public class Installment extends HttpServlet {
 		InstallmentPOJO pojo=new InstallmentPOJO();
 		PrintWriter out=response.getWriter();
 		
+		
+		
 		if(request.getParameter("installmentName")!=null)
 		{
 			String modeName=request.getParameter("mode_name");
 			int installment=Integer.parseInt(request.getParameter("installment"));
+			String date[]=request.getParameter("date").split("-");
+			String installDate=date[2].trim()+"-"+date[1]+"-"+date[0];
+			
 			pojo.setModeName(modeName);
 			pojo.setInstallment(installment);
+			pojo.setDate(installDate);
+			
 			InstallmentImpl impl=new InstallmentImpl();
 			try {
 				int st=impl.insertInstallment(pojo);
 				if(st>0)
 				{
-					HttpSession session = request.getSession();
-					session.setAttribute("flag", "Installment Successfully");
-					response.sendRedirect("View/fees/installment.jsp");
+					
 				}
-				
 			} catch (SQLException e) {
 				
 				e.printStackTrace();
 			}
 			
-			//response.sendRedirect("View/fees/installment.jsp");
+			response.sendRedirect("View/fees/installment.jsp");
 			
 		}
 		 if(request.getParameter("updateInstallment1")!=null)
@@ -61,10 +64,13 @@ public class Installment extends HttpServlet {
 			int id=Integer.parseInt(request.getParameter("mod_name"));
 			String mName=request.getParameter("m_name");
 			int install=Integer.parseInt(request.getParameter("installmentMode"));
+			String  date=request.getParameter("Modedate");
+			
 			InstallmentPOJO pojo3=new InstallmentPOJO();
 			pojo3.setId(id);
 			pojo3.setModeName(mName);
 			pojo3.setInstallment(install);
+			pojo3.setDate(date);
 			
 			try {
 				int status=dao.updatInstallment(pojo3);
@@ -91,7 +97,8 @@ public class Installment extends HttpServlet {
 					int id1=((InstallmentPOJO)pojo2).getId();
 					String modeName=((InstallmentPOJO)pojo2).getModeName();
 					int  installment=((InstallmentPOJO)pojo2).getInstallment();
-					out.print(id1+","+modeName+","+installment);
+					String date=((InstallmentPOJO)pojo2).getDate();
+					out.print(id1+","+modeName+","+installment+","+date);
 					
 					
 				}

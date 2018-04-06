@@ -19,7 +19,11 @@ public List searchBookDetails(String bookDetail);
 
 public List searchStudDetails(String studDetail);
 
-public List  searchTeacherDetails(String teacherDetail);
+
+public List searchStaffDetails(String staffDetail);
+/*=======
+public List  searchTeacherDetails(String teacherDetail);*/
+
 
 public int insertIssueBook(IssueBookPOJO pojo) throws SQLException;
 

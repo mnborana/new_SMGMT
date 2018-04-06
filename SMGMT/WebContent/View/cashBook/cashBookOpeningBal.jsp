@@ -1,5 +1,5 @@
-<%@page import="com.servletStore.cashBook.cashBookOpeningBalance.model.CashBookOpeningBalPOJO"%>
 <%@page import="com.servletStore.cashBook.cashBookOpeningBalance.model.CashBookOpeningBalIMPL"%>
+<%@page import="com.servletStore.cashBook.cashBookOpeningBalance.model.CashBookOpeningBalPOJO"%>
 <%@page import="com.servletStore.cashBook.cashBookOpeningBalance.model.CashBookOpeningBalDAO"%>
 <%@page import="com.servletStore.cashBook.controller.CashBook"%>
 <%@page import="com.servletStore.cashBook.subAccount.model.SubAccountPOJO"%>
@@ -148,7 +148,7 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane active gallery-padding" id="tab_2">
                                                <div class="card-block m-t-35">
-													<form action="#" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
+													<form action="/SMGMT/CashBookLedgerAccount" method="post"	class="form-horizontal  login_validator" id="form_block_validator">
 													
 													<div class="form-group row">
 			                                            <div class="col-lg-3 text-lg-right">

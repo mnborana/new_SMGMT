@@ -187,6 +187,14 @@
 															<div class="form-group row" id="teacher"
 																style="display: none;">
 																<div class="col-lg-5">
+<<<<<<< HEAD
+																	<input type="text" list="browseStud" autocomplete="off"
+																		onkeyup="getteacherDetails(this.value)"
+																		class="form-control" id="searchTeacher"
+																		name="searchTeacher"
+																		placeholder="Search Teacher by Id/Name" required>
+																	<datalist id="browseStud"> </datalist>
+=======
 																<input type="text" name="staffId" id="staff_Id">
 																	<input type=text list="browseTeacher" autocomplete="off"
 																		onkeyup="getTeacherdetails(this.value)"
@@ -196,6 +204,7 @@
 																		name="staff_id"
 																		placeholder="Search Teacher by Name" required>
 																	<datalist id="browseTeacher"> </datalist>
+>>>>>>> refs/remotes/origin/HEAD
 																</div>
 															</div>
 															<div class="form-group row">
@@ -263,7 +272,6 @@
 																				%>
 																				<c:forEach items="${display_book}" var="d">
 																					<tr role="row" class="even">
-
 																						<td><%=(++bookCount)%></td>
 																						<c:if test="${d.studName!=null }">
 																							<td><c:out value="Student"></c:out></td>
@@ -935,13 +943,8 @@ function myFunction()
         });
         return false;
     });
-<<<<<<< HEAD
-	<%} session.removeAttribute("flag");%> 
-	
-	
-=======
 	<%} session.removeAttribute("flag");%>
->>>>>>> refs/remotes/origin/HEAD
+
 }
 
 /* <<<<<<<<<<<<<<<<<<< Ajax for Serach book Info which is issued >>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -1023,9 +1026,9 @@ function getstuddetails(id){
 	  xhttp.send();
 }
 
+
 function getTeacherdetails(id){
 
-	//alert(id);
 	var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
@@ -1136,10 +1139,7 @@ function getBookInfo(bookInfo,e)
 			document.getElementById("authrName").value = stud[2];
 			
 			var iDate = stud[3].split('-');
-<<<<<<< HEAD
-			
-=======
->>>>>>> refs/remotes/origin/HEAD
+
 			iDate=iDate[2]+'-'+iDate[1]+'-'+iDate[0];
 			document.getElementById("issueDate1").value = iDate;
 			
@@ -1204,6 +1204,11 @@ function getFineCount(todayDate, dueDate, radioValue,studId) {
 					document.getElementById("previousFine").value=str[1];
 					if(parseInt(str[1])>0)
 					{
+
+						//alert('addition');
+						var regularFine = diffDays * parseInt(str[0]);
+						var totalFine = regularFine+parseInt(str[1]);
+
 						document.getElementById("fineAmount").value = totalFine;
 			 			document.getElementById("remainAmount").value=totalFine;
 			 			document.getElementById("oldRemainFine").value=totalFine;
@@ -1242,7 +1247,6 @@ function getFineCount(todayDate, dueDate, radioValue,studId) {
 	 		}
 	 		  else if(radioValue=="RECOVER")
 	 			{
-	 			  
 	 			     document.getElementById("returnSubmit").disabled=false;
 		 			 document.getElementById("recoverBk").style.display="block";
 		 			 document.getElementById("returnBk").style.display="none";
@@ -1257,19 +1261,13 @@ function getFineCount(todayDate, dueDate, radioValue,studId) {
 	xhttp.open("POST", "/SMGMT/Library?countDetail=1"
 			+ "&currentDate=" + todayDate + "&dueDate=" + dueDate+ "&studId=" +studId, true);
 	xhttp.send(); 
-
-	
 }
-<<<<<<< HEAD
+
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Return book even fine has remaining>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-=======
 
-
- 
  
 /*<<<<<<<<<<<<<<<<<<< Code For check box if it is selected or not >>>>>>>>>>>>>>>>>>> */
 
->>>>>>> refs/remotes/origin/HEAD
 function checkedPay(checkId)
 {   var totalFineAmt=parseInt(document.getElementById('fineAmount').value);
 	var paidFineAmount=parseInt(document.getElementById('paidAmountId').value);
@@ -1283,7 +1281,6 @@ function checkedPay(checkId)
 		document.getElementById("returnSubmit").disabled=true;
 	}
 
-	
 }
 </script>
 </html>

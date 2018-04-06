@@ -56,7 +56,7 @@ pageEncoding="ISO-8859-1"%>
 	}
 %>
 
-<body onload="myFunction()">
+<body >
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -185,7 +185,22 @@ pageEncoding="ISO-8859-1"%>
 																	</div>
 																</div>
 															</div><br>
+															
+																<div class="form-group row">
+																		<div class="col-lg-4 text-lg-right">
+			                                                    			<label class="col-form-label">Date *</label>
+		                                                				</div>	
+		                                                				 <div class="col-md-5">
+																			<div class="input-group input-append date" id="dp3" data-date-format="dd-mm-yyyy">
+							                                                    <input class="form-control" type="text" name="date" id="date_id" placeholder="dd-mm-yyyy">
+							                                                    <span class="input-group-addon add-on">
+							                                                    	<i class="fa fa-calendar"></i>
+						                                                		</span>
+		                                                					</div>
+		                                                			   </div>	
+                                                		       </div> <br>
 														
+											
                                            <div class="form-actions form-group row">
                                                 <div class="col-lg-4 push-lg-4">
                                                     <input type="submit" value="Submit" id="btn_id" name="installmentName" class="btn btn-primary">
@@ -222,7 +237,7 @@ pageEncoding="ISO-8859-1"%>
                                                 <th class="sorting_asc wid-20" tabindex="0" rowspan="1" colspan="1">Sr NO</th>
                                                 <th class="sorting wid-25" tabindex="0" rowspan="1" colspan="1">Mode Name</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Installment</th>
-                                                <!-- <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Date</th> -->
+                                                <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Date</th>
                                                 <th class="sorting wid-10" tabindex="0" rowspan="1" colspan="1">Action</th>
                                             </tr>
                                             </thead>
@@ -237,7 +252,7 @@ pageEncoding="ISO-8859-1"%>
 														 <td><%=(++installmentCount) %></td>
 														 <td><c:out value="${d.modeName}"></c:out></td>
 														 <td><c:out value="${d.installment}"></c:out></td>
-														
+														 <td><c:out value="${d.date}"></c:out></td>
 														
 														<td>
                                             			<a class="edit" data-placement="top" title="Edit" href="#update" data-toggle="modal" onclick="loadDoc(${d.getId()})"><i class="fa fa-pencil text-warning"></i></a>&nbsp; &nbsp;
@@ -271,7 +286,7 @@ pageEncoding="ISO-8859-1"%>
                                                 	</div>
                                                 	<div class="col-lg-5">
 	  	                                             	 	<input type="hidden" id="model_id"  name="mod_name" />
-	                                                    	<input type="text" id="m_id"  name="m_name" onkeyup="this.value=this.value.toUpperCase()" onblur="this.value=$.trim(this.value)" class="form-control" required />
+	                                                    	<input type="text" id="m_id"  name="m_name" onkeyup="this.value=this.value.toUpperCase()" onblur="this.value=$.trim(this.value)" pattern="[A-Za-z]" class="form-control" required />
                                                 	</div>
                                                </div><br>
                                                
@@ -286,27 +301,27 @@ pageEncoding="ISO-8859-1"%>
 																	value="1" checked="checked"> <span
 																	class="cr"><i class="cr-icon fa fa-circle" ></i></span>
 																	1
-																</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																</label>&nbsp;&nbsp;&nbsp;
 																<label> <input type="radio" id="install_2" name="installmentMode"
 																	value="2" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	2
-																</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																</label>&nbsp;&nbsp;&nbsp; 
 																<label> <input type="radio" id="install_3" name="installmentMode"
 																	value="3" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	3
-																</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																</label>&nbsp;&nbsp;&nbsp;
 																<label> <input type="radio" id="install_4" name="installmentMode"
 																	value="4" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	4
-																</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																</label>&nbsp;&nbsp;&nbsp;
 																<label> <input type="radio" id="install_6"  name="installmentMode"
 																	value="6" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
 																	6
-																</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																</label>&nbsp;&nbsp;&nbsp;
 																<label> <input type="radio" id="install_12" name="installmentMode"
 																	value="12" > <span
 																	class="cr"><i class="cr-icon fa fa-circle"></i></span>
@@ -315,7 +330,14 @@ pageEncoding="ISO-8859-1"%>
 															</div>
 														</div>
 													</div><br>
-                                        
+                                            <div class="form-group row">
+                                                <div class="col-lg-4 text-lg-right">
+                                                    <label class="col-form-label">Date *</label>
+                                                </div><br>
+                                                <div class="col-lg-5">
+                                                    <input type="text" class="form-control form_val_popup_dp3" name="Modedate" id="modeDate_id" placeholder="YYYY-MM-DD"/>
+                                                </div>
+                                            </div> 
                                            
                                             <div class="modal-footer">
 					                            <button class="btn btn btn-success" type="submit" name="updateInstallment1" id="updateInstallment1"  value="updateInstallment1">Update</button> 
@@ -345,22 +367,6 @@ pageEncoding="ISO-8859-1"%>
 <script type="text/javascript" src="/SMGMT/config/js/jquery.min.js"></script>
 <script type="text/javascript">	
 
-
-function myFunction()
-{
-	<%
-	if(session.getAttribute("flag")!=null){ %>
-	$(window).load(function () {
-        iziToast.show({
-           // title: 'Success',
-            message: '<%=session.getAttribute("flag").toString()%>',
-            color:'#cc7fe5',       //'#00cc99'
-            position: 'topCenter'
-        });
-        return false;
-    });
-	<%} session.removeAttribute("flag");%>
-	}
 
 
 function loadDoc(id) {
@@ -433,7 +439,7 @@ function loadDoc(id) {
    		document.getElementById("install_12").checked=false;
    		}
 		
-		/* document.getElementById("modeDate_id").value=str[3]; */
+		document.getElementById("modeDate_id").value=str[3];
 	     
 	 }
 	  };

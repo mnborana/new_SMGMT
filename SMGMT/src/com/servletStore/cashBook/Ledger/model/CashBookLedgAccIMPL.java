@@ -35,25 +35,18 @@ public class CashBookLedgAccIMPL implements CashBookLedgAccDAO {
 	}
 
 	@Override
-	public void insertLedgerAccount(CashBookLedgAccPOJO pojo) {
-		System.out.println("hiii");
-		//System.out.println(pojo.getCashBookId()+"\n"+pojo.accountName+"\n"+pojo.getAccountType());
+	public int insertLedgerAccount(CashBookLedgAccPOJO pojo) {
+		String insertQuery="INSERT INTO cashbook_ledger(cashbook_ledger.cashbook_id,cashbook_ledger.account_name,cashbook_ledger.account_type) VALUES(?,?,?)";
 		try {
-			String insertQuery="INSERT INTO cashbook_ledger(cashbook_ledger.cashbook_id,cashbook_ledger.account_name,cashbook_ledger.account_type) VALUES(?,?,?)";
-			
-			System.out.println(pojo.getCashBookId()+"\n"+pojo.accountName+"\n"+pojo.getAccountType());
-
-			pstmt=connection.prepareStatement(insertQuery);
+			pstmt = connection.prepareStatement(insertQuery);
 			pstmt.setInt(1, pojo.getCashBookId());
 			pstmt.setString(2, pojo.getAccountName());
-			pstmt.setString(3, pojo.getAccountType());
+			pstmt.setString(3, pojo.getAccountType());;
 			pstmt.executeUpdate();
-			System.out.println("hi");
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
 		}
-		
+		return 0;
 	}
 
 	@Override

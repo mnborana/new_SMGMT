@@ -10,8 +10,4 @@ public interface AssignStdWiseFeesDao {
 	public List<AssignStdWiseFeesPojo> getFeestypeList();
 	public int insert(List<AssignStdWiseFeesPojo> asList, String academicYear);
 	public List<String> getCategoryList();
-	public List<String> getCategoryWiseFeesList(String stdId);
-	public List<String> getCategoryWiseFeesList2(String stdId);
-	public List<String> getCategoryFeesTypes(String stdId);
-	
 }

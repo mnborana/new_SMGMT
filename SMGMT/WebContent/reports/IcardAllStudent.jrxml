@@ -212,19 +212,6 @@
 			</staticText>
 			<image>
 				<reportElement x="110" y="100" width="80" height="80" uuid="3521abbd-b6da-412c-a43c-e0dc4b9afc07"/>
-<<<<<<< HEAD
-				<imageExpression><![CDATA["D:/student.png"]]></imageExpression>
-			</image>
-			<image>
-				<reportElement x="10" y="10" width="70" height="70" uuid="00f90110-d878-417a-9a70-1cea653d387f"/>
-				<imageExpression><![CDATA["D:/logo.png"]]></imageExpression>
-			</image>
-			<componentElement>
-				<reportElement x="80" y="210" width="120" height="25" uuid="58629fce-0196-48e0-a12d-87ff1889e986"/>
-				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
-					<jr:codeExpression><![CDATA[$F{gr_no}]]></jr:codeExpression>
-				</jr:barbecue>
-=======
 				<imageExpression><![CDATA["H:/Smita/student.png"]]></imageExpression>
 			</image>
 			<image>
@@ -236,7 +223,6 @@
 				<jr:Code128 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<jr:codeExpression><![CDATA[$F{gr_no}]]></jr:codeExpression>
 				</jr:Code128>
->>>>>>> refs/remotes/origin/HEAD
 			</componentElement>
 		</band>
 	</detail>

@@ -1,16 +1,8 @@
 package com.servletStore.library.model;
 
 public class IssueBookPOJO {
-private int bookId,studId,staffId,usertype;
+private int bookId,studId,staffId;
 private String issueDate,dueDate,returnDate, bookName, studName, staffName,userType,authorName,edition,std,divi,remark;
-
-
-public int getUsertype() {
-	return usertype;
-}
-public void setUsertype(int usertype) {
-	this.usertype = usertype;
-}
 public String getRemark() {
 	return remark;
 }
